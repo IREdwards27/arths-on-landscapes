@@ -54,7 +54,7 @@ updateBeatSheets <- function(updateExpertNames = FALSE) {
   
 }
 
-updateBeatSheets
+updateBeatSheets()
 
 # read in plants
 my_plants <- read_csv(
@@ -107,7 +107,7 @@ new_surveys <- all_surveys %>%
     AverageLeafLength,
     Notes)
 
-# check that there are exactly 5 surveys in each circle
+# check that there are exactly 5 surveys in each circle (should return an empty table if so)
 new_surveys %>% 
   left_join(
     my_plants,
