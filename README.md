@@ -14,9 +14,9 @@ This README file will serve primarily as a key and record to the sampling and da
 
 ## Pitfall trap vial labelling (yellow stickers):
 - Site ID
-- Date collected
+- Date collected (format YYmmdd)
 - Circle number
 
 ## Beat sheet vial labelling (red stickers):
 - Caterpillars Count! 3-letter tree code
-- Date collected
+- Date collected (format YYmmdd)
