@@ -16,7 +16,7 @@ updateBeatSheets <- function(updateExpertNames = FALSE) {
   
   # Remove old data files
   
-  oldfiles <- data.frame(filename = list.files('data/cc_pulls'))
+  oldfiles <- data.frame(filename = list.files('data/cc_pulls', full.names = T))
   
   unlink(oldfiles$filename)
   
@@ -91,9 +91,10 @@ new_surveys <- all_surveys %>%
   filter(
     UserFKOfObserver == 2832,
     LocalDate >= '2022-05-01',
-    LocalDate > max(my_surveys$Date, na.rm = T) | is.na(max(my_surveys$Date, na.rm = T)),
+    LocalDate > max(my_surveys$Date, na.rm = T),
     ObservationMethod == 'Beat sheet',
-    TreeID %in% my_plants$TreeID) %>% 
+    TreeID %in% my_plants$TreeID,
+    !str_detect(replace_na(Notes, '-999'), 'CC')) %>% 
   mutate(Observer = case_when(
     UserFKOfObserver == 2832 ~ 'Indigo')) %>% 
   select(
@@ -163,10 +164,10 @@ new_arths <- all_arths %>%
 # CCGroup == 'unidentified' ~ NA
 
 # writing the first set of new surveys
-write.csv(
-  new_surveys,
-  str_c('data/beatsheets_', today(), '.csv'),
-  row.names = F)
+# write.csv(
+#   new_surveys,
+#   str_c('data/beatsheets_', today(), '.csv'),
+#   row.names = F)
 
 # bind and save old and new surveys
 bind_rows(my_surveys, new_surveys) %>% 
