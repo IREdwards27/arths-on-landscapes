@@ -96,7 +96,8 @@ new_surveys <- all_surveys %>%
     TreeID %in% my_plants$TreeID,
     !str_detect(replace_na(Notes, '-999'), 'CC')) %>% 
   mutate(Observer = case_when(
-    UserFKOfObserver == 2832 ~ 'Indigo')) %>% 
+    UserFKOfObserver == 2832 ~ 'Indigo'),
+    checks = rep(NA, nrow(.))) %>% 
   select(
     'BeatSheetID' = 'ID',
     'TreeFK' = 'TreeID',
@@ -106,7 +107,8 @@ new_surveys <- all_surveys %>%
     WetLeaves,
     NumberOfLeaves,
     AverageLeafLength,
-    Notes)
+    Notes,
+    Checks)
 
 # check that there are exactly 5 surveys in each circle (should return an empty table if so)
 new_surveys %>% 
@@ -150,7 +152,8 @@ new_arths <- all_arths %>%
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' ~ 'Araneae',
-      CCGroup == 'truebugs' ~ 'Heteroptera'))
+      CCGroup == 'truebugs' ~ 'Heteroptera'),
+    ITISID = rep(NA, nrow(.)))
 
 # conditions to be added to case_when once observed
 
