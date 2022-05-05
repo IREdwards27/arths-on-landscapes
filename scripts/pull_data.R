@@ -92,7 +92,6 @@ new_surveys <- all_surveys %>%
     by = c('PlantFK' = 'CCID')) %>% 
   filter(
     UserFKOfObserver == 2832,
-    LocalDate >= '2022-05-01',
     LocalDate > max(my_surveys$Date, na.rm = T),
     ObservationMethod == 'Beat sheet',
     TreeID %in% my_plants$TreeID,
