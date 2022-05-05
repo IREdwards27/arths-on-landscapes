@@ -1,1 +1,1 @@
-GroundArthID,PitfallID,Order,Family,Genus,Species,Length,Number,Notes
+GroundArthID,PitfallID,TaxonLevel,Taxon,ITISID,TotalMass,Notes

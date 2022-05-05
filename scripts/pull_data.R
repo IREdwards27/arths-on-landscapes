@@ -61,7 +61,9 @@ my_plants <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
 
 my_surveys <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^beatsheets')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^beatsheets')]) %>% 
+  mutate(
+    Date = as.Date(Date, format = '%m/%d/%Y'))
 
 # read in all the CC plants
 all_plants <- read_csv(
@@ -97,7 +99,7 @@ new_surveys <- all_surveys %>%
     !str_detect(replace_na(Notes, '-999'), 'CC')) %>% 
   mutate(Observer = case_when(
     UserFKOfObserver == 2832 ~ 'Indigo'),
-    checks = rep(NA, nrow(.))) %>% 
+    Checks = rep(NA, nrow(.))) %>% 
   select(
     'BeatSheetID' = 'ID',
     'TreeFK' = 'TreeID',
@@ -115,7 +117,7 @@ new_surveys %>%
   left_join(
     my_plants,
     by = c('TreeFK' = 'TreeID')) %>% 
-  group_by(CircleFK) %>% 
+  group_by(CircleFK, Date) %>% 
   summarize(n = n()) %>% 
   filter(n != 5)
 
@@ -143,7 +145,9 @@ new_arths <- all_arths %>%
     TaxonLevel = case_when(
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
-      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') ~ 'order'),
+      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') ~ 'order',
+      CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)') ~ 'order',
+      str_detect(CCNotes, '(Elateridae)|(Tingidae)') ~ 'family'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
@@ -152,18 +156,20 @@ new_arths <- all_arths %>%
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' ~ 'Araneae',
-      CCGroup == 'truebugs' ~ 'Heteroptera'),
-    ITISID = rep(NA, nrow(.)))
+      CCGroup == 'truebugs' ~ 'Heteroptera',
+      CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
+      CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
+      CCGroup == 'leafhopper' ~ 'Auchenorrhyncha',
+      str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
+      str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
+      str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera'),
+    ITISID = rep(NA, nrow(.)),
+    TotalMass = rep(NA, nrow(.)))
 
 # conditions to be added to case_when once observed
 
-# CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)') ~ 'order',
-
 # CCGroup == 'daddylonglegs' ~ 'Opiliones',
 # CCGroup == 'grasshopper' ~ 'Orthoptera',
-# CCGroup == 'leafhopper' ~ 'Auchenorrhyncha',
-# CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
-# CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
 # CCGroup == 'unidentified' ~ NA
 
 # writing the first set of new surveys
