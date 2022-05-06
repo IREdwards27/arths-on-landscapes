@@ -1,32 +1,31 @@
 FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Taxon,ITISID,TotalMass
-105199,131093,beetle,3,1,NA,NA,order,Coleoptera,NA,NA
-105200,131093,ant,3,1,NA,NA,family,Formicidae,NA,NA
-105201,131093,fly,2,1,NA,NA,order,Diptera,NA,NA
+105199,131093,beetle,3,1,NA,NA,genus,Melanotus,NA,3.2
+105200,131093,ant,3,1,NA,NA,genus,Crematogaster,NA,0.8
 105202,131094,ant,3,1,NA,NA,genus,Lasius,NA,0.3
 105203,131094,beetle,3,1,NA,NA,genus,Melanotus,NA,2.7
 105204,131094,beetle,2,1,NA,NA,order,Coleoptera,NA,0.3
 105205,131094,caterpillar,3,1,NA,NA,family,Geometridae,NA,0.2
-105206,131097,ant,8,1,NA,NA,genus,Camponotus,NA,NA
-105207,131097,ant,3,1,NA,NA,species,Linepithema humile,NA,NA
-105208,131097,spider,4,1,NA,NA,family,Thomisidae,NA,NA
-105209,131097,spider,2,1,NA,NA,order,Araneae,NA,NA
+105206,131097,ant,8,1,NA,NA,genus,Camponotus,NA,25.4
+105207,131097,ant,3,1,NA,NA,species,Linepithema humile,NA,1.5
+105208,131097,spider,4,1,NA,NA,family,Thomisidae,NA,9.8
+105209,131097,spider,2,1,NA,NA,order,Araneae,NA,1.4
 105210,131098,fly,3,1,NA,NA,order,Diptera,NA,NA
-105211,131100,spider,4,1,NA,NA,species,Hibana gracilis,NA,NA
-105212,131100,spider,2,1,NA,NA,family,Anyphaenidae,NA,NA
-105213,131102,beetle,4,1,NA,NA,order,Coleoptera,NA,NA
-105214,131102,beetle,5,1,NA,NA,order,Coleoptera,NA,NA
-105215,131106,bee,2,1,NA,NA,family,Conopidae,NA,NA
+105211,131100,spider,4,1,NA,NA,species,Hibana gracilis,NA,7.9
+105212,131100,spider,2,1,NA,NA,family,Anyphaenidae,NA,0.3
+105213,131102,beetle,4,1,NA,NA,genus,Melanotus,NA,5.1
+105214,131102,beetle,5,1,NA,NA,genus,Melanotus,NA,8.7
+105215,131106,bee,2,1,NA,NA,family,Conopidae,NA,0.1
 105216,131108,ant,4,1,NA,NA,species,Linepithema humile,NA,2.3
 105217,131108,spider,4,1,NA,NA,species,Hibana gracilis,NA,4.6
-105218,131109,spider,2,1,NA,NA,family,Gnaphosidae,NA,NA
-105219,131109,truebugs,3,1,NA,NA,family,Anthocoridae,NA,NA
-105220,131112,ant,3,1,NA,NA,genus,Brachymyrmex,NA,NA
-105221,131112,spider,2,1,NA,NA,family,Anyphaenidae,NA,NA
+105218,131109,spider,2,1,NA,NA,family,Gnaphosidae,NA,1.6
+105219,131109,truebugs,3,1,NA,NA,family,Anthocoridae,NA,2.2
+105220,131112,ant,3,1,NA,NA,genus,Brachymyrmex,NA,0.9
+105221,131112,spider,2,1,NA,NA,family,Anyphaenidae,NA,1.4
 105222,131114,ant,3,2,NA,"Same kind, lost 2",species,Linepithema humile,NA,2.1
 105223,131114,aphid,2,2,NA,NA,family,Aphididae,NA,0.6
 105224,131114,spider,3,1,NA,NA,species,Hibana gracilis,NA,2.7
 105225,131114,spider,4,2,NA,Same kind,species,Hibana gracilis,NA,4.2
-105226,131115,ant,4,8,NA,All same,species,Linepithema humile,NA,NA
+105226,131115,ant,4,8,NA,All same,species,Linepithema humile,NA,11.8
 105241,131126,ant,2,1,NA,NA,family,Formicidae,NA,NA
 105242,131126,truebugs,2,2,NA,NA,suborder,Heteroptera,NA,NA
 105243,131128,ant,2,9,NA,NA,family,Formicidae,NA,NA
@@ -90,7 +89,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 105304,131175,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
 105305,131175,moths,4,1,NA,NA,order,Lepidoptera,NA,NA
 105306,131175,spider,4,1,NA,NA,order,Araneae,NA,NA
-205212,131100,spider,2,1,NA,NA,order,Araneae,NA,NA
+205212,131100,spider,2,1,NA,NA,order,Araneae,NA,1.7
 205220,131111,spider,3,1,NA,NA,species,Hibana gracilis,NA,NA
 205221,131111,beetle,2,1,NA,NA,family,Ptinidae,NA,NA
 105206,131097,ant,8,1,NA,NA,family,Formicidae,NA,NA
