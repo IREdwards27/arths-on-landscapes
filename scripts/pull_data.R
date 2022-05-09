@@ -202,6 +202,11 @@ unlink(list.files('data', full.names = T)[str_detect(list.files('data'), 'foliag
 
 # update pitfall surveys from google sheet --------------------------------
 
+# read in current pitfall surveys
+
+old_pitfalls <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), 'pitfallsurveys')])
+
 # retrieve the sheet with correct column formatting
 all_pitfalls <- drive_get('pitfalls2022') %>% 
   gs4_get() %>% 
@@ -210,7 +215,11 @@ all_pitfalls <- drive_get('pitfalls2022') %>%
     DateDeployed = format(DateDeployed, format = '%Y-%m-%d'),
     TimeDeployed = format(TimeDeployed, format = '%H:%M:%S'),
     DateCollected = format(DateCollected, format = '%Y-%m-%d'),
-    TimeCollected = format(TimeCollected, format = '%H:%M:%S'))
+    TimeCollected = format(TimeCollected, format = '%H:%M:%S')) %>% 
+  left_join(
+    old_pitfalls %>% 
+      select('PitfallID', 'Checks'),
+    by = 'PitfallID')
 
 # write the new sheet to a csv
 write.csv(
