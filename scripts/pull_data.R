@@ -159,6 +159,7 @@ new_arths <- all_arths %>%
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
       CCGroup == 'leafhopper' ~ 'Auchenorrhyncha',
+      CCGroup == 'daddylonglegs' ~ 'Opiliones',
       str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
       str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
       str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera'),
@@ -170,7 +171,6 @@ new_arths <- all_arths %>%
 # str_detect(CCNotes, 'Corythuca') ~ 'genus'
 # str_detect(CCNotes, 'Corythuca') ~ 'Corythuca'
 
-# CCGroup == 'daddylonglegs' ~ 'Opiliones',
 # CCGroup == 'grasshopper' ~ 'Orthoptera',
 # CCGroup == 'unidentified' ~ NA
 
