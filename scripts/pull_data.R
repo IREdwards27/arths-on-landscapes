@@ -73,12 +73,12 @@ all_plants <- read_csv(
     'TreeID' = 'Code')
 
 # add CC IDs to plant dataframe
-# my_plants %>% 
+# my_plants %>%
+#   select(!CCID) %>% 
 #   left_join(
 #     all_plants,
-#     by = 'TreeID') %>% 
+#     by = 'TreeID') %>%
 #   relocate(TreeID, CCID) %>% 
-#   select(!DBH) %>% 
 #   write_csv(str_c('data/trees_', today(), '.csv'))
 
 # read in all the CC surveys
