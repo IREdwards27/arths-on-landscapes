@@ -24,31 +24,31 @@ ISL,6590,DF5,Fagus grandifolia
 ISK,6589,DF5,Fagus grandifolia
 ISJ,6588,DF5,Cornus florida
 ISI,6587,DF5,Acer rubrum
-NA,365,ERSP1,NA
-NA,365,ERSP1,NA
-NA,365,ERSP1,NA
-NA,365,ERSP1,NA
-NA,365,ERSP1,NA
-NA,365,ERSP2,NA
-NA,365,ERSP2,NA
-NA,365,ERSP2,NA
-NA,365,ERSP2,NA
-NA,365,ERSP2,NA
-NA,365,ERSP3,NA
-NA,365,ERSP3,NA
-NA,365,ERSP3,NA
-NA,365,ERSP3,NA
-NA,365,ERSP3,NA
-NA,365,ERSP4,NA
-NA,365,ERSP4,NA
-NA,365,ERSP4,NA
-NA,365,ERSP4,NA
-NA,365,ERSP4,NA
-NA,365,ERSP6,NA
-NA,365,ERSP6,NA
-NA,365,ERSP6,NA
-NA,365,ERSP6,NA
-NA,365,ERSP6,NA
+JAL,,ERSP1,Carpinus caroliniana
+JAM,,ERSP1,Ulmus rubra
+JAN,,ERSP1,Fagus grandifolia
+JAO,,ERSP1,Fagus grandifolia
+JAP,,ERSP1,Ulmus rubra
+JAQ,,ERSP2,Ulmus rubra
+JAR,,ERSP2,Acer rubrum
+JAS,,ERSP2,Carpinus caroliniana
+JAT,,ERSP2,Fagus grandifolia
+JAU,,ERSP2,Fagus grandifolia
+JAV,,ERSP3,Ulmus rubra
+JAW,,ERSP3,Acer saccharum
+JAX,,ERSP3,Carpinus caroliniana
+JAY,,ERSP3,Carpinus caroliniana
+JAZ,,ERSP3,Fagus grandifolia
+JBA,,ERSP4,Acer saccharum
+JBB,,ERSP4,Fagus grandifolia
+JBC,,ERSP4,Acer saccharum
+JBD,,ERSP4,Carpinus caroliniana
+JBE,,ERSP4,Carpinus caroliniana
+JBK,,ERSP6,Aesculus pavia
+JBL,,ERSP6,Aesculus pavia
+JBM,,ERSP6,Fagus grandifolia
+JBN,,ERSP6,Carpinus caroliniana
+JBO,,ERSP6,Aesculus pavia
 FDQ,6513,JMNP1,Acer saccharum
 FDP,6512,JMNP1,Carpinus caroliniana
 FDO,6511,JMNP1,Carpinus caroliniana
