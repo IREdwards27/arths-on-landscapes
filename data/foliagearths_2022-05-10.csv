@@ -27,18 +27,18 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 105225,131114,spider,4,2,NA,Same kind,species,Hibana gracilis,NA,4.2
 105226,131115,ant,4,8,NA,All same,species,Linepithema humile,NA,11.8
 105241,131126,ant,2,1,NA,NA,genus,Tapinoma,NA,0.4
-105242,131126,truebugs,2,2,NA,NA,genus,Corythuca,NA,1.2
+105242,131126,truebugs,2,2,NA,NA,genus,Corythucha,NA,1.2
 105244,131128,spider,3,1,NA,NA,family,Philodromidae,NA,2.1
-105245,131128,truebugs,3,2,NA,NA,genus,Corythuca,NA,0.7
+105245,131128,truebugs,3,2,NA,NA,genus,Corythucha,NA,0.7
 105246,131129,spider,3,1,NA,NA,family,Tetragnathidae,NA,0.7
 105247,131130,beetle,3,1,NA,NA,family,Latridiidae,NA,0.2
 105248,131131,spider,5,1,NA,NA,family,Salticidae,NA,10.5
-105249,131131,truebugs,2,2,NA,NA,genus,Corythuca,NA,0.4
+105249,131131,truebugs,2,2,NA,NA,genus,Corythucha,NA,0.4
 105250,131131,truebugs,5,1,NA,NA,family,Berytidae,NA,0.8
 105251,131133,beetle,2,1,NA,NA,species,Chilocorus stigma,NA,1.8
 105252,131134,other,2,1,NA,Psocodea,order,Psocodea,NA,0.7
 105254,131136,truebugs,14,1,NA,NA,species,Zelus luridus,NA,65.7
-105255,131136,truebugs,2,1,NA,NA,genus,Corythuca,NA,0.1
+105255,131136,truebugs,2,1,NA,NA,genus,Corythucha,NA,0.1
 105256,131138,beetle,3,1,NA,NA,family,Saldidae,NA,0.8
 105257,131138,truebugs,5,1,NA,NA,family,Miridae,NA,9.5
 105258,131139,spider,3,1,NA,NA,family,Theridiidae,NA,4
@@ -71,61 +71,48 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 105286,131161,other,2,1,NA,Psocodea,order,Psocodea,NA,0.2
 105287,131162,beetle,3,1,NA,NA,family,Cleridae,NA,1.3
 105288,131162,beetle,2,1,NA,NA,family,Cleridae,NA,1.3
-105289,131163,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-105290,131163,moths,3,1,NA,NA,order,Lepidoptera,NA,NA
-105291,131164,ant,6,1,NA,NA,family,Formicidae,NA,NA
-105292,131165,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-105293,131165,beetle,3,1,NA,NA,order,Coleoptera,NA,NA
-105294,131167,ant,3,2,NA,NA,family,Formicidae,NA,NA
-105295,131167,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-105296,131167,spider,5,1,NA,NA,order,Araneae,NA,NA
-105297,131169,fly,2,1,NA,NA,order,Diptera,NA,NA
-105298,131170,ant,3,1,NA,NA,family,Formicidae,NA,NA
-105299,131170,spider,2,1,NA,NA,order,Araneae,NA,NA
-105300,131170,moths,3,1,NA,NA,order,Lepidoptera,NA,NA
-105303,131174,beetle,4,1,NA,NA,order,Coleoptera,NA,NA
-105304,131175,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-105305,131175,moths,4,1,NA,NA,order,Lepidoptera,NA,NA
-105306,131175,spider,4,1,NA,NA,order,Araneae,NA,NA
+105289,131163,beetle,2,1,NA,Lost,order,Coleoptera,NA,NA
+105290,131163,moths,3,1,NA,NA,order,Lepidoptera,NA,1.1
+105291,131164,ant,6,1,NA,NA,genus,Camponotus,NA,9.3
+105292,131165,beetle,2,1,NA,NA,family,Tenebrionidae,NA,0.8
+105293,131165,beetle,3,1,NA,NA,family,Curculionidae,NA,2.8
+105294,131167,ant,3,2,NA,NA,species,Prenolepis imparis,NA,3
+105295,131167,beetle,2,1,NA,NA,family,Curculionidae,NA,3.2
+105296,131167,spider,5,1,NA,NA,family,Thomisidae,NA,5.8
+105297,131169,fly,2,1,NA,Lost,order,Diptera,NA,NA
+105298,131170,ant,3,1,NA,NA,species,Prenolepis imparis,NA,1.9
+105299,131170,spider,2,1,NA,NA,family,Araneidae,NA,2.5
+105300,131170,moths,3,1,NA,Lost,order,Lepidoptera,NA,NA
+105303,131174,beetle,4,1,NA,NA,genus,Melanotus,NA,3.1
+105304,131175,beetle,2,1,NA,NA,family,Curculionidae,NA,3.7
+105305,131175,moths,4,1,NA,NA,order,Lepidoptera,NA,2.9
+105306,131175,spider,4,1,NA,NA,species,Hibana gracilis,NA,6.8
 205212,131100,spider,2,1,NA,NA,order,Araneae,NA,1.7
 205220,131111,spider,3,1,NA,NA,species,Hibana gracilis,NA,NA
 205221,131111,beetle,2,1,NA,NA,family,Ptinidae,NA,NA
-105206,131097,ant,8,1,NA,NA,family,Formicidae,NA,NA
-105207,131097,ant,3,1,NA,NA,family,Formicidae,NA,NA
-105208,131097,spider,4,1,NA,NA,order,Araneae,NA,NA
-105218,131109,spider,2,1,NA,NA,order,Araneae,NA,NA
-105219,131109,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,NA
-105220,131112,ant,3,1,NA,NA,family,Formicidae,NA,NA
-105221,131112,spider,2,1,NA,NA,order,Araneae,NA,NA
-105226,131115,ant,4,8,NA,All same,family,Formicidae,NA,NA
-105252,131134,other,3,1,NA,Psocodea,order,Psocodea,NA,NA
-105259,131140,other,3,9,NA,"Psocodea, all same",order,Psocodea,NA,NA
-105263,131144,other,2,2,NA,Psocodea,order,Psocodea,NA,NA
-105281,131158,other,3,1,NA,Psocodea,order,Psocodea,NA,NA
-105286,131161,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-105307,131177,ant,5,1,NA,NA,family,Formicidae,NA,NA
-105308,131177,ant,2,1,NA,NA,family,Formicidae,NA,NA
-105309,131178,spider,5,1,NA,NA,order,Araneae,NA,NA
-105310,131178,beetle,6,1,NA,NA,order,Coleoptera,NA,NA
-105311,131179,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-105312,131180,ant,5,1,NA,NA,family,Formicidae,NA,NA
-105313,131181,spider,4,1,NA,NA,order,Araneae,NA,NA
-105314,131183,ant,6,1,NA,NA,family,Formicidae,NA,NA
-105315,131184,ant,3,1,NA,NA,family,Formicidae,NA,NA
+105307,131177,ant,5,1,NA,NA,genus,Camponotus,NA,4.1
+105308,131177,ant,2,1,NA,NA,genus,Crematogaster,NA,0.7
+105309,131178,spider,5,1,NA,NA,family,Salticidae,NA,6.8
+105310,131178,beetle,6,1,NA,NA,family,Elateridae,NA,12.8
+105311,131179,other,2,1,NA,Psocodea,order,Psocodea,NA,0.3
+105312,131180,ant,5,1,NA,NA,genus,Camponotus,NA,2.6
+105313,131181,spider,4,1,NA,NA,family,Thomisidae,NA,5.8
+105314,131183,ant,6,1,NA,NA,genus,Camponotus,NA,11.1
+105315,131184,ant,3,1,NA,NA,genus,Crematogaster,NA,0.8
 105316,131184,leafhopper,2,2,NA,Lost,suborder,Auchenorrhyncha,NA,NA
-105317,131184,spider,5,1,NA,NA,order,Araneae,NA,NA
+105317,131184,spider,5,1,NA,NA,family,Salticidae,NA,6
 105318,131186,ant,8,1,NA,Lost,family,Formicidae,NA,NA
-105319,131187,other,3,12,NA,"Trichoptera, all same, lost 9",order,Trichoptera,NA,NA
-105320,131188,leafhopper,3,1,NA,NA,suborder,Auchenorrhyncha,NA,NA
-105321,131190,beetle,5,1,NA,NA,order,Coleoptera,NA,NA
-105322,131193,ant,2,3,NA,NA,family,Formicidae,NA,NA
-105323,131193,truebugs,2,3,NA,Tingidae,suborder,Heteroptera,NA,NA
+105319,131187,other,3,12,NA,"Trichoptera, all same, lost 9",order,Trichoptera,NA,1.5
+105320,131188,leafhopper,3,1,NA,NA,family,Cicadellidae,NA,1.8
+105321,131190,beetle,5,1,NA,NA,family,Buprestidae,NA,4.9
+105322,131193,ant,2,3,NA,NA,genus,Forelius,NA,0.6
+105323,131193,truebugs,2,3,NA,Tingidae,genus,Corythucha,NA,2
 105324,131196,spider,6,1,NA,Lost,order,Araneae,NA,NA
-105325,131196,other,2,4,NA,"Psocodea, Lost 1",order,Psocodea,NA,NA
-105326,131197,caterpillar,4,1,105326.jpeg,NA,order,Lepidoptera,NA,NA
-105327,131197,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-105328,131197,leafhopper,6,1,NA,NA,suborder,Auchenorrhyncha,NA,NA
-105329,131197,truebugs,2,1,NA,Tingidae,suborder,Heteroptera,NA,NA
+105325,131196,other,2,4,NA,"Psocodea, Lost 2",order,Psocodea,NA,0.5
+105326,131197,caterpillar,4,1,105326.jpeg,NA,order,Lepidoptera,NA,1.8
+105327,131197,beetle,2,1,NA,NA,family,Curculionidae,NA,4.6
+105328,131197,leafhopper,6,1,NA,NA,family,Membracidae,NA,38.5
+105329,131197,truebugs,2,1,NA,Tingidae,genus,Corythucha,NA,0.6
 105330,131111,spider,3,1,NA,NA,order,Araneae,NA,NA
 105331,131111,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
 105332,131204,beetle,4,1,NA,Elateridae,order,Coleoptera,NA,NA

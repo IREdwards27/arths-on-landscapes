@@ -168,8 +168,8 @@ new_arths <- all_arths %>%
 
 # conditions to be added to case_when once observed
 
-# str_detect(CCNotes, 'Corythuca') ~ 'genus'
-# str_detect(CCNotes, 'Corythuca') ~ 'Corythuca'
+# str_detect(CCNotes, 'Corythucha') ~ 'genus'
+# str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'
 
 # CCGroup == 'grasshopper' ~ 'Orthoptera',
 # CCGroup == 'unidentified' ~ NA
