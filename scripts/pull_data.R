@@ -66,11 +66,11 @@ my_surveys <- read_csv(
     Date = as.Date(Date, format = '%m/%d/%Y'))
 
 # read in all the CC plants
-all_plants <- read_csv(
-  list.files('data/cc_pulls/', full.names = T)[str_detect(list.files('data/cc_pulls'), 'Plant.csv$')]) %>%
-  select(
-    'CCID' = 'ID',
-    'TreeID' = 'Code')
+# all_plants <- read_csv(
+#   list.files('data/cc_pulls/', full.names = T)[str_detect(list.files('data/cc_pulls'), 'Plant.csv$')]) %>%
+#   select(
+#     'CCID' = 'ID',
+#     'TreeID' = 'Code')
 
 # add CC IDs to plant dataframe
 # my_plants %>%
