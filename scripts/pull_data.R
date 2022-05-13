@@ -146,7 +146,7 @@ new_arths <- all_arths %>%
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
       CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') ~ 'order',
       CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)') ~ 'order',
-      str_detect(CCNotes, '(Elateridae)|(Tingidae)') ~ 'family'),
+      str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)') ~ 'family'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
@@ -162,7 +162,8 @@ new_arths <- all_arths %>%
       CCGroup == 'daddylonglegs' ~ 'Opiliones',
       str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
       str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
-      str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera'),
+      str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
+      str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
