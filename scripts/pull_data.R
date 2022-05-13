@@ -88,7 +88,7 @@ all_surveys <- read_csv(
 # select only new surveys
 new_surveys <- all_surveys %>% 
   left_join(
-    all_plants,
+    my_plants,
     by = c('PlantFK' = 'CCID')) %>% 
   filter(
     UserFKOfObserver == 2832,
