@@ -144,33 +144,33 @@ new_arths <- all_arths %>%
     TaxonLevel = case_when(
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
-      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') ~ 'order',
+      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & !str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)') ~ 'order',
       CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)') ~ 'order',
       str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)') ~ 'family'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
       CCGroup == 'bee' ~ 'Hymenoptera',
-      CCGroup == 'beetle' ~ 'Coleoptera',
+      CCGroup == 'beetle' ~ 'Coleoptera' & !str_detect(CCNotes, '(Elateridae)|(Mordellidae)'),
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' ~ 'Araneae',
-      CCGroup == 'truebugs' ~ 'Heteroptera',
+      CCGroup == 'truebugs' ~ 'Heteroptera' & !str_detect(CCNotes, '(Tingidae)|(Corythucha)'),
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
       CCGroup == 'leafhopper' ~ 'Auchenorrhyncha',
       CCGroup == 'daddylonglegs' ~ 'Opiliones',
-      str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
-      str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
-      str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
-      str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae'),
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
+      CCGroup == 'other' & str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
 # conditions to be added to case_when once observed
 
-# str_detect(CCNotes, 'Corythucha') ~ 'genus'
-# str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'
+# CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'genus'
+# CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'
 
 # CCGroup == 'grasshopper' ~ 'Orthoptera',
 # CCGroup == 'unidentified' ~ NA
