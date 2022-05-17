@@ -57,7 +57,7 @@ updateBeatSheets <- function(updateExpertNames = FALSE) {
 updateBeatSheets()
 
 # read in plants
-my_plants <- read_csv(
+old_plants <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
 
 my_surveys <- read_csv(
@@ -66,27 +66,31 @@ my_surveys <- read_csv(
     Date = as.Date(Date, format = '%m/%d/%Y'))
 
 # read in all the CC plants
-# all_plants <- read_csv(
-#   list.files('data/cc_pulls/', full.names = T)[str_detect(list.files('data/cc_pulls'), 'Plant.csv$')]) %>%
-#   select(
-#     'CCID' = 'ID',
-#     'TreeID' = 'Code')
+all_plants <- read_csv(
+  list.files('data/cc_pulls/', full.names = T)[str_detect(list.files('data/cc_pulls'), 'Plant.csv$')]) %>%
+  select(
+    'CCID' = 'ID',
+    'TreeID' = 'Code')
 
-# add CC IDs to plant dataframe
-# my_plants %>%
-#   select(!CCID) %>% 
-#   left_join(
-#     all_plants,
-#     by = 'TreeID') %>%
-#   relocate(TreeID, CCID) %>% 
-#   write_csv(str_c('data/trees_', today(), '.csv'))
+# get new CCIDs
+old_plants %>% 
+  select(!CCID) %>% 
+  left_join(
+    all_plants,
+    by = 'TreeID') %>%
+  relocate(TreeID, CCID) %>%
+  write_csv(str_c('data/trees_', today(), '.csv'))
+
+# updated plants
+my_plants <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
 
 # read in all the CC surveys
 all_surveys <- read_csv(
   list.files('data/cc_pulls/', full.names = T)[str_detect(list.files('data/cc_pulls'), 'Survey.csv$')])
 
 # select only new surveys
-new_surveys <- all_surveys %>% 
+new_surveys <- all_surveys %>%
   left_join(
     my_plants,
     by = c('PlantFK' = 'CCID')) %>% 
@@ -109,13 +113,15 @@ new_surveys <- all_surveys %>%
     NumberOfLeaves,
     AverageLeafLength,
     Notes,
-    Checks)
+    Checks) %>% 
+  distinct()
 
 # check that there are exactly 5 surveys in each circle (should return an empty table if so)
 new_surveys %>% 
   left_join(
     my_plants,
     by = c('TreeFK' = 'TreeID')) %>% 
+  distinct() %>% 
   group_by(CircleFK, Date) %>% 
   summarize(n = n()) %>% 
   filter(n != 5)
@@ -151,11 +157,11 @@ new_arths <- all_arths %>%
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
       CCGroup == 'bee' ~ 'Hymenoptera',
-      CCGroup == 'beetle' ~ 'Coleoptera' & !str_detect(CCNotes, '(Elateridae)|(Mordellidae)'),
+      CCGroup == 'beetle' & !str_detect(CCNotes, '(Elateridae)|(Mordellidae)') ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' ~ 'Araneae',
-      CCGroup == 'truebugs' ~ 'Heteroptera' & !str_detect(CCNotes, '(Tingidae)|(Corythucha)'),
+      CCGroup == 'truebugs' & !str_detect(CCNotes, '(Tingidae)|(Corythucha)')~ 'Heteroptera' ,
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
       CCGroup == 'leafhopper' ~ 'Auchenorrhyncha',
