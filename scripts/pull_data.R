@@ -81,6 +81,8 @@ old_plants %>%
   relocate(TreeID, CCID) %>%
   write_csv(str_c('data/trees_', today(), '.csv'))
 
+unlink(list.files('data', full.names = T)[str_detect(list.files('data'), 'trees') & !str_detect(list.files('data'), as.character(today()))])
+
 # updated plants
 my_plants <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
