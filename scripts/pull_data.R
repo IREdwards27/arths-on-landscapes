@@ -172,7 +172,8 @@ new_arths <- all_arths %>%
       CCGroup == 'beetle' & str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
       CCGroup == 'truebugs' & str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
       CCGroup == 'other' & str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
-      CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae'),
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae',
+      CCGroup == 'grasshopper' ~ 'Orthoptera',),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
@@ -181,7 +182,6 @@ new_arths <- all_arths %>%
 # CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'genus'
 # CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'
 
-# CCGroup == 'grasshopper' ~ 'Orthoptera',
 # CCGroup == 'unidentified' ~ NA
 
 # writing the first set of new surveys
