@@ -154,7 +154,7 @@ new_arths <- all_arths %>%
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
       CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)') | is.na(CCNotes)) ~ 'order',
-      CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)') ~ 'order',
+      CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)') ~ 'order',
       str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)') ~ 'family'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
@@ -174,7 +174,8 @@ new_arths <- all_arths %>%
       CCGroup == 'other' & str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
       CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae',
       CCGroup == 'grasshopper' ~ 'Orthoptera',
-      CCGroup == 'leafhopper' & str_detect(CCNotes, 'Cicadellidae') ~ 'Cicadellidae'),
+      CCGroup == 'leafhopper' & str_detect(CCNotes, 'Cicadellidae') ~ 'Cicadellidae',
+      CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
