@@ -153,7 +153,7 @@ new_arths <- all_arths %>%
     TaxonLevel = case_when(
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
-      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)') | is.na(CCNotes)) ~ 'order',
+      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Salticidae)') | is.na(CCNotes)) ~ 'order',
       CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)') ~ 'order',
       str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)') ~ 'family'),
     Taxon = case_when(
@@ -163,7 +163,7 @@ new_arths <- all_arths %>%
       CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)') | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
-      CCGroup == 'spider' ~ 'Araneae',
+      CCGroup == 'spider' & (!str_detect(CC_notes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
       CCGroup == 'truebugs' & (!str_detect(CCNotes, '(Tingidae)|(Corythucha)') | is.na(CCNotes)) ~ 'Heteroptera' ,
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
@@ -175,7 +175,8 @@ new_arths <- all_arths %>%
       CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae',
       CCGroup == 'grasshopper' ~ 'Orthoptera',
       CCGroup == 'leafhopper' & str_detect(CCNotes, 'Cicadellidae') ~ 'Cicadellidae',
-      CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola'),
+      CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
+      CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
