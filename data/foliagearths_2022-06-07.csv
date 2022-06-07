@@ -565,37 +565,37 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 109183,133697,bee,4,1,NA,Lost,order,Hymenoptera,NA,NA
 109184,133697,leafhopper,3,1,NA,Lost,suborder,Auchenorrhyncha,NA,NA
 109185,133697,beetle,7,1,NA,"Elateridae, lost",family,Elateridae,NA,NA
-109186,133697,other,10,3,NA,Mantodea,NA,NA,NA,NA
-109187,133697,other,2,5,NA,Psocodea,order,Psocodea,NA,NA
-109188,133698,other,2,7,NA,Psocodea,order,Psocodea,NA,NA
-109189,133698,unidentified,4,1,NA,"Larva, white velvety on back",NA,NA,NA,NA
+109186,133697,other,10,3,NA,Mantodea,species,Mantis religiosa,NA,11.1
+109187,133697,other,2,5,NA,Psocodea,order,Psocodea,NA,1.5
+109188,133698,other,2,7,NA,Psocodea,order,Psocodea,NA,1.6
+109189,133698,unidentified,4,1,NA,"Larva, white velvety on back",order,Coleoptera,NA,5.9
 109190,133698,bee,2,1,NA,Lost,order,Hymenoptera,NA,NA
-109191,133698,beetle,2,1,NA,Staphylinidae,order,Coleoptera,NA,NA
-109192,133699,other,2,12,NA,Psocodea,order,Psocodea,NA,NA
-109193,133699,bee,2,1,NA,NA,NA,Hymenoptera,NA,NA
+109191,133698,beetle,2,1,NA,Staphylinidae,family,Staphylinidae,NA,0.5
+109192,133699,other,2,12,NA,Psocodea,order,Psocodea,NA,3.6
+109193,133699,bee,2,1,NA,NA,family,Eurytomidae,NA,0.4
 109194,133699,bee,3,1,NA,"Lost, same as 2mm",order,Hymenoptera,NA,NA
-109195,133699,beetle,3,2,NA,NA,NA,NA,NA,NA
-109201,133701,beetle,2,1,NA,Coccinellidae,order,Coleoptera,NA,NA
-109202,133701,beetle,4,1,NA,Curculionidae,order,Coleoptera,NA,NA
-109203,133701,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-109204,133702,other,2,8,NA,Psocodea,order,Psocodea,NA,NA
-109206,133704,other,2,8,NA,Psocodea,order,Psocodea,NA,NA
-109207,133706,truebugs,4,1,NA,"Miridae, lost",suborder,Heteroptera,NA,NA
-109208,133706,other,2,9,NA,Psocodea,order,Psocodea,NA,NA
-109209,133706,beetle,2,2,NA,NA,NA,NA,NA,NA
-109213,133709,other,2,12,NA,Psocodea,order,Psocodea,NA,NA
-109214,133709,spider,3,1,NA,Salticidae,order,Araneae,NA,NA
-109215,133709,spider,5,1,NA,Salticidae,order,Araneae,NA,NA
-109216,133709,beetle,3,2,NA,NA,NA,NA,NA,NA
-109224,133713,beetle,3,1,NA,NA,NA,NA,NA,NA
-109225,133713,other,2,2,NA,Psocodea,order,Psocodea,NA,NA
-109233,133716,beetle,3,1,NA,NA,NA,NA,NA,NA
-109234,133716,truebugs,7,2,NA,NA,suborder,NA,NA,NA
-109235,133716,other,2,3,NA,Psocodea,order,Psocodea,NA,NA
-109236,133717,truebugs,6,1,NA,NA,suborder,NA,NA,NA
+109195,133699,beetle,3,2,NA,NA,species,Microtonus sericans,NA,2.1
+109201,133701,beetle,2,1,NA,"Coccinellidae, larva",order,Coleoptera,NA,0.5
+109202,133701,beetle,4,1,NA,Curculionidae,order,Coleoptera,NA,4.9
+109203,133701,other,2,1,NA,Psocodea,order,Psocodea,NA,0
+109204,133702,other,2,8,NA,Psocodea,order,Psocodea,NA,3.4
+109206,133704,other,2,8,NA,Psocodea,order,Psocodea,NA,1.5
+109207,133706,truebugs,4,1,NA,"Miridae, lost",family,Miridae,NA,NA
+109208,133706,other,2,9,NA,Psocodea,order,Psocodea,NA,3.3
+109209,133706,beetle,2,2,NA,NA,species,Microtonus sericans,NA,1.7
+109213,133709,other,2,12,NA,Psocodea,order,Psocodea,NA,1.6
+109214,133709,spider,3,1,NA,Salticidae,family,Salticidae,NA,1.5
+109215,133709,spider,5,1,NA,Salticidae,family,Salticidae,NA,10.5
+109216,133709,beetle,3,2,NA,NA,family,Chrysomelidae,NA,7.3
+109224,133713,beetle,3,1,NA,NA,species,Microtonus sericans,NA,1.5
+109225,133713,other,2,2,NA,Psocodea,order,Psocodea,NA,0.2
+109233,133716,beetle,3,1,NA,NA,species,Microtonus sericans,NA,1.5
+109234,133716,truebugs,7,2,NA,NA,subfamily,Emesinae,NA,1.9
+109235,133716,other,2,3,NA,Psocodea,order,Psocodea,NA,0.8
+109236,133717,truebugs,6,1,NA,NA,subfamily,Emesinae,NA,1.2
 109237,133719,truebugs,5,1,NA,Lost,suborder,Heteroptera,NA,NA
-109238,133719,grasshopper,2,2,NA,NA,NA,Orthoptera,NA,NA
-109239,133719,leafhopper,2,2,NA,Lost 1,suborder,Auchenorrhyncha,NA,NA
+109238,133719,grasshopper,2,2,NA,NA,family,Gryllidae,NA,0.7
+109239,133719,leafhopper,2,2,NA,Lost 1,superfamily,Fulgoroidea,NA,2.6
 109559,133851,beetle,2,2,NA,Mordellidae,family,Mordellidae,NA,NA
 109560,133851,fly,2,1,NA,NA,order,Diptera,NA,NA
 109561,133852,fly,4,1,NA,NA,order,Diptera,NA,NA

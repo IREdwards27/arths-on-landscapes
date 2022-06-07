@@ -137,6 +137,10 @@ all_arths <- read_csv(
 my_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
 
+observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)'
+
+observed_genera <- '(Oecanthus)|(Corythucha)'
+
 # select new arths
 new_arths <- all_arths %>% 
   filter(
@@ -153,15 +157,15 @@ new_arths <- all_arths %>%
     TaxonLevel = case_when(
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
-      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Salticidae)|(Oecanthus)') | is.na(CCNotes)) ~ 'order',
+      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, str_c(observed_families, observed_genera, sep = '|')) | is.na(CCNotes)) ~ 'order',
       CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)') ~ 'order',
-      str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)') ~ 'family',
-      str_detect(CCNotes, 'Oecanthus') ~ 'genus'),
+      str_detect(CCNotes, observed_families) ~ 'family',
+      str_detect(CCNotes, observed_genera) ~ 'genus'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
       CCGroup == 'bee' ~ 'Hymenoptera',
-      CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)|(Coccinellidae)') | is.na(CCNotes)) ~ 'Coleoptera',
+      CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)|(Coccinellidae)|(Staphylinidae)') | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' & (!str_detect(CCNotes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
@@ -179,16 +183,16 @@ new_arths <- all_arths %>%
       CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
       CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae',
       CCGroup == 'grasshopper' & str_detect(CCNotes, 'Oecanthus') ~ 'Oecanthus',
-      CCGroup == 'beetle' & str_detect(CCNotes, 'Coccinellidae') ~ 'Coccinellidae'),
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Coccinellidae') ~ 'Coccinellidae',
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Staphylinidae') ~ 'Staphylinidae',
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Miridae') ~ 'Miridae',
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Chrysomelidae') ~ 'Chrysomelidae',
+      CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae',
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Curculionidae') ~ 'Curculionidae',
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
-# conditions to be added to case_when once observed
-
-# CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'genus'
-# CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'
-
-# CCGroup == 'unidentified' ~ NA
 
 # writing the first set of new surveys
 # write.csv(
