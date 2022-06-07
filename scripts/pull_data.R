@@ -163,7 +163,7 @@ new_arths <- all_arths %>%
       CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)') | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
-      CCGroup == 'spider' & (!str_detect(CC_notes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
+      CCGroup == 'spider' & (!str_detect(CCNotes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
       CCGroup == 'truebugs' & (!str_detect(CCNotes, '(Tingidae)|(Corythucha)') | is.na(CCNotes)) ~ 'Heteroptera' ,
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
