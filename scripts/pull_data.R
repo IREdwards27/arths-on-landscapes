@@ -153,14 +153,15 @@ new_arths <- all_arths %>%
     TaxonLevel = case_when(
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
-      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Salticidae)') | is.na(CCNotes)) ~ 'order',
+      CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Salticidae)|(Oecanthus)') | is.na(CCNotes)) ~ 'order',
       CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)') ~ 'order',
-      str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)') ~ 'family'),
+      str_detect(CCNotes, '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)') ~ 'family',
+      str_detect(CCNotes, 'Oecanthus') ~ 'genus'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
       CCGroup == 'aphid' ~ 'Sternorrhyncha',
       CCGroup == 'bee' ~ 'Hymenoptera',
-      CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)') | is.na(CCNotes)) ~ 'Coleoptera',
+      CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)|(Coccinellidae)') | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
       CCGroup == 'spider' & (!str_detect(CCNotes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
@@ -176,7 +177,9 @@ new_arths <- all_arths %>%
       CCGroup == 'grasshopper' ~ 'Orthoptera',
       CCGroup == 'leafhopper' & str_detect(CCNotes, 'Cicadellidae') ~ 'Cicadellidae',
       CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
-      CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae'),
+      CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae',
+      CCGroup == 'grasshopper' & str_detect(CCNotes, 'Oecanthus') ~ 'Oecanthus',
+      CCGroup == 'beetle' & str_detect(CCNotes, 'Coccinellidae') ~ 'Coccinellidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
