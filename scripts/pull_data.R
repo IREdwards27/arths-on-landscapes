@@ -137,9 +137,9 @@ all_arths <- read_csv(
 my_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
 
-observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)'
+observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)'
 
-observed_genera <- '(Oecanthus)|(Corythucha)'
+observed_genera <- '(Oecanthus)|(Corythucha)|(Crematogaster)'
 
 # select new arths
 new_arths <- all_arths %>% 
@@ -158,7 +158,7 @@ new_arths <- all_arths %>%
       CCGroup == 'ant' ~ 'family',
       CCGroup %in% c('aphid', 'leafhopper', 'truebugs') ~ 'suborder',
       CCGroup %in% c('bee', 'beetle', 'caterpillar', 'moths', 'daddylonglegs', 'fly', 'grasshopper', 'spider') & (!str_detect(CCNotes, str_c(observed_families, observed_genera, sep = '|')) | is.na(CCNotes)) ~ 'order',
-      CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)') ~ 'order',
+      CCGroup == 'other' & str_detect(CCNotes, '(Psocodea)|(Trichoptera)|(Plecoptera)|(Collembola)|(Dermaptera)') ~ 'order',
       str_detect(CCNotes, observed_families) ~ 'family',
       str_detect(CCNotes, observed_genera) ~ 'genus'),
     Taxon = case_when(
@@ -189,7 +189,12 @@ new_arths <- all_arths %>%
       CCGroup == 'beetle' & str_detect(CCNotes, 'Chrysomelidae') ~ 'Chrysomelidae',
       CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae',
       CCGroup == 'beetle' & str_detect(CCNotes, 'Curculionidae') ~ 'Curculionidae',
-      CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha'),
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Corythucha') ~ 'Corythucha',
+      CCGroup == 'grasshopper' & str_detect(CCNotes, 'Gryllidae') ~ 'Gryllidae',
+      CCGroup == 'other' & str_detect(CCNotes, 'Dermaptera') ~ 'Dermaptera',
+      CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
+      CCGroup == 'ant' & str_detect(CCNotes, 'Crematogaster') ~ 'Crematogaster',
+      CCGroup == 'fly' & str_detect(CCNotes, 'Chironomidae') ~ 'Chironomidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
