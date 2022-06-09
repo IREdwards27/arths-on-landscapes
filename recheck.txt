@@ -6,3 +6,4 @@ Spiders: Corinnidae (Phrurotimpus (alarius), Castaneira (longipalpa)) vs Clubion
 True bugs: Berytidae vs Emesinae
 Flies: all (Drosophilidae)
 Millipedes: Siphonophorida
+Bees: Chalcididae, Eulophidae, Eurytomidae
