@@ -693,15 +693,15 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 109960,134047,beetle,6,1,NA,"Cantharidae, lost",family,Cantharidae,NA,NA
 109965,134052,beetle,5,1,NA,NA,genus,Isomira,NA,7.3
 109966,134052,beetle,3,1,NA,Mordellidae,family,Mordellidae,NA,1.7
-110697,134414,beetle,2,1,NA,Coccinellidae,order,Coleoptera,NA,NA
-110698,134414,beetle,2,2,NA,Mordellidae,family,Mordellidae,NA,NA
-110699,134414,beetle,3,1,NA,NA,order,Coleoptera,NA,NA
-110700,134414,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-110708,134419,beetle,6,1,NA,Elateridae,family,Elateridae,NA,NA
-110709,134419,beetle,5,1,NA,NA,order,Coleoptera,NA,NA
-110710,134419,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,NA
-110711,134419,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-110712,134419,spider,2,1,NA,NA,order,Araneae,NA,NA
+110697,134414,beetle,2,1,NA,Coccinellidae,family,Coccinellidae,NA,1.5
+110698,134414,beetle,2,2,NA,Mordellidae,family,Mordellidae,NA,2.5
+110699,134414,beetle,3,1,NA,,subfamily,Cebrioninae,NA,0.9
+110700,134414,other,2,1,NA,Psocodea,order,Psocodea,NA,0
+110708,134419,beetle,6,1,NA,Elateridae,family,Elateridae,NA,10.5
+110709,134419,beetle,5,1,NA,NA,genus,Isomira,NA,8.7
+110710,134419,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,3.4
+110711,134419,other,2,1,NA,Psocodea,order,Psocodea,NA,0.1
+110712,134419,spider,2,1,NA,NA,family,Theridiidae,NA,1.6
 110714,134422,bee,3,1,NA,Lost,order,Hymenoptera,NA,NA
 110715,134422,truebugs,7,1,NA,NA,suborder,Heteroptera,NA,NA
 110716,134422,beetle,3,1,NA,Mordellidae,family,Mordellidae,NA,NA
