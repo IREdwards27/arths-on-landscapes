@@ -724,17 +724,17 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 110774,134459,beetle,5,1,NA,NA,family,Curculionidae,NA,7.9
 110775,134459,other,2,3,NA,Psocodea,order,Psocodea,NA,0.4
 110776,134459,bee,2,1,NA,NA,family,Torymidae,NA,0.2
-110783,134463,truebugs,3,2,NA,Corythucha,suborder,NA,NA,NA
-110797,134472,beetle,7,1,NA,Coccinellidae,order,Coleoptera,NA,NA
-110811,134477,beetle,7,1,NA,Coccinellidae,order,Coleoptera,NA,NA
-110819,134482,leafhopper,11,1,NA,NA,suborder,Auchenorrhyncha,NA,NA
-110820,134482,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
-110839,134491,beetle,3,2,NA,NA,order,Coleoptera,NA,NA
-110840,134491,truebugs,2,1,NA,NA,suborder,Heteroptera,NA,NA
-110841,134491,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,NA
-110842,134491,other,2,3,NA,Psocodea,order,Psocodea,NA,NA
-110863,134500,beetle,5,1,NA,NA,order,Coleoptera,NA,NA
-110864,134500,fly,2,1,NA,NA,order,Diptera,NA,NA
+110783,134463,truebugs,3,2,NA,Corythucha,genus,Corythucha,NA,1.8
+110797,134472,beetle,7,1,NA,"Coccinellidae, larva",family,Coccinellidae,NA,6.1
+110811,134477,beetle,7,1,NA,"Coccinellidae, larva",family,Coccinellidae,NA,6.7
+110819,134482,leafhopper,11,1,NA,NA,family,Membracidae,NA,63
+110820,134482,other,2,1,NA,Psocodea,order,Psocodea,NA,0.6
+110839,134491,beetle,3,2,NA,NA,family,Chrysomelidae,NA,9.4
+110840,134491,truebugs,2,1,NA,NA,family,Miridae,NA,0.6
+110841,134491,truebugs,3,1,NA,nymph,family,Miridae,NA,1.8
+110842,134491,other,2,3,NA,Psocodea,order,Psocodea,NA,0.4
+110863,134500,beetle,5,1,NA,NA,family,Curculionidae,NA,5.7
+110864,134500,fly,2,1,NA,NA,suborder,Nematocera,NA,0.2
 110865,134500,bee,2,1,NA,Lost,order,Hymenoptera,NA,NA
 110979,134564,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,NA
 110980,134564,spider,5,1,NA,NA,order,Araneae,NA,NA
