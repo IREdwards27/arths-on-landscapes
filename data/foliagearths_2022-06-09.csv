@@ -695,7 +695,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 109966,134052,beetle,3,1,NA,Mordellidae,family,Mordellidae,NA,1.7
 110697,134414,beetle,2,1,NA,Coccinellidae,family,Coccinellidae,NA,1.5
 110698,134414,beetle,2,2,NA,Mordellidae,family,Mordellidae,NA,2.5
-110699,134414,beetle,3,1,NA,,subfamily,Cebrioninae,NA,0.9
+110699,134414,beetle,3,1,NA,,genus,Ptilodactyla,NA,0.9
 110700,134414,other,2,1,NA,Psocodea,order,Psocodea,NA,0
 110708,134419,beetle,6,1,NA,Elateridae,family,Elateridae,NA,10.5
 110709,134419,beetle,5,1,NA,NA,genus,Isomira,NA,8.7
