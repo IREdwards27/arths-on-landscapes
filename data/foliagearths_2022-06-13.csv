@@ -736,52 +736,52 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 110863,134500,beetle,5,1,NA,NA,family,Curculionidae,NA,5.7
 110864,134500,fly,2,1,NA,NA,suborder,Nematocera,NA,0.2
 110865,134500,bee,2,1,NA,Lost,order,Hymenoptera,NA,NA
-110979,134564,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,NA
-110980,134564,spider,5,1,NA,NA,order,Araneae,NA,NA
-110981,134564,other,3,2,NA,Collembola,NA,NA,NA,NA
-110982,134565,spider,3,1,NA,NA,order,Araneae,NA,NA
-110983,134565,other,3,2,NA,Collembola,NA,NA,NA,NA
-110984,134566,spider,3,1,NA,Theridiidae with egg sac,order,Araneae,NA,NA
+110979,134564,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,2
+110980,134564,spider,5,1,NA,NA,family,Anyphaenidae,NA,8.1
+110981,134564,other,3,2,NA,Collembola,order,Collembola,NA,1.2
+110982,134565,spider,3,1,NA,NA,family,Tetragnathidae,NA,7.7
+110983,134565,other,3,2,NA,Collembola,order,Collembola,NA,0.9
+110984,134566,spider,3,1,NA,Theridiidae with egg sac,family,Theridiidae,NA,2.7
 110985,134566,beetle,4,1,NA,Lost,order,Coleoptera,NA,NA
-110986,134566,other,2,1,NA,Collembola,NA,NA,NA,NA
-110987,134566,other,3,1,NA,Collembola,NA,NA,NA,NA
-110988,134567,ant,3,1,NA,NA,family,Formicidae,NA,NA
-110989,134567,other,3,1,NA,"Collembola, lost",NA,NA,NA,NA
-110990,134567,spider,5,1,NA,"Orchard orb weaver, lost",order,Araneae,NA,NA
-110991,134568,spider,5,1,NA,Araneidae,order,Araneae,NA,NA
-110992,134568,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-110993,134568,ant,3,1,NA,NA,family,Formicidae,NA,NA
-110994,134568,ant,3,1,NA,Crematogaster,family,Formicidae,NA,NA
-110995,134568,other,4,2,NA,"Collembola, lost 1",NA,NA,NA,NA
-110996,134568,spider,3,1,NA,NA,order,Araneae,NA,NA
-110997,134568,other,2,3,NA,"Collembola, lost 1",NA,NA,NA,NA
-111001,134573,aphid,2,1,NA,Aphididae,suborder,Sternorrhyncha,NA,NA
-111002,134573,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
+110986,134566,other,2,1,NA,Collembola,order,Collembola,NA,0.4
+110987,134566,other,3,1,NA,Collembola,order,Collembola,NA,0.7
+110988,134567,ant,3,1,NA,NA,species,Prenolepis imparis,NA,0.6
+110989,134567,other,3,1,NA,"Collembola, lost",order,Collembola,NA,NA
+110990,134567,spider,5,1,NA,"Orchard orb weaver, lost",family,Tetragnathidae,NA,NA
+110991,134568,spider,5,1,NA,Araneidae,family,Araneidae,NA,18.2
+110992,134568,beetle,2,1,NA,NA,species,Microtonus sericans,NA,1.9
+110993,134568,ant,3,1,NA,NA,species,Prenolepis imparis,NA,0.7
+110994,134568,ant,3,1,NA,Crematogaster,genus,Crematogaster,NA,0.9
+110995,134568,other,4,2,NA,"Collembola, lost 1",order,Collembola,NA,1
+110996,134568,spider,3,1,NA,NA,family,Araneidae,NA,2.5
+110997,134568,other,2,3,NA,"Collembola, lost 1",order,Collembola,NA,0.7
+111001,134573,aphid,2,1,NA,Aphididae,family,Aphididae,NA,0.9
+111002,134573,other,2,1,NA,Psocodea,order,Psocodea,NA,0.2
 111005,134575,bee,3,1,NA,Lost,order,Hymenoptera,NA,NA
-111006,134575,beetle,2,1,NA,NA,order,Coleoptera,NA,NA
-111007,134575,ant,4,1,NA,NA,family,Formicidae,NA,NA
-111009,134577,beetle,10,1,NA,Elateridae,family,Elateridae,NA,NA
-111010,134577,beetle,7,1,NA,Elateridae,family,Elateridae,NA,NA
-111021,134588,daddylonglegs,3,1,NA,NA,order,Opiliones,NA,NA
-111026,134590,bee,4,1,NA,Brachonidae/Ichneumonidae,order,Hymenoptera,NA,NA
-111027,134590,ant,3,2,NA,Crematogaster,family,Formicidae,NA,NA
-111028,134590,truebugs,2,1,NA,NA,suborder,Heteroptera,NA,NA
-111029,134590,other,3,2,NA,Collembola,NA,NA,NA,NA
-111033,134594,beetle,6,1,NA,Elateridae,family,Elateridae,NA,NA
-111034,134595,other,2,1,NA,Larva in case,NA,NA,NA,NA
-111035,134596,ant,3,1,NA,NA,family,Formicidae,NA,NA
-111036,134596,beetle,5,1,NA,Elateridae,family,Elateridae,NA,NA
-111037,134596,daddylonglegs,3,1,NA,NA,order,Opiliones,NA,NA
-111038,134596,spider,2,1,NA,NA,order,Araneae,NA,NA
-111039,134597,ant,3,2,NA,Crematogaster,family,Formicidae,NA,NA
-111040,134597,beetle,5,1,NA,Elateridae,family,Elateridae,NA,NA
+111006,134575,beetle,2,1,NA,NA,species,Microtonus sericans,NA,0.5
+111007,134575,ant,4,1,NA,NA,genus,Camponotus,NA,3
+111009,134577,beetle,10,1,NA,Elateridae,family,Elateridae,NA,43.6
+111010,134577,beetle,7,1,NA,Elateridae,family,Elateridae,NA,11.8
+111021,134588,daddylonglegs,3,1,NA,NA,family,Phalangiidae,NA,35.5
+111026,134590,bee,4,1,NA,Brachonidae/Ichneumonidae,family,Braconidae,NA,0.8
+111027,134590,ant,3,2,NA,Crematogaster,species,Prenolepis imparis,NA,1.1
+111028,134590,truebugs,2,1,NA,NA,suborder,Heteroptera,NA,0.3
+111029,134590,other,3,2,NA,Collembola,order,Collembola,NA,0.7
+111033,134594,beetle,6,1,NA,Elateridae,family,Elateridae,NA,8.1
+111034,134595,other,2,1,NA,Larva in case,subfamily,Cryptocephalinae,NA,0.8
+111035,134596,ant,3,1,NA,NA,species,Prenolepis imparis,NA,1
+111036,134596,beetle,5,1,NA,Elateridae,family,Elateridae,NA,4.1
+111037,134596,daddylonglegs,3,1,NA,NA,family,Phalangiidae,NA,10.4
+111038,134596,spider,2,1,NA,NA,family,Philodromidae,NA,0.7
+111039,134597,ant,3,2,NA,Crematogaster,genus,Crematogaster,NA,1.5
+111040,134597,beetle,5,1,NA,Elateridae,family,Elateridae,NA,4.2
 111041,134598,daddylonglegs,4,1,NA,Lost,order,Opiliones,NA,NA
-111042,134599,spider,5,1,NA,NA,order,Araneae,NA,NA
-111043,134601,spider,2,1,NA,NA,order,Araneae,NA,NA
-111044,134602,ant,2,1,NA,NA,family,Formicidae,NA,NA
-111045,134602,beetle,4,1,NA,NA,order,Coleoptera,NA,NA
-111046,134602,spider,2,1,NA,NA,order,Araneae,NA,NA
-111047,134602,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
+111042,134599,spider,5,1,NA,NA,species,Hibana gracilis,NA,13.8
+111043,134601,spider,2,1,NA,NA,family,Araneidae,NA,1.8
+111044,134602,ant,2,1,NA,NA,genus,Paratrechina,NA,0.3
+111045,134602,beetle,4,1,NA,NA,family,Stenotrachelidae,NA,1.8
+111046,134602,spider,2,1,NA,NA,family,Araneidae,NA,0
+111047,134602,other,2,1,NA,Psocodea,order,Psocodea,NA,0
 111056,134609,other,2,3,NA,Psocodea,order,Psocodea,NA,NA
 111057,134610,other,2,1,NA,Psocodea,order,Psocodea,NA,NA
 111058,134611,other,2,2,NA,Psocodea,order,Psocodea,NA,NA

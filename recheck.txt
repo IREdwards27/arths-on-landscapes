@@ -1,4 +1,5 @@
-Beetles: Tenebrionidae & Melandryidae (family & Microtonus sericans), Trogossitidae, Melanotus, Cantharidae (Rhagonycha (mollis)), Isomira (pulla & sericea)
+Beetles: Tenebrionidae & Melandryidae (family & Microtonus sericans), Trogossitidae, Melanotus, Cantharidae (Rhagonycha (mollis)), Isomira (pulla & sericea), 
+	Cryptocephalinae [case-making chrysomelid larvae)
 Ants: Formica & Camponotus (pennsylvanicus & castaneus), Ponera & Hypoponera
 any and all oncelers
 Isopods: Armadillidium (vulgare or nasatum), Porcellio (scaber)

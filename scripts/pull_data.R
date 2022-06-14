@@ -137,9 +137,11 @@ all_arths <- read_csv(
 my_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
 
-observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)'
+observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)|(Araneidae)|(Aphididae)|(Membracidae)'
 
 observed_genera <- '(Oecanthus)|(Corythucha)|(Crematogaster)'
+
+observed <- str_c(observed_families, observed_genera, sep = '|')
 
 # select new arths
 new_arths <- all_arths %>% 
@@ -163,16 +165,16 @@ new_arths <- all_arths %>%
       str_detect(CCNotes, observed_genera) ~ 'genus'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
-      CCGroup == 'aphid' ~ 'Sternorrhyncha',
+      CCGroup == 'aphid' & (!str_detect(CCnotes, observed) | is.na(CCNotes) ~ 'Sternorrhyncha'),
       CCGroup == 'bee' ~ 'Hymenoptera',
-      CCGroup == 'beetle' & (!str_detect(CCNotes, '(Elateridae)|(Mordellidae)|(Coccinellidae)|(Staphylinidae)') | is.na(CCNotes)) ~ 'Coleoptera',
+      CCGroup == 'beetle' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
       CCGroup == 'fly' ~ 'Diptera',
-      CCGroup == 'spider' & (!str_detect(CCNotes, 'Salticidae') | is.na(CCNotes)) ~ 'Araneae',
-      CCGroup == 'truebugs' & (!str_detect(CCNotes, '(Tingidae)|(Corythucha)') | is.na(CCNotes)) ~ 'Heteroptera' ,
+      CCGroup == 'spider' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Araneae',
+      CCGroup == 'truebugs' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Heteroptera' ,
       CCGroup == 'other' & str_detect(CCNotes, 'Psocodea') ~ 'Psocodea',
       CCGroup == 'other' & str_detect(CCNotes, 'Trichoptera') ~ 'Trichoptera',
-      CCGroup == 'leafhopper' & (!str_detect(CCNotes, 'Cicadellidae') | is.na(CCNotes)) ~ 'Auchenorrhyncha',
+      CCGroup == 'leafhopper' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Auchenorrhyncha',
       CCGroup == 'daddylonglegs' ~ 'Opiliones',
       CCGroup == 'beetle' & str_detect(CCNotes, 'Elateridae') ~ 'Elateridae',
       CCGroup == 'truebugs' & str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
@@ -194,7 +196,10 @@ new_arths <- all_arths %>%
       CCGroup == 'other' & str_detect(CCNotes, 'Dermaptera') ~ 'Dermaptera',
       CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
       CCGroup == 'ant' & str_detect(CCNotes, 'Crematogaster') ~ 'Crematogaster',
-      CCGroup == 'fly' & str_detect(CCNotes, 'Chironomidae') ~ 'Chironomidae'),
+      CCGroup == 'fly' & str_detect(CCNotes, 'Chironomidae') ~ 'Chironomidae',
+      CCGroup == 'spider' & str_detect(CCNotes, 'Araneidae') ~ 'Araneidae',
+      CCGroup == 'aphid' & str_detect(CCNotes, 'Aphididae') ~ 'Aphididae',
+      CCGroup == 'leafhopper' & str_detect(CCNotes, 'Membracidae') ~ 'Membracidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
