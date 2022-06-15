@@ -98,13 +98,14 @@ new_surveys <- all_surveys %>%
     my_plants,
     by = c('PlantFK' = 'CCID')) %>% 
   filter(
-    UserFKOfObserver == 2832,
+    UserFKOfObserver %in% c(2832, 3336),
     LocalDate > max(my_surveys$Date, na.rm = T),
     ObservationMethod == 'Beat sheet',
     TreeID %in% my_plants$TreeID,
     !str_detect(replace_na(Notes, '-999'), 'CC')) %>% 
   mutate(Observer = case_when(
-    UserFKOfObserver == 2832 ~ 'Indigo'),
+    UserFKOfObserver == 2832 ~ 'Indigo',
+    UserFKOfObserver == 3336 ~ 'Jacob'),
     Checks = rep(NA, nrow(.))) %>% 
   select(
     'BeatSheetID' = 'ID',
@@ -165,7 +166,7 @@ new_arths <- all_arths %>%
       str_detect(CCNotes, observed_genera) ~ 'genus'),
     Taxon = case_when(
       CCGroup == 'ant' ~ 'Formicidae',
-      CCGroup == 'aphid' & (!str_detect(CCnotes, observed) | is.na(CCNotes) ~ 'Sternorrhyncha'),
+      CCGroup == 'aphid' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Sternorrhyncha',
       CCGroup == 'bee' ~ 'Hymenoptera',
       CCGroup == 'beetle' & (!str_detect(CCNotes, observed) | is.na(CCNotes)) ~ 'Coleoptera',
       CCGroup %in% c('caterpillar', 'moths') ~ 'Lepidoptera',
