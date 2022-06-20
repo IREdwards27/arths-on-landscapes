@@ -138,7 +138,7 @@ all_arths <- read_csv(
 my_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
 
-observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)|(Araneidae)|(Aphididae)|(Membracidae)'
+observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)|(Araneidae)|(Aphididae)|(Membracidae)|(Pentatomidae)'
 
 observed_genera <- '(Oecanthus)|(Corythucha)|(Crematogaster)'
 
@@ -200,7 +200,8 @@ new_arths <- all_arths %>%
       CCGroup == 'fly' & str_detect(CCNotes, 'Chironomidae') ~ 'Chironomidae',
       CCGroup == 'spider' & str_detect(CCNotes, 'Araneidae') ~ 'Araneidae',
       CCGroup == 'aphid' & str_detect(CCNotes, 'Aphididae') ~ 'Aphididae',
-      CCGroup == 'leafhopper' & str_detect(CCNotes, 'Membracidae') ~ 'Membracidae'),
+      CCGroup == 'leafhopper' & str_detect(CCNotes, 'Membracidae') ~ 'Membracidae',
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Pentatomidae') ~ 'Pentatomidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
