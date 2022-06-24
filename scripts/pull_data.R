@@ -226,7 +226,7 @@ unlink(list.files('data', full.names = T)[str_detect(list.files('data'), 'beatsh
 #   row.names = F)
 
 # bind and save old and new arths
-bind_rows(my_arths, new_arths) %>% 
+bind_rows(my_arths, new_arths) %>%
   write.csv(str_c('data/foliagearths_', today(), '.csv'), row.names = F)
 
 # remove old arth csv
