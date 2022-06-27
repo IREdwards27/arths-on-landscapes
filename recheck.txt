@@ -1,11 +1,11 @@
 Beetles: Tenebrionidae & Melandryidae (family & Microtonus sericans), Trogossitidae, Melanotus, Cantharidae (Rhagonycha (mollis)), Isomira (pulla & sericea) vs Ptilodactyla, 
 	Cryptocephalinae [case-making chrysomelid larvae]
-Ants: Formica & Camponotus (pennsylvanicus & castaneus), Ponera (pennsylvanica) & Hypoponera, Prenolepis imparis vs Paratrechina
+Ants: Formica & Camponotus (pennsylvanicus & castaneus), Ponera (pennsylvanica) vs Hypoponera vs Brachyponera (chinensis), Prenolepis imparis vs Paratrechina
 any and all oncelers
 Isopods: Armadillidium (vulgare or nasatum), Porcellio (scaber)
 Spiders: Corinnidae (Phrurotimpus (alarius), Castaneira (longipalpa vs variata)) vs Clubionidae, Pardosa vs Pirata, Araneidae vs Theridiidae vs Linyphiidae
 True bugs: Berytidae vs Emesinae
 Flies: all (Drosophilidae), Stratiomyidae (Ptecticus)
-Millipedes: Siphonophorida
+Millipedes: Siphonophorida, Julida vs Spirostrepida vs Spirobolida
 Bees: Chalcididae, Eulophidae, Eurytomidae, Torymidae - ALL MICRO-HYMENOPTERA with new key
 Other: Check small Neuroptera larva vs thrips
