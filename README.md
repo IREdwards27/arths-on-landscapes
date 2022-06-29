@@ -23,5 +23,5 @@ This README file will serve primarily as a key and record to the sampling and da
 
 ## Circle-level data collection methods
 - Using bamboo skewers marked every 5mm, insert into leaf layer and humus. Mark top of litter layer, then clear litter and measure difference between humus and litter layers.
-- Use a visual estimate for canopy cover.
+- Use a visual estimate for canopy cover as 1 (0-25%), 2 (26-50%), 3 (51-75%), or 4 (76-100%)
 - Use a visual assessment to determine the primary type of ground cover from the follow: mulch, leaves, needles, wood.
