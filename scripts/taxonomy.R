@@ -17,8 +17,13 @@ ground_arths <- read_csv(
 
 foliage_arths %>% 
   select(Taxon, TaxonLevel) %>% 
-  unique()
+  unique() %>% 
+  head() %>% 
+  mutate(
+    ITISID = get_ids(sci_com = Taxon, db = 'itis') %>% 
+      str_extract('[0-9]*'))
 
-get_ids(sci_com = 'Phrurotimpus alarius', db = 'itis')$itis[1] %>% str_extract('[0-9]*')
+get_ids(sci_com = c('Melanotus', 'Geometridae'), db = 'itis')$itis %>% classification() %>% 
+  pivot_wider()
 
 tax_name('Phrurotimpus alarius', get = unique(foliage_arths$TaxonLevel))
