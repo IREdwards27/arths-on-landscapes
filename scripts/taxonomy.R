@@ -15,8 +15,18 @@ ground_arths <- read_csv(
 
 # rework this to have a dataframe of taxa with itis id's and all taxonomic levels rather than running the whole thing every time
 
-tax_name('Phrurotimpus alarius', get = unique(foliage_arths$TaxonLevel))
+taxa <- tibble(
+  taxon = unique(c('Gorilla gorilla', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>% 
+  cbind(
+    tsn = get_tsn(.$taxon) %>% as.numeric())
 
-get_tsn('Phrurotimpus alarius')
-
-classification('Phrurotimpus alarius', db = 'itis')
+ranks <- map(
+  .x = taxa$tsn[!is.na(taxa$tsn)],
+  ~  classification(.x, db = 'itis')[[1]] %>%
+    select(1:2) %>% 
+    pivot_wider(
+      names_from = 'rank',
+      values_from = 'name')) %>% 
+  bind_rows() %>% 
+  cbind(tsn = taxa$tsn)
+    
