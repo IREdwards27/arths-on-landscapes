@@ -138,7 +138,7 @@ all_arths <- read_csv(
 my_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
 
-observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)|(Araneidae)|(Aphididae)|(Membracidae)|(Pentatomidae)'
+observed_families <- '(Elateridae)|(Tingidae)|(Mordellidae)|(Cicadellidae)|(Coccinellidae)|(Staphylinidae)|(Miridae)|(Chrysomelidae)|(Salticidae)|(Curculionidae)|(Gryllidae)|(Chironomidae)|(Araneidae)|(Aphididae)|(Membracidae)|(Pentatomidae)|(Anyphaenidae)'
 
 observed_genera <- '(Oecanthus)|(Corythucha)|(Crematogaster)'
 
@@ -181,7 +181,7 @@ new_arths <- all_arths %>%
       CCGroup == 'truebugs' & str_detect(CCNotes, 'Tingidae') ~ 'Tingidae',
       CCGroup == 'other' & str_detect(CCNotes, 'Plecoptera') ~ 'Plecoptera',
       CCGroup == 'beetle' & str_detect(CCNotes, 'Mordellidae') ~ 'Mordellidae',
-      CCGroup == 'grasshopper' ~ 'Orthoptera',
+      CCGroup == 'grasshopper' & (!str_detect(CCNotes, observed) | is.na(CCNotes))  ~ 'Orthoptera',
       CCGroup == 'leafhopper' & str_detect(CCNotes, 'Cicadellidae') ~ 'Cicadellidae',
       CCGroup == 'other' & str_detect(CCNotes, 'Collembola') ~ 'Collembola',
       CCGroup == 'spider' & str_detect(CCNotes, 'Salticidae') ~ 'Salticidae',
@@ -201,7 +201,8 @@ new_arths <- all_arths %>%
       CCGroup == 'spider' & str_detect(CCNotes, 'Araneidae') ~ 'Araneidae',
       CCGroup == 'aphid' & str_detect(CCNotes, 'Aphididae') ~ 'Aphididae',
       CCGroup == 'leafhopper' & str_detect(CCNotes, 'Membracidae') ~ 'Membracidae',
-      CCGroup == 'truebugs' & str_detect(CCNotes, 'Pentatomidae') ~ 'Pentatomidae'),
+      CCGroup == 'truebugs' & str_detect(CCNotes, 'Pentatomidae') ~ 'Pentatomidae',
+      CCGroup == 'spider' & str_detect(CCNotes, 'Anyphaenidae') ~ 'Anyphaenidae'),
     ITISID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
