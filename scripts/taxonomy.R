@@ -16,7 +16,7 @@ ground_arths <- read_csv(
 # rework this to have a dataframe of taxa with itis id's and all taxonomic levels rather than running the whole thing every time
 
 taxa <- tibble(
-  taxon = unique(c('Gorilla gorilla', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>% 
+  taxon = unique(c('Polistes fuscatus', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>% 
   cbind(
     tsn = get_tsn(.$taxon) %>% as.numeric())
 
