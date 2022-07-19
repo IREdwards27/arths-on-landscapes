@@ -15,10 +15,20 @@ ground_arths <- read_csv(
 
 # rework this to have a dataframe of taxa with itis id's and all taxonomic levels rather than running the whole thing every time
 
+input_vector %>%
+  str_replace(., ' ', '\\\\\ ') %>%
+  paste0('nameWOInd:', .) %>%
+  map_df(., ~ritis::itis_search(q = .))
+
 taxa <- tibble(
   taxon = unique(c('Polistes fuscatus', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>% 
-  cbind(
-    tsn = get_tsn(.$taxon) %>% as.numeric())
+  left_join(
+    str_replace(.$taxon, ' ', '\\\\\ ') %>%
+          paste0('nameWOInd:', .) %>%
+          map_df(~ritis::itis_search(q = .)) %>% 
+      select(tsn, nameWOInd),
+    by = c('taxon' = 'nameWOInd')) %>% 
+  arrange(tsn)
 
 ranks <- map(
   .x = taxa$tsn[!is.na(taxa$tsn)],
