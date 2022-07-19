@@ -1,0 +1,218 @@
+tsn,taxon,class,subclass,infraclass,order,suborder,superfamily,family,infraorder,subfamily,genus,species,superorder,tribe,subgenus,subtribe
+100502,Ephemeroptera,Insecta,Pterygota,Palaeoptera,Ephemeroptera,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+1012454,Phalangiidae,Euchelicerata,Arachnida,NA,Opiliones,Eupnoi,Phalangioidea,Phalangiidae,NA,NA,NA,NA,NA,NA,NA,NA
+1012885,Vonones,Euchelicerata,Arachnida,NA,Opiliones,Laniatores,Gonyleptoidea,Cosmetidae,Grassatores,Cosmetinae,Vonones,NA,NA,NA,NA,NA
+1014097,Odiellus pictus,Euchelicerata,Arachnida,NA,Opiliones,Eupnoi,Phalangioidea,Phalangiidae,NA,NA,Odiellus,Odiellus pictus,NA,NA,NA,NA
+1014189,Vonones sayi,Euchelicerata,Arachnida,NA,Opiliones,Laniatores,Gonyleptoidea,Cosmetidae,Grassatores,Cosmetinae,Vonones,Vonones sayi,NA,NA,NA,NA
+102160,Orthoptera,Insecta,Pterygota,Neoptera,Orthoptera,NA,NA,NA,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+102162,Tetrigidae,Insecta,Pterygota,Neoptera,Orthoptera,Caelifera,Tetrigoidea,Tetrigidae,Acrididea,NA,NA,NA,Polyneoptera,NA,NA,NA
+102281,Gryllidae,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Grylloidea,Gryllidae,Gryllidea,NA,NA,NA,Polyneoptera,NA,NA,NA
+102363,Oecanthus,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Grylloidea,Oecanthidae,Gryllidea,Oecanthinae,Oecanthus,NA,Polyneoptera,NA,NA,NA
+102456,Forficulidae,Insecta,Pterygota,Neoptera,Dermaptera,Eudermaptera,Forficuloidea,Forficulidae,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+102460,Carcinophoridae,Insecta,Pterygota,Neoptera,Dermaptera,Catadermaptera,Pygidicranoidea,Carcinophoridae,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+102467,Plecoptera,Insecta,Pterygota,Neoptera,Plecoptera,NA,NA,NA,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+102914,Perlidae,Insecta,Pterygota,Neoptera,Plecoptera,Systellognatha,NA,Perlidae,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+103251,Perlesta,Insecta,Pterygota,Neoptera,Plecoptera,Systellognatha,NA,Perlidae,NA,Acroneuriinae,Perlesta,NA,Polyneoptera,Acroneuriini,NA,NA
+103348,Thysanoptera,Insecta,Pterygota,Neoptera,Thysanoptera,NA,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+103350,Aeolothripidae,Insecta,Pterygota,Neoptera,Thysanoptera,Terebrantia,NA,Aeolothripidae,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+103358,Heteroptera,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+103359,Hemiptera,Insecta,Pterygota,Neoptera,Hemiptera,NA,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+104063,Saldidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Saldoidea,Saldidae,Leptopodomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+104177,Tingidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Miroidea,Tingidae,Cimicomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+104215,Corythucha,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Miroidea,Tingidae,Cimicomorpha,Tinginae,Corythucha,NA,Paraneoptera,Tingini,NA,NA
+104419,Miridae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Miroidea,Miridae,Cimicomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+106812,Rhinocapsus vanduzeei,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Miroidea,Miridae,Cimicomorpha,Phylinae,Rhinocapsus,Rhinocapsus vanduzeei,Paraneoptera,Phylini,NA,NA
+106903,Anthocoridae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Cimicoidea,Anthocoridae,Cimicomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+107202,Reduviidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Reduvoidea,Reduviidae,Cimicomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+107375,Zelus luridus,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Reduvoidea,Reduviidae,Cimicomorpha,Harpactorinae,Zelus,Zelus luridus,Paraneoptera,Harpactorini,NA,NA
+107642,Berytidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Lygaeoidea,Berytidae,Pentatomomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+108529,Boisea trivittata,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Coreoidea,Rhopalidae,Pentatomomorpha,Serinethinae,Boisea,Boisea trivittata,Paraneoptera,NA,NA,NA
+108550,Cydnidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Pentatomoidea,Cydnidae,Pentatomomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+108566,Cyrtomenus,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Pentatomoidea,Cydnidae,Pentatomomorpha,Cydninae,Cyrtomenus,NA,Paraneoptera,NA,NA,NA
+108628,Pentatomidae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Pentatomoidea,Pentatomidae,Pentatomomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+108764,Banasa calva,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Pentatomoidea,Pentatomidae,Pentatomomorpha,Pentatominae,Banasa,Banasa calva,Paraneoptera,Pentatomini,NA,NA
+109167,Auchenorrhyncha,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+109170,Membracidae,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,Membracoidea,Membracidae,Cicadomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+109171,Cicadellidae,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,Membracoidea,Cicadellidae,Cicadomorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+109173,Fulgoroidea,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,Fulgoroidea,NA,Fulgoromorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+109179,Fulgoridae,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,Fulgoroidea,Fulgoridae,Fulgoromorpha,NA,NA,NA,Paraneoptera,NA,NA,NA
+109185,Sternorrhyncha,Insecta,Pterygota,Neoptera,Hemiptera,Sternorrhyncha,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+109191,Aphididae,Insecta,Pterygota,Neoptera,Hemiptera,Sternorrhyncha,Aphidoidea,Aphididae,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+109216,Coleoptera,Insecta,Pterygota,Neoptera,Coleoptera,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+109234,Carabidae,Insecta,Pterygota,Neoptera,Coleoptera,Adephaga,NA,Carabidae,NA,NA,NA,NA,Holometabola,NA,NA,NA
+109589,Pasimachus,Insecta,Pterygota,Neoptera,Coleoptera,Adephaga,NA,Carabidae,NA,Scaritinae,Pasimachus,NA,Holometabola,Pasimachini,NA,NA
+109602,Scarites,Insecta,Pterygota,Neoptera,Coleoptera,Adephaga,NA,Carabidae,NA,Scaritinae,Scarites,NA,Holometabola,Scaritini,NA,NA
+111436,Chlaenius,Insecta,Pterygota,Neoptera,Coleoptera,Adephaga,NA,Carabidae,NA,Harpalinae,Chlaenius,NA,Holometabola,Chlaeniini,NA,NA
+111751,Galerita bicolor,Insecta,Pterygota,Neoptera,Coleoptera,Adephaga,NA,Carabidae,NA,Harpalinae,Galerita,Galerita bicolor,Holometabola,Galeritini,Galerita (Progaleritina),NA
+1117840,Arachnida,Euchelicerata,Arachnida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+113265,Staphylinidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Staphylinoidea,Staphylinidae,Staphyliniformia,NA,NA,NA,Holometabola,NA,NA,NA
+113837,Cantharidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Cantharidae,Elateriformia,NA,NA,NA,Holometabola,NA,NA,NA
+113852,Cleridae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Cleroidea,Cleridae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+113869,Melyridae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Cleroidea,Melyridae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+113879,Elateridae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Elateridae,Elateriformia,NA,NA,NA,Holometabola,NA,NA,NA
+113906,Melanotus,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Elateridae,Elateriformia,NA,Melanotus,NA,Holometabola,NA,NA,NA
+114273,Ptilodactyla,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Byrrhoidea,Ptilodactylidae,Elateriformia,Ptilodactylinae,Ptilodactyla,NA,Holometabola,NA,NA,NA
+114290,Nitidulidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Cucujoidea,Nitidulidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114327,Cerylonidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Cerylonidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114328,Corylophidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Corylophidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114329,Coccinellidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Coccinellidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114345,Chilocorus stigma,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Coccinellidae,Cucujiformia,Chilocorinae,Chilocorus,Chilocorus stigma,Holometabola,NA,NA,NA
+114383,Mordellidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Tenebrionoidea,Mordellidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114387,Meloidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Tenebrionoidea,Meloidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114419,Tenebrionidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Tenebrionoidea,Tenebrionidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114452,Melandryidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Tenebrionoidea,Melandryidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114472,Ptinidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Bostrichoidea,Ptinidae,Bostrichiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114493,Scarabaeidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Scarabaeoidea,Scarabaeidae,Scarabeiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114497,Cerambycidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Chrysomeloidea,Cerambycidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114509,Chrysomelidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Chrysomeloidea,Chrysomelidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114666,Curculionidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Curculionoidea,Curculionidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+114968,Buprestidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Buprestoidea,Buprestidae,Elateriformia,NA,NA,NA,Holometabola,NA,NA,NA
+114999,Neuroptera,Insecta,Pterygota,Neoptera,Neuroptera,NA,NA,NA,NA,NA,NA,NA,Neuropterida,NA,NA,NA
+115080,Hemerobiidae,Insecta,Pterygota,Neoptera,Neuroptera,Hemerobiiformia,NA,Hemerobiidae,NA,NA,NA,NA,Neuropterida,NA,NA,NA
+115081,Chrysopidae,Insecta,Pterygota,Neoptera,Neuroptera,Hemerobiiformia,NA,Chrysopidae,NA,NA,NA,NA,Neuropterida,NA,NA,NA
+115095,Trichoptera,Insecta,Pterygota,Neoptera,Trichoptera,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+117232,Lepidoptera,Insecta,Pterygota,Neoptera,Lepidoptera,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+117236,Lycaenidae,Insecta,Pterygota,Neoptera,Lepidoptera,NA,Papilionoidea,Lycaenidae,NA,NA,NA,NA,Holometabola,NA,NA,NA
+117318,Noctuidae,Insecta,Pterygota,Neoptera,Lepidoptera,NA,Noctuoidea,Noctuidae,NA,NA,NA,NA,Holometabola,NA,NA,NA
+117556,Geometridae,Insecta,Pterygota,Neoptera,Lepidoptera,NA,Geometroidea,Geometridae,NA,NA,NA,NA,Holometabola,NA,NA,NA
+118831,Diptera,Insecta,Pterygota,Neoptera,Diptera,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+118832,Nematocera,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+118840,Tipulidae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Tipulidae,Tipulomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+121315,Plecia nearctica,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Pleciidae,Bibionomorpha,NA,Plecia,Plecia nearctica,Holometabola,NA,NA,NA
+121316,Bibionidae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Bibionidae,Bibionomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+125351,Psychodidae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Psychodidae,Psychodomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+125886,Chaoboridae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Chaoboridae,Culicomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+125930,Culicidae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Culicidae,Culicomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+127917,Chironomidae,Insecta,Pterygota,Neoptera,Diptera,Nematocera,NA,Chironomidae,Culicomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+130052,Brachycera,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+130150,Stratiomyidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Stratiomyidae,Stratiomyomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+130346,Ptecticus,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Stratiomyidae,Stratiomyomorpha,Sarginae,Ptecticus,NA,Holometabola,NA,NA,NA
+132394,Asilidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Asilidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+136824,Dolichopodidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Dolichopodidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+141828,Conopidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Conopidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+142604,Tephritidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Tephritidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+146185,Drosophilidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Drosophilidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+146893,Ephydridae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Ephydridae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+147644,Chloropidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Chloropidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+150025,Muscidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Muscidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+152643,Tachinidae,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Tachinidae,Muscomorpha,NA,NA,NA,Holometabola,NA,NA,NA
+152650,Lipoptena,Insecta,Pterygota,Neoptera,Diptera,Brachycera,NA,Hippoboscidae,Muscomorpha,Hippoboscinae,Lipoptena,NA,Holometabola,Lipoptenini,NA,NA
+152741,Hymenoptera,Insecta,Pterygota,Neoptera,Hymenoptera,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+152747,Pamphiliidae,Insecta,Pterygota,Neoptera,Hymenoptera,Symphyta,Pamphilioidea,Pamphiliidae,NA,NA,NA,NA,Holometabola,NA,NA,NA
+152867,Braconidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Ichneumonoidea,Braconidae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+153360,Ichneumonidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Ichneumonoidea,Ichneumonidae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+153770,Eulophidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Chalcidoidea,Eulophidae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+153968,Torymidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Chalcidoidea,Torymidae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+154008,Eurytomidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Chalcidoidea,Eurytomidae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+154021,Chalcididae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Chalcidoidea,Chalcididae,Terebrantes,NA,NA,NA,Holometabola,NA,NA,NA
+154193,Formicidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,NA,NA,NA,Holometabola,NA,NA,NA
+154194,Camponotus,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Camponotus,NA,Holometabola,Camponotini,NA,NA
+154198,Camponotus pennsylvanicus,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Camponotus,Camponotus pennsylvanicus,Holometabola,Camponotini,NA,NA
+154211,Formica,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Formica,NA,Holometabola,Formicini,NA,NA
+154217,Lasius,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Lasius,NA,Holometabola,Lasiini,NA,NA
+154224,Paratrechina,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Paratrechina,NA,Holometabola,Lasiini,NA,NA
+154237,Solenopsis,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Myrmicinae,Solenopsis,NA,Holometabola,Solenopsidini,NA,NA
+154243,Tapinoma,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Dolichoderinae,Tapinoma,NA,Holometabola,NA,NA,NA
+154245,Tetramorium,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Myrmicinae,Tetramorium,NA,Holometabola,Tetramoriini,NA,NA
+154267,Polistes fuscatus,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Vespidae,Aculeata,NA,Polistes,Polistes fuscatus,Holometabola,NA,NA,NA
+154310,Sphecidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Apoidea,Sphecidae,Aculeata,NA,NA,NA,Holometabola,NA,NA,NA
+154394,Apidae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Apoidea,Apidae,Aculeata,NA,NA,NA,Holometabola,NA,NA,NA
+154409,Diplopoda,Diplopoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+154416,Polydesmida,Diplopoda,Helminthomorpha,NA,Polydesmida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+154418,Julida,Diplopoda,Helminthomorpha,NA,Julida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+154419,Spirobolida,Diplopoda,Helminthomorpha,NA,Spirobolida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+185556,Gnaphosidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Gnaphosidae,NA,NA,NA,NA,NA,NA,NA,NA
+186036,Forficula auricularia,Insecta,Pterygota,Neoptera,Dermaptera,Eudermaptera,Forficuloidea,Forficulidae,NA,Forficulinae,Forficula,Forficula auricularia,Polyneoptera,NA,NA,NA
+186048,Anisolabis maritima,Insecta,Pterygota,Neoptera,Dermaptera,Catadermaptera,Pygidicranoidea,Carcinophoridae,NA,Carcinophorinae,Anisolabis,Anisolabis maritima,Polyneoptera,NA,NA,NA
+206377,Philoscia muscorum,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Oniscoidea,Philosciidae,Ligiamorpha,NA,Philoscia,Philoscia muscorum,Peracarida,NA,NA,NA
+555700,Lithobiidae,Chilopoda,Pleurostigmophora,NA,Lithobiomorpha,NA,NA,Lithobiidae,NA,NA,NA,NA,NA,NA,NA,NA
+563885,Myriapoda,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+568964,Siphonophorida,Diplopoda,Helminthomorpha,NA,Siphonophorida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+568965,Callipodida,Diplopoda,Helminthomorpha,NA,Callipodida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+569659,Narceus americanus,Diplopoda,Helminthomorpha,NA,Spirobolida,NA,NA,Spirobolidae,NA,Spirobolinae,Narceus,Narceus americanus,NA,NA,NA,NA
+570770,Apheloria tigana,Diplopoda,Helminthomorpha,NA,Polydesmida,Chelodesmidea,NA,Xystodesmidae,NA,NA,Apheloria,Apheloria tigana,NA,Aphelorini,NA,NA
+573831,Ponerinae,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Ponerinae,NA,NA,Holometabola,NA,NA,NA
+573918,Dolichoderus,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Dolichoderinae,Dolichoderus,NA,Holometabola,NA,NA,NA
+573923,Forelius,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Dolichoderinae,Forelius,NA,Holometabola,NA,NA,NA
+573953,Brachymyrmex,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Brachymyrmex,NA,Holometabola,Brachymyrmecini,NA,NA
+574031,Aphaenogaster,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Myrmicinae,Aphaenogaster,NA,Holometabola,Pheidolini,NA,NA
+574052,Crematogaster,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Myrmicinae,Crematogaster,NA,Holometabola,Crematogastrini,NA,NA
+574150,Stenamma,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Myrmicinae,Stenamma,NA,Holometabola,Stenammini,NA,NA
+574195,Hypoponera,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Ponerinae,Hypoponera,NA,Holometabola,Ponerini,NA,NA
+574209,Ponera,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Ponerinae,Ponera,NA,Holometabola,Ponerini,NA,NA
+575041,Linepithema humile,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Dolichoderinae,Linepithema,Linepithema humile,Holometabola,NA,NA,NA
+575746,Camponotus castaneus,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Camponotus,Camponotus castaneus,Holometabola,Camponotini,NA,NA
+577971,Prenolepis imparis,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Formicinae,Prenolepis,Prenolepis imparis,Holometabola,Lasiini,NA,NA
+583962,Ponera pennsylvanica,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,Vespoidea,Formicidae,Aculeata,Ponerinae,Ponera,Ponera pennsylvanica,Holometabola,Ponerini,NA,NA
+594387,Armadillidium nasatum,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Armadillidiidae,Ligiamorpha,NA,Armadillidium,Armadillidium nasatum,Peracarida,NA,NA,NA
+621184,Armadilloidea,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,NA,Ligiamorpha,NA,NA,NA,Peracarida,NA,NA,NA
+650504,Rhaphidophoridae,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Stenopelmatoidea,Rhaphidophoridae,Tettigoniidea,NA,NA,NA,Polyneoptera,NA,NA,NA
+650554,Phyllopalpus pulchellus,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Grylloidea,Trigonidiidae,Gryllidea,Trigonidiinae,Phyllopalpus,Phyllopalpus pulchellus,Polyneoptera,NA,NA,NA
+657454,Acrididea,Insecta,Pterygota,Neoptera,Orthoptera,Caelifera,NA,NA,Acrididea,NA,NA,NA,Polyneoptera,NA,NA,NA
+657660,Ceuthophilus,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Stenopelmatoidea,Rhaphidophoridae,Tettigoniidea,Ceuthophilinae,Ceuthophilus,NA,Polyneoptera,NA,NA,NA
+657701,Gryllus,Insecta,Pterygota,Neoptera,Orthoptera,Ensifera,Grylloidea,Gryllidae,Gryllidea,Gryllinae,Gryllus,NA,Polyneoptera,NA,NA,NA
+666589,Mantodea,Insecta,Pterygota,Neoptera,Mantodea,Mantodea,NA,NA,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+666619,Mantis religiosa,Insecta,Pterygota,Neoptera,Mantodea,Mantodea,NA,Mantidae,NA,NA,Mantis,Mantis religiosa,Polyneoptera,NA,NA,NA
+678376,Stenotrachelidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Tenebrionoidea,Stenotrachelidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+678391,Latridiidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Latridiidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+678393,Trogossitidae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Cleroidea,Trogossitidae,Cucujiformia,NA,NA,NA,Holometabola,NA,NA,NA
+678511,Cetoniinae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Scarabaeoidea,Scarabaeidae,Scarabeiformia,Cetoniinae,NA,NA,Holometabola,NA,NA,NA
+678807,Cryptocephalinae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Chrysomeloidea,Chrysomelidae,Cucujiformia,Cryptocephalinae,NA,NA,Holometabola,NA,NA,NA
+678830,Scolytinae,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Curculionoidea,Curculionidae,Cucujiformia,Scolytinae,NA,NA,Holometabola,NA,NA,NA
+684736,Trachelipus rathkii,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Trachelipodidae,Ligiamorpha,NA,Trachelipus,Trachelipus rathkii,Peracarida,NA,NA,NA
+692589,Psyllobora vigintimaculata,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Coccinellidae,Cucujiformia,Coccinellinae,Psyllobora,Psyllobora vigintimaculata,Holometabola,NA,NA,NA
+692602,Harmonia axyridis,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Coccinelloidea,Coccinellidae,Cucujiformia,Coccinellinae,Harmonia,Harmonia axyridis,Holometabola,NA,NA,NA
+721722,Emesinae,Insecta,Pterygota,Neoptera,Hemiptera,Heteroptera,Reduvoidea,Reduviidae,Cimicomorpha,Emesinae,NA,NA,Paraneoptera,NA,NA,NA
+809008,Ptosima gibbicollis,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Buprestoidea,Buprestidae,Elateriformia,Polycestinae,Ptosima,Ptosima gibbicollis,Holometabola,Ptosimini,NA,NA
+82708,Arachnida,Arachnida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+82732,Araneae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+82737,Araneidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Araneidae,NA,NA,NA,NA,NA,NA,NA,NA
+82740,Theridiidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Theridiidae,NA,NA,NA,NA,NA,NA,NA,NA
+82753,Opiliones,Euchelicerata,Arachnida,NA,Opiliones,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+834309,Rhagonycha,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Cantharidae,Elateriformia,Cantharinae,Rhagonycha,NA,Holometabola,Cantharini,NA,NA
+834312,Malthinus,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Cantharidae,Elateriformia,Malthininae,Malthinus,NA,Holometabola,Malthinini,NA,NA
+834498,Rhagonycha mollis,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Elateroidea,Cantharidae,Elateriformia,Cantharinae,Rhagonycha,Rhagonycha mollis,Holometabola,Cantharini,Rhagonycha (Spartiolepta),NA
+847731,Lycosidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Lycosidae,NA,NA,NA,NA,NA,NA,NA,NA
+847764,Tetragnathidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Tetragnathidae,NA,NA,NA,NA,NA,NA,NA,NA
+848656,Leucauge,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Tetragnathidae,NA,NA,Leucauge,NA,NA,NA,NA,NA
+849078,Pardosa,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Lycosidae,NA,NA,Pardosa,NA,NA,NA,NA,NA
+849140,Pirata,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Lycosidae,NA,NA,Pirata,NA,NA,NA,NA,NA
+870185,Verrucosa arenata,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Araneidae,NA,NA,Verrucosa,Verrucosa arenata,NA,NA,NA,NA
+871515,Anyphaenidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Anyphaenidae,NA,NA,NA,NA,NA,NA,NA,NA
+871518,Clubionidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Clubionidae,NA,NA,NA,NA,NA,NA,NA,NA
+871519,Corinnidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Corinnidae,NA,NA,NA,NA,NA,NA,NA,NA
+871532,Oxyopidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Oxyopidae,NA,NA,NA,NA,NA,NA,NA,NA
+871533,Philodromidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Philodromidae,NA,NA,NA,NA,NA,NA,NA,NA
+871537,Salticidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Salticidae,NA,NA,NA,NA,NA,NA,NA,NA
+871543,Thomisidae,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Thomisidae,NA,NA,NA,NA,NA,NA,NA,NA
+872750,Peckhamia,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Salticidae,NA,NA,Peckhamia,NA,NA,NA,NA,NA
+875557,Castianeira longipalpa,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Corinnidae,NA,NA,Castianeira,Castianeira longipalpa,NA,NA,NA,NA
+875611,Castianeira variata,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Corinnidae,NA,NA,Castianeira,Castianeira variata,NA,NA,NA,NA
+881342,Hibana gracilis,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Anyphaenidae,NA,NA,Hibana,Hibana gracilis,NA,NA,NA,NA
+887078,Phrurotimpus alarius,Euchelicerata,Arachnida,NA,Araneae,NA,NA,Corinnidae,NA,NA,Phrurotimpus,Phrurotimpus alarius,NA,NA,NA,NA
+904027,Arrenodes minutus,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Curculionoidea,Brentidae,Cucujiformia,Brentinae,Arrenodes,Arrenodes minutus,Holometabola,Arrhenodini,NA,NA
+914185,Collembola,Collembola,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+914213,Holometabola,Insecta,Pterygota,Neoptera,NA,NA,NA,NA,NA,NA,NA,NA,Holometabola,NA,NA,NA
+914220,Mantodea,Insecta,Pterygota,Neoptera,Mantodea,NA,NA,NA,NA,NA,NA,NA,Polyneoptera,NA,NA,NA
+926453,Phyllophaga,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Scarabaeoidea,Scarabaeidae,Scarabeiformia,Melolonthinae,Phyllophaga,NA,Holometabola,Melolonthini,NA,NA
+928929,Popillia japonica,Insecta,Pterygota,Neoptera,Coleoptera,Polyphaga,Scarabaeoidea,Scarabaeidae,Scarabeiformia,Rutelinae,Popillia,Popillia japonica,Holometabola,Anomalini,NA,Popilliina
+93249,Armadillidium,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Armadillidiidae,Ligiamorpha,NA,Armadillidium,NA,Peracarida,NA,NA,NA
+93250,Armadillidium vulgare,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Armadillidiidae,Ligiamorpha,NA,Armadillidium,Armadillidium vulgare,Peracarida,NA,NA,NA
+93267,Porcellio,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Porcellionidae,Ligiamorpha,NA,Porcellio,NA,Peracarida,NA,NA,NA
+93269,Porcellio scaber,Malacostraca,Eumalacostraca,NA,Isopoda,Oniscidea,Armadilloidea,Porcellionidae,Ligiamorpha,NA,Porcellio,Porcellio scaber,Peracarida,NA,NA,NA
+956002,Prosapia bicincta,Insecta,Pterygota,Neoptera,Hemiptera,Auchenorrhyncha,Cercopoidea,Cercopidae,Cicadomorpha,Cercopinae,Prosapia,Prosapia bicincta,Paraneoptera,NA,NA,NA
+99208,Insecta,Insecta,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+99225,Machilidae,Insecta,Archaeognatha,NA,Archaeognatha,NA,NA,Machilidae,NA,NA,NA,NA,NA,NA,NA,NA
+99237,Collembola,Collembola,NA,NA,Collembola,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+998435,Psocodea,Insecta,Pterygota,Neoptera,Psocodea,NA,NA,NA,NA,NA,NA,NA,Paraneoptera,NA,NA,NA
+NA,Microtonus sericans,Insecta,NA,NA,Coleoptera,Polyphaga,Tenebrionoidea,Melandryidae,NA,Melandryinae,Microtonus,Microtonus sericans,,Hypulini,NA,NA
+NA,Isomira pulla,Insecta,NA,NA,Coleoptera,Polyphaga,Tenebrionoidea,Tenebrionidae,NA,Alleculinae,Isomira,Isomira pulla,NA,NA,NA,Gonoderina
+NA,Isomira sericea,Insecta,NA,NA,Coleoptera,Polyphaga,Tenebrionoidea,Tenebrionidae,NA,Alleculinae,Isomira,Isomira sericea,NA,NA,NA,Gonoderina
+NA,Isomira,Insecta,NA,NA,Coleoptera,Polyphaga,Tenebrionoidea,Tenebrionidae,NA,Alleculinae,Isomira,NA,NA,NA,NA,Gonoderina
+NA,Grylloprociphilus imbricator,Insecta,NA,NA,Hemiptera,Sternorrhyncha,NA,Aphididae,NA,Eriosomatinae,Grylloprociphilus,Grylloprociphilus imbricator,NA,NA,NA,NA
+NA,Horistonotus curiatus,Insecta,NA,NA,Coleoptera,Polyphaga,Elateroidea,Elateridae,NA,Cardiophorinae,Horistonotus,Horistonotus curiatus,NA,NA,NA,NA
+NA,Platydracus,Insecta,NA,NA,Coleoptera,Polyphaga,Staphylinoidea,Staphylinidae,NA,Staphylininae,Platydracus,NA,NA,Staphylinini,NA,Staphylinina
+NA,Temnothorax,Insecta,NA,NA,Hymenoptera,Apocrita,Vespoidea,Formicidae,NA,Myrmicinae,Temnothorax,NA,NA,Crematogastrini,NA,NA
+NA,Ectobiidae,Insecta,NA,NA,Blattodea,NA,Blaberoidea,Ectobiidae,NA,NA,NA,NA,NA,NA,NA,NA
+154420,Spirostreptida,Diplopoda,Helminthomorpha,NA,Spirostreptida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+583704,Brachyponera chinensis,Insecta,Pterygota,Neoptera,Hymenoptera,Apocrita,NA,Formicidae,NA,Ponerinae,Brachyponera,Brachyponera chinensis,NA,Ponerini,NA,NA

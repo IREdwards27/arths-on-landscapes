@@ -8,4 +8,4 @@ True bugs: Berytidae vs Emesinae
 Flies: all (Drosophilidae), Stratiomyidae (Ptecticus)
 Millipedes: Siphonophorida, Julida vs Spirostrepida vs Spirobolida
 Bees: Chalcididae, Eulophidae, Eurytomidae, Torymidae - ALL MICRO-HYMENOPTERA with new key
-Other: small Neuroptera larva vs thrips, Vonones (sayi)
+Other: small Neuroptera larva vs thrips, Vonones (sayi), Lycoptis americana - doesn't seem to exist
