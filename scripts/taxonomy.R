@@ -14,8 +14,7 @@ ground_arths <- read_csv(
 
 # retrieve ITIS IDs -------------------------------------------------------
 
-# rework this to have a dataframe of taxa with itis id's and all taxonomic levels rather than running the whole thing every time
-
+# get ITIS IDs for each taxon and write a data frame with taxonomic info
 taxa <- tibble(
   taxon = unique(c('Polistes fuscatus', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>% 
   left_join(
@@ -58,3 +57,28 @@ ranks <- map(
   relocate(tsn:taxon)
 
 write.csv(ranks, file = paste('data/taxa_', today(), '.csv'), row.names = F)
+
+# add ITIS IDs to observation frames
+
+taxa <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
+
+ground_ids <- ground_arths %>% 
+  left_join(
+    taxa %>% 
+      select(tsn, taxon),
+    by = c('Taxon' = 'taxon')) %>% 
+  mutate(ITISID = tsn) %>% 
+  select(!tsn)
+
+write.csv(ground_ids, file = paste('data/groundarths_', today(), '.csv'), row.names = F)
+
+foliage_ids <- foliage_arths %>% 
+  left_join(
+    taxa %>% 
+      select(tsn, taxon),
+    by = c('Taxon' = 'taxon')) %>% 
+  mutate(ITISID = tsn) %>% 
+  select(!tsn)
+
+write.csv(foliage_ids, file = paste('data/foliagearths_', today(), '.csv'), row.names = F)
