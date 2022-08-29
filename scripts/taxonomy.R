@@ -58,7 +58,8 @@ ranks <- map(
 
 write.csv(ranks, file = paste('data/taxa_', today(), '.csv'), row.names = F)
 
-# add ITIS IDs to observation frames
+
+# adding ITIS IDs to observation frames -----------------------------------
 
 taxa <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
@@ -82,3 +83,6 @@ foliage_ids <- foliage_arths %>%
   select(!tsn)
 
 write.csv(foliage_ids, file = paste('data/foliagearths_', today(), '.csv'), row.names = F)
+
+# how do we incorporate species/taxa not in itis into analyses? will probably need to fill in taxonomy manually and assign an ID - should change name of ITISID column accordingly
+taxa[is.na(taxa$tsn),]
