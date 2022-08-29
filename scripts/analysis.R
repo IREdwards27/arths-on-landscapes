@@ -18,10 +18,11 @@ taxa <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
 
 # ????
-foliage_arths %>% 
+foliage_taxa <- foliage_arths %>% 
   left_join(
     taxa,
-    by = c('ITISID' = 'tsn')) %>% 
-  filter(!is.na(family)) %>% 
+    by = TaxonID)
+
+foliage_taxa %>% 
   group_by(BeatSheetFK) %>% 
   summarize(fam_div = n_distinct(family))

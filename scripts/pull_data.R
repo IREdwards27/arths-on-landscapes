@@ -205,7 +205,7 @@ new_arths <- all_arths %>%
       CCGroup == 'spider' & str_detect(CCNotes, 'Anyphaenidae') ~ 'Anyphaenidae',
       CCGroup == 'truebugs' & str_detect(CCNotes, 'Reduviidae') ~ 'Reduviidae',
       CCGroup == 'beetle' & str_detect(CCNotes, 'Cantharidae') ~ 'Cantharidae'),
-    ITISID = rep(NA, nrow(.)),
+    TaxonID = rep(NA, nrow(.)),
     TotalMass = rep(NA, nrow(.)))
 
 
