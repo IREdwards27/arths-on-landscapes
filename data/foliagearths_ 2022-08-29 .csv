@@ -1154,7 +1154,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 117543,138246,grasshopper,5,1,NA,Gryllidae,family,Gryllidae,2.6,102281,
 117544,138247,beetle,3,1,NA,Mordellidae,family,Mordellidae,2.8,114383,
 117545,138247,unidentified,4,1,NA,Lost,NA,NA,NA,NA,
-117546,138248,bee,5,1,NA,winged adult,family,Formicidae,1,154193,
+117546,138248,bee,5,1,NA,winged adult,species,Brachyponera chinensis,1,,1
 117547,138248,beetle,5,2,NA,Mordellidae,family,Mordellidae,6.9,114383,
 117549,138250,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,4,114509,
 117550,138250,other,3,1,NA,"Psocodea, lost",order,Psocodea,NA,998435,
@@ -1357,7 +1357,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 119744,139530,beetle,2,1,NA,Lost,order,Coleoptera,NA,,0
 119746,139532,daddylonglegs,5,1,NA,NA,family,Phalangiidae,76.9,,1
 119748,139534,beetle,5,1,NA,Curculionidae,family,Curculionidae,9,,1
-119749,139535,bee,4,1,NA,NA,family,Formicidae,1.3,,1
+119749,139535,bee,4,1,NA,NA,species,Brachyponera chinensis,1.3,,1
 119759,139537,leafhopper,4,1,NA,Lost,suborder,Auchenorrhyncha,NA,,0
 119760,139537,truebugs,10,1,NA,"Pentatomidae, lost, green w brown wings",family,Pentatomidae,NA,,0
 119761,139537,other,2,1,NA,Psocodea,order,Psocodea,0,,1
