@@ -1387,6 +1387,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 120051,139704,spider,2,1,NA,NA,family,Araneidae,0.6,,1
 120053,139707,leafhopper,4,1,NA,nymph,suborder,Auchenorrhyncha,4.5,,1
 120054,139707,beetle,2,1,NA,NA,family,Bostrichidae,0.7,,1
+220054,139710,,,3,1,,family,Anyphaenidae,0.7,,1
 120055,139707,spider,3,1,NA,NA,family,Anyphaenidae,0.9,,1
 220059,139711,,3,1,,,family,Chrysomelidae,3.8,,1
 120059,139711,grasshopper,5,1,NA,Gryllidae,family,Gryllidae,2.7,,1
@@ -1403,49 +1404,50 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 120095,139753,grasshopper,8,1,NA,Oecanthus,genus,Oecanthus,10.9,,1
 120096,139753,truebugs,4,2,NA,NA,family,Miridae,6.3,,2
 120097,139753,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
-120099,139758,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-120100,139758,truebugs,4,1,NA,Lost,suborder,Heteroptera,NA,103358,
-120101,139758,leafhopper,8,1,NA,NA,suborder,Auchenorrhyncha,NA,109167,
-120107,139762,beetle,4,2,NA,Curculionidae,family,Curculionidae,NA,114666,
-120108,139762,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120109,139762,truebugs,4,2,NA,Lost 1,suborder,Heteroptera,NA,103358,
-120110,139762,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120125,139770,beetle,4,2,NA,Curculionidae,family,Curculionidae,NA,114666,
-120133,139773,leafhopper,4,1,NA,NA,suborder,Auchenorrhyncha,NA,109167,
-120134,139773,leafhopper,4,3,NA,Lost 1,suborder,Auchenorrhyncha,NA,109167,
-120135,139773,leafhopper,4,5,NA,"Cixiidae, lost 4",suborder,Auchenorrhyncha,NA,109167,
-120145,139778,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120146,139778,leafhopper,3,3,NA,Lost 1,suborder,Auchenorrhyncha,NA,109167,
-120147,139778,leafhopper,4,1,NA,Cixiidae,suborder,Auchenorrhyncha,NA,109167,
-120148,139778,spider,6,1,NA,Salticidae,family,Salticidae,NA,871537,
-120149,139778,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120150,139778,truebugs,4,1,NA,Miridae,suborder,Miridae,NA,104419,
-120151,139778,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120155,139781,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-120156,139781,leafhopper,4,2,NA,NA,suborder,Auchenorrhyncha,NA,109167,
-120157,139781,leafhopper,3,1,NA,NA,suborder,Auchenorrhyncha,NA,109167,
-120179,139798,leafhopper,4,1,NA,"Cixiidae, lost",suborder,Auchenorrhyncha,NA,109167,
-120180,139798,beetle,2,7,NA,NA,order,Coleoptera,NA,109216,
-120181,139798,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120188,139805,beetle,4,7,NA,Curculionidae,family,Curculionidae,NA,114666,
-120189,139805,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-120190,139805,beetle,2,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-120191,139805,grasshopper,3,1,NA,Gryllidae,family,Orthoptera,NA,102160,
-120192,139805,leafhopper,4,1,NA,Fulgoroidea,suborder,Auchenorrhyncha,NA,109167,
-120193,139805,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120194,139805,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120195,139805,other,2,1,NA,"Psocodea, lost",order,Psocodea,NA,998435,
-120202,139813,beetle,2,2,NA,Mordellidae,family,Mordellidae,NA,114383,
-120203,139813,beetle,4,1,NA,NA,order,Coleoptera,NA,109216,
-120204,139813,grasshopper,18,1,NA,Katydid,order,Orthoptera,NA,102160,
-120205,139813,spider,3,1,NA,NA,order,Araneae,NA,82732,
-120206,139813,spider,2,1,NA,Lost,order,Araneae,NA,82732,
-120212,139821,grasshopper,8,1,NA,"Lost, Gryllidae",family,Orthoptera,NA,102160,
-120213,139821,grasshopper,4,3,NA,NA,order,Orthoptera,NA,102160,
-120214,139821,grasshopper,4,1,NA,NA,order,Orthoptera,NA,102160,
-120215,139821,truebugs,5,1,NA,NA,suborder,Heteroptera,NA,103358,
-120216,139821,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120220,139825,grasshopper,5,1,NA,"Gryllidae, lost",family,Orthoptera,NA,102160,
+120099,139758,beetle,2,1,NA,NA,family,Kateretidae,1.1,,1
+120100,139758,truebugs,4,1,NA,Lost,suborder,Heteroptera,NA,103358,0
+120101,139758,leafhopper,8,1,NA,nymph,family,Cicadellidae,18.4,,1
+120107,139762,beetle,4,2,NA,Curculionidae,family,Curculionidae,10.3,114666,2
+120108,139762,spider,2,1,NA,NA,family,Theridiidae,2.2,,1
+120109,139762,truebugs,4,2,NA,Lost 1,family,Miridae,1.8,,1
+120110,139762,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+120125,139770,beetle,4,2,NA,Curculionidae,family,Curculionidae,10.1,114666,2
+120133,139773,leafhopper,4,1,NA,nymph,suborder,Auchenorrhyncha,7.1,109167,1
+120134,139773,leafhopper,4,3,NA,"Lost 1, nymphs",family,Cixiidae,4.4,,2
+120135,139773,leafhopper,4,5,NA,"Cixiidae, lost 4",family,Cixiidae,1.5,,1
+220135,139773,,4,1,,,family,Anyphaenidae,1.2,,1
+220136,139773,,2,1,,,order,Psocodea,0.2,,1
+120145,139778,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,15.7,114509,3
+120146,139778,leafhopper,3,3,NA,nymphs,family,Cixiidae,3,,3
+120148,139778,spider,6,1,NA,Salticidae,family,Salticidae,10.4,871537,1
+120149,139778,spider,2,1,NA,NA,family,Anyphaenidae,0.7,,1
+120150,139778,truebugs,4,1,NA,Miridae,suborder,Miridae,1.5,104419,1
+120151,139778,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,0
+120155,139781,beetle,2,1,NA,NA,subfamily,Scolytinae,1.9,,1
+120156,139781,leafhopper,4,2,NA,nymphs,family,Cixiidae,4.1,,2
+120157,139781,leafhopper,3,1,NA,nymph,family,Cixiidae,2,,1
+120179,139798,leafhopper,4,1,NA,"Cixiidae, lost",family,Cixiidae,NA,,0
+120180,139798,beetle,2,7,NA,NA,subfamily,Scolytinae,2,,6
+120181,139798,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.2,114509,1
+120188,139805,beetle,4,7,NA,Curculionidae,family,Curculionidae,27.8,114666,5
+120189,139805,beetle,2,1,NA,NA,family,Bostrichidae,0.2,,1
+120190,139805,beetle,2,1,NA,Mordellidae,family,Mordellidae,0.6,114383,1
+120191,139805,grasshopper,3,1,NA,Gryllidae,family,Gryllidae,0.9,,1
+120192,139805,leafhopper,4,1,NA,Fulgoroidea,superfamily,Fulgoroidea,4.4,,1
+120193,139805,spider,2,1,NA,NA,family,Theridiidae,1.5,,1
+120194,139805,spider,2,1,NA,NA,family,Anyphaenidae,0.4,,1
+120195,139805,other,2,1,NA,"Psocodea, lost",order,Psocodea,NA,998435,0
+120202,139813,beetle,2,2,NA,Mordellidae,family,Mordellidae,1.8,114383,2
+120203,139813,beetle,4,1,NA,NA,family,Tenebrionidae,2.3,,1
+120204,139813,grasshopper,18,1,NA,Katydid,family,Tettigoniidae,142.7,,1
+120205,139813,spider,3,1,NA,NA,family,Anyphaenidae,3,,1
+120206,139813,spider,2,1,NA,Lost,order,Araneae,NA,82732,0
+120212,139821,grasshopper,8,1,NA,"Lost, Gryllidae",family,Gryllidae,NA,,0
+120213,139821,grasshopper,4,3,NA,NA,family,Gryllidae,8.3,,3
+120214,139821,grasshopper,4,1,NA,NA,family,Gryllidae,3.2,,1
+120215,139821,truebugs,5,1,NA,NA,family,Reduviidae,12.9,,1
+120216,139821,spider,2,1,NA,NA,family,Philodromidae,1.5,,1
+120220,139825,grasshopper,5,1,NA,"Gryllidae, lost",family,Gryllidae,NA,,0
 120843,140136,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
 120844,140137,beetle,3,4,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
 120845,140137,spider,2,1,NA,NA,order,Araneae,NA,82732,
