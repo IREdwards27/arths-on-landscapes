@@ -812,3 +812,18 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 813,105,family,Gryllidae,1,4,NA,102281
 814,105,species,Camponotus pennsylvanicus,1,24.2,NA,154198
 815,105,genus,Ceuthophilus,2,1730,NA,657660
+816,106,family,Trogossitidae,1,0.6,,
+817,106,order,Diptera,1,0.4,,
+818,106,genus,Forelius,3,1.7,,
+819,106,genus,Tapinoma,2,1.2,,
+820,106,family,Staphylinidae,8,3.1,,
+821,106,family,Tetragnathidae,2,0.7,,
+822,106,family,Corinnidae,2,1.5,,
+823,106,species,Brachyponera chinensis,23,24.2,,
+824,106,family,Gryllidae,9,17.2,,
+825,106,species,Armadillidium vulgare,34,1104.7,,
+826,106,family,Carcinophoridae,1,24.5,,
+827,106,class,Chilopoda,1,29.6,,
+828,106,order,Hymenoptera,1,9.1,,
+829,106,species,Camponotus pennsylvanicus,3,83.9,,
+830,106,family,Carabidae,2,381.6,,
