@@ -1,4 +1,4 @@
-FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Taxon,TotalMass,TaxonID,
+FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed
 105199,131093,beetle,3,1,NA,NA,genus,Melanotus,3.2,113906,
 105200,131093,ant,3,1,NA,NA,genus,Crematogaster,0.8,574052,
 105202,131094,ant,3,1,NA,NA,genus,Lasius,0.3,154217,
@@ -1448,47 +1448,47 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 120215,139821,truebugs,5,1,NA,NA,family,Reduviidae,12.9,,1
 120216,139821,spider,2,1,NA,NA,family,Philodromidae,1.5,,1
 120220,139825,grasshopper,5,1,NA,"Gryllidae, lost",family,Gryllidae,NA,,0
-120843,140136,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120844,140137,beetle,3,4,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120845,140137,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120846,140137,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120847,140138,ant,6,1,NA,NA,family,Formicidae,NA,154193,
-120848,140138,spider,4,1,NA,Araneidae,family,Araneidae,NA,82737,
-120849,140138,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120850,140138,other,2,1,NA,Thysanoptera,NA,NA,NA,NA,
-120854,140142,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120855,140144,beetle,2,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-120856,140144,truebugs,2,1,NA,NA,suborder,Heteroptera,NA,103358,
-120857,140146,beetle,7,1,NA,Elateridae,family,Elateridae,NA,113879,
-120858,140146,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120860,140148,daddylonglegs,6,1,NA,Lost,order,Opiliones,NA,82753,
-120861,140150,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120862,140150,fly,2,1,NA,Lost,order,Diptera,NA,118831,
-120869,140154,ant,3,1,NA,Crematogaster,family,Formicidae,NA,154193,
-120872,140157,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120873,140158,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-120874,140158,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-120875,140158,beetle,5,1,NA,Staphylinidae,family,Staphylinidae,NA,113265,
-120877,140160,moths,4,1,NA,Lost,order,Lepidoptera,NA,117232,
-120878,140160,truebugs,5,1,NA,"Emesinae, lost",suborder,Heteroptera,NA,103358,
-120879,140160,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120880,140164,ant,5,1,NA,NA,family,Formicidae,NA,154193,
-120881,140164,beetle,5,2,NA,Curculionidae,family,Curculionidae,NA,114666,
-120883,140167,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120884,140167,spider,6,1,NA,NA,order,Araneae,NA,82732,
-120885,140168,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120886,140168,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120894,140172,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-120895,140172,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-120896,140172,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-120899,140175,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120900,140175,beetle,3,3,NA,Coccinellidae,family,Coccinellidae,NA,114329,
-120901,140175,beetle,2,3,NA,"Mordellidae, lost 1",family,Mordellidae,NA,114383,
-120902,140175,beetle,3,3,NA,"Mordellidae, lost",family,Mordellidae,NA,114383,
-120903,140176,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120904,140177,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-120905,140177,spider,2,1,NA,NA,order,Araneae,NA,82732,
-120906,140178,spider,2,1,NA,NA,order,Araneae,NA,82732,
+120843,140136,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,4,114509,1
+120844,140137,beetle,3,4,NA,Chrysomelidae,family,Chrysomelidae,13.2,114509,4
+120845,140137,spider,2,1,NA,NA,family,Araneidae,0.2,,1
+120846,140137,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+120847,140138,ant,6,1,NA,NA,genus,Camponotus,4.3,,1
+120848,140138,spider,4,1,NA,Araneidae,family,Araneidae,6.7,82737,1
+120849,140138,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+120850,140138,other,2,1,NA,Thysanoptera,order,Thysanoptera,0,,1
+120854,140142,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.8,114509,1
+120855,140144,beetle,2,1,NA,Mordellidae,family,Mordellidae,0.8,114383,1
+120856,140144,truebugs,2,1,NA,nymph,family,Miridae,0,,1
+120857,140146,beetle,7,1,NA,Elateridae,family,Elateridae,11.4,113879,1
+120858,140146,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+120860,140148,daddylonglegs,6,1,NA,Lost,order,Opiliones,NA,82753,0
+120861,140150,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,7.4,114509,2
+120862,140150,fly,2,1,NA,Lost,order,Diptera,NA,118831,0
+120869,140154,ant,3,1,NA,Crematogaster,genus,Crematogaster,0.5,,1
+120872,140157,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.2,114509,1
+120873,140158,beetle,2,1,NA,NA,subfamily,Scolytinae,0.6,,1
+120874,140158,beetle,5,1,NA,Curculionidae,family,Curculionidae,11.1,114666,1
+120875,140158,beetle,5,1,NA,Staphylinidae,family,Staphylinidae,1.4,113265,1
+120877,140160,moths,4,1,NA,Lost,order,Lepidoptera,NA,117232,0
+120878,140160,truebugs,5,1,NA,"Emesinae, lost",subfamily,Emesinae,NA,,0
+120879,140160,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+120880,140164,ant,5,1,NA,NA,genus,Camponotus,1.9,,1
+120881,140164,beetle,5,2,NA,Curculionidae,family,Curculionidae,19.2,114666,2
+120883,140167,spider,2,1,NA,NA,family,Anyphaenidae,0.8,,1
+120884,140167,spider,6,1,NA,NA,genus,Tmarus,19.2,,1
+120885,140168,spider,2,1,NA,NA,family,Anyphaenidae,0.3,,1
+120886,140168,spider,2,1,NA,NA,family,Thomisidae,0.5,,1
+120894,140172,beetle,2,1,NA,NA,subfamily,Scolytinae,0.6,,1
+120895,140172,beetle,5,1,NA,Curculionidae,family,Curculionidae,13.9,114666,1
+120896,140172,other,2,1,NA,Psocodea,order,Psocodea,0.1,998435,1
+120899,140175,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.2,114509,1
+120900,140175,beetle,3,3,NA,Coccinellidae,family,Coccinellidae,5.3,114329,3
+120901,140175,beetle,2,3,NA,"Mordellidae, lost 1",family,Mordellidae,1.4,114383,2
+120902,140175,beetle,3,3,NA,"Mordellidae, lost",family,Mordellidae,NA,114383,0
+120903,140176,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,2.9,114509,1
+120904,140177,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,6.6,114509,2
+120905,140177,spider,2,1,NA,NA,family,Thomisidae,0.1,,1
+120906,140178,spider,2,1,NA,NA,family,Araneidae,1,,1
 120971,140247,beetle,2,3,NA,NA,order,Coleoptera,NA,109216,
 120972,140248,beetle,2,1,NA,Mordellidae,family,Mordellidae,NA,114383,
 120973,140248,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
