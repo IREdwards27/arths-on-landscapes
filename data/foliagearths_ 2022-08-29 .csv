@@ -1539,19 +1539,19 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 121018,140271,beetle,2,1,NA,Mordellidae,family,Mordellidae,0.9,114383,1
 121019,140271,beetle,2,1,NA,NA,family,Bostrichidae,0.4,,1
 121020,140271,spider,2,1,NA,NA,family,Anyphaenidae,0.3,,1
-121085,140317,ant,5,1,NA,NA,family,Formicidae,NA,154193,
-121086,140317,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121087,140318,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121088,140318,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121089,140319,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121090,140319,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121091,140319,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121092,140319,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121093,140319,moths,10,1,NA,Lost,order,Lepidoptera,NA,117232,
-121094,140320,spider,2,2,NA,NA,order,Araneae,NA,82732,
-121095,140320,other,2,1,NA,"Psocodea, lost",order,Psocodea,NA,998435,
-121096,140321,other,10,1,NA,Ephemeroptera,NA,NA,NA,NA,
-121097,140322,fly,2,1,NA,Lost,order,Diptera,NA,118831,
+121085,140317,ant,5,1,NA,NA,genus,Camponotus,2.8,,1
+121086,140317,other,2,1,NA,Psocodea,order,Psocodea,0.4,998435,1
+121087,140318,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.9,114509,1
+121088,140318,other,2,1,NA,Psocodea,order,Psocodea,0.5,998435,1
+121089,140319,beetle,5,1,NA,Curculionidae,family,Curculionidae,9.1,114666,1
+121090,140319,spider,3,1,NA,NA,family,Araneidae,6.1,,1
+121091,140319,spider,3,1,NA,NA,family,Araneidae,5.6,,1
+121092,140319,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+121093,140319,moths,10,1,NA,Lost,order,Lepidoptera,NA,117232,0
+121094,140320,spider,2,2,NA,NA,family,Araneidae,0.2,,2
+121095,140320,other,2,1,NA,"Psocodea, lost",order,Psocodea,NA,998435,0
+121096,140321,other,10,1,NA,Ephemeroptera,order,Ephemeroptera,12.9,,1
+121097,140322,fly,2,1,NA,Lost,order,Diptera,NA,118831,0
 121098,140323,beetle,4,1,NA,Melyridae?,order,Coleoptera,NA,109216,
 121099,140323,beetle,4,1,NA,Twice stabbed lady beetle,order,Coleoptera,NA,109216,
 121100,140324,beetle,4,1,NA,Melyridae?,order,Coleoptera,NA,109216,
