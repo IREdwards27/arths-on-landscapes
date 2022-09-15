@@ -169,3 +169,4 @@ ground_arths %>%
 ## review uncertain identifications
 ## add IDs and taxonomies to taxa not in ITIS
 ## add mass estimations or protocol for beat sheets with lost arths
+## select arth groups to analyze
