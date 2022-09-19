@@ -3,6 +3,7 @@
 
 library(tidyverse)
 library(lubridate)
+library(ggplot2)
 
 # read in foliage and ground arthropod observations - code format pulls most recent date
 
@@ -135,7 +136,7 @@ foliage_sites <- foliage_arths %>%
     by = 'SiteFK') %>% 
   left_join(
     sites %>% 
-      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp)),
+      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp, forest_1km, aw_cai_mn_1km, nlsi_1km, cai_mn_1km)),
     by = c('SiteFK' = 'SiteID'))
 
 # ground arth site-level dataframe with family diversity and mean arthropod biomass per survey
@@ -173,32 +174,94 @@ ground_sites <- ground_arths %>%
     by = 'SiteFK') %>% 
   left_join(
     sites %>% 
-      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp)),
+      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp, forest_1km, aw_cai_mn_1km, nlsi_1km, cai_mn_1km)),
     by = c('SiteFK' = 'SiteID'))
 
+
+# visualization -----------------------------------------------------------
+
+ggplot(foliage_sites) +
+  geom_point(aes(
+    x = forest_1km,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_sites) +
+  geom_point(aes(
+    x = cai_mn_1km,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_sites) +
+  geom_point(aes(
+    x = nlsi_1km,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_sites) +
+  geom_point(aes(
+    x = mn_day_temp,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_sites) +
+  geom_point(aes(
+    x = mn_night_temp,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(ground_sites) +
+  geom_point(aes(
+    x = forest_1km,
+    y = mean_mass_per_trap,
+    color = fam_div))
+
+ggplot(ground_sites) +
+  geom_point(aes(
+    x = cai_mn_1km,
+    y = mean_mass_per_trap,
+    color = fam_div))
+
+ggplot(ground_sites) +
+  geom_point(aes(
+    x = nlsi_1km,
+    y = mean_mass_per_trap,
+    color = fam_div))
+
+ggplot(ground_sites) +
+  geom_point(aes(
+    x = mn_day_temp,
+    y = mean_mass_per_trap,
+    color = fam_div))
+
+ggplot(ground_sites) +
+  geom_point(aes(
+    x = mn_night_temp,
+    y = mean_mass_per_trap,
+    color = fam_div))
 
 # modeling ----------------------------------------------------------------
 
 ground_abundance_model <- lm(
-  mean_mass_per_trap ~ forest_2km + pafrac_5km + nlsi_2km + mn_day_temp,
+  mean_mass_per_trap ~ forest_1km + cai_mn_1km + nlsi_1km,
   data = ground_sites)
 
 summary(ground_abundance_model)
 
 ground_diversity_model <- lm(
-  fam_div ~ forest_2km + pafrac_5km + nlsi_2km + mn_day_temp,
+  fam_div ~ forest_1km + cai_mn_1km + nlsi_1km,
   data = ground_sites)
 
 summary(ground_diversity_model)
 
 foliage_abundance_model <- lm(
-  mean_mass_per_survey ~ forest_2km + pafrac_5km + nlsi_2km + mn_day_temp,
+  mean_mass_per_survey ~ forest_1km + cai_mn_1km + nlsi_1km,
   data = foliage_sites)
 
 summary(foliage_abundance_model)
 
 foliage_diversity_model <- lm(
-  fam_div ~ forest_2km + pafrac_5km + nlsi_2km + mn_day_temp,
+  fam_div ~ forest_1km + cai_mn_1km + nlsi_1km,
   data = foliage_sites)
 
 summary(foliage_diversity_model)
