@@ -11,20 +11,24 @@ foliage_arths <- read_csv(
 ground_arths <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^groundarths')])
 
+taxa <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
+
 
 # retrieve ITIS IDs -------------------------------------------------------
 
 # get ITIS IDs for each taxon and write a data frame with taxonomic info
-taxa <- tibble(
-  # generate a unique list of taxa observed in pitfall traps or beath sheets
-  taxon = unique(c('Polistes fuscatus', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>%
+new_taxa <- tibble(
+  # generate a unique list of taxa observed in pitfall traps or beat sheets
+  taxon = unique(c('Iolania perkinsi', foliage_arths$Taxon[!is.na(foliage_arths$Taxon)], ground_arths$Taxon[!is.na(ground_arths$Taxon)]))) %>%
+  filter(taxon == 'Iolania perkinsi' | !taxon %in% taxa$taxon) %>% 
   # get the TSN for each taxon from ITIS
   mutate(TaxonID = get_tsn(taxon))
 
 # get full taxonomy for all observed taxa
 ranks <- map(
   # pull and reformat taxonomies
-  .x = taxa$TaxonID[!is.na(taxa$TaxonID)],
+  .x = new_taxa$TaxonID[!is.na(new_taxa$TaxonID)],
   ~  classification(.x, db = 'itis')[[1]] %>%
     select(1:2) %>%
     pivot_wider(
@@ -32,27 +36,21 @@ ranks <- map(
       values_from = 'name')) %>%
   bind_rows() %>%
   cbind(
-    TaxonID = taxa$TaxonID[!is.na(taxa$TaxonID)],
-    taxon = taxa$taxon[!is.na(taxa$TaxonID)]) %>%
-  select(!kingdom:subphylum) %>%
-  rbind(taxa[is.na(taxa$TaxonID),] %>% 
-          mutate(
-            class = NA,
-            subclass = NA,
-            infraclass = NA,
-            superorder = NA,
-            order = NA,
-            suborder = NA,
-            infraorder = NA,
-            superfamily = NA,
-            family = NA,
-            genus = NA,
-            species = NA,
-            subfamily = NA,
-            tribe = NA,
-            subgenus = NA,
-            subtribe = NA)) %>% 
-  relocate(TaxonID:taxon)
+    TaxonID = new_taxa$TaxonID[!is.na(new_taxa$TaxonID)],
+    taxon = new_taxa$taxon[!is.na(new_taxa$TaxonID)]) %>%
+  select(
+    c(TaxonID, taxon, class, order, suborder, family, subfamily, genus, species)) %>%
+  add_row(
+    TaxonID = NA,
+    taxon = new_taxa$taxon[is.na(new_taxa$TaxonID)],
+    class = NA,
+    order = NA,
+    suborder = NA,
+    family = NA,
+    subfamily = NA,
+    genus = NA,
+    species = NA) %>% 
+  rbind(taxa)
 
 write.csv(ranks, file = paste('data/taxa_', today(), '.csv'), row.names = F)
 

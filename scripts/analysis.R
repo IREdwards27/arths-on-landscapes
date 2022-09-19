@@ -40,6 +40,24 @@ circles <- read_csv(
 
 # foliage dataframe processing (site level) -------------------------------------
 
+# calculate total number of observations for each class (Collembola = 39, Euchelicerata = 371, Insecta = 2942)
+foliage_arths %>% 
+  filter(!is.na(TaxonID)) %>% 
+  left_join(
+    taxa,
+    by = 'TaxonID') %>% 
+  group_by(class) %>% 
+  summarize(number_observed = sum(Quantity, na.rm = T))
+
+# calculate total number of observations for each order
+foliage_arths %>% 
+  filter(!is.na(TaxonID)) %>% 
+  left_join(
+    taxa,
+    by = 'TaxonID') %>% 
+  group_by(order) %>% 
+  summarize(number_observed = sum(Quantity, na.rm = T))
+
 # calculate total family diversity observed at each site (not standardized by number of surveys)
 foliage_arths %>% 
   left_join(
@@ -59,28 +77,6 @@ foliage_arths %>%
     by = c('CircleFK' = 'CircleID')) %>% 
   group_by(SiteFK) %>% 
   summarize(fam_div = n_distinct(family))
-
-# calculate abundance as mean # of arths per survey (not standardized for missing values)
-foliage_arths %>% 
-  left_join(
-    taxa,
-    by = 'TaxonID') %>% 
-  group_by(BeatSheetFK) %>% 
-  summarize(arths_per_survey = sum(Quantity, na.rm = T)) %>% 
-  left_join(
-    beatsheets %>% 
-      select(BeatSheetID, TreeFK),
-    by = c('BeatSheetFK' = 'BeatSheetID')) %>% 
-  left_join(
-    trees %>% 
-      select(TreeID, CircleFK),
-    by = c('TreeFK' = 'TreeID')) %>% 
-  left_join(
-    circles %>% 
-      select(CircleID, SiteFK),
-    by = c('CircleFK' = 'CircleID')) %>% 
-  group_by(SiteFK) %>% 
-  summarize(mean_arths_per_survey = mean(arths_per_survey, na.rm = T))
 
 # calculate abundance as mean biomass per survey (not standardized for missing values)
 foliage_arths %>% 
