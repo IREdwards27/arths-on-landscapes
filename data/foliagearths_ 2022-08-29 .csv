@@ -1648,36 +1648,36 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 121352,140478,beetle,4,1,NA,Mordellidae,family,Mordellidae,2.3,114383,1
 121353,140478,unidentified,3,1,NA,"Lost, insect",class,Insecta,NA,NA,0
 121354,140479,beetle,5,1,NA,NA,family,Tenebrionidae,5.3,,1
-121681,140719,beetle,4,1,NA,Melyridae?,order,Coleoptera,NA,109216,
-121682,140719,beetle,4,1,NA,"Mordellidae, lost",family,Mordellidae,NA,114383,
-121683,140720,beetle,5,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-121684,140720,other,2,1,NA,Thysanoptera,NA,NA,NA,NA,
-121685,140721,caterpillar,5,1,121685.jpeg,NA,order,Lepidoptera,NA,117232,
-121686,140721,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121687,140721,bee,4,1,NA,NA,order,Hymenoptera,NA,152741,
-121688,140721,spider,5,1,NA,NA,order,Araneae,NA,82732,
-121689,140721,grasshopper,5,1,NA,Gryllidae,family,Orthoptera,NA,102160,
-121690,140723,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121691,140723,spider,5,1,NA,Anyphaenidae,order,Araneae,NA,82732,
-121692,140724,spider,2,1,NA,"Lost, Thomisidae",order,Araneae,NA,82732,
-121693,140725,aphid,2,63,NA,Boogie woogie aphids,suborder,Sternorrhyncha,NA,109185,
-121694,140725,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-121695,140725,spider,4,1,NA,NA,order,Araneae,NA,82732,
-121696,140728,other,2,1,NA,Collembola,order,Collembola,NA,99237,
-121697,140729,beetle,11,1,NA,Elateridae,family,Elateridae,NA,113879,
-121698,140729,beetle,2,4,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121699,140730,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121700,140730,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121701,140730,spider,2,1,NA,NA,order,Araneae,NA,82732,
-121702,140731,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121703,140731,leafhopper,4,1,NA,Nymph,suborder,Auchenorrhyncha,NA,109167,
-121704,140731,ant,3,1,NA,Crematogaster,family,Formicidae,NA,154193,
-121705,140731,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,103358,
-121706,140732,bee,2,1,NA,NA,order,Hymenoptera,NA,152741,
-121707,140732,beetle,3,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-121708,140732,beetle,4,2,NA,Mordellidae,family,Mordellidae,NA,114383,
-121709,140732,moths,2,1,NA,NA,order,Lepidoptera,NA,117232,
-121710,140732,beetle,5,1,NA,Staphylinidae,family,Staphylinidae,NA,113265,
+121681,140719,beetle,4,1,NA,Melyridae?,order,Psocodea,1.5,,1
+121682,140719,beetle,4,1,NA,"Mordellidae, lost",family,Mordellidae,NA,114383,0
+121683,140720,beetle,5,1,NA,Mordellidae,family,Mordellidae,3.6,114383,1
+121684,140720,other,2,1,NA,Thysanoptera,order,Thysanoptera,0,NA,1
+121685,140721,caterpillar,5,1,121685.jpeg,NA,order,Lepidoptera,0.9,117232,1
+121686,140721,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.2,114509,1
+121687,140721,bee,4,1,NA,NA,species,Brachyponera chinensis,0.9,,1
+121688,140721,spider,5,1,NA,NA,family,Linyphiidae,9.4,,1
+121689,140721,grasshopper,5,1,NA,Gryllidae,family,Gryllidae,5.2,102160,1
+121690,140723,beetle,4,1,NA,Curculionidae,family,Curculionidae,5.9,114666,1
+121691,140723,spider,5,1,NA,Anyphaenidae,family,Anyphaenidae,7.9,,1
+121692,140724,spider,2,1,NA,"Lost, Thomisidae",family,Thomisidae,NA,,0
+121693,140725,aphid,2,63,NA,Boogie woogie aphids,species,Grylloprociphilus imbricator,15.5,,63
+121694,140725,beetle,4,1,NA,Mordellidae,family,Mordellidae,4.1,114383,1
+121695,140725,spider,4,1,NA,NA,family,Theridiidae,6.6,,1
+121696,140728,other,2,1,NA,Collembola,order,Collembola,0.1,99237,1
+121697,140729,beetle,11,1,NA,Elateridae,family,Elateridae,44.4,113879,1
+121698,140729,beetle,2,4,NA,Chrysomelidae,family,Chrysomelidae,11.3,114509,4
+121699,140730,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,3.3,114509,1
+121700,140730,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,5.5,114509,1
+121701,140730,spider,2,1,NA,NA,family,Anyphaenidae,0.9,,1
+121702,140731,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.6,114509,1
+121703,140731,leafhopper,4,1,NA,Nymph,family,Cicadellidae,4.5,,1
+121704,140731,ant,3,1,NA,Crematogaster,genus,Crematogaster,0.6,,1
+121705,140731,truebugs,3,1,NA,NA,family,Miridae,1.5,,1
+121706,140732,bee,2,1,NA,NA,order,Hymenoptera,0.2,152741,1
+121707,140732,beetle,3,1,NA,Mordellidae,family,Mordellidae,2,114383,1
+121708,140732,beetle,4,2,NA,Mordellidae,family,Mordellidae,5.9,114383,2
+121709,140732,moths,2,1,NA,NA,order,Lepidoptera,0.5,117232,1
+121710,140732,beetle,5,1,NA,Staphylinidae,family,Staphylinidae,1,113265,1
 121711,140733,ant,7,1,NA,"Lost, Formica",family,Formicidae,NA,154193,
 121712,140733,truebugs,5,1,NA,NA,suborder,Heteroptera,NA,103358,
 121713,140735,grasshopper,6,1,NA,"Lost, Gryllidae",family,Orthoptera,NA,102160,
