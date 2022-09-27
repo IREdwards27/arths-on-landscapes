@@ -1679,28 +1679,28 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 121709,140732,moths,2,1,NA,NA,order,Lepidoptera,0.5,117232,1
 121710,140732,beetle,5,1,NA,Staphylinidae,family,Staphylinidae,1,113265,1
 121711,140733,ant,7,1,NA,"Lost, Formica",family,Formicidae,NA,154193,
-121712,140733,truebugs,5,1,NA,NA,suborder,Heteroptera,NA,103358,
-121713,140735,grasshopper,6,1,NA,"Lost, Gryllidae",family,Orthoptera,NA,102160,
-121714,140735,spider,2,1,NA,NA,order,Araneae,NA,82732,
-121715,140736,beetle,5,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-121716,140736,beetle,5,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121717,140736,beetle,3,1,NA,Melyridae?,order,Coleoptera,NA,109216,
-121718,140736,grasshopper,6,1,NA,Gryllidae,family,Orthoptera,NA,102160,
-121719,140736,other,4,1,NA,Chrysopidae,NA,NA,NA,NA,
-121720,140738,beetle,4,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-121721,140739,daddylonglegs,7,1,NA,Lost,order,Opiliones,NA,82753,
-121722,140740,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121723,140740,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121724,140740,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121725,140740,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121726,140741,ant,6,1,NA,NA,family,Formicidae,NA,154193,
-121727,140741,beetle,3,1,NA,Melyridae,order,Coleoptera,NA,109216,
-121728,140741,leafhopper,2,1,NA,"Lost, nymph",suborder,Auchenorrhyncha,NA,109167,
-121729,140742,other,2,1,NA,"Lost, Psocodea",order,Psocodea,NA,998435,
-121730,140742,leafhopper,2,1,NA,Lost,suborder,Auchenorrhyncha,NA,109167,
-121731,140743,beetle,2,4,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-121732,140743,spider,2,1,NA,NA,order,Araneae,NA,82732,
-121733,140743,spider,5,1,NA,Arrow orbweaver w white abdomen and red cephalothorax,order,Araneae,NA,82732,
+121712,140733,truebugs,5,1,NA,NA,family,Miridae,0.9,,1
+121713,140735,grasshopper,6,1,NA,"Lost, Gryllidae",family,Gryllidae,NA,,1
+121714,140735,spider,2,1,NA,NA,family,Linyphiidae,0.9,,1
+121715,140736,beetle,5,1,NA,Mordellidae,family,Mordellidae,4.4,114383,1
+121716,140736,beetle,5,1,NA,Chrysomelidae,family,Chrysomelidae,13.1,114509,1
+121717,140736,beetle,3,1,NA,Melyridae?,order,Psocodea,1,,1
+121718,140736,grasshopper,6,1,NA,Gryllidae,family,Gryllidae,6.6,,1
+121719,140736,other,4,1,NA,Chrysopidae,family,Chrysopidae,3.2,,1
+121720,140738,beetle,4,1,NA,Mordellidae,family,Mordellidae,5,114383,1
+121721,140739,daddylonglegs,7,1,NA,Lost,order,Opiliones,NA,82753,0
+121722,140740,beetle,5,1,NA,Curculionidae,family,Curculionidae,15.5,114666,1
+121723,140740,beetle,2,1,NA,Chrysomelidae,family,Chrysomelidae,3.7,114509,1
+121724,140740,spider,3,1,NA,NA,family,Clubionidae,2.7,,1
+121725,140740,spider,3,1,NA,NA,family,Araneidae,2.5,,1
+121726,140741,ant,6,1,NA,NA,genus,Camponotus,4.5,,1
+121727,140741,beetle,3,1,NA,Melyridae,order,Psocodea,1.1,,1
+121728,140741,leafhopper,2,1,NA,"Lost, nymph",suborder,Auchenorrhyncha,NA,109167,0
+121729,140742,other,2,1,NA,"Lost, Psocodea",order,Psocodea,NA,998435,0
+121730,140742,leafhopper,2,1,NA,Lost,suborder,Auchenorrhyncha,NA,109167,0
+121731,140743,beetle,2,4,NA,Chrysomelidae,family,Chrysomelidae,14.1,114509,4
+121732,140743,spider,2,1,NA,NA,family,Theridiidae,0,,1
+121733,140743,spider,5,1,NA,Arrow orbweaver w white abdomen and red cephalothorax,species,Verrucosa arenata,10,,1
 121874,140875,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
 121875,140876,ant,6,1,NA,Formica,family,Formicidae,NA,154193,
 121876,140876,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,103358,
