@@ -1701,43 +1701,42 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 121731,140743,beetle,2,4,NA,Chrysomelidae,family,Chrysomelidae,14.1,114509,4
 121732,140743,spider,2,1,NA,NA,family,Theridiidae,0,,1
 121733,140743,spider,5,1,NA,Arrow orbweaver w white abdomen and red cephalothorax,species,Verrucosa arenata,10,,1
-121874,140875,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121875,140876,ant,6,1,NA,Formica,family,Formicidae,NA,154193,
-121876,140876,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,103358,
-121887,140882,ant,3,6,NA,Crematogaster,family,Formicidae,NA,154193,
-121888,140882,ant,6,1,NA,Formica,family,Formicidae,NA,154193,
-121889,140882,beetle,6,1,NA,Elateridae,family,Elateridae,NA,113879,
-121890,140882,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121891,140882,spider,3,1,NA,Hibana gracilis,order,Araneae,NA,82732,
-121892,140882,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121893,140882,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121894,140883,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121895,140883,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121896,140883,spider,5,1,NA,Anyphaenidae,order,Araneae,NA,82732,
-121897,140884,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121898,140884,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121899,140884,bee,4,1,NA,Lost,order,Hymenoptera,NA,152741,
-121904,140888,truebugs,12,1,NA,Pentatomidae,suborder,Pentatomidae,NA,108628,
-121906,140891,ant,6,2,NA,Formica,family,Formicidae,NA,154193,
-121907,140891,bee,3,1,NA,NA,order,Hymenoptera,NA,152741,
-121908,140891,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121909,140891,grasshopper,6,1,NA,Oecanthus,genus,Orthoptera,NA,102160,
-121910,140891,spider,2,2,NA,NA,order,Araneae,NA,82732,
-121918,140894,ant,6,1,NA,Formica,family,Formicidae,NA,154193,
-121919,140894,bee,2,1,NA,NA,order,Hymenoptera,NA,152741,
-121923,140898,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121924,140898,beetle,3,1,NA,NA,order,Coleoptera,NA,109216,
-121925,140898,spider,2,1,NA,NA,order,Araneae,NA,82732,
-121954,140917,grasshopper,10,1,NA,"Lost, Gryllidae",family,Orthoptera,NA,102160,
-121958,140921,bee,5,1,NA,NA,order,Hymenoptera,NA,152741,
-121959,140921,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-121960,140921,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121962,140923,leafhopper,12,1,NA,"Lost, Flatidae",suborder,Auchenorrhyncha,NA,109167,
-121963,140923,truebugs,14,1,NA,NA,suborder,Heteroptera,NA,103358,
-121965,140925,ant,9,1,NA,NA,family,Formicidae,NA,154193,
-121966,140925,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121978,140931,truebugs,3,17,NA,Corythucha,suborder,Corythucha,NA,104215,
-121979,140931,truebugs,2,23,NA,"Corythucha, nymphs",suborder,Corythucha,NA,104215,
+121874,140875,beetle,2,1,NA,NA,species,Microtonus sericans,0.2,,1
+121875,140876,ant,6,1,NA,Formica,genus,Formica,3.9,,1
+121876,140876,truebugs,3,1,NA,nymph,family,Miridae,0.2,,1
+121887,140882,ant,3,6,NA,Crematogaster,genus,Crematogaster,2.9,,6
+121888,140882,ant,6,1,NA,Formica,genus,Formica,4.9,,1
+121889,140882,beetle,6,1,NA,Elateridae,family,Elateridae,11.2,113879,1
+121890,140882,spider,3,2,NA,NA,family,Anyphaenidae,3.1,,2
+121892,140882,beetle,2,1,NA,NA,subfamily,Scolytinae,1,,1
+121893,140882,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+121894,140883,beetle,2,1,NA,NA,family,Bostrichidae,0.2,,1
+121895,140883,beetle,2,1,NA,NA,subfamily,Scolytinae,1.2,,1
+121896,140883,spider,5,1,NA,Anyphaenidae,family,Anyphaenidae,4.2,,1
+121897,140884,beetle,2,1,NA,NA,subfamily,Scolytinae,0.2,,1
+121898,140884,beetle,2,1,NA,NA,family,Melandryidae,0,,1
+121899,140884,bee,4,1,NA,Lost,order,Hymenoptera,NA,152741,0
+121904,140888,truebugs,12,1,NA,"nymph, Pentatomidae",family,Pentatomidae,118.6,,1
+121906,140891,ant,6,2,NA,Formica,genus,Formica,12.5,,2
+121907,140891,bee,3,1,NA,NA,order,Hymenoptera,0.6,152741,1
+121908,140891,beetle,4,1,NA,Curculionidae,family,Curculionidae,6.1,114666,
+121909,140891,grasshopper,6,1,NA,Oecanthus,genus,Oecanthus,7.5,,1
+121910,140891,spider,2,2,NA,NA,family,Anyphaenidae,1.5,,2
+121918,140894,ant,6,1,NA,Formica,genus,Formica,5.8,,1
+121919,140894,bee,2,1,NA,NA,order,Hymenoptera,0.1,152741,1
+121923,140898,beetle,2,1,NA,NA,subfamily,Scolytinae,0.6,,1
+121924,140898,beetle,3,1,NA,NA,species,Microtonus sericans,1.7,,1
+121925,140898,spider,2,1,NA,NA,family,Thomisidae,0.6,,1
+121954,140917,grasshopper,10,1,NA,"Lost, Gryllidae",family,Gryllidae,NA,,0
+121958,140921,bee,5,1,NA,winged adult,species,Brachyponera chinensis,1,,1
+121959,140921,beetle,2,1,NA,NA,family,Trogossitidae,0.3,,1
+121960,140921,other,2,1,NA,Psocodea,order,Psocodea,0,998435,1
+121962,140923,leafhopper,12,1,NA,"Lost, Flatidae",family,Flatidae,NA,,0
+121963,140923,truebugs,14,1,NA,nymph,family,Coreidae,37.4,103358,1
+121965,140925,ant,9,1,NA,NA,genus,Camponotus,13.1,,1
+121966,140925,beetle,4,1,NA,Curculionidae,family,Curculionidae,3.2,114666,1
+121978,140931,truebugs,3,17,NA,Corythucha,genus,Corythucha,13.5,104215,17
+121979,140931,truebugs,2,23,NA,"Corythucha, nymphs",genus,Corythucha,4.8,104215,20
 121992,140940,spider,3,1,NA,NA,order,Araneae,NA,82732,
 121993,140940,truebugs,2,2,NA,NA,suborder,Heteroptera,NA,103358,
 121994,140940,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
