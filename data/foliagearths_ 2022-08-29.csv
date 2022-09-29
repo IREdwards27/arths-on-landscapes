@@ -1737,21 +1737,22 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 121966,140925,beetle,4,1,NA,Curculionidae,family,Curculionidae,3.2,114666,1
 121978,140931,truebugs,3,17,NA,Corythucha,genus,Corythucha,13.5,104215,17
 121979,140931,truebugs,2,23,NA,"Corythucha, nymphs",genus,Corythucha,4.8,104215,20
-121992,140940,spider,3,1,NA,NA,order,Araneae,NA,82732,
-121993,140940,truebugs,2,2,NA,NA,suborder,Heteroptera,NA,103358,
-121994,140940,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-121998,140943,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-121999,140943,spider,2,1,NA,NA,order,Araneae,NA,82732,
-122002,140946,bee,3,1,NA,Lost,order,Hymenoptera,NA,152741,
-122014,140954,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-122015,140954,spider,2,1,NA,NA,order,Araneae,NA,82732,
-122016,140954,truebugs,3,6,NA,Corythucha,suborder,Corythucha,NA,104215,
-122020,140956,bee,5,1,NA,NA,order,Hymenoptera,NA,152741,
-122021,140956,spider,2,1,NA,NA,order,Araneae,NA,82732,
-122022,140957,beetle,4,1,NA,NA,order,Coleoptera,NA,109216,
-122023,140957,spider,6,1,NA,Anyphaenidae,order,Araneae,NA,82732,
-122024,140959,leafhopper,10,1,NA,Flatidae,suborder,Auchenorrhyncha,NA,109167,
-122025,140959,truebugs,5,1,NA,Lost,suborder,Heteroptera,NA,103358,
+221992,140940,,2,1,,,family,Miridae,0.5,,1
+121992,140940,spider,3,1,NA,NA,family,Thomisidae,4,,1
+121993,140940,truebugs,2,2,NA,NA,genus,Corythucha,0.7,,2
+121994,140940,other,2,1,NA,Psocodea,order,Psocodea,0.2,998435,1
+121998,140943,beetle,4,1,NA,Curculionidae,family,Chrysomelidae,4.1,,1
+121999,140943,spider,2,1,NA,NA,family,Thomisidae,0.3,,1
+122002,140946,bee,3,1,NA,Lost,order,Hymenoptera,NA,152741,0
+122014,140954,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,10.2,114509,2
+122015,140954,spider,2,1,NA,NA,family,Anyphaenidae,1.1,,1
+122016,140954,truebugs,3,6,NA,Corythucha,genus,Corythucha,3.8,104215,6
+122020,140956,bee,5,1,NA,NA,species,Brachyponera chinensis,2.5,,1
+122021,140956,spider,2,1,NA,NA,family,Araneidae,0.5,,1
+122022,140957,beetle,4,1,NA,NA,family,Curculionidae,6.2,,1
+122023,140957,spider,6,1,NA,Anyphaenidae,family,Anyphaenidae,9.7,,1
+122024,140959,leafhopper,10,1,NA,Flatidae,family,Flatidae,22.4,,1
+122025,140959,truebugs,5,1,NA,Lost,suborder,Heteroptera,NA,103358,0
 122202,141047,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
 122203,141047,other,2,1,NA,"Lost, Collembola",order,Collembola,NA,99237,
 122205,141049,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
