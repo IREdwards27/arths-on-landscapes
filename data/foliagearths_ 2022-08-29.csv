@@ -1753,50 +1753,50 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 122023,140957,spider,6,1,NA,Anyphaenidae,family,Anyphaenidae,9.7,,1
 122024,140959,leafhopper,10,1,NA,Flatidae,family,Flatidae,22.4,,1
 122025,140959,truebugs,5,1,NA,Lost,suborder,Heteroptera,NA,103358,0
-122202,141047,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-122203,141047,other,2,1,NA,"Lost, Collembola",order,Collembola,NA,99237,
-122205,141049,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-122206,141049,beetle,5,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-122215,141053,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-122216,141053,daddylonglegs,7,1,NA,NA,order,Opiliones,NA,82753,
-122217,141053,truebugs,4,1,NA,NA,suborder,Heteroptera,NA,103358,
-122225,141059,bee,4,1,NA,NA,order,Hymenoptera,NA,152741,
-122226,141059,spider,2,1,NA,NA,order,Araneae,NA,82732,
-122227,141059,other,4,1,NA,Collembola,order,Collembola,NA,99237,
-122228,141059,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
-122245,141075,ant,6,1,NA,NA,family,Formicidae,NA,154193,
-122246,141075,beetle,4,1,NA,Elateridae,family,Elateridae,NA,113879,
-122247,141075,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,
-122252,141082,beetle,25,1,NA,Elateridae,family,Elateridae,NA,113879,
-122259,141087,ant,7,1,NA,NA,family,Formicidae,NA,154193,
-122260,141087,beetle,4,2,NA,Curculionidae,family,Curculionidae,NA,114666,
-122261,141087,spider,4,1,NA,NA,order,Araneae,NA,82732,
-122263,141091,ant,8,1,NA,Formica,family,Formicidae,NA,154193,
-122264,141092,spider,8,1,NA,Leucauge venusta,order,Araneae,NA,82732,
-122265,141092,other,4,1,NA,Psocodea,order,Psocodea,NA,998435,
-122267,141094,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-122268,141094,truebugs,2,1,NA,Nymph,suborder,Heteroptera,NA,103358,
-122269,141096,daddylonglegs,5,1,NA,Lost,order,Opiliones,NA,82753,
-122270,141096,spider,2,1,NA,NA,order,Araneae,NA,82732,
-122271,141096,other,2,1,NA,Collembola,order,Collembola,NA,99237,
-122272,141097,beetle,4,1,NA,Ptilodactyla,order,Coleoptera,NA,109216,
-122273,141098,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,
-122274,141098,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-122275,141098,leafhopper,5,1,NA,NA,suborder,Auchenorrhyncha,NA,109167,
-122277,141101,truebugs,5,2,NA,NA,suborder,Heteroptera,NA,103358,
-122280,141103,bee,4,1,NA,NA,order,Hymenoptera,NA,152741,
-122281,141103,spider,3,1,NA,Thomisidae,order,Araneae,NA,82732,
-122287,141106,daddylonglegs,5,1,NA,NA,order,Opiliones,NA,82753,
-122288,141106,beetle,4,1,NA,"Chrysomelidae, larva",family,Chrysomelidae,NA,114509,
-122289,141107,beetle,5,1,NA,Mordellidae,family,Mordellidae,NA,114383,
-122291,141109,fly,2,1,NA,Lost,order,Diptera,NA,118831,
-122293,141111,ant,3,1,NA,NA,family,Formicidae,NA,154193,
-122294,141111,ant,3,1,NA,NA,family,Formicidae,NA,154193,
-122295,141111,leafhopper,4,1,NA,"Lost, Cicadellidae",suborder,Cicadellidae,NA,109171,
-122302,141114,ant,5,1,NA,NA,family,Formicidae,NA,154193,
-122303,141114,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,
-122304,141114,spider,10,1,NA,"Lost, Salticidae",family,Salticidae,NA,871537,
-122305,141114,spider,4,1,NA,Lost,order,Araneae,NA,82732,
+122202,141047,beetle,2,1,NA,NA,subfamily,Scolytinae,1.4,,1
+122203,141047,other,2,1,NA,"Lost, Collembola",order,Collembola,NA,99237,0
+122205,141049,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,11.5,114509,2
+122206,141049,beetle,5,1,NA,Mordellidae,family,Mordellidae,5.4,114383,1
+122215,141053,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,5.7,114509,1
+122216,141053,daddylonglegs,7,1,NA,NA,genus,Leiobunum,79.3,,1
+122217,141053,truebugs,4,1,NA,NA,family,Reduviidae,2,,1
+122225,141059,bee,4,1,NA,NA,species,Brachyponera chinensis,2.7,,1
+122226,141059,spider,2,1,NA,NA,order,Araneae,NA,82732,0
+122227,141059,other,4,1,NA,Collembola,order,Collembola,0.9,99237,1
+122228,141059,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,0
+122245,141075,ant,6,1,NA,NA,genus,Paratrechina,4.3,,1
+122246,141075,beetle,4,1,NA,Elateridae,family,Elateridae,1.8,113879,1
+122247,141075,beetle,2,1,NA,NA,subfamily,Scolytinae,1.7,,1
+122252,141082,beetle,25,1,NA,Elateridae,family,Elateridae,11.4,113879,1
+122259,141087,ant,7,1,NA,NA,genus,Camponotus,5.7,,1
+122260,141087,beetle,4,2,NA,Curculionidae,family,Curculionidae,11.6,114666,2
+122261,141087,spider,4,1,NA,NA,family,Linyphiidae,4,,1
+122263,141091,ant,8,1,NA,Formica,genus,Formica,10.9,,1
+122264,141092,spider,8,1,NA,Leucauge venusta,genus,Leucauge,28.5,,1
+122265,141092,other,4,1,NA,Psocodea,order,Psocodea,2.2,998435,1
+122267,141094,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,10.8,114509,3
+122268,141094,truebugs,2,1,NA,Nymph,family,Miridae,0,,1
+122269,141096,daddylonglegs,5,1,NA,Lost,order,Opiliones,NA,82753,0
+122270,141096,spider,2,1,NA,NA,family,Araneidae,0.6,,1
+122271,141096,other,2,1,NA,Collembola,order,Collembola,0,99237,1
+122272,141097,beetle,4,1,NA,Ptilodactyla,genus,Ptilodactyla,3.5,,1
+122273,141098,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,2.9,114509,1
+122274,141098,beetle,5,1,NA,Curculionidae,family,Curculionidae,8.8,114666,1
+122275,141098,leafhopper,5,1,NA,NA,family,Cicadellidae,8.6,,1
+122277,141101,truebugs,5,2,NA,nymphs,family,Pentatomidae,18.7,,2
+122280,141103,bee,4,1,NA,NA,order,Hymenoptera,1.2,152741,1
+122281,141103,spider,3,1,NA,Thomisidae,family,Thomisidae,6.9,,1
+122287,141106,daddylonglegs,5,1,NA,NA,genus,Leiobunum,66.6,,1
+122288,141106,beetle,4,1,NA,"Chrysomelidae, larva",subfamily,Cryptocephalinae,47.2,,1
+122289,141107,beetle,5,1,NA,Mordellidae,family,Mordellidae,3.6,114383,1
+122291,141109,fly,2,1,NA,Lost,order,Diptera,NA,118831,0
+122293,141111,ant,3,1,NA,NA,genus,Tetramorium,0.3,,1
+122294,141111,ant,3,1,NA,NA,genus,Dorymyrmex,0.2,,1
+122295,141111,leafhopper,4,1,NA,"Lost, Cicadellidae",family,Cicadellidae,NA,109171,0
+122302,141114,ant,5,1,NA,NA,genus,Camponotus,3.6,,1
+122303,141114,beetle,4,1,NA,Curculionidae,family,Curculionidae,4.4,114666,1
+122304,141114,spider,10,1,NA,"Lost, Salticidae",family,Salticidae,NA,871537,0
+122305,141114,spider,4,1,NA,Lost,order,Araneae,NA,82732,0
 122901,141490,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,
 122902,141492,spider,2,1,NA,"Lost, Araneidae",family,Araneidae,NA,82737,
 122903,141493,truebugs,2,8,NA,"Corythucha, nymphs",suborder,Corythucha,NA,104215,
