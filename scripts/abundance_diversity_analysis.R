@@ -85,8 +85,12 @@ ground_arths %>%
 
 # setting up analysis dataframes ------------------------------------------
 
-# foliage arth site-level dataframe with family diversity and mean arthropod biomass per survey
-foliage_sites <- foliage_arths %>% 
+# foliage arth circle-level dataframe with family diversity, mean arthropod biomass per survey, cicle environmental variables, and forest cover w/in 1km radius
+foliage_circles <- foliage_arths %>% 
+  # filter to confident IDs while still working on bug ID
+  mutate(Taxon = case_when(
+    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
+    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>% 
   left_join(
     taxa,
     by = 'TaxonID') %>% 
@@ -94,17 +98,18 @@ foliage_sites <- foliage_arths %>%
     order %in% c('Araneae','Coleoptera','Hemiptera','Opiliones','Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>% 
   left_join(
     beatsheets %>% 
-      select(BeatSheetID, TreeFK),
+      select(BeatSheetID, Date, TreeFK),
     by = c('BeatSheetFK' = 'BeatSheetID')) %>% 
+  # filter to first two rounds of data collection while finishing bug ID
+  filter(as.Date(Date, format = '%m/%d/%Y') < as.Date('2022-06-26')) %>% 
   left_join(
     trees %>% 
       select(TreeID, CircleFK),
     by = c('TreeFK' = 'TreeID')) %>% 
   left_join(
-    circles %>% 
-      select(CircleID, SiteFK),
+    circles,
     by = c('CircleFK' = 'CircleID')) %>% 
-  group_by(SiteFK) %>% 
+  group_by(CircleFK) %>% 
   summarize(fam_div = n_distinct(family)) %>% 
   left_join(
     foliage_arths %>% 
@@ -131,16 +136,23 @@ foliage_sites <- foliage_arths %>%
         circles %>% 
           select(CircleID, SiteFK),
         by = c('CircleFK' = 'CircleID')) %>% 
-      group_by(SiteFK) %>% 
+      group_by(CircleFK) %>% 
       summarize(mean_mass_per_survey = mean(mass_per_survey, na.rm = T)),
-    by = 'SiteFK') %>% 
+    by = 'CircleFK') %>% 
+  left_join(
+    circles,
+    by = c('CircleFK' = 'CircleID')) %>% 
   left_join(
     sites %>% 
-      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp, forest_1km, aw_cai_mn_1km, nlsi_1km, cai_mn_1km)),
+      select(c(SiteID, forest_1km)),
     by = c('SiteFK' = 'SiteID'))
 
-# ground arth site-level dataframe with family diversity and mean arthropod biomass per survey
-ground_sites <- ground_arths %>% 
+# ground arth circle-level dataframe with family diversity, mean arthropod biomass per survey, circle-level environmental traits, and 1km forest cover
+ground_circles <- ground_arths %>% 
+  # filter to confident IDs while still working on bug ID
+  mutate(Taxon = case_when(
+    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
+    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>% 
   left_join(
     taxa,
     by = 'TaxonID') %>% 
@@ -149,13 +161,19 @@ ground_sites <- ground_arths %>%
   left_join(
     pitfalls,
     by = 'PitfallID') %>% 
+  # filter to first two rounds of data collection while finishing bug ID
+  filter(as.Date(DateDeployed, format = '%m/%d/%Y') < as.Date('2022-06-26')) %>% 
   left_join(
     circles,
     by = 'CircleID') %>% 
-  group_by(SiteFK) %>% 
+  group_by(CircleID) %>% 
   summarize(fam_div = n_distinct(family)) %>% 
   left_join(
     ground_arths %>% 
+      # filter to confident IDs while still working on bug ID
+      mutate(Taxon = case_when(
+        Taxon == 'Trogossitidae' ~ 'Nitidulidae',
+        Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
       left_join(
         taxa,
         by = 'TaxonID') %>% 
@@ -169,115 +187,94 @@ ground_sites <- ground_arths %>%
       left_join(
         circles,
         by = 'CircleID') %>% 
-      group_by(SiteFK) %>% 
+      group_by(CircleID) %>% 
       summarize(mean_mass_per_trap = mean(mass_per_trap, na.rm = T)),
-    by = 'SiteFK') %>% 
+    by = 'CircleID') %>% 
+  left_join(
+    circles,
+    by = 'CircleID') %>% 
   left_join(
     sites %>% 
-      select(c(SiteID, forest_2km, pafrac_5km, nlsi_2km, nlsi_5km:mn_night_temp, forest_1km, aw_cai_mn_1km, nlsi_1km, cai_mn_1km)),
+      select(c(SiteID, forest_1km)),
     by = c('SiteFK' = 'SiteID'))
 
 
 # visualization -----------------------------------------------------------
 
-ggplot(foliage_sites) +
+ggplot(foliage_circles) +
+  geom_point(aes(
+    x = PercentCanopyCover,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_circles) +
+  geom_point(aes(
+    x = DistanceToEdgem,
+    y = mean_mass_per_survey,
+    color = fam_div))
+
+ggplot(foliage_circles) +
   geom_point(aes(
     x = forest_1km,
     y = mean_mass_per_survey,
     color = fam_div))
 
-ggplot(foliage_sites) +
+ggplot(ground_circles) +
   geom_point(aes(
-    x = cai_mn_1km,
-    y = mean_mass_per_survey,
+    x = LitterDepthmm,
+    y = mean_mass_per_trap,
     color = fam_div))
 
-ggplot(foliage_sites) +
+ggplot(ground_circles) +
   geom_point(aes(
-    x = nlsi_1km,
-    y = mean_mass_per_survey,
+    x = HerbCoverEstimate,
+    y = mean_mass_per_trap,
     color = fam_div))
 
-ggplot(foliage_sites) +
+ggplot(ground_circles) +
   geom_point(aes(
-    x = mn_day_temp,
-    y = mean_mass_per_survey,
+    x = DistanceToEdgem,
+    y = mean_mass_per_trap,
     color = fam_div))
 
-ggplot(foliage_sites) +
-  geom_point(aes(
-    x = mn_night_temp,
-    y = mean_mass_per_survey,
-    color = fam_div))
-
-ggplot(ground_sites) +
+ggplot(ground_circles) +
   geom_point(aes(
     x = forest_1km,
-    y = mean_mass_per_trap,
-    color = fam_div))
-
-ggplot(ground_sites) +
-  geom_point(aes(
-    x = cai_mn_1km,
-    y = mean_mass_per_trap,
-    color = fam_div))
-
-ggplot(ground_sites) +
-  geom_point(aes(
-    x = nlsi_1km,
-    y = mean_mass_per_trap,
-    color = fam_div))
-
-ggplot(ground_sites) +
-  geom_point(aes(
-    x = mn_day_temp,
-    y = mean_mass_per_trap,
-    color = fam_div))
-
-ggplot(ground_sites) +
-  geom_point(aes(
-    x = mn_night_temp,
     y = mean_mass_per_trap,
     color = fam_div))
 
 # modeling ----------------------------------------------------------------
 
 ground_abundance_model <- lm(
-  mean_mass_per_trap ~ forest_1km + cai_mn_1km + nlsi_1km,
-  data = ground_sites)
+  mean_mass_per_trap ~ LitterDepthmm + HerbCoverEstimate + DistanceToEdgem + forest_1km,
+  data = ground_circles)
 
 summary(ground_abundance_model)
 
 ground_diversity_model <- lm(
-  fam_div ~ forest_1km + cai_mn_1km + nlsi_1km,
-  data = ground_sites)
+  fam_div ~ LitterDepthmm + HerbCoverEstimate + DistanceToEdgem + forest_1km,
+  data = ground_circles)
 
 summary(ground_diversity_model)
 
 foliage_abundance_model <- lm(
-  mean_mass_per_survey ~ forest_1km + cai_mn_1km + nlsi_1km,
-  data = foliage_sites)
+  mean_mass_per_survey ~ PercentCanopyCover + DistanceToEdgem + forest_1km,
+  data = foliage_circles)
 
 summary(foliage_abundance_model)
 
 foliage_diversity_model <- lm(
-  fam_div ~ forest_1km + cai_mn_1km + nlsi_1km,
-  data = foliage_sites)
+  fam_div ~ PercentCanopyCover + DistanceToEdgem + forest_1km,
+  data = foliage_circles)
 
 summary(foliage_diversity_model)
 
 
 # next steps --------------------------------------------------------------
 
-# separate abundance and diversity frames - abundance should be one row for the mass in each survey so modeling calculates mean, total diversity cannot be - how do we handle this?
-# review model possibilities - notes from ENEC 562
-## for site-level, what can best account for small sample size (6 replicates)?
-## predictor variable selection using what type of model selection?
-## start with GLM and go from there?
 
-# what has to happen first?
-## finish bug ID
-## review uncertain identifications
-## add IDs and taxonomies to taxa not in ITIS
-## add mass estimations or protocol for beat sheets with lost arths
-## select arth groups to analyze
+# finish bug ID
+# review uncertain identifications
+# add mass estimations or protocol for beat sheets with lost arths
+# review models with Allen
+# start work on dissimilarity models
