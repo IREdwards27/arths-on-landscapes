@@ -53,6 +53,7 @@ foliage_families <- foliage_arths %>%
   left_join(
     taxa,
     by = 'TaxonID') %>% 
+  # filter to focal orders
   filter(
     order %in% c('Araneae','Coleoptera','Hemiptera','Opiliones','Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>% 
   left_join(
@@ -73,42 +74,61 @@ foliage_families <- foliage_arths %>%
     n_individuals = sum(Quantity, na.rm = T),
     biomass = sum(TotalMass))
 
-allFams <- sort(unique(foliage_families$family))
+foliageFams <- sort(unique(foliage_families$family))
 
+# make a data frame with sites as columns and families as rows
 family_circles <- map_dfc(
   unique(foliage_families$CircleFK),
   ~ foliage_families %>% 
+    # select families observed at a particular circle
     filter(
       CircleFK == .x,
       !is.na(family)) %>% 
+    # add families that were not observed at a particular circle
     bind_rows(tibble(
-      family = allFams[!allFams %in% .$family])) %>% 
+      family = foliageFams[!foliageFams %in% .$family])) %>% 
     mutate(
+      # populate circle ID to non-observed family rows
       CircleFK = if_else(
         is.na(CircleFK),
         true = .x,
         false = CircleFK),
+      # fill in 0 values for non-observed family biomass
       biomass = if_else(
         is.na(biomass),
         true = 0,
         false = biomass),
+      # take the log of biomass, adding one so zero observations results in value of zero
       logBiomass = log(biomass+1)) %>% 
+    # select to relevant columns
     select(!n_individuals:biomass) %>% 
+    # pivot everything out
     pivot_wider(
       names_from = family,
       values_from = logBiomass) %>% 
+    # transpose it to an uglier but technically better frame
     t() %>% 
+    # get the circle names out of the first row
     row_to_names(row_number = 1) %>% 
+    # make it a real boy
     as_tibble(rownames = 'family') %>% 
+    # put it in alphabetical order by family
     arrange(family) %>% 
+    # remove family
     select(!family)) %>% 
-  cbind(family = allFams) %>% 
+  # put family back in at the end of the map function
+  cbind(family = foliageFams) %>% 
+  # put family at the front for my sanity
   relocate(family) %>% 
+  # duh
   as_tibble() %>% 
+  # why these didn't automatically come out numeric, god only knows
   mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x)))
 
+# gonna be real, found this on the internet, but it's simple and correct
 euclidean <- function(a, b) sqrt(sum((a - b)^2))
 
+# nested map function to apply euclidean function to every possible combination of circles, resulting in an identity matrix for euclidean distance between circle communities
 euclidean_matrix <- map_dfr(
   .x = 2:31,
   .f = function(s){
@@ -117,24 +137,34 @@ euclidean_matrix <- map_dfr(
       .f = ~ euclidean(family_circles[[s]], family_circles[[.x]])
       )
   }) %>% 
+  # setting the column names
   set_names(names(family_circles)[2:31]) %>% 
+  # setting the rows to mark for each circle
   cbind(circle = names(family_circles)[2:31]) %>% 
+  # again, for my peace of mind
   relocate(circle)
 
+# I came up with this one, because I'm a genius
 jaccard <- function(a,b,c) {a/(a+b+c)}
 
+# make a matrix like the euclidean one but for jaccard dissimilarity
 jaccard_matrix <- map_dfr(
   .x = circles$CircleID,
   .f = function(s){
     map_dfc(
       .x = circles$CircleID,
       .f = ~
+        # the '1-' makes it dissimilarity instead of similarity
         1 - jaccard(
+          # total number of families in both of two particular circles
           a = sum(foliage_families$family[foliage_families$CircleFK == s] %in% foliage_families$family[foliage_families$CircleFK == .x]),
+          # total number of families in the first circle but not the second
           b = sum(!foliage_families$family[foliage_families$CircleFK == s] %in% foliage_families$family[foliage_families$CircleFK == .x]),
+          # total number of families in the second circle but not the first
           c = sum(!foliage_families$family[foliage_families$CircleFK == .x] %in% foliage_families$family[foliage_families$CircleFK == s]))
     )
   }) %>% 
+  # I explained this part up there
   set_names(circles$CircleID) %>% 
   cbind(circle = circles$CircleID) %>% 
   relocate(circle)
@@ -142,17 +172,20 @@ jaccard_matrix <- map_dfr(
 
 # calculating distance metrics (foliage) ------------------------------------
 
+# make a matrix for difference in percent canopy cover between circles
 canopy_cover_matrix <- map_dfr(
   .x = 1:30,
   .f = function(s){
     map_dfc(
       .x = 1:30,
+      # I never thought I'd be so grateful for subtraction
       .f = ~ abs(circles$PercentCanopyCover[s] - circles$PercentCanopyCover[.x]))
   }) %>% 
   set_names(circles$CircleID) %>% 
   cbind(circle = circles$CircleID) %>% 
   relocate(circle)
 
+# these ones all work the same - this one is for distance to edge
 distance_edge_matrix <- map_dfr(
   .x = 1:30,
   .f = function(s){
@@ -164,6 +197,7 @@ distance_edge_matrix <- map_dfr(
   cbind(circle = circles$CircleID) %>% 
   relocate(circle)
 
+# this one's a little different because it uses the geosphere package, which has it's own "give me a matrix" function, so I just had to adjust format
 distance_matrix <- circles %>% 
   select(Longitude, Latitude) %>% 
   distm() %>% 
@@ -172,6 +206,7 @@ distance_matrix <- circles %>%
   cbind(circle = circles$CircleID) %>% 
   relocate(circle)
 
+# this one only differs by site, so it's even simpler - difference in percent forest cover within a 1km radius
 forest_matrix <- map_dfr(
   .x = 1:6,
   .f = function(s){
@@ -187,13 +222,17 @@ forest_matrix <- map_dfr(
 # creating a model-friendly data frame (foliage) ----------------------------
 
 analysis_frame <- euclidean_matrix %>% 
+  # shifts from a matrix to a frame defined by the first two columns - sorry, Hadley - corresponding to the euclidean distance between the two
   pivot_longer(
     cols = 2:length(.),
     names_to = 'circle2',
     values_to = 'euclideanDistance') %>% 
+  # remove rows for circles against themselves - not useful data
   filter(circle != circle2) %>% 
+  # take advantage of the lack of identical distances between any two site pairs to remove the duplicates resulting from flipping out a matrix
   distinct(euclideanDistance, .keep_all = T) %>% 
   left_join(
+    # pretty much the same thing
     jaccard_matrix %>% 
       pivot_longer(
         cols = 2:length(.),
@@ -222,6 +261,7 @@ analysis_frame <- euclidean_matrix %>%
         values_to = 'geographicDistance'),
     by = c('circle','circle2')) %>% 
   rename('circle1' = 'circle') %>% 
+  # adding site IDs to bind forest cover data
   mutate(
     site1 = case_when(
       str_detect(circle1, 'DF') ~ 'DF',
@@ -244,7 +284,6 @@ analysis_frame <- euclidean_matrix %>%
         names_to = 'site2',
         values_to = 'forest_1km'),
     by = c('site1','site2'))
-
 
 
 # calculating environmental distance metrics (ground) ---------------------
