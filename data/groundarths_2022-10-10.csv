@@ -68,7 +68,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 67,10,family,Carabidae,1,197.6,NA,109234
 68,13,subfamily,Scolytinae,4,6.5,NA,678830
 69,13,order,Collembola,5,0.1,NA,99237
-70,13,genus,Pardosa,9,510.6,NA,849078
+70,13,family,Lycosidae,9,510.6,NA,849078
 71,13,genus,Ceuthophilus,1,225.1,NA,657660
 72,13,genus,Gryllus,1,538.9,NA,657701
 73,12,order,Diptera,1,0.6,NA,118831
@@ -76,12 +76,12 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 75,12,order,Collembola,1,0.1,NA,99237
 76,12,order,Opiliones,1,1.2,NA,82753
 77,12,species,Prenolepis imparis,1,1,NA,577971
-78,12,genus,Pardosa,1,45.3,NA,849078
+78,12,family,Lycosidae,1,45.3,NA,849078
 79,12,genus,Ceuthophilus,1,264.9,NA,657660
 80,11,subfamily,Scolytinae,10,14,NA,678830
 81,11,species,Prenolepis imparis,1,1,NA,577971
 82,11,order,Collembola,17,7.4,NA,99237
-83,11,genus,Pardosa,2,8.6,NA,849078
+83,11,family,Lycosidae,2,8.6,NA,849078
 84,11,family,Pentatomidae,1,36.3,nymph,108628
 85,11,order,Polydesmida,1,101.1,NA,154416
 86,14,family,Apidae,1,0.3,NA,154394
@@ -91,7 +91,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 90,14,genus,Hypoponera,1,1.3,NA,574195
 91,14,genus,Armadillidium,1,10.3,NA,93249
 92,14,family,Clubionidae,1,0.2,NA,871518
-93,14,genus,Pardosa,3,56,NA,849078
+93,14,family,Lycosidae,3,56,NA,849078
 94,14,species,Narceus americanus,1,1265.3,NA,569659
 95,17,family,Clubionidae,1,0.5,NA,871518
 96,17,family,Salticidae,1,11.6,NA,871537
@@ -104,7 +104,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 103,15,species,Prenolepis imparis,4,3.4,NA,577971
 104,15,genus,Hypoponera,4,5.1,NA,574195
 105,15,genus,Formica,2,16.4,NA,154211
-106,15,genus,Pardosa,2,123.2,NA,849078
+106,15,family,Lycosidae,2,123.2,NA,849078
 107,15,genus,Ceuthophilus,1,184.1,NA,657660
 108,15,family,Carabidae,1,256.3,NA,109234
 109,16,order,Collembola,2,0.1,NA,99237
@@ -117,7 +117,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 116,18,order,Araneae,1,0.3,NA,82732
 117,18,family,Clubionidae,3,3,NA,871518
 118,18,family,Tetragnathidae,1,1.9,NA,847764
-119,18,species,Castianeira longipalpa,1,14.2,NA,875557
+119,18,genus,Castianeira,1,14.2,NA,875557
 120,18,family,Trogossitidae,1,0.9,NA,678393
 121,18,family,Curculionidae,2,12.8,NA,114666
 122,18,genus,Hypoponera,4,5.1,NA,574195
@@ -162,7 +162,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 161,26,order,Siphonophorida,2,45.2,NA,568964
 162,26,family,Scarabaeidae,1,44.2,NA,114493
 163,26,family,Clubionidae,1,17.2,NA,871518
-164,26,genus,Pardosa,2,151.8,NA,849078
+164,26,family,Lycosidae,2,151.8,NA,849078
 165,27,subfamily,Scolytinae,3,5.2,NA,678830
 166,27,family,Clubionidae,1,3.1,NA,871518
 167,27,genus,Armadillidium,2,22.8,NA,93249
@@ -180,7 +180,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 179,29,order,Collembola,1,0.1,NA,99237
 180,29,family,Tephritidae,1,0.4,NA,142604
 181,29,family,Clubionidae,1,2.7,NA,871518
-182,29,genus,Pardosa,1,48.4,NA,849078
+182,29,family,Lycosidae,1,48.4,NA,849078
 183,30,family,Braconidae,1,0,NA,152867
 184,30,family,Chironomidae,1,0,NA,127917
 185,30,order,Arachnida,1,0.1,mite,1117840
@@ -191,13 +191,13 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 190,32,subfamily,Scolytinae,2,3.5,NA,678830
 191,32,genus,Tetramorium,1,1.4,NA,154245
 192,32,genus,Armadillidium,5,141.9,NA,93249
-193,32,genus,Pardosa,2,103.5,NA,849078
+193,32,family,Lycosidae,2,103.5,NA,849078
 194,33,subfamily,Scolytinae,3,5.7,NA,678830
 195,33,order,Diptera,1,0.4,NA,118831
 196,33,order,Diptera,1,1.3,NA,118831
 197,33,genus,Hypoponera,3,4.8,NA,574195
 198,33,genus,Armadillidium,26,402.7,NA,93249
-199,33,genus,Pardosa,1,82.2,NA,849078
+199,33,family,Lycosidae,1,82.2,NA,849078
 200,34,order,Collembola,16,9,NA,99237
 201,34,order,Diptera,1,1.3,NA,118831
 202,34,subfamily,Scolytinae,7,12.4,NA,678830
@@ -206,7 +206,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 205,34,species,Apheloria tigana,1,991.8,NA,570770
 206,34,genus,Ponera,5,7.2,NA,574209
 207,34,genus,Armadillidium,9,193.4,NA,93249
-208,34,genus,Pardosa,1,44.5,NA,849078
+208,34,family,Lycosidae,1,44.5,NA,849078
 209,34,genus,Ceuthophilus,1,436,NA,657660
 210,35,order,Collembola,17,9.8,NA,99237
 211,35,subfamily,Scolytinae,1,1.8,NA,678830
@@ -219,7 +219,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 218,36,order,Diptera,1,0.7,NA,118831
 219,36,subphylum,Myriapoda,1,NA,lost during processing,563885
 220,36,family,Clubionidae,3,1.5,NA,871518
-221,36,genus,Pardosa,6,329.2,NA,849078
+221,36,family,Lycosidae,6,329.2,NA,849078
 222,36,subfamily,Scolytinae,22,34.7,NA,678830
 223,36,species,Lycoptis americana,1,0.3,NA,NA
 224,36,genus,Hypoponera,17,22.8,NA,574195
@@ -234,12 +234,12 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 233,37,genus,Camponotus,1,17.4,NA,154194
 234,37,order,Coleoptera,1,1.1,larva,109216
 235,37,species,Armadillidium nasatum,30,449.4,NA,594387
-236,37,genus,Pardosa,5,280.8,NA,849078
+236,37,family,Lycosidae,5,280.8,NA,849078
 237,37,genus,Ceuthophilus,3,1361.4,NA,657660
 238,38,order,Collembola,1,0.3,NA,99237
 239,38,subfamily,Scolytinae,8,13.4,NA,678830
 240,38,family,Clubionidae,1,2.2,NA,871518
-241,38,genus,Pardosa,1,58.5,NA,849078
+241,38,family,Lycosidae,1,58.5,NA,849078
 242,38,genus,Camponotus,2,30.6,NA,154194
 243,38,genus,Ceuthophilus,6,2118.3,NA,657660
 244,38,family,Gnaphosidae,1,0.1,NA,185556
@@ -262,20 +262,20 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 264,41,subfamily,Scolytinae,13,21.8,NA,678830
 265,41,family,Carabidae,1,351.3,NA,109234
 266,41,family,Machilidae,1,22.7,NA,99225
-267,41,genus,Pardosa,3,121.7,NA,849078
+267,41,family,Lycosidae,3,121.7,NA,849078
 268,42,order,Collembola,1,0,NA,99237
 269,42,family,Stratiomyidae,1,0,larva,130150
 270,42,subfamily,Scolytinae,7,10.8,NA,678830
 271,42,species,Prenolepis imparis,1,2,NA,577971
 272,42,family,Gryllidae,1,1.1,NA,102281
 273,42,species,Armadillidium nasatum,1,26.3,NA,594387
-274,42,species,Vonones sayi,1,43.9,NA,1014189
-275,42,genus,Pardosa,1,40.6,NA,849078
+274,42,genus,Vonones,1,43.9,NA,1014189
+275,42,family,Lycosidae,1,40.6,NA,849078
 276,42,genus,Platydracus,1,312.3,NA,NA
 277,43,order,Collembola,7,2.8,NA,99237
 278,43,family,Clubionidae,4,3.5,NA,871518
 279,43,family,Corinnidae,2,26.5,NA,871519
-280,43,genus,Pardosa,6,255.1,NA,849078
+280,43,family,Lycosidae,6,255.1,NA,849078
 281,43,subfamily,Scolytinae,5,7.8,NA,678830
 282,43,family,Curculionidae,1,3.8,NA,114666
 283,43,genus,Ponera,7,10.3,NA,574209
@@ -287,8 +287,8 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 289,44,species,Phrurotimpus alarius,1,0,NA,887078
 290,44,family,Clubionidae,1,2.8,NA,871518
 291,44,family,Corinnidae,1,11.2,NA,871519
-292,44,species,Castianeira longipalpa,1,9.7,NA,875557
-293,44,genus,Pardosa,2,283.7,NA,849078
+292,44,genus,Castianeira,1,9.7,NA,875557
+293,44,family,Lycosidae,2,283.7,NA,849078
 294,44,genus,Ponera,3,3.4,NA,574209
 295,44,genus,Formica,1,7.1,NA,154211
 296,44,species,Armadillidium nasatum,13,199.5,NA,594387
@@ -304,7 +304,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 306,46,subfamily,Scolytinae,6,10.3,NA,678830
 307,46,family,Carabidae,1,287.7,NA,109234
 308,46,species,Phrurotimpus alarius,2,3.1,NA,887078
-309,46,genus,Pardosa,2,127.2,NA,849078
+309,46,family,Lycosidae,2,127.2,NA,849078
 310,46,genus,Ponera,5,7.7,NA,574209
 311,46,genus,Camponotus,3,39.6,NA,154194
 312,46,species,Armadillidium nasatum,38,603.7,NA,594387
@@ -324,7 +324,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 326,48,genus,Ponera,2,2.9,NA,574209
 327,48,genus,Formica,1,8.5,NA,154211
 328,48,genus,Camponotus,6,128.5,NA,154194
-329,48,genus,Pardosa,3,144.5,NA,849078
+329,48,family,Lycosidae,3,144.5,NA,849078
 330,48,genus,Ceuthophilus,6,2660,NA,657660
 331,49,order,Collembola,15,8.5,NA,99237
 332,49,subfamily,Scolytinae,5,6.8,NA,678830
@@ -332,7 +332,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 334,49,genus,Ponera,2,2.7,NA,574209
 335,49,genus,Camponotus,1,28,NA,154194
 336,49,order,Spirobolida,1,13,NA,154419
-337,49,species,Castianeira longipalpa,3,57.8,NA,875557
+337,49,genus,Castianeira,3,57.8,NA,875557
 338,49,genus,Ceuthophilus,6,2352.7,NA,657660
 339,50,order,Collembola,21,10.1,NA,99237
 340,50,family,Trogossitidae,1,1.7,NA,678393
@@ -340,7 +340,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 342,50,genus,Camponotus,1,22.5,NA,154194
 343,50,family,Stratiomyidae,1,19.1,NA,130150
 344,50,species,Armadillidium nasatum,4,48.9,NA,594387
-345,50,genus,Pardosa,1,50.8,NA,849078
+345,50,family,Lycosidae,1,50.8,NA,849078
 346,50,genus,Ceuthophilus,3,783.1,NA,657660
 347,50,subfamily,Scolytinae,1,2.1,NA,678830
 348,51,order,Collembola,11,2.1,NA,99237
@@ -389,7 +389,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 391,55,family,Curculionidae,1,1.1,NA,114666
 392,55,family,Nitidulidae,1,0.4,NA,114290
 393,55,genus,Ponera,5,6.2,NA,574209
-394,55,species,Camponotus castaneus,2,44.6,NA,575746
+394,55,genus,Camponotus,2,44.6,NA,575746
 395,55,species,Camponotus pennsylvanicus,3,104.9,NA,154198
 396,56,genus,Solenopsis,2,1.4,NA,154237
 397,56,genus,Temnothorax,1,0.5,NA,NA
@@ -426,7 +426,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 427,60,order,Collembola,2,0.2,NA,99237
 428,60,genus,Ponera,9,14.3,NA,574209
 429,60,species,Phrurotimpus alarius,1,1,NA,887078
-430,60,genus,Pardosa,1,39.3,NA,849078
+430,60,family,Lycosidae,1,39.3,NA,849078
 431,60,family,Stratiomyidae,1,10.7,NA,130150
 432,60,species,Armadillidium nasatum,5,131.3,NA,594387
 433,61,order,Collembola,2,0.3,NA,99237
@@ -448,7 +448,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 449,62,order,Araneae,1,0.5,NA,82732
 450,62,family,Tetragnathidae,3,1.4,NA,847764
 451,62,genus,Ponera,154,187.5,NA,574209
-452,62,species,Camponotus castaneus,1,17.4,NA,575746
+452,62,genus,Camponotus,1,17.4,NA,575746
 453,62,genus,Formica,1,9.8,NA,154211
 454,62,species,Porcellio scaber,9,199.3,NA,93269
 455,62,species,Armadillidium vulgare,8,77.4,NA,93250
@@ -517,9 +517,9 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 518,71,species,Ponera pennsylvanica,4,3.6,NA,583962
 519,71,genus,Formica,4,32.7,NA,154211
 520,71,species,Camponotus pennsylvanicus,1,21.1,NA,154198
-521,71,genus,Pardosa,1,39.9,NA,849078
+521,71,family,Lycosidae,1,39.9,NA,849078
 522,71,order,Polydesmida,1,57.2,NA,154416
-523,71,species,Castianeira longipalpa,1,41.5,NA,875557
+523,71,genus,Castianeira,1,41.5,NA,875557
 524,71,family,Gryllidae,1,0.7,NA,102281
 525,71,species,Armadillidium nasatum,1,32.4,NA,594387
 526,71,family,Carabidae,1,242.4,NA,109234
@@ -531,7 +531,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 532,72,species,Phrurotimpus alarius,1,0.6,NA,887078
 533,72,subfamily,Scolytinae,10,14.1,NA,678830
 534,72,family,Drosophilidae,1,1.3,NA,146185
-535,72,species,Vonones sayi,1,41.7,NA,1014189
+535,72,genus,Vonones,1,41.7,NA,1014189
 536,72,family,Stratiomyidae,5,103,NA,130150
 537,72,species,Ponera pennsylvanica,8,11,NA,583962
 538,72,species,Armadillidium nasatum,2,30.5,NA,594387
@@ -541,10 +541,10 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 542,74,subfamily,Scolytinae,3,4.5,NA,678830
 543,74,species,Ponera pennsylvanica,5,8.4,NA,583962
 544,74,species,Camponotus pennsylvanicus,1,19.5,NA,154198
-545,74,species,Vonones sayi,2,85.4,NA,1014189
+545,74,genus,Vonones,2,85.4,NA,1014189
 546,74,species,Armadillidium nasatum,1,27.8,NA,594387
-547,74,species,Castianeira longipalpa,2,44.8,NA,875557
-548,74,genus,Pardosa,1,91.2,NA,849078
+547,74,genus,Castianeira,2,44.8,NA,875557
+548,74,family,Lycosidae,1,91.2,NA,849078
 549,74,genus,Phyllophaga,1,581.1,NA,926453
 550,74,genus,Ceuthophilus,6,2314,NA,657660
 551,73,order,Collembola,3,0.5,NA,99237
@@ -572,7 +572,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 573,80,family,Staphylinidae,1,0.5,NA,113265
 574,80,genus,Ponera pennsylvanica,1,1.6,NA,583962
 575,80,order,Polydesmida,2,131.5,NA,154416
-576,80,species,Castianeira longipalpa,1,42.4,NA,875557
+576,80,genus,Castianeira,1,42.4,NA,875557
 577,80,family,Stratiomyidae,5,147,NA,130150
 578,80,family,Carabidae,3,722,NA,109234
 579,80,family,Ectobiidae,1,145.6,NA,NA
@@ -586,18 +586,18 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 587,79,species,Linepithema humile,1,3.4,NA,575041
 588,79,species,Brachyponera chinensis,3,4.9,NA,NA
 589,79,species,Camponotus pennsylvanicus,2,26.2,NA,154198
-590,79,species,Camponotus castaneus,1,22.5,NA,575746
-591,79,species,Castianeira longipalpa,1,37.6,NA,875557
-592,79,genus,Pardosa,1,88.3,NA,849078
+590,79,genus,Camponotus,1,22.5,NA,575746
+591,79,genus,Castianeira,1,37.6,NA,875557
+592,79,family,Lycosidae,1,88.3,NA,849078
 593,79,genus,Ceuthophilus,4,1915,NA,657660
 594,77,order,Collembola,46,7.6,NA,99237
-595,77,genus,Pirata,1,10.7,NA,849140
+595,77,family,Lycosidae,1,10.7,NA,849140
 596,77,species,Brachyponera chinensis,2,2.9,NA,NA
 597,77,subfamily,Scolytinae,6,10.2,NA,678830
 598,77,subfamily,Cryptocephalinae,1,32,NA,678807
 599,77,species,Armadillidium nasatum,3,87,NA,594387
-600,77,species,Castianeira longipalpa,3,113.3,NA,875557
-601,77,genus,Pardosa,2,96.8,NA,849078
+600,77,genus,Castianeira,3,113.3,NA,875557
+601,77,family,Lycosidae,2,96.8,NA,849078
 602,77,genus,Cyrtomenus,1,30.2,NA,108566
 603,77,species,Galerita bicolor,1,297.2,NA,111751
 604,77,family,Stratiomyidae,3,76.9,NA,130150
@@ -612,14 +612,14 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 613,76,genus,Formica,1,8,NA,154211
 614,76,species,Camponotus pennsylvanicus,1,17.6,NA,154198
 615,76,family,Scarabaeidae,1,56.6,NA,114493
-616,76,genus,Pardosa,1,118.2,NA,849078
+616,76,family,Lycosidae,1,118.2,NA,849078
 617,76,family,Stratiomyidae,1,24.6,NA,130150
 618,76,genus,Ceuthophilus,10,3416,NA,657660
 619,81,order,Diptera,1,0.2,NA,118831
 620,81,family,Trogossitidae,2,3.6,NA,678393
 621,81,species,Brachyponera chinensis,34,51.8,NA,NA
 622,81,species,Camponotus pennsylvanicus,2,36,NA,154198
-623,81,species,Castianeira longipalpa,1,16.5,NA,875557
+623,81,genus,Castianeira,1,16.5,NA,875557
 624,82,order,Diptera,1,0.2,NA,118831
 625,82,order,Collembola,1,0,NA,99237
 626,82,class,Diplopoda,1,2.3,NA,154409
@@ -634,7 +634,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 635,83,family,Corinnidae,2,3.5,NA,871519
 636,83,species,Brachyponera chinensis,2,3.7,NA,NA
 637,83,genus,Formica,1,8.3,NA,154211
-638,83,genus,Pardosa,1,25.1,NA,849078
+638,83,family,Lycosidae,1,25.1,NA,849078
 639,84,order,Diptera,4,0.6,NA,118831
 640,84,order,Collembola,2,0,NA,99237
 641,84,species,Phrurotimpus alarius,1,0.3,NA,887078
@@ -651,14 +651,14 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 652,85,order,Collembola,3,0.2,NA,99237
 653,85,subfamily,Scolytinae,6,8.9,NA,678830
 654,85,species,Brachyponera chinensis,18,29.9,NA,NA
-655,85,species,Castianeira longipalpa,1,23,NA,875557
+655,85,genus,Castianeira,1,23,NA,875557
 656,85,genus,Lycosidae,1,44.3,NA,847731
 657,85,species,Narceus americanus,1,1126,NA,569659
 658,86,order,Collembola,9,1.7,NA,99237
 659,86,family,Chironomidae,1,1.3,NA,127917
 660,86,subfamily,Scolytinae,1,1.3,NA,678830
 661,86,species,Brachyponera chinensis,21,34.1,NA,NA
-662,86,species,Castianeira longipalpa,1,13.1,NA,875557
+662,86,genus,Castianeira,1,13.1,NA,875557
 663,86,species,Armadillidium nasatum,1,37.3,NA,594387
 664,86,species,Narceus americanus,2,3988.2,NA,569659
 665,87,family,Drosophilidae,1,2.4,NA,146185
@@ -702,7 +702,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 703,91,family,Trogossitidae,1,0.4,NA,678393
 704,92,order,Collembola,1,0.6,NA,99237
 705,92,family,Gryllidae,5,10,NA,102281
-706,92,species,Castianeira longipalpa,1,40.7,NA,875557
+706,92,genus,Castianeira,1,40.7,NA,875557
 707,92,family,Machilidae,1,4.5,NA,99225
 708,92,genus,Aphaenogaster,1,2.1,NA,574031
 709,92,family,Lycosidae,3,113.5,NA,847731
@@ -731,7 +731,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 732,95,family,Gryllidae,2,5.9,NA,102281
 733,95,species,Brachyponera chinensis,26,44.6,NA,NA
 734,95,family,Tetrigidae,1,144.5,NA,102162
-735,95,species,Castianeira longipalpa,1,29.8,NA,875557
+735,95,genus,Castianeira,1,29.8,NA,875557
 736,95,genus,Vonones,2,88.6,NA,1012885
 737,95,species,Camponotus pennsylvanicus,5,96.8,NA,154198
 738,95,genus,Camponotus,1,41.8,NA,154194
@@ -746,7 +746,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 747,97,family,Gryllidae,2,4.5,NA,102281
 748,97,family,Corinnidae,1,1.6,NA,871519
 749,97,genus,Vonones,1,51.3,NA,1012885
-750,97,species,Castianeira longipalpa,1,30.6,NA,875557
+750,97,genus,Castianeira,1,30.6,NA,875557
 751,97,genus,Platydracus,1,370.1,NA,NA
 752,97,genus,Ceuthophilus,1,274.3,NA,657660
 753,97,species,Narceus americanus,1,4078.6,NA,569659
@@ -812,261 +812,261 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,Notes,TaxonID
 813,105,family,Gryllidae,1,4,NA,102281
 814,105,species,Camponotus pennsylvanicus,1,24.2,NA,154198
 815,105,genus,Ceuthophilus,2,1730,NA,657660
-816,106,family,Trogossitidae,1,0.6,,
-817,106,order,Diptera,1,0.4,,
-818,106,genus,Forelius,3,1.7,,
-819,106,genus,Tapinoma,2,1.2,,
-820,106,family,Staphylinidae,8,3.1,,
-821,106,family,Tetragnathidae,2,0.7,,
-822,106,family,Corinnidae,2,1.5,,
-823,106,species,Brachyponera chinensis,23,24.2,,
-824,106,family,Gryllidae,9,17.2,,
-825,106,species,Armadillidium vulgare,34,1104.7,,
-826,106,family,Carcinophoridae,1,24.5,,
-827,106,class,Chilopoda,1,29.6,,
-828,106,order,Hymenoptera,1,9.1,,
-829,106,species,Camponotus pennsylvanicus,3,83.9,,
-830,106,family,Carabidae,2,381.6,,
-831,107,family,Staphylinidae,1,0.1,,
-832,107,family,Drosophilidae,1,1.5,,
-833,107,family,Tetragnathidae,1,0.3,,
-834,107,species,Porcellio scaber,13,253.7,,
-835,107,genus,Tetramorium,3,2.2,,
-836,107,species,Brachyponera chinensis,2,2.2,,
-837,107,family,Corinnidae,1,5.6,,
-838,107,family,Gryllidae,7,13,,
-839,107,species,Armadillidium vulgare,27,1135.8,,
-840,107,order,Diptera,1,0.4,,
-841,107,species,Apheloria tigana,2,1345.8,,
-842,108,order,Diptera,1,12.1,,
-843,108,family,Drosophilidae,2,5.3,,
-844,108,species,Brachyponera chinensis,9,13.9,,
-845,108,species,Porcellio scaber,2,51.2,,
-846,108,genus,Armadillidium,1,0.3,juvenile,
-847,108,species,Armadillidium nasatum,44,678.8,,
-848,108,species,Armadillidium vulgare,38,1142.3,,
-849,108,species,Camponotus pennsylvanicus,49,1397.5,,
-850,109,order,Collembola,3,0.4,,
-851,109,order,Diptera,2,0.8,,
-852,109,species,Armadillidium nasatum,2,54,,
-853,109,species,Camponotus pennsylvanicus,1,38.5,,
-854,109,genus,Formica,2,17.3,,
-855,109,species,Brachyponera chinensis,1,1.1,winged adult,
-856,109,species,Brachyponera chinensis,22,29.8,,
-857,110,order,Collembola,1,0.1,,
-858,110,order,Diptera,2,3.5,,
-859,110,subfamily,Scolytinae,1,0.6,,
-860,110,species,Porcellio scaber,1,53,,
-861,110,family,Corinnidae,1,0.9,,
-862,110,genus,Formica,4,35.1,,
-863,110,species,Brachyponera chinensis,1,1.2,winged adult,
-864,110,species,Brachyponera chinensis,3,4.5,,
-865,110,species,Narceus americanus,1,609.8,,
-866,111,order,Collembola,8,3.9,,
-867,111,order,Diptera,2,0.5,,
-868,111,family,Gryllidae,1,4.3,,
-869,111,species,Armadillidium nasatum,5,107.9,,
-870,111,species,Brachyponera chinensis,17,26.5,,
-871,111,genus,Ceuthophilus,3,3140.6,,
-872,111,species,Apheloria tigana,1,1045.8,,
-873,112,order,Collembola,3,3.8,,
-874,112,order,Diptera,2,1,,
-875,112,species,Brachyponera chinensis,9,13.7,,
-876,112,family,Scarabaeidae,1,22.5,,
-877,112,family,Carabidae,2,440,,
-878,112,family,Corinnidae,1,0.9,,
-879,112,order,Polydesmida,1,51.5,,
-880,112,genus,Ceuthophilus,3,1321.5,,
-881,112,species,Armadillidium nasatum,17,427.9,,
-882,112,family,Gryllidae,1,2.2,,
-883,113,order,Collembola,3,3.4,,
-884,113,order,Diptera,2,2.9,,
-885,113,order,Lepidoptera,1,3.5,,
-886,113,species,Brachyponera chinensis,1,1.7,,
-887,113,order,Blattodea,1,14.2,,
-888,113,family,Scarabaeidae,3,47.8,,
-889,113,family,Carabidae,2,879.9,,
-890,113,genus,Ceuthophilus,4,2341.1,,
-891,114,order,Diptera,1,0.9,,
-892,114,order,Collembola,1,1.6,,
-893,114,family,Machilidae,1,2.7,,
-894,114,species,Brachyponera chinensis,5,8.1,,
-895,114,species,Armadillidium nasatum,2,59.2,,
-896,114,class,Chilopoda,1,42.6,,
-897,114,class,Myriapoda,1,23.4,,
-898,114,genus,Gryllus,1,819.9,,
-899,114,genus,Ceuthophilus,4,3231,,
-900,115,order,Collembola,2,2,,
-901,115,family,Gryllidae,1,0.4,,
-902,115,subfamily,Scolytinae,1,0.5,,
-903,115,family,Machilidae,1,2.3,,
-904,115,species,Brachyponera chinensis,1,1.6,,
-905,115,family,Scarabaeidae,1,10.3,,
-906,115,genus,Formica,1,12,,
-907,115,family,Lycosidae,1,49.7,,
-908,115,genus,Ceuthophilus,3,2773.9,,
-909,116,family,Gryllidae,3,9.9,,
-910,116,family,Trogossitidae,1,2.5,,
-911,116,species,Brachyponera chinensis,9,9.2,,
-912,116,species,Armadillidium vulgare,22,851,,
-913,116,family,Carabidae,2,430.2,,
-914,116,species,Camponotus pennsylvanicus,1,31.3,,
-915,116,species,Narceus americanus,1,5507.8,,
-916,117,order,Hymenoptera,1,0.1,,
-917,117,order,Araneae,1,0,too damaged for ID,
-918,117,order,Coleoptera,1,0,too small for ID,
-919,117,order,Diptera,1,1.1,,
-920,117,family,Trogossitidae,1,1.1,,
-921,117,order,Polydesmida,1,42.9,,
-922,117,species,Brachyponera chinensis,2,3,,
-923,117,genus,Solenopsis,2,0.5,,
-924,117,family,Formicidae,2,1.9,missing antennae,
-925,117,family,Gryllidae,3,16.8,,
-926,117,family,Carcinophoridae,1,27.1,,
-927,117,species,Apheloria tigana,1,746.2,,
-928,117,species,Armadillidium vulgare,17,569.4,,
-929,118,order,Hymenoptera,1,0,,
-930,118,species,Brachyponera chinensis,11,12.9,,
-931,118,species,Armadillidium nasatum,8,134.3,,
-932,118,species,Armadillidium vulgare,13,450.9,,
-933,118,species,Camponotus pennsylvanicus,33,1108.6,,
-934,119,subfamily,Emesinae,1,0.3,,
-935,119,family,Corinnidae,1,2,,
-936,119,species,Brachyponera chinensis,11,15.4,,
-937,120,genus,Formica,4,46.6,,
-938,120,species,Porcellio scaber,1,39.8,,
-939,120,species,Brachyponera chinensis,3,4.9,,
-940,121,order,Collembola,90,4,,
-941,121,order,Diptera,1,0.5,,
-942,121,family,Gryllidae,3,5.9,,
-943,121,family,Staphylinidae,8,3.4,,
-944,121,order,Hymenoptera,1,2.7,sawfly larva,
-945,121,genus,Tetramorium,1,1.2,,
-946,121,species,Armadillidium nasatum,1,46.6,,
-947,121,genus,Camponotus,7,208.7,,
-948,121,order,Polydesmida,1,45.9,,
-949,121,order,Callipodida,1,273.8,,
-950,121,class,Myriapoda,1,2.4,,
-951,121,family,Lycosidae,1,19.2,,
-952,121,genus,Vonones,4,153.4,,
-953,121,genus,Ceuthophilus,1,436.2,,
-954,123,order,Collembola,29,16.9,,
-955,123,order,Diptera,4,3.8,,
-956,123,family,Gryllidae,1,1.3,,
-957,123,species,Brachyponera chinensis,5,7.1,,
-958,123,genus,Formica,2,23.1,,
-959,123,genus,Camponotus,2,41.7,,
-960,123,species,Camponotus pennsylvanicus,14,304.6,,
-961,122,order,Collembola,3,1.1,,
-962,122,order,Isopoda,1,0.9,,
-963,122,order,Diptera,1,0.4,,
-964,122,family,Gryllidae,3,10.6,,
-965,122,genus,Tetramorium,4,2.7,,
-966,122,family,Lycosidae,2,117.3,,
-967,122,genus,Ceuthophilus,4,1754.6,,
-968,124,order,Collembola,7,3.7,,
-969,124,family,Stratiomyidae,1,2.4,larva,
-970,124,family,Curculionidae,1,4.3,,
-971,124,species,Brachyponera chinensis,1,1.1,,
-972,124,species,Armadillidium nasatum,5,132.6,,
-973,124,order,Diptera,1,0.6,,
-974,124,family,Lycosidae,2,91.7,,
-975,124,genus,Ceuthophilus,1,998.6,,
-976,124,species,Narceus americanus,1,2252.8,,
-977,125,order,Collembola,13,5.5,,
-978,125,order,Diptera,2,2.6,,
-979,125,family,Gryllidae,3,3.7,,
-980,125,species,Brachyponera chinensis,3,3.9,,
-981,125,genus,Vonones,1,36.8,,
-982,125,family,Carabidae,2,1284.5,,
-983,125,genus,Ceuthophilus,7,4843.4,,
-984,126,order,Diptera,4,2.9,,
-985,126,species,Armadillidium vulgare,1,37,,
-986,126,order,Polydesmida,1,35.9,,
-987,127,class,Diplopoda,1,5.2,,
-988,127,species,Brachyponera chinensis,1,1.6,,
-989,127,species,Armadillidium nasatum,8,269.3,,
-990,127,species,Armadillidium vulgare,15,560.9,,
-991,127,genus,Hypoponera,1,0.5,,
-992,127,genus,Paratrechina,3,0.5,,
-993,127,genus,Tetramorium,5,2.2,,
-994,127,genus,Forelius,7,2.8,,
-995,128,genus,Armadillidium,3,1.6,juveniles,
-996,128,species,Armadillidium vulgare,2,65.1,,
-997,128,family,Corinnidae,2,2.9,,
-998,128,species,Armadillidium nasatum,3,56.5,,
-999,128,family,Nitidulidae,1,1.4,,
-1000,128,genus,Formica,3,20.3,,
-1001,128,genus,Camponotus,1,23.4,,
-1002,128,species,Brachyponera chinensis,19,25.2,,
-1003,128,species,Camponotus pennsylvanicus,10,309.6,,
-1004,129,order,Diptera,4,2.6,,
-1005,129,order,Collembola,4,0.3,,
-1006,129,order,Polydesmida,1,48.1,,
-1007,129,order,Araneae,1,0,damaged,
-1008,129,genus,Armadillidium,18,7.1,juveniles,
-1009,129,species,Porcellio scaber,15,150.4,,
-1010,129,species,Armadillidium nasatum,38,593.2,,
-1011,129,species,Brachyponera chinensis,22,34,,
-1012,129,species,Armadillidium vulgare,1,26.1,,
-1013,129,species,Camponotus pennsylvanicus,2,74.4,,
-1014,130,genus,Crematogaster,2,1.4,,
-1015,130,species,Brachyponera chinensis,2,3.1,,
-1016,130,species,Camponotus pennsylvanicus,1,27.1,,
-1017,130,genus,Camponotus,1,7.1,,
-1018,130,family,Gryllidae,1,3.3,,
-1019,130,genus,Armadillidium,6,2.8,juveniles,
-1020,130,species,Porcellio scaber,11,65,,
-1021,130,species,Armadillidium nasatum,3,51.5,,
-1022,130,species,Armadillidium vulgare,7,252.6,,
-1023,131,order,Collembola,17,3.4,,
-1024,131,order,Blattodea,1,35.9,,
-1025,131,family,Staphylinidae,7,2.1,,
-1026,131,family,Gryllidae,4,32.4,,
-1027,131,species,Armadillidium nasatum,1,44,,
-1028,131,species,Brachyponera chinensis,4,7,,
-1029,131,genus,Camponotus,3,108.1,,
-1030,131,order,Polydesmida,2,160.5,,
-1031,131,species,Narceus americanus,1,782.7,,
-1032,131,class,Diplopoda,1,2.9,,
-1033,131,family,Carabidae,2,580.5,,
-1034,131,genus,Tetramorium,1,0.9,,
-1035,131,order,Opiliones,1,3.1,,
-1036,131,family,Nitidulidae,1,1,,
-1037,132,order,Diptera,3,1.7,,
-1038,132,family,Gnaphosidae,1,1.4,,
-1039,132,genus,Tetramorium,3,4.1,,
-1040,132,family,Lycosidae,1,92.6,,
-1041,132,order,Callipodida,2,626.1,,
-1042,132,genus,Ceuthophilus,3,2352.2,,
-1043,133,order,Collembola,11,7.2,,
-1044,133,order,Diptera,8,10.1,,
-1045,133,family,Formicidae,1,0.4,damaged,
-1046,133,family,Bostrichidae,1,1,,
-1047,133,family,Corinnidae,1,1.7,,
-1048,133,species,Brachyponera chinensis,7,10.4,,
-1049,133,genus,Camponotus,8,141.7,,
-1050,133,order,Blattodea,2,41.8,,
-1051,133,genus,Formica,4,29.2,,
-1052,133,family,Lycosidae,1,53.3,,
-1053,133,species,Camponotus pennsylvanicus,3,75.9,,
-1054,133,family,Gryllidae,1,0.3,,
-1055,134,order,Collembola,10,1.4,,
-1056,134,family,Lycosidae,1,9.3,,
-1057,134,family,Nitidulidae,1,2.4,,
-1058,134,species,Brachyponera chinensis,6,8.3,1 winged adult,
-1059,134,species,Armadillidium nasatum,2,34,1 juvenile,
-1060,134,family,Gryllidae,2,8.8,,
-1061,134,genus,Ceuthophilus,2,1973.1,,
-1062,135,order,Collembola,16,4.4,,
-1062,135,order,Diptera,2,0.2,,
-1063,135,family,Staphylinidae,3,1.1,,
-1064,135,order,Diplopoda,3,5.9,,
-1065,135,family,Corinnidae,1,0.9,,
-1066,135,genus,Formica,1,11.5,,
-1067,135,family,Lycosidae,1,36,,
-1068,135,order,Polydesmida,1,53.7,,
-1069,135,species,Narceus americanus,1,1737.5,,
-1070,135,species,Brachyponera chinensis,9,11.7,,
-1071,135,genus,Ceuthophilus,2,1553.3,,
-1072,135,family,Gryllidae,15,47.4,,
+816,106,family,Trogossitidae,1,0.6,NA,NA
+817,106,order,Diptera,1,0.4,NA,NA
+818,106,genus,Forelius,3,1.7,NA,NA
+819,106,genus,Tapinoma,2,1.2,NA,NA
+820,106,family,Staphylinidae,8,3.1,NA,NA
+821,106,family,Tetragnathidae,2,0.7,NA,NA
+822,106,family,Corinnidae,2,1.5,NA,NA
+823,106,species,Brachyponera chinensis,23,24.2,NA,NA
+824,106,family,Gryllidae,9,17.2,NA,NA
+825,106,species,Armadillidium vulgare,34,1104.7,NA,NA
+826,106,family,Carcinophoridae,1,24.5,NA,NA
+827,106,class,Chilopoda,1,29.6,NA,NA
+828,106,order,Hymenoptera,1,9.1,NA,NA
+829,106,species,Camponotus pennsylvanicus,3,83.9,NA,NA
+830,106,family,Carabidae,2,381.6,NA,NA
+831,107,family,Staphylinidae,1,0.1,NA,NA
+832,107,family,Drosophilidae,1,1.5,NA,NA
+833,107,family,Tetragnathidae,1,0.3,NA,NA
+834,107,species,Porcellio scaber,13,253.7,NA,NA
+835,107,genus,Tetramorium,3,2.2,NA,NA
+836,107,species,Brachyponera chinensis,2,2.2,NA,NA
+837,107,family,Corinnidae,1,5.6,NA,NA
+838,107,family,Gryllidae,7,13,NA,NA
+839,107,species,Armadillidium vulgare,27,1135.8,NA,NA
+840,107,order,Diptera,1,0.4,NA,NA
+841,107,species,Apheloria tigana,2,1345.8,NA,NA
+842,108,order,Diptera,1,12.1,NA,NA
+843,108,family,Drosophilidae,2,5.3,NA,NA
+844,108,species,Brachyponera chinensis,9,13.9,NA,NA
+845,108,species,Porcellio scaber,2,51.2,NA,NA
+846,108,genus,Armadillidium,1,0.3,juvenile,NA
+847,108,species,Armadillidium nasatum,44,678.8,NA,NA
+848,108,species,Armadillidium vulgare,38,1142.3,NA,NA
+849,108,species,Camponotus pennsylvanicus,49,1397.5,NA,NA
+850,109,order,Collembola,3,0.4,NA,NA
+851,109,order,Diptera,2,0.8,NA,NA
+852,109,species,Armadillidium nasatum,2,54,NA,NA
+853,109,species,Camponotus pennsylvanicus,1,38.5,NA,NA
+854,109,genus,Formica,2,17.3,NA,NA
+855,109,species,Brachyponera chinensis,1,1.1,winged adult,NA
+856,109,species,Brachyponera chinensis,22,29.8,NA,NA
+857,110,order,Collembola,1,0.1,NA,NA
+858,110,order,Diptera,2,3.5,NA,NA
+859,110,subfamily,Scolytinae,1,0.6,NA,NA
+860,110,species,Porcellio scaber,1,53,NA,NA
+861,110,family,Corinnidae,1,0.9,NA,NA
+862,110,genus,Formica,4,35.1,NA,NA
+863,110,species,Brachyponera chinensis,1,1.2,winged adult,NA
+864,110,species,Brachyponera chinensis,3,4.5,NA,NA
+865,110,species,Narceus americanus,1,609.8,NA,NA
+866,111,order,Collembola,8,3.9,NA,NA
+867,111,order,Diptera,2,0.5,NA,NA
+868,111,family,Gryllidae,1,4.3,NA,NA
+869,111,species,Armadillidium nasatum,5,107.9,NA,NA
+870,111,species,Brachyponera chinensis,17,26.5,NA,NA
+871,111,genus,Ceuthophilus,3,3140.6,NA,NA
+872,111,species,Apheloria tigana,1,1045.8,NA,NA
+873,112,order,Collembola,3,3.8,NA,NA
+874,112,order,Diptera,2,1,NA,NA
+875,112,species,Brachyponera chinensis,9,13.7,NA,NA
+876,112,family,Scarabaeidae,1,22.5,NA,NA
+877,112,family,Carabidae,2,440,NA,NA
+878,112,family,Corinnidae,1,0.9,NA,NA
+879,112,order,Polydesmida,1,51.5,NA,NA
+880,112,genus,Ceuthophilus,3,1321.5,NA,NA
+881,112,species,Armadillidium nasatum,17,427.9,NA,NA
+882,112,family,Gryllidae,1,2.2,NA,NA
+883,113,order,Collembola,3,3.4,NA,NA
+884,113,order,Diptera,2,2.9,NA,NA
+885,113,order,Lepidoptera,1,3.5,NA,NA
+886,113,species,Brachyponera chinensis,1,1.7,NA,NA
+887,113,order,Blattodea,1,14.2,NA,NA
+888,113,family,Scarabaeidae,3,47.8,NA,NA
+889,113,family,Carabidae,2,879.9,NA,NA
+890,113,genus,Ceuthophilus,4,2341.1,NA,NA
+891,114,order,Diptera,1,0.9,NA,NA
+892,114,order,Collembola,1,1.6,NA,NA
+893,114,family,Machilidae,1,2.7,NA,NA
+894,114,species,Brachyponera chinensis,5,8.1,NA,NA
+895,114,species,Armadillidium nasatum,2,59.2,NA,NA
+896,114,class,Chilopoda,1,42.6,NA,NA
+897,114,class,Myriapoda,1,23.4,NA,NA
+898,114,genus,Gryllus,1,819.9,NA,NA
+899,114,genus,Ceuthophilus,4,3231,NA,NA
+900,115,order,Collembola,2,2,NA,NA
+901,115,family,Gryllidae,1,0.4,NA,NA
+902,115,subfamily,Scolytinae,1,0.5,NA,NA
+903,115,family,Machilidae,1,2.3,NA,NA
+904,115,species,Brachyponera chinensis,1,1.6,NA,NA
+905,115,family,Scarabaeidae,1,10.3,NA,NA
+906,115,genus,Formica,1,12,NA,NA
+907,115,family,Lycosidae,1,49.7,NA,NA
+908,115,genus,Ceuthophilus,3,2773.9,NA,NA
+909,116,family,Gryllidae,3,9.9,NA,NA
+910,116,family,Trogossitidae,1,2.5,NA,NA
+911,116,species,Brachyponera chinensis,9,9.2,NA,NA
+912,116,species,Armadillidium vulgare,22,851,NA,NA
+913,116,family,Carabidae,2,430.2,NA,NA
+914,116,species,Camponotus pennsylvanicus,1,31.3,NA,NA
+915,116,species,Narceus americanus,1,5507.8,NA,NA
+916,117,order,Hymenoptera,1,0.1,NA,NA
+917,117,order,Araneae,1,0,too damaged for ID,NA
+918,117,order,Coleoptera,1,0,too small for ID,NA
+919,117,order,Diptera,1,1.1,NA,NA
+920,117,family,Trogossitidae,1,1.1,NA,NA
+921,117,order,Polydesmida,1,42.9,NA,NA
+922,117,species,Brachyponera chinensis,2,3,NA,NA
+923,117,genus,Solenopsis,2,0.5,NA,NA
+924,117,family,Formicidae,2,1.9,missing antennae,NA
+925,117,family,Gryllidae,3,16.8,NA,NA
+926,117,family,Carcinophoridae,1,27.1,NA,NA
+927,117,species,Apheloria tigana,1,746.2,NA,NA
+928,117,species,Armadillidium vulgare,17,569.4,NA,NA
+929,118,order,Hymenoptera,1,0,NA,NA
+930,118,species,Brachyponera chinensis,11,12.9,NA,NA
+931,118,species,Armadillidium nasatum,8,134.3,NA,NA
+932,118,species,Armadillidium vulgare,13,450.9,NA,NA
+933,118,species,Camponotus pennsylvanicus,33,1108.6,NA,NA
+934,119,subfamily,Emesinae,1,0.3,NA,NA
+935,119,family,Corinnidae,1,2,NA,NA
+936,119,species,Brachyponera chinensis,11,15.4,NA,NA
+937,120,genus,Formica,4,46.6,NA,NA
+938,120,species,Porcellio scaber,1,39.8,NA,NA
+939,120,species,Brachyponera chinensis,3,4.9,NA,NA
+940,121,order,Collembola,90,4,NA,NA
+941,121,order,Diptera,1,0.5,NA,NA
+942,121,family,Gryllidae,3,5.9,NA,NA
+943,121,family,Staphylinidae,8,3.4,NA,NA
+944,121,order,Hymenoptera,1,2.7,sawfly larva,NA
+945,121,genus,Tetramorium,1,1.2,NA,NA
+946,121,species,Armadillidium nasatum,1,46.6,NA,NA
+947,121,genus,Camponotus,7,208.7,NA,NA
+948,121,order,Polydesmida,1,45.9,NA,NA
+949,121,order,Callipodida,1,273.8,NA,NA
+950,121,class,Myriapoda,1,2.4,NA,NA
+951,121,family,Lycosidae,1,19.2,NA,NA
+952,121,genus,Vonones,4,153.4,NA,NA
+953,121,genus,Ceuthophilus,1,436.2,NA,NA
+954,123,order,Collembola,29,16.9,NA,NA
+955,123,order,Diptera,4,3.8,NA,NA
+956,123,family,Gryllidae,1,1.3,NA,NA
+957,123,species,Brachyponera chinensis,5,7.1,NA,NA
+958,123,genus,Formica,2,23.1,NA,NA
+959,123,genus,Camponotus,2,41.7,NA,NA
+960,123,species,Camponotus pennsylvanicus,14,304.6,NA,NA
+961,122,order,Collembola,3,1.1,NA,NA
+962,122,order,Isopoda,1,0.9,NA,NA
+963,122,order,Diptera,1,0.4,NA,NA
+964,122,family,Gryllidae,3,10.6,NA,NA
+965,122,genus,Tetramorium,4,2.7,NA,NA
+966,122,family,Lycosidae,2,117.3,NA,NA
+967,122,genus,Ceuthophilus,4,1754.6,NA,NA
+968,124,order,Collembola,7,3.7,NA,NA
+969,124,family,Stratiomyidae,1,2.4,larva,NA
+970,124,family,Curculionidae,1,4.3,NA,NA
+971,124,species,Brachyponera chinensis,1,1.1,NA,NA
+972,124,species,Armadillidium nasatum,5,132.6,NA,NA
+973,124,order,Diptera,1,0.6,NA,NA
+974,124,family,Lycosidae,2,91.7,NA,NA
+975,124,genus,Ceuthophilus,1,998.6,NA,NA
+976,124,species,Narceus americanus,1,2252.8,NA,NA
+977,125,order,Collembola,13,5.5,NA,NA
+978,125,order,Diptera,2,2.6,NA,NA
+979,125,family,Gryllidae,3,3.7,NA,NA
+980,125,species,Brachyponera chinensis,3,3.9,NA,NA
+981,125,genus,Vonones,1,36.8,NA,NA
+982,125,family,Carabidae,2,1284.5,NA,NA
+983,125,genus,Ceuthophilus,7,4843.4,NA,NA
+984,126,order,Diptera,4,2.9,NA,NA
+985,126,species,Armadillidium vulgare,1,37,NA,NA
+986,126,order,Polydesmida,1,35.9,NA,NA
+987,127,class,Diplopoda,1,5.2,NA,NA
+988,127,species,Brachyponera chinensis,1,1.6,NA,NA
+989,127,species,Armadillidium nasatum,8,269.3,NA,NA
+990,127,species,Armadillidium vulgare,15,560.9,NA,NA
+991,127,genus,Hypoponera,1,0.5,NA,NA
+992,127,genus,Paratrechina,3,0.5,NA,NA
+993,127,genus,Tetramorium,5,2.2,NA,NA
+994,127,genus,Forelius,7,2.8,NA,NA
+995,128,genus,Armadillidium,3,1.6,juveniles,NA
+996,128,species,Armadillidium vulgare,2,65.1,NA,NA
+997,128,family,Corinnidae,2,2.9,NA,NA
+998,128,species,Armadillidium nasatum,3,56.5,NA,NA
+999,128,family,Nitidulidae,1,1.4,NA,NA
+1000,128,genus,Formica,3,20.3,NA,NA
+1001,128,genus,Camponotus,1,23.4,NA,NA
+1002,128,species,Brachyponera chinensis,19,25.2,NA,NA
+1003,128,species,Camponotus pennsylvanicus,10,309.6,NA,NA
+1004,129,order,Diptera,4,2.6,NA,NA
+1005,129,order,Collembola,4,0.3,NA,NA
+1006,129,order,Polydesmida,1,48.1,NA,NA
+1007,129,order,Araneae,1,0,damaged,NA
+1008,129,genus,Armadillidium,18,7.1,juveniles,NA
+1009,129,species,Porcellio scaber,15,150.4,NA,NA
+1010,129,species,Armadillidium nasatum,38,593.2,NA,NA
+1011,129,species,Brachyponera chinensis,22,34,NA,NA
+1012,129,species,Armadillidium vulgare,1,26.1,NA,NA
+1013,129,species,Camponotus pennsylvanicus,2,74.4,NA,NA
+1014,130,genus,Crematogaster,2,1.4,NA,NA
+1015,130,species,Brachyponera chinensis,2,3.1,NA,NA
+1016,130,species,Camponotus pennsylvanicus,1,27.1,NA,NA
+1017,130,genus,Camponotus,1,7.1,NA,NA
+1018,130,family,Gryllidae,1,3.3,NA,NA
+1019,130,genus,Armadillidium,6,2.8,juveniles,NA
+1020,130,species,Porcellio scaber,11,65,NA,NA
+1021,130,species,Armadillidium nasatum,3,51.5,NA,NA
+1022,130,species,Armadillidium vulgare,7,252.6,NA,NA
+1023,131,order,Collembola,17,3.4,NA,NA
+1024,131,order,Blattodea,1,35.9,NA,NA
+1025,131,family,Staphylinidae,7,2.1,NA,NA
+1026,131,family,Gryllidae,4,32.4,NA,NA
+1027,131,species,Armadillidium nasatum,1,44,NA,NA
+1028,131,species,Brachyponera chinensis,4,7,NA,NA
+1029,131,genus,Camponotus,3,108.1,NA,NA
+1030,131,order,Polydesmida,2,160.5,NA,NA
+1031,131,species,Narceus americanus,1,782.7,NA,NA
+1032,131,class,Diplopoda,1,2.9,NA,NA
+1033,131,family,Carabidae,2,580.5,NA,NA
+1034,131,genus,Tetramorium,1,0.9,NA,NA
+1035,131,order,Opiliones,1,3.1,NA,NA
+1036,131,family,Nitidulidae,1,1,NA,NA
+1037,132,order,Diptera,3,1.7,NA,NA
+1038,132,family,Gnaphosidae,1,1.4,NA,NA
+1039,132,genus,Tetramorium,3,4.1,NA,NA
+1040,132,family,Lycosidae,1,92.6,NA,NA
+1041,132,order,Callipodida,2,626.1,NA,NA
+1042,132,genus,Ceuthophilus,3,2352.2,NA,NA
+1043,133,order,Collembola,11,7.2,NA,NA
+1044,133,order,Diptera,8,10.1,NA,NA
+1045,133,family,Formicidae,1,0.4,damaged,NA
+1046,133,family,Bostrichidae,1,1,NA,NA
+1047,133,family,Corinnidae,1,1.7,NA,NA
+1048,133,species,Brachyponera chinensis,7,10.4,NA,NA
+1049,133,genus,Camponotus,8,141.7,NA,NA
+1050,133,order,Blattodea,2,41.8,NA,NA
+1051,133,genus,Formica,4,29.2,NA,NA
+1052,133,family,Lycosidae,1,53.3,NA,NA
+1053,133,species,Camponotus pennsylvanicus,3,75.9,NA,NA
+1054,133,family,Gryllidae,1,0.3,NA,NA
+1055,134,order,Collembola,10,1.4,NA,NA
+1056,134,family,Lycosidae,1,9.3,NA,NA
+1057,134,family,Nitidulidae,1,2.4,NA,NA
+1058,134,species,Brachyponera chinensis,6,8.3,1 winged adult,NA
+1059,134,species,Armadillidium nasatum,2,34,1 juvenile,NA
+1060,134,family,Gryllidae,2,8.8,NA,NA
+1061,134,genus,Ceuthophilus,2,1973.1,NA,NA
+1062,135,order,Collembola,16,4.4,NA,NA
+1062,135,order,Diptera,2,0.2,NA,NA
+1063,135,family,Staphylinidae,3,1.1,NA,NA
+1064,135,order,Diplopoda,3,5.9,NA,NA
+1065,135,family,Corinnidae,1,0.9,NA,NA
+1066,135,genus,Formica,1,11.5,NA,NA
+1067,135,family,Lycosidae,1,36,NA,NA
+1068,135,order,Polydesmida,1,53.7,NA,NA
+1069,135,species,Narceus americanus,1,1737.5,NA,NA
+1070,135,species,Brachyponera chinensis,9,11.7,NA,NA
+1071,135,genus,Ceuthophilus,2,1553.3,NA,NA
+1072,135,family,Gryllidae,15,47.4,NA,NA
