@@ -221,7 +221,7 @@ forest_matrix <- map_dfr(
 
 # creating a model-friendly data frame (foliage) ----------------------------
 
-analysis_frame <- euclidean_matrix %>% 
+analysis_frame_foliage <- euclidean_matrix %>% 
   # shifts from a matrix to a frame defined by the first two columns - sorry, Hadley - corresponding to the euclidean distance between the two
   pivot_longer(
     cols = 2:length(.),
@@ -283,7 +283,53 @@ analysis_frame <- euclidean_matrix %>%
         cols = 2:length(.),
         names_to = 'site2',
         values_to = 'forest_1km'),
-    by = c('site1','site2'))
+    by = c('site1','site2')) %>% 
+  mutate(
+    # make a unique identifier (fine, Hadley)
+    circles = str_c(circle1, circle2, sep = '_'),
+    # convert canopy cover from percent to proportion
+    canopyCover = canopyCover/100,
+    # convert distance to edge from m to km
+    distanceToEdge = distanceToEdge/1000,
+    # convert geographic distance from m to km
+    geographicDistance = geographicDistance/1000) %>% 
+  select(!c(circle1:circle2, site1:site2)) %>% 
+  relocate(circles)
+
+
+# visualizing foliage arthropod stats -------------------------------------
+
+ggplot(analysis_frame_foliage) +
+  geom_point(aes(
+    x = jaccardDissimilarity,
+    y = euclideanDistance))
+
+map(
+  analysis_frame_foliage[,2:3],
+  function(r){
+    map(
+      analysis_frame_foliage[,4:7],
+      function(p){ ggplot(analysis_frame_foliage) +
+          geom_point(aes(
+            x = p,
+            y = r))
+      })
+  })
+
+
+# initial modeling of foliage arths ---------------------------------------
+
+summary(lm(
+  euclideanDistance ~ jaccardDissimilarity,
+  data = analysis_frame_foliage))
+
+summary(lm(
+  euclideanDistance ~ canopyCover + distanceToEdge + geographicDistance + forest_1km,
+  data = analysis_frame_foliage))
+
+summary(lm(
+  jaccardDissimilarity ~ canopyCover + distanceToEdge + geographicDistance + forest_1km,
+  data = analysis_frame_foliage))
 
 
 # calculating environmental distance metrics (ground) ---------------------
@@ -309,3 +355,120 @@ litter_depth_matrix <- map_dfr(
   set_names(circles$CircleID) %>% 
   cbind(circle = circles$CircleID) %>% 
   relocate(circle)
+
+
+# creating a model-friendly data frame (ground) ---------------------------
+
+analysis_frame_ground <- euclidean_matrix %>% 
+  # shifts from a matrix to a frame defined by the first two columns - sorry, Hadley - corresponding to the euclidean distance between the two
+  pivot_longer(
+    cols = 2:length(.),
+    names_to = 'circle2',
+    values_to = 'euclideanDistance') %>% 
+  # remove rows for circles against themselves - not useful data
+  filter(circle != circle2) %>% 
+  # take advantage of the lack of identical distances between any two site pairs to remove the duplicates resulting from flipping out a matrix
+  distinct(euclideanDistance, .keep_all = T) %>% 
+  left_join(
+    # pretty much the same thing
+    jaccard_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'jaccardDissimilarity'),
+    by = c('circle','circle2')) %>% 
+  left_join(
+    herbaceous_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'herbaceousCover'),
+    by = c('circle','circle2')) %>% 
+  left_join(
+    distance_edge_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'distanceToEdge'),
+    by = c('circle','circle2')) %>% 
+  left_join(
+    distance_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'geographicDistance'),
+    by = c('circle','circle2')) %>% 
+  left_join(
+    litter_depth_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'litterDepth'),
+    by = c('circle','circle2')) %>% 
+  rename('circle1' = 'circle') %>% 
+  # adding site IDs to bind forest cover data
+  mutate(
+    site1 = case_when(
+      str_detect(circle1, 'DF') ~ 'DF',
+      str_detect(circle1, 'ERSP') ~ 'ERSP',
+      str_detect(circle1, 'JMNP') ~ 'JMNP',
+      str_detect(circle1, 'NCBG') ~ 'NCBG',
+      str_detect(circle1, 'NCSU') ~ 'NCSU',
+      str_detect(circle1, 'UNC') ~ 'UNC'),
+    site2 = case_when(
+      str_detect(circle2, 'DF') ~ 'DF',
+      str_detect(circle2, 'ERSP') ~ 'ERSP',
+      str_detect(circle2, 'JMNP') ~ 'JMNP',
+      str_detect(circle2, 'NCBG') ~ 'NCBG',
+      str_detect(circle2, 'NCSU') ~ 'NCSU',
+      str_detect(circle2, 'UNC') ~ 'UNC')) %>% 
+  left_join(
+    forest_matrix %>% 
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'site2',
+        values_to = 'forest_1km'),
+    by = c('site1','site2')) %>% 
+  mutate(
+    # make a unique identifier (fine, Hadley)
+    circles = str_c(circle1, circle2, sep = '_'),
+    # convert distance to edge from m to km
+    distanceToEdge = distanceToEdge/1000,
+    # convert geographic distance from m to km
+    geographicDistance = geographicDistance/1000) %>% 
+  select(!c(circle1:circle2, site1:site2)) %>% 
+  relocate(circles)
+
+# visualizing ground arthropod stats -------------------------------------
+
+ggplot(analysis_frame_ground) +
+  geom_point(aes(
+    x = jaccardDissimilarity,
+    y = euclideanDistance))
+
+map(
+  analysis_frame_ground[,2:3],
+  function(r){
+    map(
+      analysis_frame_ground[,4:8],
+      function(p){ ggplot(analysis_frame_ground) +
+          geom_point(aes(
+            x = p,
+            y = r))
+      })
+  })
+
+
+# initial modeling of ground arths ---------------------------------------
+
+summary(lm(
+  euclideanDistance ~ jaccardDissimilarity,
+  data = analysis_frame_ground))
+
+summary(lm(
+  euclideanDistance ~ herbaceousCover + distanceToEdge + geographicDistance + litterDepth + forest_1km,
+  data = analysis_frame_ground))
+
+summary(lm(
+  jaccardDissimilarity ~ herbaceousCover + distanceToEdge + geographicDistance + litterDepth + forest_1km,
+  data = analysis_frame_ground))
