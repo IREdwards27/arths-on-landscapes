@@ -2,7 +2,6 @@ Beetles: Tenebrionidae & Melandryidae (family & Microtonus sericans), Trogossiti
 	Isomira vs Ptilodactyla, Cryptocephalinae [case-making chrysomelid larvae]
 Ants: Formica vs Camponotus, 
 	Ponera (pennsylvanica) vs Hypoponera vs Brachyponera (chinensis), Prenolepis imparis vs Paratrechina
-Isopods: Armadillidium (vulgare or nasatum), Porcellio (scaber)
 Spiders: Anyphaenidae vs Corinnidae vs Clubionidae vs Gnaphosidae, Araneidae vs Theridiidae vs Linyphiidae
 True bugs: Berytidae vs Emesinae
 Millipedes: Siphonophorida, Julida vs Spirostrepida vs Spirobolida 
