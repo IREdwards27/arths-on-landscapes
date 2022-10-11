@@ -1797,39 +1797,39 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 122303,141114,beetle,4,1,NA,Curculionidae,family,Curculionidae,4.4,114666,1
 122304,141114,spider,10,1,NA,"Lost, Salticidae",family,Salticidae,NA,871537,0
 122305,141114,spider,4,1,NA,Lost,order,Araneae,NA,82732,0
-122901,141490,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,NA
-122902,141492,spider,2,1,NA,"Lost, Araneidae",family,Araneidae,NA,82737,NA
-122903,141493,truebugs,2,8,NA,"Corythucha, nymphs",suborder,Corythucha,NA,104215,NA
-122904,141493,truebugs,3,2,NA,Corythucha,suborder,Corythucha,NA,104215,NA
-122905,141493,bee,2,2,NA,NA,order,Hymenoptera,NA,152741,NA
-122906,141493,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122907,141493,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122908,141493,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,NA
-122909,141496,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,NA
-122910,141496,moths,4,1,NA,Lost,order,Lepidoptera,NA,117232,NA
-122911,141497,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-122912,141497,truebugs,3,1,NA,Corythucha,suborder,Corythucha,NA,104215,NA
-122913,141497,other,2,4,NA,Psocodea,order,Psocodea,NA,998435,NA
-122917,141499,grasshopper,5,1,NA,Gryllidae,family,Orthoptera,NA,102160,NA
-122920,141501,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122921,141502,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
-122923,141504,grasshopper,5,1,NA,Gryllidae,family,Orthoptera,NA,102160,NA
-122924,141505,bee,4,1,NA,NA,order,Hymenoptera,NA,152741,NA
-122927,141508,truebugs,3,23,NA,Corythucha,suborder,Corythucha,NA,104215,NA
-122928,141508,truebugs,2,13,NA,"Corythucha, nymphs",suborder,Corythucha,NA,104215,NA
-122929,141511,ant,2,3,NA,NA,family,Formicidae,NA,154193,NA
-122930,141511,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,NA
-122931,141511,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122933,141513,ant,7,1,NA,Formica,family,Formicidae,NA,154193,NA
-122937,141517,spider,2,1,NA,Salticidae,family,Salticidae,NA,871537,NA
-122943,141521,beetle,3,4,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-122944,141521,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122946,141523,bee,4,1,NA,Lost,order,Hymenoptera,NA,152741,NA
-122947,141523,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-122948,141523,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-122952,141525,beetle,2,3,NA,Coccinellidae,family,Coccinellidae,NA,114329,NA
-122953,141525,beetle,2,1,NA,NA,order,Coleoptera,NA,109216,NA
-122956,141527,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
+122901,141490,other,2,1,NA,Psocodea,order,Psocodea,0.2,998435,1
+122902,141492,spider,2,1,NA,"Lost, Araneidae",family,Araneidae,NA,82737,0
+122903,141493,truebugs,2,8,NA,"Corythucha, nymphs",genus,Corythucha,1.1,104215,8
+122904,141493,truebugs,3,2,NA,Corythucha,genus,Corythucha,1,104215,2
+122905,141493,bee,2,2,NA,NA,order,Hymenoptera,0.3,152741,2
+122906,141493,spider,2,1,NA,NA,family,Thomisidae,0.5,,1
+122907,141493,spider,2,1,NA,NA,family,Salticidae,0.5,,1
+122908,141493,beetle,2,1,NA,NA,family,Nitidulidae,1.7,,1
+122909,141496,beetle,2,1,NA,NA,family,Tenebrionidae,0.3,,1
+122910,141496,moths,4,1,NA,Lost,order,Lepidoptera,NA,117232,0
+122911,141497,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,8,114509,2
+122912,141497,truebugs,3,1,NA,Corythucha,genus,Corythucha,0.6,104215,1
+122913,141497,other,2,4,NA,Psocodea,order,Psocodea,2.6,998435,4
+122917,141499,grasshopper,5,1,NA,Gryllidae,family,Gryllidae,6.8,,1
+122920,141501,spider,2,1,NA,NA,family,Anyphaenidae,1.4,,1
+122921,141502,spider,4,1,NA,NA,family,Anyphaenidae,2.4,,1
+122923,141504,grasshopper,5,1,NA,Gryllidae,family,Gryllidae,NA,,0
+122924,141505,bee,4,1,NA,winged adult,species,Brachyponera chinensis,1.4,,1
+122927,141508,truebugs,3,23,NA,Corythucha,genus,Corythucha,15.9,104215,23
+122928,141508,truebugs,2,13,NA,"Corythucha, nymphs",genus,Corythucha,3.3,104215,12
+122929,141511,ant,2,3,NA,NA,genus,Tetramorium,0.4,,4
+122930,141511,other,2,1,NA,Psocodea,order,Psocodea,0.2,998435,1
+122931,141511,spider,2,1,NA,NA,family,Thomisidae,0.8,,1
+122933,141513,ant,7,1,NA,Formica,genus,Formica,6.8,,1
+122937,141517,spider,2,1,NA,Salticidae,family,Salticidae,0.2,871537,1
+122943,141521,beetle,3,4,NA,Chrysomelidae,family,Chrysomelidae,17.4,114509,4
+122944,141521,spider,2,1,NA,NA,family,Anyphaenidae,0.4,,1
+122946,141523,bee,4,1,NA,Lost,order,Hymenoptera,NA,152741,0
+122947,141523,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,11.8,114509,2
+122948,141523,spider,2,1,NA,NA,family,Anyphaenidae,0.9,,1
+122952,141525,beetle,2,3,NA,Coccinellidae,family,Coccinellidae,3.8,114329,3
+122953,141525,beetle,2,1,NA,NA,family,Bostrichidae,0.3,,1
+122956,141527,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,6,114509,1
 123389,141835,beetle,2,1,NA,Lost,order,Coleoptera,NA,109216,NA
 123390,141838,spider,2,1,NA,Lost,order,Araneae,NA,82732,NA
 123391,141839,bee,4,1,NA,"Lost, Tan ichneumonish wasp repeatedly captured",order,Hymenoptera,NA,152741,NA
