@@ -99,6 +99,7 @@ family_circles <- map_dfc(
         true = 0,
         false = biomass),
       # take the log of biomass, adding one so zero observations results in value of zero
+      # consider altering c value to <1/2 smallest value
       logBiomass = log(biomass+1)) %>% 
     # select to relevant columns
     select(!n_individuals:biomass) %>% 
@@ -304,6 +305,7 @@ ggplot(analysis_frame_foliage) +
     x = jaccardDissimilarity,
     y = euclideanDistance))
 
+# jitter may be helpful for forest cover for visualization
 map(
   analysis_frame_foliage[,2:3],
   function(r){
