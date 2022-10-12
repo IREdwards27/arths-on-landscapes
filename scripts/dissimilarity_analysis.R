@@ -210,8 +210,8 @@ forest_matrix <- dist(circles_forest$forest_1km, diag = T, upper = T) %>%
   as.matrix() %>% 
   as_tibble() %>%
   set_names(circles$CircleID) %>%
-  cbind(circle = circles$CircleID) %>%
-  relocate(circle)
+  cbind(circle1 = circles$CircleID) %>%
+  relocate(circle1)
 
 
 # creating a model-friendly data frame (foliage) ----------------------------
@@ -256,29 +256,13 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
         values_to = 'geographicDistance'),
     by = c('circle','circle2')) %>%
   rename('circle1' = 'circle') %>%
-  # adding site IDs to bind forest cover data
-  mutate(
-    site1 = case_when(
-      str_detect(circle1, 'DF') ~ 'DF',
-      str_detect(circle1, 'ERSP') ~ 'ERSP',
-      str_detect(circle1, 'JMNP') ~ 'JMNP',
-      str_detect(circle1, 'NCBG') ~ 'NCBG',
-      str_detect(circle1, 'NCSU') ~ 'NCSU',
-      str_detect(circle1, 'UNC') ~ 'UNC'),
-    site2 = case_when(
-      str_detect(circle2, 'DF') ~ 'DF',
-      str_detect(circle2, 'ERSP') ~ 'ERSP',
-      str_detect(circle2, 'JMNP') ~ 'JMNP',
-      str_detect(circle2, 'NCBG') ~ 'NCBG',
-      str_detect(circle2, 'NCSU') ~ 'NCSU',
-      str_detect(circle2, 'UNC') ~ 'UNC')) %>%
   left_join(
     forest_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'site2',
+        names_to = 'circle2',
         values_to = 'forest_1km'),
-    by = c('site1','site2')) %>%
+    by = c('circle1','circle2')) %>%
   mutate(
     # make a unique identifier (fine, Hadley)
     circles = str_c(circle1, circle2, sep = '_'),
@@ -288,7 +272,7 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
     distanceToRoad = distanceToRoad/1000,
     # convert geographic distance from m to km
     geographicDistance = geographicDistance/1000) %>%
-  select(!c(circle1:circle2, site1:site2)) %>%
+  select(!circle1:circle2) %>%
   relocate(circles)
 
 write_csv(
@@ -470,17 +454,17 @@ mantel.rtest(
   as.dist(distance_matrix[2:31]), 
   nrepet = 999)
 
-# R^2 = 0.182
+# R^2 = 0.1352
 euclidean_foliage_mod_full <- lm(
-  euclideanDistance ~ canopyCover + distanceToRoad + geographicDistance + forest_1km,
+  euclideanDistance ~ canopyCover + geographicDistance + forest_1km,
   data = analysis_frame_foliage)
 
-# R^2 = 0.142
+# R^2 = 0.1126
 euclidean_foliage_mod_env <- lm(
-  euclideanDistance ~ canopyCover + distanceToRoad + forest_1km,
+  euclideanDistance ~ canopyCover + forest_1km,
   data = analysis_frame_foliage)
 
-# R^2 = 0.0003, p = 0.732
+# R^2 = 0.0003
 euclidean_foliage_mod_dist <- lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage)
@@ -509,14 +493,14 @@ mantel.rtest(
   as.dist(distance_matrix[2:31]), 
   nrepet = 999)
 
-# R^2 = 0.1682
+# R^2 = 0.1424
 jaccard_foliage_mod_full <- lm(
-  jaccardDissimilarity ~ canopyCover + distanceToRoad + geographicDistance + forest_1km,
+  jaccardDissimilarity ~ canopyCover + geographicDistance + forest_1km,
   data = analysis_frame_foliage)
 
-# R^2 = 0.1646
+# R^2 = 0.1312
 jaccard_foliage_mod_env <- lm(
-  jaccardDissimilarity ~ canopyCover + distanceToRoad + forest_1km,
+  jaccardDissimilarity ~ canopyCover + forest_1km,
   data = analysis_frame_foliage)
 
 # R^2 = 0.0680
@@ -646,11 +630,11 @@ jaccard_matrix_ground <- map_dfr(
         # the '1-' makes it dissimilarity instead of similarity
         1 - jaccard(
           # total number of families in both of two particular circles
-          a = sum(ground_families$family[ground_families$CircleFK == s] %in% ground_families$family[ground_families$CircleFK == .x]),
+          a = sum(ground_families$family[ground_families$CircleID == s] %in% ground_families$family[ground_families$CircleID == .x]),
           # total number of families in the first circle but not the second
-          b = sum(!ground_families$family[ground_families$CircleFK == s] %in% ground_families$family[ground_families$CircleFK == .x]),
+          b = sum(!ground_families$family[ground_families$CircleID == s] %in% ground_families$family[ground_families$CircleID == .x]),
           # total number of families in the second circle but not the first
-          c = sum(!ground_families$family[ground_families$CircleFK == .x] %in% ground_families$family[ground_families$CircleFK == s]))
+          c = sum(!ground_families$family[ground_families$CircleID == .x] %in% ground_families$family[ground_families$CircleID == s]))
     )
   }) %>%
   # I explained this part up there
@@ -688,11 +672,11 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
         values_to = 'herbaceousCover'),
     by = c('circle','circle2')) %>%
   left_join(
-    distance_edge_matrix %>%
+    distance_road_matrix %>%
       pivot_longer(
         cols = 2:length(.),
         names_to = 'circle2',
-        values_to = 'distanceToEdge'),
+        values_to = 'distanceToRoad'),
     by = c('circle','circle2')) %>%
   left_join(
     distance_matrix %>%
@@ -708,38 +692,22 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
         names_to = 'circle2',
         values_to = 'litterDepth'),
     by = c('circle','circle2')) %>%
-  rename('circle1' = 'circle') %>%
-  # adding site IDs to bind forest cover data
-  mutate(
-    site1 = case_when(
-      str_detect(circle1, 'DF') ~ 'DF',
-      str_detect(circle1, 'ERSP') ~ 'ERSP',
-      str_detect(circle1, 'JMNP') ~ 'JMNP',
-      str_detect(circle1, 'NCBG') ~ 'NCBG',
-      str_detect(circle1, 'NCSU') ~ 'NCSU',
-      str_detect(circle1, 'UNC') ~ 'UNC'),
-    site2 = case_when(
-      str_detect(circle2, 'DF') ~ 'DF',
-      str_detect(circle2, 'ERSP') ~ 'ERSP',
-      str_detect(circle2, 'JMNP') ~ 'JMNP',
-      str_detect(circle2, 'NCBG') ~ 'NCBG',
-      str_detect(circle2, 'NCSU') ~ 'NCSU',
-      str_detect(circle2, 'UNC') ~ 'UNC')) %>%
+  rename('circle1' = 'circle') %>% 
   left_join(
     forest_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'site2',
+        names_to = 'circle2',
         values_to = 'forest_1km'),
-    by = c('site1','site2')) %>%
+    by = c('circle1','circle2')) %>%
   mutate(
     # make a unique identifier (fine, Hadley)
     circles = str_c(circle1, circle2, sep = '_'),
     # convert distance to edge from m to km
-    distanceToEdge = distanceToEdge/1000,
+    distanceToRoad = distanceToRoad/1000,
     # convert geographic distance from m to km
     geographicDistance = geographicDistance/1000) %>%
-  select(!c(circle1:circle2, site1:site2)) %>%
+  select(!circle1:circle2) %>%
   relocate(circles)
 
 write_csv(
@@ -748,3 +716,269 @@ write_csv(
 
 analysis_frame_ground <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_dissimilarity')])
+
+
+# visualizing ground arthropod stats -------------------------------------
+
+ggplot(analysis_frame_ground) +
+  geom_point(aes(
+    x = jaccardDissimilarity,
+    y = euclideanDistance))
+
+
+ground_plot_euclidean_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Herbaceous Cover Class',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_euclidean_road <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = distanceToRoad,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Distance to Nearest Road (km)',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_euclidean_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Litter Depth (mm)',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_euclidean_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Proportion Forest cover in a 1km Radius',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_euclidean_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'goldenrod') +
+  labs(
+    x = 'Geographic Distance (km)',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_jaccard_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Herbaceous Cover Class',
+    y = 'Jaccard Dissimilarity of Community Composition') +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_jaccard_road <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = distanceToRoad,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Distance to Nearest Road (km)',
+    y = 'Jaccard Dissimilarity of Community Composition') +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_jaccard_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Litter Depth (mm)',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_jaccard_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Proportion Forest cover in a 1km Radius',
+    y = 'Jaccard Dissimilarity of Community Composition') +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme
+
+ground_plot_jaccard_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'goldenrod') +
+  labs(
+    x = 'Geographic Distance (km)',
+    y = 'Jaccard Dissimilarity of Community Composition') +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme
+
+
+# initial modeling of ground arths ---------------------------------------
+
+summary(lm(
+  euclideanDistance ~ jaccardDissimilarity,
+  data = analysis_frame_ground))
+
+# p = 0.229
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.001
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.141
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.865
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.084
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 999)
+
+# R^2 = 0.3492
+euclidean_ground_mod_full <- lm(
+  euclideanDistance ~ distanceToRoad + geographicDistance + forest_1km,
+  data = analysis_frame_ground)
+
+# R^2 = 0.2952
+euclidean_ground_mod_env <- lm(
+  euclideanDistance ~ distanceToRoad + forest_1km,
+  data = analysis_frame_ground)
+
+# R^2 = 0.0131
+euclidean_ground_mod_dist <- lm(
+  euclideanDistance ~ geographicDistance,
+  data = analysis_frame_ground)
+
+# p = 0.378
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.188
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.497
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.001
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 999)
+
+# p = 0.023
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 999)
+
+# R^2 = 0.2241
+jaccard_ground_mod_full <- lm(
+  jaccardDissimilarity ~ distanceToRoad + geographicDistance + forest_1km,
+  data = analysis_frame_ground)
+
+# R^2 = 0.1512
+jaccard_ground_mod_env <- lm(
+  jaccardDissimilarity ~ distanceToRoad + forest_1km,
+  data = analysis_frame_foliage)
+
+# R^2 = 0.0414
+jaccard_ground_mod_dist <- lm(
+  jaccardDissimilarity ~ geographicDistance,
+  data = analysis_frame_ground)
