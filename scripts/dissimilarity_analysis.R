@@ -5,6 +5,7 @@ library(tidyverse)
 library(lubridate)
 library(janitor)
 library(geosphere)
+library(ggpubr)
 
 # # read in foliage and ground arthropod observations - code format pulls most recent date
 # 
@@ -311,19 +312,28 @@ ggplot(analysis_frame_foliage) +
     x = jaccardDissimilarity,
     y = euclideanDistance))
 
-# jitter may be helpful for forest cover for visualization
-map(
-  analysis_frame_foliage[,2:3],
-  function(r){
-    map(
-      analysis_frame_foliage[,4:7],
-      function(p){ ggplot(analysis_frame_foliage) +
-          geom_point(aes(
-            x = p,
-            y = r))
-      })
-  })
+ul_theme <- theme(
+  axis.title = element_text(size = 10),
+  panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
+  panel.grid = element_line(color = 'cornsilk3'),
+  panel.background = element_rect(fill = 'snow1'))
 
+# jitter may be helpful for forest cover for visualization
+ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = canopyCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = 'forestgreen') +
+  labs(
+    x = 'Difference in Proportion Canopy Cover',
+    y = 'Euclidean Distance of Community Composition') +
+  scale_y_continuous(limits = c(0,15), expand = c(0,0)) +
+  ul_theme
 
 # initial modeling of foliage arths ---------------------------------------
 
@@ -496,10 +506,26 @@ summary(lm(
   euclideanDistance ~ jaccardDissimilarity,
   data = analysis_frame_ground))
 
-summary(lm(
+euclidean_ground_mod_full <- lm(
   euclideanDistance ~ herbaceousCover + distanceToEdge + geographicDistance + litterDepth + forest_1km,
-  data = analysis_frame_ground))
+  data = analysis_frame_ground)
 
-summary(lm(
+euclidean_ground_mod_env <- lm(
+  euclideanDistance ~ herbaceousCover + distanceToEdge + litterDepth + forest_1km,
+  data = analysis_frame_ground)
+
+euclidean_ground_mod_dist <- lm(
+  euclideanDistance ~ geographicDistance,
+  data = analysis_frame_ground)
+
+jaccard_ground_mod_full <- lm(
   jaccardDissimilarity ~ herbaceousCover + distanceToEdge + geographicDistance + litterDepth + forest_1km,
-  data = analysis_frame_ground))
+  data = analysis_frame_ground)
+
+jaccard_ground_mod_env <- lm(
+  jaccardDissimilarity ~ herbaceousCover + distanceToEdge + litterDepth + forest_1km,
+  data = analysis_frame_ground)
+
+jaccard_ground_mod_dist <- lm(
+  jaccardDissimilarity ~ geographicDistance,
+  data = analysis_frame_ground)
