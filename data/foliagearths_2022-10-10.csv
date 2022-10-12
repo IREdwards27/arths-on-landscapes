@@ -1875,9 +1875,9 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 123990,142295,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.5,114509,1
 124003,142303,ant,5,1,NA,NA,family,Alydidae,1.9,,1
 124004,142303,ant,3,1,NA,Crematogaster,genus,Crematogaster,0.6,,1
-124008,142305,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-124009,142305,spider,3,1,NA,Anyphaenidae,order,Araneae,NA,82732,NA
-124010,142305,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
+124008,142305,beetle,5,1,NA,Curculionidae,family,Curculionidae,9.9,114666,1
+124009,142305,spider,3,1,NA,Anyphaenidae,family,Anyphaenidae,0.9,,1
+124010,142305,spider,4,1,NA,NA,family,Anyphaenidae,2,,1
 124013,142307,other,2,1,NA,Collembola,order,Collembola,NA,99237,NA
 124016,142310,moths,4,1,NA,Lost,order,Lepidoptera,NA,117232,NA
 124017,142310,other,2,1,NA,Psocodea,order,Psocodea,NA,998435,NA
