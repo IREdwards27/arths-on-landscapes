@@ -1859,22 +1859,22 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 123419,141860,beetle,2,1,NA,NA,family,Melandryidae,0.7,,1
 123420,141860,spider,2,1,NA,NA,family,Thomisidae,0.6,,1
 123421,141861,bee,2,1,NA,Lost,order,Hymenoptera,NA,152741,0
-123962,142274,spider,3,1,NA,NA,order,Araneae,NA,82732,NA
-123964,142277,spider,2,1,NA,"Thomisidae, vibrant yellow-green",order,Araneae,NA,82732,NA
-123965,142279,caterpillar,13,1,123965.jpeg,NA,order,Lepidoptera,NA,117232,NA
-123966,142279,leafhopper,3,1,NA,Lost,suborder,Auchenorrhyncha,NA,109167,NA
-123967,142281,ant,3,1,NA,Crematogaster,family,Formicidae,NA,154193,NA
-123968,142281,beetle,4,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-123972,142284,truebugs,3,1,NA,NA,suborder,Heteroptera,NA,103358,NA
-123973,142284,other,2,1,NA,"Lost, Collembola",order,Collembola,NA,99237,NA
-123980,142290,aphid,2,1,NA,Aphididae,suborder,Aphididae,NA,109191,NA
-123981,142290,spider,3,1,NA,Anyphaenidae,order,Araneae,NA,82732,NA
-123982,142290,spider,3,1,NA,Thomisidae,order,Araneae,NA,82732,NA
-123983,142291,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-123988,142293,spider,3,1,NA,"Lost, Anyphaenidae",order,Araneae,NA,82732,NA
-123990,142295,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-124003,142303,ant,5,1,NA,NA,family,Formicidae,NA,154193,NA
-124004,142303,ant,3,1,NA,Crematogaster,family,Formicidae,NA,154193,NA
+123962,142274,spider,3,1,NA,NA,family,Anyphaenidae,0.7,,1
+123964,142277,spider,2,1,NA,"Thomisidae, vibrant yellow-green",family,Thomisidae,4.4,,1
+123965,142279,caterpillar,13,1,123965.jpeg,NA,order,Lepidoptera,15.1,117232,1
+123966,142279,leafhopper,3,1,NA,Lost,suborder,Auchenorrhyncha,NA,109167,0
+123967,142281,ant,3,1,NA,Crematogaster,genus,Crematogaster,0.7,,1
+123968,142281,beetle,4,1,NA,Curculionidae,family,Curculionidae,7.4,114666,1
+123972,142284,truebugs,3,1,NA,NA,suborder,Heteroptera,0.6,,1
+123973,142284,other,2,1,NA,"Lost, Collembola",order,Collembola,NA,99237,0
+123980,142290,aphid,2,1,NA,Aphididae,family,Aphididae,0.1,109191,1
+123981,142290,spider,3,1,NA,Anyphaenidae,family,Anyphaenidae,1,,1
+123982,142290,spider,3,1,NA,Thomisidae,family,Thomisidae,3.9,,1
+123983,142291,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.2,114509,1
+123988,142293,spider,3,1,NA,"Lost, Anyphaenidae",family,Anyphaenidae,NA,,0
+123990,142295,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.5,114509,1
+124003,142303,ant,5,1,NA,NA,family,Alydidae,1.9,,1
+124004,142303,ant,3,1,NA,Crematogaster,genus,Crematogaster,0.6,,1
 124008,142305,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
 124009,142305,spider,3,1,NA,Anyphaenidae,order,Araneae,NA,82732,NA
 124010,142305,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
