@@ -289,12 +289,12 @@ ggplot(analysis_frame_foliage) +
     x = jaccardDissimilarity,
     y = euclideanDistance))
 
-ul_theme <- theme(
+foliage_theme <- theme(
   axis.title = element_text(size = 10),
   panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
   panel.grid = element_line(color = 'cornsilk3'),
   panel.background = element_rect(fill = 'snow1'),
-  plot.margin = unit(c(0.05,0.1,0.05,0.2), unit = 'npc'),
+  plot.margin = unit(c(0.05,0.1,0.05,0.1), unit = 'npc'),
   axis.title.x = element_text(vjust = 1))
 
 foliage_plot_euclidean_canopy <- ggplot(
@@ -311,7 +311,7 @@ foliage_plot_euclidean_canopy <- ggplot(
     x = 'Difference in Proportion Canopy Cover',
     y = NULL) +
   scale_y_continuous(limits = c(0,30), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_euclidean_road <- ggplot(
   data = analysis_frame_foliage,
@@ -323,7 +323,7 @@ foliage_plot_euclidean_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,30), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_euclidean_forest <- ggplot(
   data = analysis_frame_foliage,
@@ -339,7 +339,7 @@ foliage_plot_euclidean_forest <- ggplot(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,30), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_euclidean_distance <- ggplot(
   data = analysis_frame_foliage,
@@ -351,7 +351,7 @@ foliage_plot_euclidean_distance <- ggplot(
     x = 'Geographic Distance (km)',
     y = 'Euclidean Distance of Community Composition') +
   scale_y_continuous(limits = c(0,30), expand = c(0,0)) +
-  ul_theme +
+  foliage_theme +
   theme(plot.margin = unit(c(0.05,0.1,0.05,0.1), unit = 'npc'))
 
 foliage_plot_jaccard_canopy <- ggplot(
@@ -368,7 +368,7 @@ foliage_plot_jaccard_canopy <- ggplot(
     x = 'Difference in Proportion Canopy Cover',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_jaccard_road <- ggplot(
   data = analysis_frame_foliage,
@@ -380,7 +380,7 @@ foliage_plot_jaccard_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_jaccard_forest <- ggplot(
   data = analysis_frame_foliage,
@@ -396,7 +396,7 @@ foliage_plot_jaccard_forest <- ggplot(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  foliage_theme
 
 foliage_plot_jaccard_distance <- ggplot(
   data = analysis_frame_foliage,
@@ -412,7 +412,7 @@ foliage_plot_jaccard_distance <- ggplot(
     x = 'Geographic Distance (km)',
     y = 'Jaccard Dissimilarity of Community Composition') +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme +
+  foliage_theme +
   theme(plot.margin = unit(c(0.05,0.1,0.05,0.1), unit = 'npc'))
 
 foliage_euclidean_env_plots <- ggarrange(
@@ -424,7 +424,7 @@ foliage_euclidean_env_plots <- ggarrange(
     left = text_grob(
       'Euclidean Distance of Community Composition',
       rot = 90,
-      vjust = 7,
+      vjust = 4,
       size = 10))
 
 foliage_jaccard_env_plots <- ggarrange(
@@ -436,7 +436,7 @@ foliage_jaccard_env_plots <- ggarrange(
     left = text_grob(
       'Jaccard Dissimilarity of Community Composition', 
       rot = 90,
-      vjust = 7,
+      vjust = 4,
       size = 10))
 
 foliage_env_plots <- ggarrange(
@@ -764,6 +764,14 @@ analysis_frame_ground <- read_csv(
 
 # visualizing ground arthropod stats -------------------------------------
 
+ground_theme <- theme(
+  axis.title = element_text(size = 10),
+  panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
+  panel.grid = element_line(color = 'cornsilk3'),
+  panel.background = element_rect(fill = 'snow1'),
+  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = 'npc'),
+  axis.title.x = element_text(vjust = 1))
+
 ggplot(analysis_frame_ground) +
   geom_point(aes(
     x = jaccardDissimilarity,
@@ -780,7 +788,7 @@ ground_plot_euclidean_herb <- ggplot(
     x = 'Difference in Herbaceous Cover Class',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_euclidean_road <- ggplot(
   data = analysis_frame_ground,
@@ -796,7 +804,7 @@ ground_plot_euclidean_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_euclidean_litter <- ggplot(
   data = analysis_frame_ground,
@@ -808,7 +816,7 @@ ground_plot_euclidean_litter <- ggplot(
     x = 'Difference in Litter Depth (mm)',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_euclidean_forest <- ggplot(
   data = analysis_frame_ground,
@@ -824,7 +832,7 @@ ground_plot_euclidean_forest <- ggplot(
     x = 'Difference in Proportion Forest cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_euclidean_distance <- ggplot(
   data = analysis_frame_ground,
@@ -838,9 +846,9 @@ ground_plot_euclidean_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = NULL) +
+    y = 'Euclidean Distance of Community Composition') +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_jaccard_herb <- ggplot(
   data = analysis_frame_ground,
@@ -852,7 +860,7 @@ ground_plot_jaccard_herb <- ggplot(
     x = 'Difference in Herbaceous Cover Class',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_jaccard_road <- ggplot(
   data = analysis_frame_ground,
@@ -868,7 +876,7 @@ ground_plot_jaccard_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_jaccard_litter <- ggplot(
   data = analysis_frame_ground,
@@ -880,7 +888,7 @@ ground_plot_jaccard_litter <- ggplot(
     x = 'Difference in Litter Depth (mm)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_jaccard_forest <- ggplot(
   data = analysis_frame_ground,
@@ -896,7 +904,7 @@ ground_plot_jaccard_forest <- ggplot(
     x = 'Difference in Proportion Forest cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
 ground_plot_jaccard_distance <- ggplot(
   data = analysis_frame_ground,
@@ -910,48 +918,62 @@ ground_plot_jaccard_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = NULL) +
+    y = 'Jaccard Dissimilarity of Community Composition') +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme
+  ground_theme
 
-ground_euclidean_plots <- ggarrange(
+ground_euclidean_env_plots <- ggarrange(
   ground_plot_euclidean_herb, 
   ground_plot_euclidean_road, 
   ground_plot_euclidean_litter,
   ground_plot_euclidean_forest,
-  ground_plot_euclidean_distance,
   ncol = 1) %>% 
   annotate_figure(
     left = text_grob(
       'Euclidean Distance of Community Composition',
       rot = 90,
-      vjust = 4))
+      vjust = 4,
+      size = 10))
 
-ground_jaccard_plots <- ggarrange(
+ground_jaccard_env_plots <- ggarrange(
   ground_plot_jaccard_herb, 
   ground_plot_jaccard_road, 
   ground_plot_jaccard_litter,
   ground_plot_jaccard_forest,
-  ground_plot_jaccard_distance,
   ncol = 1) %>% 
   annotate_figure(
     left = text_grob(
       'Jaccard Dissimilarity of Community Composition', 
       rot = 90,
-      vjust = 4))
+      vjust = 4,
+      size = 10))
 
-foliage_plots <- ggarrange(
-  foliage_euclidean_plots,
-  foliage_jaccard_plots,
+ground_env_plots <- ggarrange(
+  ground_euclidean_env_plots,
+  ground_jaccard_env_plots,
   ncol = 2) %>% 
   annotate_figure(
-    top = text_grob('Predictors of Differences in Foliage Arthropod Community Composition'))
+    top = text_grob('Environmental Predictors of Differences in Ground Arthropod Community Composition', size = 18))
 
 ggsave(
-  filename = 'figures/foliage_dissimilarity_plots.png',
-  plot = foliage_plots,
+  filename = 'figures/ground_dissimilarity_env_plots.png',
+  plot = ground_env_plots,
   width = 10,
   height = 8,
+  units = 'in')
+
+ground_dist_plots <- ggarrange(
+  ground_plot_euclidean_distance,
+  ground_plot_jaccard_distance,
+  ncol = 2) %>% 
+  annotate_figure(
+    top = text_grob('Ground Arthropod Community Composition Differences versus Geographic Distance'))
+
+ggsave(
+  filename = 'figures/ground_dissimilarity_dist_plots.png',
+  plot = ground_dist_plots,
+  width = 8,
+  height = 4,
   units = 'in')
 
 
