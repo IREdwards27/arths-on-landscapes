@@ -2,7 +2,8 @@ Beetles: Tenebrionidae & Melandryidae (family & Microtonus sericans), Trogossiti
 	Isomira vs Ptilodactyla, Cryptocephalinae [case-making chrysomelid larvae], Ctenidae vs Lycosidae
 Ants: Formica vs Camponotus, 
 	Ponera (pennsylvanica) vs Hypoponera vs Brachyponera (chinensis), Prenolepis imparis vs Paratrechina
-Spiders: Anyphaenidae vs Corinnidae vs Clubionidae vs Gnaphosidae, Araneidae vs Theridiidae vs Linyphiidae vs Tetragnathidae
+Spiders: Anyphaenidae [posterior eyes larger than anterior] vs Corinnidae [tarsal spines on forelegs] vs Clubionidae vs Gnaphosidae, 
+	Araneidae [legs generally short and spiny] vs Theridiidae [no leg spines, often teardrop abdomen] vs Linyphiidae [large, toothy jaws with high clypeus]
 True bugs: Berytidae vs Emesinae
 Millipedes: Siphonophorida, Julida vs Spirostrepida vs Spirobolida 
 Harvestmen: many probably Leiobunum
