@@ -2120,38 +2120,38 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 126523,144017,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,7.1,114509,1
 126524,144018,ant,7,1,NA,NA,genus,Formica,5.7,,1
 126525,144018,spider,4,1,NA,NA,family,Clubionidae,1.5,,1
-126526,144020,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-126527,144020,spider,3,1,NA,Araneidae,family,Araneidae,NA,82737,NA
-126535,144030,daddylonglegs,7,1,NA,NA,order,Opiliones,NA,82753,NA
-126536,144030,aphid,2,210,NA,Boogie woogie,suborder,Sternorrhyncha,NA,109185,NA
-126537,144031,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
-126538,144031,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126555,144040,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126557,144043,daddylonglegs,7,1,NA,NA,order,Opiliones,NA,82753,NA
-126558,144043,ant,8,1,NA,Lost,family,Formicidae,NA,154193,NA
-126559,144044,caterpillar,5,1,126559.jpeg,NA,order,Lepidoptera,NA,117232,NA
-126560,144044,ant,3,2,NA,Crematogaster,family,Formicidae,NA,154193,NA
-126561,144044,fly,7,1,NA,"Lost, Tipulidae",order,Diptera,NA,118831,NA
-126562,144046,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-126563,144046,ant,5,2,NA,NA,family,Formicidae,NA,154193,NA
-126580,144054,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126594,144061,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126603,144067,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126604,144067,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
-126606,144069,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126607,144070,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126608,144071,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126614,144075,bee,4,1,NA,NA,order,Hymenoptera,NA,152741,NA
-126615,144075,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126616,144075,grasshopper,4,1,NA,"Lost, Gryllidae",family,Gryllidae,NA,102281,NA
-126617,144075,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-126621,144080,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-126622,144081,grasshopper,10,1,NA,Gryllidae,family,Gryllidae,NA,102281,NA
-126623,144083,moths,7,1,NA,Lost,order,Lepidoptera,NA,117232,NA
-126624,144083,spider,5,1,NA,Salticidae,family,Salticidae,NA,871537,NA
-126629,144087,other,18,1,NA,MANTISPIDAE!!!!!,NA,NA,NA,NA,NA
-126630,144087,other,4,1,NA,Collembola,order,Collembola,NA,99237,NA
-126631,144087,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
+126526,144020,beetle,5,1,NA,Curculionidae,family,Curculionidae,10.2,114666,1
+126527,144020,spider,3,1,NA,Araneidae,family,Linyphiidae,1.1,,1
+126535,144030,daddylonglegs,7,1,NA,NA,family,Sclerosomatidae,76.1,,1
+126536,144030,aphid,2,210,NA,Boogie woogie,species,Grylloprociphilus imbricator,94.7,,210
+126537,144031,spider,4,1,NA,NA,family,Clubionidae,2.1,,1
+126538,144031,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.8,114509,1
+126555,144040,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.7,114509,1
+126557,144043,daddylonglegs,7,1,NA,NA,genus,Leiobunum,66,,1
+126558,144043,ant,8,1,NA,Lost,family,Formicidae,NA,154193,0
+126559,144044,caterpillar,5,1,126559.jpeg,NA,order,Lepidoptera,1.6,117232,1
+126560,144044,ant,3,2,NA,Crematogaster,genus,Crematogaster,1.2,,2
+126561,144044,fly,7,1,NA,"Lost, Tipulidae",family,Tipulidae,NA,,0
+126562,144046,beetle,5,1,NA,Curculionidae,family,Curculionidae,11.2,114666,1
+126563,144046,ant,5,2,NA,NA,genus,Camponotus,6.3,,2
+126580,144054,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,6.4,114509,1
+126594,144061,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,5.8,114509,1
+126603,144067,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.5,114509,1
+126604,144067,spider,4,1,NA,NA,family,Linyphiidae,3.1,,1
+126606,144069,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,3.8,114509,1
+126607,144070,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,9.2,114509,2
+126608,144071,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,11.1,114509,2
+126614,144075,bee,4,1,NA,winged adult,species,Brachyponera chinensis,1.2,,1
+126615,144075,beetle,3,2,NA,Chrysomelidae,family,Chrysomelidae,10.3,114509,2
+126616,144075,grasshopper,4,1,NA,"Lost, Gryllidae",family,Gryllidae,NA,102281,0
+126617,144075,spider,2,1,NA,NA,family,Anyphaenidae,0.5,,1
+126621,144080,beetle,5,1,NA,Curculionidae,family,Curculionidae,15.8,114666,1
+126622,144081,grasshopper,10,1,NA,Gryllidae,family,Gryllidae,45.9,102281,1
+126623,144083,moths,7,1,NA,Lost,order,Lepidoptera,NA,117232,0
+126624,144083,spider,5,1,NA,Salticidae,family,Salticidae,3.6,871537,1
+126629,144087,other,18,1,NA,MANTISPIDAE!!!!!,family,Mantispidae,30.2,NA,1
+126630,144087,other,4,1,NA,Collembola,order,Collembola,1.3,99237,1
+126631,144087,beetle,3,3,NA,Chrysomelidae,family,Chrysomelidae,13,114509,3
 127049,144389,ant,3,1,NA,NA,family,Formicidae,NA,154193,NA
 127050,144389,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
 127051,144390,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
