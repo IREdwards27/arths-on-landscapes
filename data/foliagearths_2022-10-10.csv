@@ -2116,10 +2116,10 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 125899,143588,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,4.7,114509,1
 125900,143589,ant,6,1,NA,Lost,family,Formicidae,NA,154193,0
 125901,143589,ant,3,3,NA,Crematogaster,genus,Crematogaster,3.5,,3
-126522,144017,daddylonglegs,5,1,NA,Lost,order,Opiliones,NA,82753,NA
-126523,144017,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-126524,144018,ant,7,1,NA,NA,family,Formicidae,NA,154193,NA
-126525,144018,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
+126522,144017,daddylonglegs,5,1,NA,Lost,order,Opiliones,NA,82753,0
+126523,144017,beetle,3,1,NA,Chrysomelidae,family,Chrysomelidae,7.1,114509,1
+126524,144018,ant,7,1,NA,NA,genus,Formica,5.7,,1
+126525,144018,spider,4,1,NA,NA,family,Clubionidae,1.5,,1
 126526,144020,beetle,5,1,NA,Curculionidae,family,Curculionidae,NA,114666,NA
 126527,144020,spider,3,1,NA,Araneidae,family,Araneidae,NA,82737,NA
 126535,144030,daddylonglegs,7,1,NA,NA,order,Opiliones,NA,82753,NA
