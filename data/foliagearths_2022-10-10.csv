@@ -2190,33 +2190,33 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 127096,144424,beetle,4,1,NA,Curculionidae,family,Curculionidae,6.1,114666,1
 127097,144424,moths,7,1,NA,NA,order,Lepidoptera,2.9,117232,1
 127098,144424,other,3,1,NA,Blattodea,order,Blattodea,0.8,NA,1
-127316,144644,beetle,2,1,NA,Mordellidae,family,Mordellidae,NA,114383,NA
-127317,144644,spider,2,1,NA,Salticidae,family,Salticidae,NA,871537,NA
-127320,144647,beetle,4,2,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-127321,144647,beetle,5,2,NA,Curculionidae,family,Curculionidae,NA,114666,NA
-127330,144651,spider,3,1,NA,NA,order,Araneae,NA,82732,NA
-127332,144653,beetle,4,1,NA,Chrysomelidae,family,Chrysomelidae,NA,114509,NA
-127333,144654,fly,2,1,NA,Lost,order,Diptera,NA,118831,NA
-127334,144654,other,35,1,127334.jpeg,"Stagmomantis carolina, did not collect due to rarity",NA,NA,NA,NA,NA
-127335,144655,ant,6,1,NA,NA,family,Formicidae,NA,154193,NA
-127336,144655,ant,2,1,NA,NA,family,Formicidae,NA,154193,NA
-127337,144656,beetle,3,1,NA,NA,order,Coleoptera,NA,109216,NA
-127338,144656,leafhopper,6,1,NA,"Lost, Cixiidae",suborder,Auchenorrhyncha,NA,109167,NA
-127339,144656,spider,2,1,NA,"Lost, Thomisidae",order,Araneae,NA,82732,NA
-127340,144657,ant,6,1,NA,NA,family,Formicidae,NA,154193,NA
-127341,144658,ant,10,1,NA,NA,family,Formicidae,NA,154193,NA
-127342,144658,spider,2,1,NA,NA,order,Araneae,NA,82732,NA
-127343,144660,other,2,1,NA,"Lost, Psocodea",order,Psocodea,NA,998435,NA
-127344,144661,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
-127345,144662,beetle,5,1,NA,Elateridae,family,Elateridae,NA,113879,NA
-127346,144662,other,50,1,NA,"Mantodea, Chinese mantis?",NA,NA,NA,NA,NA
-127347,144666,spider,4,1,NA,NA,order,Araneae,NA,82732,NA
-127348,144668,spider,2,1,NA,Salticidae,family,Salticidae,NA,871537,NA
-127350,144672,beetle,4,1,NA,NA,order,Coleoptera,NA,109216,NA
-127351,144672,grasshopper,12,1,NA,Gryllidae,family,Gryllidae,NA,102281,NA
-127352,144672,spider,5,1,NA,Salticidae,family,Salticidae,NA,871537,NA
-127354,144674,grasshopper,8,1,NA,Oecanthus,genus,Oecanthus,NA,102363,NA
-127356,144678,spider,5,1,NA,NA,order,Araneae,NA,82732,NA
+127316,144644,beetle,2,1,NA,Mordellidae,family,Mordellidae,0.9,114383,1
+127317,144644,spider,2,1,NA,Salticidae,family,Salticidae,0.4,871537,1
+127320,144647,beetle,4,2,NA,Curculionidae,family,Curculionidae,9.8,114666,2
+127321,144647,beetle,5,2,NA,Curculionidae,family,Curculionidae,12.8,114666,2
+127330,144651,spider,3,1,NA,NA,family,Tetragnathidae,1,,1
+127332,144653,beetle,4,1,NA,Chrysomelidae,family,Chrysomelidae,12.7,114509,1
+127333,144654,fly,2,1,NA,Lost,order,Diptera,NA,118831,0
+127334,144654,other,35,1,127334.jpeg,"Stagmomantis carolina, did not collect due to rarity",species,Stagmomantis carolina,NA,NA,0
+127335,144655,ant,6,1,NA,NA,genus,Camponotus,2.7,,1
+127336,144655,ant,2,1,NA,NA,genus,Tetramorium,0.3,,1
+127337,144656,beetle,3,1,NA,NA,family,Tenebrionidae,0.8,,1
+127338,144656,leafhopper,6,1,NA,"Lost, Cixiidae",family,Cixiidae,NA,,0
+127339,144656,spider,2,1,NA,"Lost, Thomisidae",family,Thomisidae,NA,,0
+127340,144657,ant,6,1,NA,NA,genus,Camponotus,3.5,,1
+127341,144658,ant,10,1,NA,NA,genus,Camponotus,23.3,,1
+127342,144658,spider,2,1,NA,NA,family,Thomisidae,1,,1
+127343,144660,other,2,1,NA,"Lost, Psocodea",order,Psocodea,NA,998435,0
+127344,144661,spider,4,1,NA,NA,family,Anyphaenidae,2,,1
+127345,144662,beetle,5,1,NA,Elateridae,family,Elateridae,5.7,113879,1
+127346,144662,other,50,1,NA,"Mantodea, Chinese mantis?",species,Stagmomantis carolina,269,NA,1
+127347,144666,spider,4,1,NA,NA,family,Anyphaenidae,1.6,,1
+127348,144668,spider,2,1,NA,Salticidae,family,Salticidae,0.5,871537,1
+127350,144672,beetle,4,1,NA,NA,family,Tenebrionidae,1.5,,1
+127351,144672,grasshopper,12,1,NA,Gryllidae,family,Gryllidae,33.2,102281,1
+127352,144672,spider,5,1,NA,Salticidae,family,Salticidae,6.5,871537,1
+127354,144674,grasshopper,8,1,NA,Oecanthus,genus,Oecanthus,14.1,102363,1
+127356,144678,spider,5,1,NA,NA,family,Clubionidae,3.8,,1
 217722,138333,spider,2,1,NA,NA,family,Anyphaenidae,0.4,871515,NA
 127869,145117,spider,4,1,NA,Salticidae,family,Salticidae,NA,871537,NA
 127870,145117,other,3,1,NA,Psocodea,order,Psocodea,NA,998435,NA
