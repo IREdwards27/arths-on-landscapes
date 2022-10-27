@@ -1,0 +1,295 @@
+GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCollected,Checks
+3,1,family,Ephydridae,1,1.8,146893,JMNP1,5/3/2022,1
+18,4,genus,Ponera,1,1.5,574209,JMNP5,5/3/2022,1
+21,5,species,Prenolepis imparis,2,3.5,577971,JMNP8,5/3/2022,1
+23,5,genus,Camponotus,1,5.3,154194,JMNP8,5/3/2022,1
+25,5,family,Phalangiidae,1,51.7,1012454,JMNP8,5/3/2022,1
+31,7,family,Cerylonidae,5,5.5,114327,UNC4,5/4/2022,1
+32,7,family,Mordellidae,1,8.2,114383,UNC4,5/4/2022,1
+40,7,family,Lithobiidae,1,72.8,555700,UNC4,5/4/2022,1
+41,7,order,Julida,1,42.7,154418,UNC4,5/4/2022,1
+47,8,family,Chaoboridae,1,2.5,125886,UNC8,5/4/2022,1
+50,8,genus,Camponotus,3,44.6,154194,UNC8,5/4/2022,1
+52,9,family,Clubionidae,2,1.4,871518,UNC13,5/4/2022,1
+59,9,genus,Ponera,37,53.5,574209,UNC13,5/4/2022,1
+60,9,genus,Camponotus,4,32,154194,UNC13,5/4/2022,1
+61,10,genus,Ponera,1,1.5,574209,UNC14,5/4/2022,1
+66,10,species,Trachelipus rathkii,1,7,684736,UNC14,5/4/2022,1
+77,12,species,Prenolepis imparis,1,1,577971,JMNP2,5/5/2022,1
+81,11,species,Prenolepis imparis,1,1,577971,JMNP1,5/5/2022,1
+84,11,family,Pentatomidae,1,36.3,108628,JMNP1,5/5/2022,1
+90,14,genus,Hypoponera,1,1.3,574195,JMNP5,5/5/2022,1
+92,14,family,Clubionidae,1,0.2,871518,JMNP5,5/5/2022,1
+95,17,family,Clubionidae,1,0.5,871518,UNC4,5/6/2022,1
+96,17,family,Salticidae,1,11.6,871537,UNC4,5/6/2022,1
+97,17,family,Trogossitidae,2,1.5,678393,UNC4,5/6/2022,1
+98,17,family,Hemerobiidae,1,0.4,115080,UNC4,5/6/2022,1
+100,15,family,Trogossitidae,1,0.5,678393,JMNP8,5/5/2022,1
+103,15,species,Prenolepis imparis,4,3.4,577971,JMNP8,5/5/2022,1
+104,15,genus,Hypoponera,4,5.1,574195,JMNP8,5/5/2022,1
+105,15,genus,Formica,2,16.4,154211,JMNP8,5/5/2022,1
+114,18,family,Chloropidae,1,0.7,147644,UNC8,5/6/2022,1
+115,18,family,Bibionidae,1,6.4,121316,UNC8,5/6/2022,1
+117,18,family,Clubionidae,3,3,871518,UNC8,5/6/2022,1
+120,18,family,Trogossitidae,1,0.9,678393,UNC8,5/6/2022,1
+122,18,genus,Hypoponera,4,5.1,574195,UNC8,5/6/2022,1
+126,19,family,Clubionidae,2,1.6,871518,UNC13,5/6/2022,1
+128,19,genus,Hypoponera,59,99.2,574195,UNC13,5/6/2022,1
+136,20,family,Clubionidae,1,0.5,871518,UNC14,5/6/2022,1
+137,20,family,Nitidulidae,1,1.8,114290,UNC14,5/6/2022,1
+138,20,genus,Hypoponera,3,3.2,574195,UNC14,5/6/2022,1
+139,21,family,Tephritidae,2,0.6,142604,NCBG1,5/10/2022,1
+141,21,family,Muscidae,1,17.5,150025,NCBG1,5/10/2022,1
+143,21,genus,Hypoponera,7,10.8,574195,NCBG1,5/10/2022,1
+144,21,genus,Camponotus,2,24.2,154194,NCBG1,5/10/2022,1
+146,22,genus,Camponotus,1,15.3,154194,NCBG4,5/10/2022,1
+148,23,family,Braconidae,1,0,152867,NCBG5,5/10/2022,1
+150,23,species,Prenolepis imparis,2,1.5,577971,NCBG5,5/10/2022,1
+158,26,genus,Ponera,4,6.1,574209,NCBG1,5/12/2022,1
+159,26,genus,Formica,1,7.8,154211,NCBG1,5/12/2022,1
+160,26,genus,Camponotus,1,17,154194,NCBG1,5/12/2022,1
+161,26,order,Siphonophorida,2,45.2,568964,NCBG1,5/12/2022,1
+163,26,family,Clubionidae,1,17.2,871518,NCBG1,5/12/2022,1
+166,27,family,Clubionidae,1,3.1,871518,NCBG4,5/12/2022,1
+170,28,family,Clubionidae,2,1.3,871518,NCBG5,5/12/2022,1
+172,28,species,Prenolepis imparis,1,0.4,577971,NCBG5,5/12/2022,1
+173,28,genus,Ponera,2,3,574209,NCBG5,5/12/2022,1
+174,28,genus,Camponotus,1,16.1,154194,NCBG5,5/12/2022,1
+175,28,family,Phalangiidae,1,3.9,1012454,NCBG5,5/12/2022,1
+180,29,family,Tephritidae,1,0.4,142604,NCBG6,5/12/2022,1
+181,29,family,Clubionidae,1,2.7,871518,NCBG6,5/12/2022,1
+183,30,family,Braconidae,1,0,152867,NCBG8,5/12/2022,1
+188,30,genus,Ponera,1,1.7,574209,NCBG8,5/12/2022,1
+197,33,genus,Hypoponera,3,4.8,574195,ERSP3,5/17/2022,1
+204,34,order,Julida,1,13.6,154418,ERSP4,5/17/2022,1
+206,34,genus,Ponera,5,7.2,574209,ERSP4,5/17/2022,1
+212,35,genus,Ponera,2,2.7,574209,ERSP6,5/17/2022,1
+213,35,genus,Camponotus,1,23.3,154194,ERSP6,5/17/2022,1
+220,36,family,Clubionidae,3,1.5,871518,DF1,5/18/2022,1
+223,36,species,Lycoptis americana,1,0.3,7,DF1,5/18/2022,1
+224,36,genus,Hypoponera,17,22.8,574195,DF1,5/18/2022,1
+225,36,genus,Camponotus,2,25.8,154194,DF1,5/18/2022,1
+232,37,genus,Ponera,7,10.1,574209,DF2,5/18/2022,1
+233,37,genus,Camponotus,1,17.4,154194,DF2,5/18/2022,1
+240,38,family,Clubionidae,1,2.2,871518,DF3,5/18/2022,1
+242,38,genus,Camponotus,2,30.6,154194,DF3,5/18/2022,1
+245,39,family,Clubionidae,2,1.9,871518,DF4,5/18/2022,1
+252,39,genus,Ponera,1,1.6,574209,DF4,5/18/2022,1
+253,39,genus,Camponotus,1,18.3,154194,DF4,5/18/2022,1
+258,40,genus,Ponera,1,1.5,574209,DF5,5/18/2022,1
+259,40,genus,Camponotus,1,16.3,154194,DF5,5/18/2022,1
+262,41,species,Prenolepis imparis,1,0.9,577971,ERSP1,5/19/2022,1
+263,41,genus,Formica,3,15.5,154211,ERSP1,5/19/2022,1
+271,42,species,Prenolepis imparis,1,2,577971,ERSP2,5/19/2022,1
+278,43,family,Clubionidae,4,3.5,871518,ERSP3,5/19/2022,1
+283,43,genus,Ponera,7,10.3,574209,ERSP3,5/19/2022,1
+290,44,family,Clubionidae,1,2.8,871518,ERSP4,5/19/2022,1
+294,44,genus,Ponera,3,3.4,574209,ERSP4,5/19/2022,1
+295,44,genus,Formica,1,7.1,154211,ERSP4,5/19/2022,1
+301,45,genus,Hypoponera,14,18.9,574195,ERSP6,5/19/2022,1
+302,45,genus,Camponotus,2,43.3,154194,ERSP6,5/19/2022,1
+310,46,genus,Ponera,5,7.7,574209,DF1,5/20/2022,1
+311,46,genus,Camponotus,3,39.6,154194,DF1,5/20/2022,1
+314,46,family,Sphecidae,1,35.9,154310,DF1,5/20/2022,1
+319,47,genus,Ponera,3,3.7,574209,DF2,5/20/2022,1
+320,47,genus,Camponotus,6,106.8,154194,DF2,5/20/2022,1
+326,48,genus,Ponera,2,2.9,574209,DF3,5/20/2022,1
+327,48,genus,Formica,1,8.5,154211,DF3,5/20/2022,1
+328,48,genus,Camponotus,6,128.5,154194,DF3,5/20/2022,1
+334,49,genus,Ponera,2,2.7,574209,DF4,5/20/2022,1
+335,49,genus,Camponotus,1,28,154194,DF4,5/20/2022,1
+340,50,family,Trogossitidae,1,1.7,678393,DF5,5/20/2022,1
+341,50,genus,Formica,2,15.1,154211,DF5,5/20/2022,1
+342,50,genus,Camponotus,1,22.5,154194,DF5,5/20/2022,1
+352,51,family,Coccinellidae,1,0.4,114329,NCSU3,5/24/2022,1
+353,51,family,Trogossitidae,2,3.3,678393,NCSU3,5/24/2022,1
+356,51,species,Philoscia muscorum,4,70.2,206377,NCSU3,5/24/2022,1
+363,52,family,Trogossitidae,1,0.5,678393,NCSU2,5/24/2022,1
+364,52,family,Trogossitidae,9,12.6,678393,NCSU2,5/24/2022,1
+366,52,genus,Ponera,10,10.4,574209,NCSU2,5/24/2022,1
+369,52,order,Siphonophorida,1,16.4,568964,NCSU2,5/24/2022,1
+374,53,family,Clubionidae,1,0.9,871518,NCSU9,5/24/2022,1
+375,53,order,Julida,1,2.4,154418,NCSU9,5/24/2022,1
+376,53,genus,Ponera,1,1.2,574209,NCSU9,5/24/2022,1
+377,53,genus,Camponotus,2,43.6,154194,NCSU9,5/24/2022,1
+378,53,genus,Camponotus,6,224.2,154194,NCSU9,5/24/2022,1
+382,54,family,Trogossitidae,1,1.2,678393,NCSU11,5/24/2022,1
+385,54,genus,Hypoponera,14,21.2,574195,NCSU11,5/24/2022,1
+392,55,family,Nitidulidae,1,0.4,114290,NCSU10,5/24/2022,1
+393,55,genus,Ponera,5,6.2,574209,NCSU10,5/24/2022,1
+394,55,genus,Camponotus,2,44.6,154194,NCSU10,5/24/2022,1
+395,55,species,Camponotus pennsylvanicus,3,104.9,154198,NCSU10,5/24/2022,1
+398,56,genus,Ponera,1,1.3,574209,NCSU3,5/26/2022,1
+399,56,family,Trogossitidae,1,1.6,678393,NCSU3,5/26/2022,1
+400,56,species,Philoscia muscorum,1,28.9,206377,NCSU3,5/26/2022,1
+401,56,species,Forficula auricularia,1,47.9,186036,NCSU3,5/26/2022,1
+402,56,order,Julida,1,7.3,154418,NCSU3,5/26/2022,1
+406,57,family,Trogossitidae,1,1.2,678393,NCSU2,5/26/2022,1
+407,57,genus,Ponera,6,5.4,574209,NCSU2,5/26/2022,1
+408,57,genus,Formica,1,3.3,154211,NCSU2,5/26/2022,1
+410,57,family,Clubionidae,1,0.3,871518,NCSU2,5/26/2022,1
+413,57,order,Julida,3,14,154418,NCSU2,5/26/2022,1
+417,58,family,Trogossitidae,1,0.5,678393,NCSU9,5/26/2022,1
+418,58,species,Camponotus pennsylvanicus,1,25.7,154198,NCSU9,5/26/2022,1
+423,59,genus,Ponera,3,4.9,574209,NCSU11,5/26/2022,1
+424,59,species,Prenolepis imparis,1,1.4,577971,NCSU11,5/26/2022,1
+428,60,genus,Ponera,9,14.3,574209,NCSU10,5/26/2022,1
+438,61,family,Trogossitidae,2,3,678393,UNC14,5/27/2022,1
+439,61,species,Camponotus pennsylvanicus,2,49.4,154198,UNC14,5/27/2022,1
+443,62,family,Trogossitidae,2,2.9,678393,UNC13,5/27/2022,1
+444,62,family,Nitidulidae,1,0.3,114290,UNC13,5/27/2022,1
+446,62,order,Julida,1,0.6,154418,UNC13,5/27/2022,1
+451,62,genus,Ponera,154,187.5,574209,UNC13,5/27/2022,1
+452,62,genus,Camponotus,1,17.4,154194,UNC13,5/27/2022,1
+453,62,genus,Formica,1,9.8,154211,UNC13,5/27/2022,1
+459,63,genus,Ponera,2,2.7,574209,UNC8,5/27/2022,1
+460,63,genus,Formica,1,10.3,154211,UNC8,5/27/2022,1
+461,63,species,Camponotus pennsylvanicus,3,110.6,154198,UNC8,5/27/2022,1
+468,64,genus,Ponera,9,13.2,574209,UNC4,5/27/2022,1
+473,65,family,Nitidulidae,1,0.6,114290,UNC3,5/27/2022,1
+474,65,family,Trogossitidae,1,1.1,678393,UNC3,5/27/2022,1
+482,66,family,Trogossitidae,1,1.5,678393,UNC14,5/29/2022,1
+486,66,species,Camponotus pennsylvanicus,1,36.9,154198,UNC14,5/29/2022,1
+494,67,species,Ponera pennsylvanica,52,70.4,583962,UNC13,5/29/2022,1
+495,67,genus,Formica,1,4.8,154211,UNC13,5/29/2022,1
+503,69,species,Ponera pennsylvanica,1,1.7,583962,UNC4,5/29/2022,1
+504,69,genus,Paratrechina,1,0.7,154224,UNC4,5/29/2022,1
+511,70,family,Corylophidae,1,0.7,114328,UNC3,5/29/2022,1
+512,70,family,Trogossitidae,2,3,678393,UNC3,5/29/2022,1
+517,71,family,Trogossitidae,1,2.4,678393,JMNP8,5/30/2022,1
+518,71,species,Ponera pennsylvanica,4,3.6,583962,JMNP8,5/30/2022,1
+519,71,genus,Formica,4,32.7,154211,JMNP8,5/30/2022,1
+520,71,species,Camponotus pennsylvanicus,1,21.1,154198,JMNP8,5/30/2022,1
+527,71,family,Phalangiidae,2,289.9,1012454,JMNP8,5/30/2022,1
+531,72,family,Trogossitidae,2,3.1,678393,JMNP5,5/30/2022,1
+537,72,species,Ponera pennsylvanica,8,11,583962,JMNP5,5/30/2022,1
+543,74,species,Ponera pennsylvanica,5,8.4,583962,JMNP3,5/30/2022,1
+544,74,species,Camponotus pennsylvanicus,1,19.5,154198,JMNP3,5/30/2022,1
+563,75,species,Ponera pennsylvanica,2,3.4,583962,JMNP1,5/30/2022,1
+572,80,family,Araneidae,1,0.3,82737,JMNP1,6/1/2022,1
+574,80,genus,Ponera pennsylvanica,1,1.6,583962,JMNP1,6/1/2022,1
+579,80,family,Ectobiidae,1,145.6,10,JMNP1,6/1/2022,1
+589,79,species,Camponotus pennsylvanicus,2,26.2,154198,JMNP3,6/1/2022,1
+590,79,genus,Camponotus,1,22.5,154194,JMNP3,6/1/2022,1
+608,76,family,Ectobiidae,1,24.3,10,JMNP8,6/1/2022,1
+613,76,genus,Formica,1,8,154211,JMNP8,6/1/2022,1
+614,76,species,Camponotus pennsylvanicus,1,17.6,154198,JMNP8,6/1/2022,1
+620,81,family,Trogossitidae,2,3.6,678393,NCBG8,6/8/2022,1
+622,81,species,Camponotus pennsylvanicus,2,36,154198,NCBG8,6/8/2022,1
+633,83,family,Trogossitidae,1,1.6,678393,NCBG5,6/8/2022,1
+637,83,genus,Formica,1,8.3,154211,NCBG5,6/8/2022,1
+646,84,genus,Formica,1,4.5,154211,NCBG4,6/8/2022,1
+648,84,family,Tipulidae,1,3.5,118840,NCBG4,6/8/2022,1
+668,87,family,Mordellidae,1,5,114383,NCBG6,6/10/2022,1
+669,87,genus,Formica,1,9.3,154211,NCBG6,6/10/2022,1
+671,87,family,Lycaenidae,3,106.9,117236,NCBG6,6/10/2022,1
+675,88,genus,Formica,2,19.8,154211,NCBG5,6/10/2022,1
+676,88,species,Camponotus pennsylvanicus,2,31.5,154198,NCBG5,6/10/2022,1
+688,90,family,Araneidae,1,1,82737,NCBG1,6/10/2022,1
+689,90,family,Clubionidae,1,1.4,871518,NCBG1,6/10/2022,1
+690,90,species,Camponotus pennsylvanicus,1,18.1,154198,NCBG1,6/10/2022,1
+703,91,family,Trogossitidae,1,0.4,678393,ERSP1,6/14/2022,1
+712,92,species,Camponotus pennsylvanicus,1,26.7,154198,ERSP2,6/14/2022,1
+721,93,species,Camponotus pennsylvanicus,3,45.3,154198,ERSP3,6/14/2022,1
+727,94,family,Oxyopidae,1,5.5,871532,ERSP4,6/14/2022,1
+734,95,family,Tetrigidae,1,144.5,102162,ERSP6,6/14/2022,1
+737,95,species,Camponotus pennsylvanicus,5,96.8,154198,ERSP6,6/14/2022,1
+738,95,genus,Camponotus,1,41.8,154194,ERSP6,6/14/2022,1
+757,98,species,Camponotus pennsylvanicus,1,39.7,154198,ERSP3,6/16/2022,1
+773,100,species,Camponotus pennsylvanicus,1,23.8,154198,ERSP6,6/16/2022,1
+801,102,species,Camponotus pennsylvanicus,1,34.4,154198,DF2,6/22/2022,1
+808,103,genus,Camponotus,1,32.9,154194,DF3,6/22/2022,1
+809,103,species,Camponotus pennsylvanicus,3,69.3,154198,DF3,6/22/2022,1
+814,105,species,Camponotus pennsylvanicus,1,24.2,154198,DF5,6/22/2022,1
+816,106,family,Trogossitidae,1,0.6,678393,NCSU2,6/23/2022,1
+829,106,species,Camponotus pennsylvanicus,3,83.9,154198,NCSU2,6/23/2022,1
+849,108,species,Camponotus pennsylvanicus,49,1397.5,154198,NCSU9,6/23/2022,1
+853,109,species,Camponotus pennsylvanicus,1,38.5,154198,NCSU10,6/23/2022,1
+854,109,genus,Formica,2,17.3,154211,NCSU10,6/23/2022,1
+862,110,genus,Formica,4,35.1,154211,NCSU11,6/23/2022,1
+906,115,genus,Formica,1,12,154211,DF5,6/24/2022,1
+910,116,family,Trogossitidae,1,2.5,678393,NCSU2,6/25/2022,1
+914,116,species,Camponotus pennsylvanicus,1,31.3,154198,NCSU2,6/25/2022,1
+920,117,family,Trogossitidae,1,1.1,678393,NCSU3,6/25/2022,1
+933,118,species,Camponotus pennsylvanicus,33,1108.6,154198,NCSU9,6/25/2022,1
+934,119,subfamily,Emesinae,1,0.3,721722,NCSU10,6/25/2022,1
+937,120,genus,Formica,4,46.6,154211,NCSU11,6/25/2022,1
+947,121,genus,Camponotus,7,208.7,154194,JMNP1,6/28/2022,1
+958,123,genus,Formica,2,23.1,154211,JMNP3,6/28/2022,1
+959,123,genus,Camponotus,2,41.7,154194,JMNP3,6/28/2022,1
+960,123,species,Camponotus pennsylvanicus,14,304.6,154198,JMNP3,6/28/2022,1
+991,127,genus,Hypoponera,1,0.5,574195,UNC4,6/29/2022,1
+992,127,genus,Paratrechina,3,0.5,154224,UNC4,6/29/2022,1
+999,128,family,Nitidulidae,1,1.4,114290,UNC8,6/29/2022,1
+1000,128,genus,Formica,3,20.3,154211,UNC8,6/29/2022,1
+1001,128,genus,Camponotus,1,23.4,154194,UNC8,6/29/2022,1
+1003,128,species,Camponotus pennsylvanicus,10,309.6,154198,UNC8,6/29/2022,1
+1013,129,species,Camponotus pennsylvanicus,2,74.4,154198,UNC13,6/29/2022,1
+1016,130,species,Camponotus pennsylvanicus,1,27.1,154198,UNC14,6/29/2022,1
+1017,130,genus,Camponotus,1,7.1,154194,UNC14,6/29/2022,1
+1029,131,genus,Camponotus,3,108.1,154194,JMNP1,6/30/2022,1
+1036,131,family,Nitidulidae,1,1,114290,JMNP1,6/30/2022,1
+1046,133,family,Bostrichidae,1,1,114476,JMNP3,6/30/2022,1
+1049,133,genus,Camponotus,8,141.7,154194,JMNP3,6/30/2022,1
+1051,133,genus,Formica,4,29.2,154211,JMNP3,6/30/2022,1
+1053,133,species,Camponotus pennsylvanicus,3,75.9,154198,JMNP3,6/30/2022,1
+1057,134,family,Nitidulidae,1,2.4,114290,JMNP5,6/30/2022,1
+1066,135,genus,Formica,1,11.5,154211,JMNP8,6/30/2022,1
+1074,136,family,Tenebrionidae,2,0.9,114419,UNC3,7/1/2022,1
+1075,136,family,Nitidulidae,2,1.9,114290,UNC3,7/1/2022,1
+1078,137,genus,Paratrechina,3,0.6,154224,UNC4,7/1/2022,1
+1082,137,species,Dysdera crocata,1,67.7,855479,UNC4,7/1/2022,1
+1091,138,family,Nitidulidae,3,3.8,114290,UNC8,7/1/2022,1
+1095,138,genus,Camponotus,2,41.9,154194,UNC8,7/1/2022,1
+1096,138,species,Camponotus pennsylvanicus,7,218.9,154198,UNC8,7/1/2022,1
+1097,138,genus,Formica,5,49.4,154211,UNC8,7/1/2022,1
+1103,139,genus,Formica,2,18.2,154211,UNC13,7/1/2022,1
+1105,139,family,Nitidulidae,1,0.4,114290,UNC13,7/1/2022,1
+1106,139,family,Linyphiidae,6,2.3,82743,UNC13,7/1/2022,1
+1107,140,genus,Camponotus,1,18.6,154194,UNC14,7/1/2022,1
+1115,140,genus,Paratrechina,1,0.2,154224,UNC14,7/1/2022,1
+1124,142,family,Ctenidae,1,25.7,871520,NCBG4,7/6/2022,1
+1126,142,family,Nitidulidae,1,0.5,114290,NCBG4,7/6/2022,1
+1127,142,genus,Camponotus,2,47.5,154194,NCBG4,7/6/2022,1
+1130,143,family,Nitidulidae,1,1.4,114290,NCBG5,7/6/2022,1
+1132,143,genus,Formica,3,25.2,154211,NCBG5,7/6/2022,1
+1137,144,genus,Camponotus,1,21.3,154194,NCBG6,7/6/2022,1
+1146,146,species,Camponotus pennsylvanicus,1,27.4,154198,NCBG1,7/8/2022,1
+1154,148,genus,Camponotus,1,18.9,154194,NCBG5,7/8/2022,1
+1156,148,family,Nitidulidae,1,1.1,114290,NCBG5,7/8/2022,1
+1163,149,family,Linyphiidae,1,0.5,82743,NCBG6,7/8/2022,1
+1166,150,genus,Camponotus,1,18.2,154194,NCBG8,7/8/2022,1
+1169,150,family,Ctenidae,1,23.5,871520,NCBG8,7/8/2022,1
+1171,151,family,Nitidulidae,1,1.6,114290,ERSP1,7/9/2022,1
+1173,151,species,Camponotus pennsylvanicus,1,28.7,154198,ERSP1,7/9/2022,1
+1174,151,genus,Formica,1,7.6,154211,ERSP1,7/9/2022,1
+1187,152,genus,Formica,1,18.3,154211,ERSP2,7/9/2022,1
+1195,153,genus,Camponotus,5,85.6,154194,ERSP3,7/9/2022,1
+1199,153,family,Reduviidae,1,79,107202,ERSP3,7/9/2022,1
+1201,154,family,Cicadellidae,1,3.2,109171,ERSP4,7/9/2022,1
+1264,162,genus,Camponotus,1,12,154194,DF2,7/12/2022,1
+1270,162,family,Anyphaenidae,1,0.2,871515,DF2,7/12/2022,1
+1274,163,genus,Camponotus,3,58,154194,DF3,7/12/2022,1
+1275,163,species,Camponotus pennsylvanicus,1,16.7,154198,DF3,7/12/2022,1
+1281,164,genus,Camponotus,3,36.2,154194,DF4,7/12/2022,1
+1290,165,genus,Camponotus,1,22.9,154194,DF5,7/12/2022,1
+1297,166,genus,Camponotus,1,14,154194,DF1,7/14/2022,1
+1303,167,genus,Camponotus,3,64.3,154194,DF2,7/14/2022,1
+1312,168,genus,Camponotus,4,84.8,154194,DF3,7/14/2022,1
+1337,171,family,Nitidulidae,1,1.3,114290,NCSU2,7/18/2022,1
+1344,172,family,Nitidulidae,2,2.7,114290,NCSU3,7/18/2022,1
+1354,173,genus,Camponotus,8,28.1,154194,NCSU9,7/18/2022,1
+1355,173,family,Scutigeridae,3,158.1,913657,NCSU9,7/18/2022,1
+1356,173,family,Nitidulidae,1,0.9,114290,NCSU9,7/18/2022,1
+1372,176,genus,Camponotus,2,105.1,154194,NCSU2,7/20/2022,1
+1376,176,genus,Paratrechina,2,1.1,154224,NCSU2,7/20/2022,1
+1377,176,family,Clubionidae,1,0.4,871518,NCSU2,7/20/2022,1
+1388,177,species,Dysdera crocata,1,62.3,855479,NCSU3,7/20/2022,1
+1394,178,genus,Camponotus,25,887.1,154194,NCSU9,7/20/2022,1
+1397,178,family,Pholcidae,1,6.7,847751,NCSU9,7/20/2022,1
+1404,179,family,Nitidulidae,1,1,114290,NCSU10,7/20/2022,1
+1405,180,genus,Formica,1,9.9,154211,NCSU11,7/20/2022,1
+1406,180,genus,Camponotus,1,23.8,154194,NCSU11,7/20/2022,1
+394,55,genus,Camponotus,2,44.6,575746,NCSU10,5/24/2022,1
+452,62,genus,Camponotus,1,17.4,575746,UNC13,5/27/2022,1
+590,79,genus,Camponotus,1,22.5,575746,JMNP3,6/1/2022,1
