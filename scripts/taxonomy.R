@@ -40,16 +40,17 @@ ranks <- map(
     taxon = new_taxa$taxon[!is.na(new_taxa$TaxonID)]) %>%
   select(
     c(TaxonID, taxon, class, order, suborder, family, subfamily, genus, species)) %>%
-  add_row(
-    TaxonID = NA,
-    taxon = new_taxa$taxon[is.na(new_taxa$TaxonID)],
-    class = NA,
-    order = NA,
-    suborder = NA,
-    family = NA,
-    subfamily = NA,
-    genus = NA,
-    species = NA) %>% 
+  # this part is only necessary if ITIS doesn't recognize any of the new taxa; if it recognizes all of them, this gives an error (trying to add an empty row)
+  # add_row(
+  #   TaxonID = NA,
+  #   taxon = new_taxa$taxon[is.na(new_taxa$TaxonID)],
+  #   class = NA,
+  #   order = NA,
+  #   suborder = NA,
+  #   family = NA,
+  #   subfamily = NA,
+  #   genus = NA,
+  #   species = NA) %>% 
   rbind(taxa)
 
 write.csv(ranks, file = paste('data/taxa_', today(), '.csv'), row.names = F)
