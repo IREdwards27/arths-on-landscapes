@@ -24,17 +24,17 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 105285,131161,genus,Camponotus,2.2,154194,1,FDZ,5/3/2022,2
 105287,131162,species,Microtonus sericans,1.3,NA,1,FDY,5/3/2022,2
 105288,131162,species,Microtonus sericans,1.3,NA,1,FDY,5/3/2022,2
-105291,131164,genus,Camponotus,9.3,154194,1,FDW,5/3/2022,1
+105291,131164,genus,Formica,9.3,,1,FDW,5/3/2022,2
 105292,131165,species,Microtonus sericans,0.8,NA,1,FDX,5/3/2022,2
 105294,131167,species,Prenolepis imparis,3,577971,2,FEI,5/3/2022,2
 105298,131170,species,Prenolepis imparis,1.9,577971,1,FEK,5/3/2022,2
-105306,131175,family,Anyphaenidae,6.8,881342,1,FEZ,5/3/2022,1
+105306,131175,family,Anyphaenidae,6.8,881342,1,FEZ,5/3/2022,2
 205220,131111,family,Anyphaenidae,NA,881342,1,FDN,5/1/2022,2
 205221,131111,family,Ptinidae,NA,114472,1,FDN,5/1/2022,2
-105307,131177,genus,Camponotus,4.1,154194,1,BYW,5/4/2022,1
-105312,131180,genus,Camponotus,2.6,154194,1,BYX,5/4/2022,1
-105314,131183,genus,Camponotus,11.1,154194,1,BYP,5/4/2022,1
-105321,131190,family,Buprestidae,4.9,114968,1,BXT,5/4/2022,1
+105307,131177,genus,Camponotus,4.1,154194,1,BYW,5/4/2022,2
+105312,131180,genus,Formica,2.6,,1,BYX,5/4/2022,2
+105314,131183,genus,Formica,11.1,,1,BYP,5/4/2022,2
+105321,131190,family,Buprestidae,4.9,114968,1,BXT,5/4/2022,2
 105336,131208,species,Prenolepis imparis,4.6,577971,3,FEI,5/5/2022,1
 105340,131214,family,Tenebrionidae,0.8,114419,1,FDY,5/5/2022,1
 105342,131215,genus,Paratrechina,3.6,154224,1,FDZ,5/5/2022,1
@@ -220,10 +220,10 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 127076,144413,family,Anyphaenidae,1.9,871515,1,CNA,7/16/2022,1
 217722,138333,family,Anyphaenidae,0.4,871515,NA,JAP,6/16/2022,1
 127879,145133,family,Anyphaenidae,NA,871515,0,CNH,7/20/2022,1
-105246,131129,family,Tetragnathidae,0.7,847764,1,BWW,5/2/2022,1
-105258,131139,family,Araneidae,4,82737,1,BXR,5/2/2022,1
-105271,131151,genus,Leucauge,6,847764,2,FDN,5/3/2022,1
-105299,131170,family,Araneidae,2.5,82737,1,FEK,5/3/2022,1
+105246,131129,order,Araneae,0.7,,1,BWW,5/2/2022,2
+105258,131139,family,Theridiidae,4,,1,BXR,5/2/2022,2
+105271,131151,genus,Leucauge,6,847764,2,FDN,5/3/2022,2
+105299,131170,family,Araneidae,2.5,82737,1,FEK,5/3/2022,2
 105447,131329,family,Tetragnathidae,3.1,847764,1,BYQ,5/6/2022,1
 105519,131423,family,Tetragnathidae,17,847764,1,DBL,5/8/2022,1
 105527,131429,family,Araneidae,0.6,82737,1,DCE,5/8/2022,1

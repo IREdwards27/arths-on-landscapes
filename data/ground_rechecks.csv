@@ -4,17 +4,17 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 21,5,species,Prenolepis imparis,2,3.5,577971,JMNP8,5/3/2022,2
 23,5,genus,Formica,1,5.3,NA,JMNP8,5/3/2022,2
 25,5,genus,Leiobunum,1,51.7,NA,JMNP8,5/3/2022,2
-31,7,family,Cerylonidae,5,5.5,114327,UNC4,5/4/2022,1
-32,7,family,Mordellidae,1,8.2,114383,UNC4,5/4/2022,1
-40,7,family,Lithobiidae,1,72.8,555700,UNC4,5/4/2022,1
-41,7,order,Julida,1,42.7,154418,UNC4,5/4/2022,1
-47,8,family,Chaoboridae,1,2.5,125886,UNC8,5/4/2022,1
-50,8,genus,Camponotus,3,44.6,154194,UNC8,5/4/2022,1
-52,9,family,Clubionidae,2,1.4,871518,UNC13,5/4/2022,1
-59,9,genus,Ponera,37,53.5,574209,UNC13,5/4/2022,1
-60,9,genus,Camponotus,4,32,154194,UNC13,5/4/2022,1
-61,10,genus,Ponera,1,1.5,574209,UNC14,5/4/2022,1
-66,10,species,Trachelipus rathkii,1,7,684736,UNC14,5/4/2022,1
+31,7,family,Nitidulidae,5,5.5,,UNC4,5/4/2022,2
+32,7,family,Tenebrionidae,1,8.2,,UNC4,5/4/2022,2
+40,7,family,Lithobiidae,1,72.8,555700,UNC4,5/4/2022,2
+41,7,class,Diplopoda,1,42.7,,UNC4,5/4/2022,2
+47,8,order,Diptera,1,2.5,,UNC8,5/4/2022,2
+50,8,genus,Camponotus,3,44.6,154194,UNC8,5/4/2022,2
+52,9,family,Corinnidae,2,1.4,,UNC13,5/4/2022,2
+59,9,species,Brachyponera chinensis,37,53.5,,UNC13,5/4/2022,2
+60,9,genus,Formica,4,32,,UNC13,5/4/2022,2
+61,10,species,Brachyponera chinensis,1,1.5,,UNC14,5/4/2022,2
+66,10,species,Trachelipus rathkii,1,7,684736,UNC14,5/4/2022,2
 77,12,species,Prenolepis imparis,1,1,577971,JMNP2,5/5/2022,1
 81,11,species,Prenolepis imparis,1,1,577971,JMNP1,5/5/2022,1
 84,11,family,Pentatomidae,1,36.3,108628,JMNP1,5/5/2022,1
@@ -293,7 +293,7 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 394,55,genus,Camponotus,2,44.6,575746,NCSU10,5/24/2022,1
 452,62,genus,Camponotus,1,17.4,575746,UNC13,5/27/2022,1
 590,79,genus,Camponotus,1,22.5,575746,JMNP3,6/1/2022,1
-53,9,family,Tetragnathidae,1,1.1,847764,UNC13,5/4/2022,1
+53,9,family,Linyphiidae,1,0.6,,UNC13,5/4/2022,2
 118,18,family,Tetragnathidae,1,1.9,847764,UNC8,5/6/2022,1
 127,19,family,Tetragnathidae,3,3.4,847764,UNC13,5/6/2022,1
 422,59,family,Tetragnathidae,1,3.1,847764,NCSU11,5/26/2022,1
