@@ -50,6 +50,19 @@ foliage_rechecks <- foliage_arths %>%
     by = c('BeatSheetFK' = 'BeatSheetID')) %>% 
   select(c(1:2,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeFK,Date,Checks))
 
+read_csv('data/foliage_rechecks.csv') %>% 
+  rbind(foliage_arths %>% 
+          left_join(
+            taxa,
+            by = 'TaxonID') %>% 
+          filter(
+            family %in% c('Araneidae','Theridiidae','Linyphiidae','Tetragnathidae')) %>%  
+          left_join(
+            beatsheets,
+            by = c('BeatSheetFK' = 'BeatSheetID')) %>% 
+          select(c(1:2,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeFK,Date,Checks))) %>% 
+  write_csv('data/foliage_rechecks.csv')
+
 write_csv(
   foliage_rechecks,
   'data/foliage_rechecks.csv')
@@ -77,6 +90,19 @@ ground_rechecks <- ground_arths %>%
     pitfalls,
     by = 'PitfallID') %>% 
   select(c(1:6,TaxonID,CircleID,DateCollected,Checks))
+
+read_csv('data/ground_rechecks.csv') %>% 
+  rbind(ground_arths %>% 
+          left_join(
+            taxa,
+            by = 'TaxonID') %>% 
+          filter(
+            family %in% c('Araneidae','Theridiidae','Linyphiidae','Tetragnathidae')) %>% 
+          left_join(
+            pitfalls,
+            by = 'PitfallID') %>% 
+          select(c(1:6,TaxonID,CircleID,DateCollected,Checks))) %>% 
+  write_csv('data/ground_rechecks.csv')
 
 write_csv(
   ground_rechecks,

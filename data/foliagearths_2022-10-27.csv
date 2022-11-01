@@ -53,7 +53,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 105267,131149,beetle,11,1,NA,NA,family,Elateridae,52.5,113879,1
 105268,131149,beetle,5,1,NA,NA,family,Elateridae,11.8,113906,1
 105270,131151,moths,3,1,NA,Lost,order,Lepidoptera,NA,117232,0
-105271,131151,spider,5,1,NA,NA,family,Tetragnathidae,6,847764,1
+105271,131151,spider,5,1,NA,NA,genus,Leucauge,6,847764,2
 105272,131151,spider,4,1,NA,NA,family,Anyphaenidae,5.6,881342,1
 105273,131152,spider,4,1,NA,NA,family,Anyphaenidae,9.7,881342,1
 105274,131153,ant,3,2,NA,NA,species,Prenolepis imparis,2.7,577971,2
@@ -87,7 +87,7 @@ FoliageArthID,BeatSheetFK,CCGroup,Length,Quantity,PhotoURL,CCNotes,TaxonLevel,Ta
 105304,131175,beetle,2,1,NA,NA,family,Curculionidae,3.7,114666,1
 105305,131175,moths,4,1,NA,NA,order,Lepidoptera,2.9,117232,1
 105306,131175,spider,4,1,NA,NA,family,Anyphaenidae,6.8,881342,1
-205212,131100,spider,2,1,NA,NA,order,Araneae,1.7,82732,1
+205212,131100,spider,2,1,NA,NA,family,Araneidae,1.7,,2
 205220,131111,spider,3,1,NA,NA,family,Anyphaenidae,NA,881342,1
 205221,131111,beetle,2,1,NA,NA,family,Ptinidae,NA,114472,1
 105307,131177,ant,5,1,NA,NA,genus,Camponotus,4.1,154194,1

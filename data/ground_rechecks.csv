@@ -1,9 +1,9 @@
 GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCollected,Checks
-3,1,family,Ephydridae,1,1.8,146893,JMNP1,5/3/2022,1
-18,4,genus,Ponera,1,1.5,574209,JMNP5,5/3/2022,1
-21,5,species,Prenolepis imparis,2,3.5,577971,JMNP8,5/3/2022,1
-23,5,genus,Camponotus,1,5.3,154194,JMNP8,5/3/2022,1
-25,5,family,Phalangiidae,1,51.7,1012454,JMNP8,5/3/2022,1
+3,1,order,Diptera,1,1.8,NA,JMNP1,5/3/2022,2
+18,4,species,Brachyponera chinensis,1,1.5,NA,JMNP5,5/3/2022,2
+21,5,species,Prenolepis imparis,2,3.5,577971,JMNP8,5/3/2022,2
+23,5,genus,Formica,1,5.3,NA,JMNP8,5/3/2022,2
+25,5,genus,Leiobunum,1,51.7,NA,JMNP8,5/3/2022,2
 31,7,family,Cerylonidae,5,5.5,114327,UNC4,5/4/2022,1
 32,7,family,Mordellidae,1,8.2,114383,UNC4,5/4/2022,1
 40,7,family,Lithobiidae,1,72.8,555700,UNC4,5/4/2022,1
@@ -293,3 +293,16 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 394,55,genus,Camponotus,2,44.6,575746,NCSU10,5/24/2022,1
 452,62,genus,Camponotus,1,17.4,575746,UNC13,5/27/2022,1
 590,79,genus,Camponotus,1,22.5,575746,JMNP3,6/1/2022,1
+53,9,family,Tetragnathidae,1,1.1,847764,UNC13,5/4/2022,1
+118,18,family,Tetragnathidae,1,1.9,847764,UNC8,5/6/2022,1
+127,19,family,Tetragnathidae,3,3.4,847764,UNC13,5/6/2022,1
+422,59,family,Tetragnathidae,1,3.1,847764,NCSU11,5/26/2022,1
+450,62,family,Tetragnathidae,3,1.4,847764,UNC13,5/27/2022,1
+492,67,family,Tetragnathidae,3,1.7,847764,UNC13,5/29/2022,1
+570,80,family,Tetragnathidae,1,0.1,847764,JMNP1,6/1/2022,1
+572,80,family,Araneidae,1,0.3,82737,JMNP1,6/1/2022,1
+688,90,family,Araneidae,1,1,82737,NCBG1,6/10/2022,1
+821,106,family,Tetragnathidae,2,0.7,847764,NCSU2,6/23/2022,1
+833,107,family,Tetragnathidae,1,0.3,847764,NCSU3,6/23/2022,1
+1106,139,family,Linyphiidae,6,2.3,82743,UNC13,7/1/2022,1
+1163,149,family,Linyphiidae,1,0.5,82743,NCBG6,7/8/2022,1
