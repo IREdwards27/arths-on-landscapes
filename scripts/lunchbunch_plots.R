@@ -3,12 +3,29 @@
 
 library(tidyverse)
 library(ggpubr)
+library(ggfortify)
+library(janitor)
 
 foliage_dis <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_dissimilarity')])
 
 ground_dis <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_dissimilarity')])
+
+foliage_arths <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
+
+beatsheets <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^beatsheets')])
+
+trees <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
+
+circles <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^circles')])
+
+taxa <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
 
 ul_theme1 <- theme(
   axis.title = element_text(size = 10),
@@ -220,6 +237,120 @@ ggsave(
   height = 3.75,
   units = 'in')
 
+
+# foliage arthropod PCA plot ----------------------------------------------
+
+# this is copied from dissimilarity_calculations, so annotations are removed to save space
+foliage_families <- foliage_arths %>%
+  mutate(Taxon = case_when(
+    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
+    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
+  left_join(
+    taxa,
+    by = 'TaxonID') %>%
+  filter(
+    order %in% c('Araneae','Coleoptera','Hemiptera','Opiliones','Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
+  left_join(
+    beatsheets %>%
+      select(BeatSheetID, Date, TreeFK),
+    by = c('BeatSheetFK' = 'BeatSheetID')) %>%
+  left_join(
+    trees %>%
+      select(TreeID, CircleFK),
+    by = c('TreeFK' = 'TreeID')) %>%
+  left_join(
+    circles,
+    by = c('CircleFK' = 'CircleID')) %>%
+  group_by(CircleFK, family) %>%
+  summarize(
+    n_individuals = sum(Quantity, na.rm = T),
+    biomass = sum(TotalMass))
+
+hi_foliage_fams <- foliage_families %>% 
+  mutate(
+    biomass = if_else(
+      is.na(biomass),
+      true = 0,
+      false = biomass),
+    logBiomass = log(biomass + 0.01)) %>% 
+  group_by(family) %>% 
+  summarize(range = max(logBiomass) - min(logBiomass)) %>% 
+  filter(!is.na(family)) %>% 
+  arrange(desc(range)) %>%
+  filter(range > 8) %>%
+  pull(family)
+
+# make a foliage plot that can be PCA'ed - columns are families, rows are circles
+foliage_base1 <- map_dfc(
+  unique(foliage_families$CircleFK),
+  ~ foliage_families %>%
+    filter(
+      CircleFK == .x,
+      !is.na(family),
+      family %in% hi_foliage_fams) %>%
+    bind_rows(tibble(
+      family = hi_foliage_fams[!hi_foliage_fams %in% .$family])) %>%
+    mutate(
+      CircleFK = if_else(
+        is.na(CircleFK),
+        true = .x,
+        false = CircleFK),
+      biomass = if_else(
+        is.na(biomass),
+        true = 0,
+        false = biomass),
+      logBiomass = log(biomass+0.01)) %>%
+    select(!n_individuals:biomass) %>%
+    pivot_wider(
+      names_from = family,
+      values_from = logBiomass) %>%
+    t() %>%
+    row_to_names(row_number = 1) %>%
+    as_tibble(rownames = 'family') %>%
+    arrange(family) %>%
+    select(!family)) %>%
+  cbind(family = hi_foliage_fams) %>%
+  relocate(family) %>%
+  as_tibble() %>%
+  mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
+  # switch rows and columns
+  t() %>% 
+  # get column names from the first row
+  row_to_names(row_number = 1) %>% 
+  as_tibble() %>% 
+  mutate(across(.fns = as.numeric)) %>% 
+  cbind(CircleID = circles$CircleID) %>% 
+  left_join(
+    circles %>% 
+      select(CircleID, SiteFK),
+    by = 'CircleID')
+
+rownames(foliage_base1) <- circles$CircleID
+
+foliage_pca <- prcomp(foliage_base1[1:10])
+
+foliage_pca_plot <- autoplot(
+  foliage_pca,
+  data = foliage_base1,
+  colour = 'SiteFK',
+  loadings = T,
+  loadings.label = T,
+  size = 3,
+  loadings.colour = 'forestgreen',
+  loadings.label.size = 3) +
+  ul_theme1 +
+  theme(
+    legend.position = 'none',
+    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
+  scale_color_viridis_d()
+
+ggsave(
+  plot = foliage_pca_plot,
+  filename = 'figures/lunch_bunch/foliage_pca.png',
+  width = 8,
+  height = 4,
+  units = 'in')
+  
 
 # visualizing ground arthropod stats -------------------------------------
 
