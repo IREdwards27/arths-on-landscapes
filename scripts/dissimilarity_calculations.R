@@ -50,9 +50,12 @@ sites <- read_csv(
 
 foliage_families <- foliage_arths %>%
   # filter to confident IDs while still working on bug ID
-  mutate(Taxon = case_when(
-    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
+  mutate(TaxonID = case_when(
+    # switch all Trogossitidae to Nitidulidae
+    TaxonID == 678393 ~ 114290,
+    # switch all Ponera and Hypoponera to Brachyponera chinensis
+    TaxonID %in% c(574209,574195) ~ 11,
+    TRUE ~ TaxonID)) %>%
   left_join(
     taxa,
     by = 'TaxonID') %>%
@@ -461,9 +464,12 @@ litter_depth_matrix <- dist(circles$LitterDepthmm, diag = T, upper = T) %>%
 
 ground_families <- ground_arths %>%
   # filter to confident IDs while still working on bug ID
-  mutate(Taxon = case_when(
-    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
+  mutate(TaxonID = case_when(
+    # switch all Trogossitidae to Nitidulidae
+    TaxonID == 678393 ~ 114290,
+    # switch all Ponera and Hypoponera to Brachyponera chinensis
+    TaxonID %in% c(574209,574195) ~ 11,
+    TRUE ~ TaxonID)) %>%
   left_join(
     taxa,
     by = 'TaxonID') %>%

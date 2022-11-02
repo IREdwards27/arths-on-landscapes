@@ -27,6 +27,12 @@ circles <- read_csv(
 taxa <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
 
+ground_arths <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^groundarths')])
+
+pitfalls <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfallsurveys')])
+
 ul_theme1 <- theme(
   axis.title = element_text(size = 10),
   panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
@@ -242,9 +248,12 @@ ggsave(
 
 # this is copied from dissimilarity_calculations, so annotations are removed to save space
 foliage_families <- foliage_arths %>%
-  mutate(Taxon = case_when(
-    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
+  mutate(TaxonID = case_when(
+    # switch all Trogossitidae to Nitidulidae
+    TaxonID == 678393 ~ 114290,
+    # switch all Ponera and Hypoponera to Brachyponera chinensis
+    TaxonID %in% c(574209,574195) ~ 11,
+    TRUE ~ TaxonID)) %>%
   left_join(
     taxa,
     by = 'TaxonID') %>%
@@ -543,3 +552,117 @@ ggsave(
   width = 8,
   height = 3.75,
   units = 'in')
+
+# ground arthropod PCA plot -----------------------------------------------
+
+ground_families <- ground_arths %>%
+  # filter to confident IDs while still working on bug ID
+  mutate(TaxonID = case_when(
+    # switch all Trogossitidae to Nitidulidae
+    TaxonID == 678393 ~ 114290,
+    # switch all Ponera and Hypoponera to Brachyponera chinensis
+    TaxonID %in% c(574209,574195) ~ 11,
+    TRUE ~ TaxonID)) %>%
+  left_join(
+    taxa,
+    by = 'TaxonID') %>%
+  # filter to focal orders
+  filter(
+    order %in% c('Araneae','Archaeognatha','Coleoptera','Isopoda', 'Opiliones', 'Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
+  left_join(
+    pitfalls %>%
+      select(PitfallID, DateCollected, CircleID),
+    by = 'PitfallID') %>%
+  left_join(
+    circles,
+    by = 'CircleID') %>%
+  group_by(CircleID, family) %>%
+  summarize(
+    n_individuals = sum(Number, na.rm = T),
+    biomass = sum(TotalMass))
+
+hi_ground_fams <- ground_families %>% 
+  mutate(
+    biomass = if_else(
+      is.na(biomass),
+      true = 0,
+      false = biomass),
+    logBiomass = log(biomass + 0.01)) %>% 
+  group_by(family) %>% 
+  summarize(range = max(logBiomass) - min(logBiomass)) %>% 
+  filter(!is.na(family)) %>% 
+  arrange(desc(range)) %>% 
+  filter(range > 4) %>%
+  pull(family)
+
+# make a foliage plot that can be PCA'ed - columns are families, rows are circles
+ground_base1 <- map_dfc(
+  unique(ground_families$CircleID),
+  ~ ground_families %>%
+    filter(
+      CircleID == .x,
+      !is.na(family),
+      family %in% hi_ground_fams) %>%
+    bind_rows(tibble(
+      family = hi_ground_fams[!hi_ground_fams %in% .$family])) %>%
+    mutate(
+      CircleID = if_else(
+        is.na(CircleID),
+        true = .x,
+        false = CircleID),
+      biomass = if_else(
+        is.na(biomass),
+        true = 0,
+        false = biomass),
+      logBiomass = log(biomass+0.01)) %>%
+    select(!n_individuals:biomass) %>%
+    pivot_wider(
+      names_from = family,
+      values_from = logBiomass) %>%
+    t() %>%
+    row_to_names(row_number = 1) %>%
+    as_tibble(rownames = 'family') %>%
+    arrange(family) %>%
+    select(!family)) %>%
+  cbind(family = hi_ground_fams) %>%
+  relocate(family) %>%
+  as_tibble() %>%
+  mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
+  # switch rows and columns
+  t() %>% 
+  # get column names from the first row
+  row_to_names(row_number = 1) %>% 
+  as_tibble() %>% 
+  mutate(across(.fns = as.numeric)) %>% 
+  cbind(CircleID = circles$CircleID) %>% 
+  left_join(
+    circles %>% 
+      select(CircleID, SiteFK),
+    by = 'CircleID')
+
+rownames(ground_base1) <- circles$CircleID
+
+ground_pca <- prcomp(ground_base1[1:12])
+
+ground_pca_plot <- autoplot(
+  ground_pca,
+  data = ground_base1,
+  colour = 'SiteFK',
+  loadings = T,
+  loadings.label = T,
+  size = 3,
+  loadings.colour = 'forestgreen',
+  loadings.label.size = 3) +
+  ul_theme1 +
+  theme(
+    legend.position = 'none',
+    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
+  scale_color_viridis_d()
+
+ggsave(
+  plot = ground_pca_plot,
+  filename = 'figures/lunch_bunch/ground_pca.png',
+  width = 8,
+  height = 4,
+  units = 'in')
+
