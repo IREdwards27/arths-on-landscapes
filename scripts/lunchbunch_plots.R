@@ -336,7 +336,7 @@ foliage_base1 <- map_dfc(
 
 rownames(foliage_base1) <- circles$CircleID
 
-foliage_pca <- prcomp(foliage_base1[1:10])
+foliage_pca <- prcomp(foliage_base1[1:10], scale = T)
 
 foliage_pca_plot <- autoplot(
   foliage_pca,
@@ -642,7 +642,7 @@ ground_base1 <- map_dfc(
 
 rownames(ground_base1) <- circles$CircleID
 
-ground_pca <- prcomp(ground_base1[1:12])
+ground_pca <- prcomp(ground_base1[1:12], scale = T)
 
 ground_pca_plot <- autoplot(
   ground_pca,
