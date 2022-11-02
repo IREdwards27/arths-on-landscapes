@@ -322,35 +322,35 @@ summary(lm(
   euclideanDistance ~ jaccardDissimilarity,
   data = analysis_frame_foliage))
 
-# p = 0.021
+# p = 0.0249
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.001
+# p = 0.0002
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(forest_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.924
+# p = 0.9308
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.382
+# p = 0.3891
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.005
+# p = 0.0014
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
 # R^2 = 0.1392
 euclidean_foliage_mod_full <- lm(
@@ -382,35 +382,35 @@ euclidean_foliage_mod_dist <- lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage)
 
-# p = 0.071
+# p = 0.0673
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.776
+# p = 0.7634
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.001
+# p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(forest_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.053
+# p = 0.0585
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.002
+# p = 0.0011
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
 # R^2 = 0.1898
 jaccard_foliage_mod_full <- lm(
@@ -659,35 +659,35 @@ summary(lm(
   euclideanDistance ~ jaccardDissimilarity,
   data = analysis_frame_ground))
 
-# p = 0.46
+# p = 0.4939
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.001
+# p = 0.0001
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(forest_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.193
+# p = 0.1835
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.594
+# p = 0.5913
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.002
+# p = 0.0006
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(distance_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
 # R^2 = 0.5098
 euclidean_ground_mod_full <- lm(
