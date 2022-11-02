@@ -35,20 +35,20 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 105312,131180,genus,Formica,2.6,,1,BYX,5/4/2022,2
 105314,131183,genus,Formica,11.1,,1,BYP,5/4/2022,2
 105321,131190,family,Buprestidae,4.9,114968,1,BXT,5/4/2022,2
-105336,131208,species,Prenolepis imparis,4.6,577971,3,FEI,5/5/2022,1
-105340,131214,family,Tenebrionidae,0.8,114419,1,FDY,5/5/2022,1
-105342,131215,genus,Paratrechina,3.6,154224,1,FDZ,5/5/2022,1
-105345,131222,species,Prenolepis imparis,1,577971,1,FDQ,5/5/2022,1
-105347,131225,species,Prenolepis imparis,0.7,577971,1,FDO,5/5/2022,1
-105348,131225,family,Conopidae,5.5,141828,1,FDO,5/5/2022,1
-105349,131226,family,Anyphaenidae,2.3,871515,1,FDV,5/5/2022,1
-105350,131226,family,Anyphaenidae,3.2,871515,1,FDV,5/5/2022,1
-105439,131321,family,Anyphaenidae,9.1,881342,1,BWY,5/6/2022,1
-105442,131325,family,Saldidae,0.8,104063,1,BXT,5/6/2022,1
-105448,131330,genus,Formica,7.8,154211,1,BYS,5/6/2022,1
-105449,131332,family,Anyphaenidae,2.8,871515,1,BYP,5/6/2022,NA
-105450,131333,species,Ptosima gibbicollis,16.8,809008,1,BYO,5/6/2022,1
-105454,131336,genus,Formica,8.3,154211,1,BYV,5/6/2022,1
+105336,131208,species,Prenolepis imparis,4.6,577971,3,FEI,5/5/2022,2
+105340,131214,family,Melandryidae,0.8,,1,FDY,5/5/2022,2
+105342,131215,genus,Camponotus,3.6,,1,FDZ,5/5/2022,2
+105345,131222,species,Prenolepis imparis,1,577971,1,FDQ,5/5/2022,2
+105347,131225,species,Prenolepis imparis,0.7,577971,1,FDO,5/5/2022,2
+105348,131225,order,Dipter,5.5,,1,FDO,5/5/2022,2
+105349,131226,family,Anyphaenidae,2.3,871515,1,FDV,5/5/2022,2
+105350,131226,family,Anyphaenidae,3.2,871515,1,FDV,5/5/2022,2
+105439,131321,family,Anyphaenidae,9.1,881342,1,BWY,5/6/2022,2
+105442,131325,family,Miridae,0.8,,1,BXT,5/6/2022,2
+105448,131330,genus,Formica,7.8,154211,1,BYS,5/6/2022,2
+105449,131332,family,Anyphaenidae,2.8,871515,1,BYP,5/6/2022,2
+105450,131333,species,Ptosima gibbicollis,16.8,809008,1,BYO,5/6/2022,2
+105454,131336,genus,Formica,8.3,154211,1,BYV,5/6/2022,2
 105521,131424,family,Anyphaenidae,2.7,871515,1,DBM,5/8/2022,1
 105525,131427,family,Chloropidae,1.8,147644,1,DBO,5/8/2022,1
 205532,131434,family,Anyphaenidae,0.7,871515,1,DCI,5/8/2022,1
