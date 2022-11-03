@@ -381,10 +381,6 @@ ground_plot_euclidean_road <- ggplot(
     x = distanceToRoad,
     y = euclideanDistance)) +
   geom_point() +
-  geom_smooth(
-    method = 'lm',
-    se = F,
-    color = 'forestgreen') +
   labs(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
@@ -595,7 +591,7 @@ hi_ground_fams <- ground_families %>%
   filter(range > 4) %>%
   pull(family)
 
-# make a foliage plot that can be PCA'ed - columns are families, rows are circles
+# make a ground plot that can be PCA'ed - columns are families, rows are circles
 ground_base1 <- map_dfc(
   unique(ground_families$CircleID),
   ~ ground_families %>%

@@ -714,35 +714,35 @@ euclidean_ground_mod_dist <- lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_ground)
 
-# p = 0.253
+# p = 0.2433
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.303
+# p = 0.2940
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.296
+# p = 0.2798
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.001
+# p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(forest_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
-# p = 0.062
+# p = 0.0564
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
-  nrepet = 999)
+  nrepet = 9999)
 
 # R^2 = 0.2613
 jaccard_ground_mod_full <- lm(
