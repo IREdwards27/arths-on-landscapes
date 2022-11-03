@@ -40,7 +40,7 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 105342,131215,genus,Camponotus,3.6,,1,FDZ,5/5/2022,2
 105345,131222,species,Prenolepis imparis,1,577971,1,FDQ,5/5/2022,2
 105347,131225,species,Prenolepis imparis,0.7,577971,1,FDO,5/5/2022,2
-105348,131225,order,Dipter,5.5,,1,FDO,5/5/2022,2
+105348,131225,order,Diptera,5.5,,1,FDO,5/5/2022,2
 105349,131226,family,Anyphaenidae,2.3,871515,1,FDV,5/5/2022,2
 105350,131226,family,Anyphaenidae,3.2,871515,1,FDV,5/5/2022,2
 105439,131321,family,Anyphaenidae,9.1,881342,1,BWY,5/6/2022,2
@@ -49,30 +49,30 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 105449,131332,family,Anyphaenidae,2.8,871515,1,BYP,5/6/2022,2
 105450,131333,species,Ptosima gibbicollis,16.8,809008,1,BYO,5/6/2022,2
 105454,131336,genus,Formica,8.3,154211,1,BYV,5/6/2022,2
-105521,131424,family,Anyphaenidae,2.7,871515,1,DBM,5/8/2022,1
-105525,131427,family,Chloropidae,1.8,147644,1,DBO,5/8/2022,1
-205532,131434,family,Anyphaenidae,0.7,871515,1,DCI,5/8/2022,1
-105533,131434,family,Anyphaenidae,9.9,881342,1,DCI,5/8/2022,1
-105538,131437,family,Asilidae,2.2,132394,1,DCG,5/8/2022,1
-105540,131438,family,Tenebrionidae,0.7,114419,1,DCL,5/8/2022,1
-105542,131439,family,Melandryidae,0.1,114452,1,DCM,5/8/2022,1
-105544,131440,family,Melandryidae,1.7,114452,1,DCK,5/8/2022,1
-105545,131442,genus,Formica,7.9,154211,1,DCO,5/8/2022,1
-105547,131443,species,Prenolepis imparis,1.1,577971,1,DCW,5/8/2022,1
-105549,131443,species,Banasa calva,92,108764,1,DCW,5/8/2022,1
-105550,131445,species,Prenolepis imparis,2.2,577971,2,DCY,5/8/2022,1
-105551,131445,family,Anyphaenidae,7.4,871515,2,DCY,5/8/2022,1
-105552,131446,family,Melandryidae,1.1,114452,1,DCX,5/8/2022,1
-105587,131474,family,Tenebrionidae,0.4,114419,1,DCU,5/10/2022,1
-105588,131474,genus,Prenolepis imparis,0.8,577971,1,DCU,5/10/2022,1
-105624,131509,family,Anyphaenidae,13.4,881342,1,DCJ,5/10/2022,1
+105521,131424,family,Anyphaenidae,2.7,871515,1,DBM,5/8/2022,2
+105525,131427,order,Diptera,1.8,147644,1,DBO,5/8/2022,2
+205532,131434,family,Linyphiidae,0.7,,1,DCI,5/8/2022,2
+105533,131434,family,Anyphaenidae,9.9,881342,1,DCI,5/8/2022,2
+105538,131437,order,Diptera,2.2,,1,DCG,5/8/2022,2
+105540,131438,species,Microtonus sericans,0.7,,1,DCL,5/8/2022,2
+105542,131439,order,Coleoptera,0.1,,1,DCM,5/8/2022,2
+105544,131440,species,Microtonus sericans,1.7,,1,DCK,5/8/2022,2
+105545,131442,genus,Formica,7.9,154211,1,DCO,5/8/2022,2
+105547,131443,species,Prenolepis imparis,1.1,577971,1,DCW,5/8/2022,2
+105549,131443,species,Banasa calva,92,108764,1,DCW,5/8/2022,2
+105550,131445,species,Prenolepis imparis,2.2,577971,2,DCY,5/8/2022,2
+105551,131445,family,Anyphaenidae,7.4,871515,2,DCY,5/8/2022,2
+105552,131446,family,Melandryidae,1.1,114452,1,DCX,5/8/2022,2
+105587,131474,species,Microtonus sericans,0.4,,1,DCU,5/10/2022,2
+105588,131474,genus,Prenolepis imparis,0.8,577971,1,DCU,5/10/2022,2
+105624,131509,family,Anyphaenidae,13.4,881342,1,DCJ,5/10/2022,2
 105656,131534,family,Culicidae,NA,125930,1,DCA,5/10/2022,NA
-105659,131538,family,Tephritidae,0.6,142604,1,DCE,5/10/2022,1
-105683,131566,family,Anyphaenidae,3.7,871515,1,DBL,5/10/2022,1
-106254,132049,species,Prenolepis imparis,1.7,577971,2,DCY,5/10/2022,1
-105755,131613,genus,Camponotus,13,154194,1,DBL,5/12/2022,1
-105759,131618,genus,Camponotus,4.8,154194,1,DCE,5/12/2022,1
-105766,131623,family,Phalangiidae,14.1,1012454,1,DCI,5/12/2022,1
+105659,131538,order,Diptera,0.6,,1,DCE,5/10/2022,2
+105683,131566,family,Anyphaenidae,3.7,871515,1,DBL,5/10/2022,2
+106254,132049,species,Prenolepis imparis,1.7,577971,2,DCY,5/10/2022,2
+105755,131613,genus,Camponotus,13,154194,1,DBL,5/12/2022,2
+105759,131618,genus,Camponotus,4.8,154194,1,DCE,5/12/2022,2
+105766,131623,genus,Leiobunum,14.1,,1,DCI,5/12/2022,2
 105767,131624,family,Phalangiidae,8,1012454,1,DCF,5/12/2022,1
 105768,131626,genus,Formica,5.9,154211,1,DCH,5/12/2022,1
 105769,131628,family,Phalangiidae,18.2,1012454,1,DCM,5/12/2022,1
@@ -224,11 +224,11 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 105258,131139,family,Theridiidae,4,,1,BXR,5/2/2022,2
 105271,131151,genus,Leucauge,6,847764,2,FDN,5/3/2022,2
 105299,131170,family,Araneidae,2.5,82737,1,FEK,5/3/2022,2
-105447,131329,family,Tetragnathidae,3.1,847764,1,BYQ,5/6/2022,1
-105519,131423,family,Tetragnathidae,17,847764,1,DBL,5/8/2022,1
-105527,131429,family,Araneidae,0.6,82737,1,DCE,5/8/2022,1
-105532,131434,family,Araneidae,0.8,82737,1,DCI,5/8/2022,1
-105543,131439,family,Araneidae,0.7,82737,1,DCM,5/8/2022,1
+105447,131329,family,Linyphiidae,3.1,,1,BYQ,5/6/2022,2
+105519,131423,family,Tetragnathidae,17,847764,1,DBL,5/8/2022,2
+105527,131429,family,Linyphiidae,0.6,,1,DCE,5/8/2022,2
+105532,131434,family,Araneidae,0.8,82737,1,DCI,5/8/2022,2
+105543,131439,family,Araneidae,0.7,82737,1,DCM,5/8/2022,2
 105771,131631,family,Araneidae,3.3,82737,1,DCO,5/12/2022,NA
 106025,131883,family,Tetragnathidae,0.1,847764,1,JAQ,5/15/2022,1
 106041,131890,family,Araneidae,1.5,82737,1,JAX,5/15/2022,1
