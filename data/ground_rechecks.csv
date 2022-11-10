@@ -60,24 +60,24 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 181,29,family,Corinnidae,1,2.7,,NCBG6,5/12/2022,2
 183,30,family,Braconidae,1,0,152867,NCBG8,5/12/2022,2
 188,30,species,Brachyponera chinensis,1,1.7,,NCBG8,5/12/2022,2
-197,33,genus,Hypoponera,3,4.8,574195,ERSP3,5/17/2022,1
-204,34,order,Julida,1,13.6,154418,ERSP4,5/17/2022,1
-206,34,genus,Ponera,5,7.2,574209,ERSP4,5/17/2022,1
-212,35,genus,Ponera,2,2.7,574209,ERSP6,5/17/2022,1
-213,35,genus,Camponotus,1,23.3,154194,ERSP6,5/17/2022,1
-220,36,family,Clubionidae,3,1.5,871518,DF1,5/18/2022,1
-223,36,species,Lycoptis americana,1,0.3,7,DF1,5/18/2022,1
-224,36,genus,Hypoponera,17,22.8,574195,DF1,5/18/2022,1
-225,36,genus,Camponotus,2,25.8,154194,DF1,5/18/2022,1
-232,37,genus,Ponera,7,10.1,574209,DF2,5/18/2022,1
-233,37,genus,Camponotus,1,17.4,154194,DF2,5/18/2022,1
-240,38,family,Clubionidae,1,2.2,871518,DF3,5/18/2022,1
-242,38,genus,Camponotus,2,30.6,154194,DF3,5/18/2022,1
-245,39,family,Clubionidae,2,1.9,871518,DF4,5/18/2022,1
-252,39,genus,Ponera,1,1.6,574209,DF4,5/18/2022,1
-253,39,genus,Camponotus,1,18.3,154194,DF4,5/18/2022,1
-258,40,genus,Ponera,1,1.5,574209,DF5,5/18/2022,1
-259,40,genus,Camponotus,1,16.3,154194,DF5,5/18/2022,1
+197,33,species,Brachyponera chinensis,3,4.8,,ERSP3,5/17/2022,2
+204,34,class,Diplopoda,1,13.6,,ERSP4,5/17/2022,2
+206,34,species,Brachyponera chinensis,5,7.2,,ERSP4,5/17/2022,2
+212,35,species,Brachyponera chinensis,2,2.7,,ERSP6,5/17/2022,2
+213,35,genus,Camponotus,1,23.3,154194,ERSP6,5/17/2022,2
+220,36,family,Corinnidae,3,1.5,,DF1,5/18/2022,2
+223,36,family,Nitidulidae,1,0.3,7,DF1,5/18/2022,2
+224,36,species,Brachyponera chinensis,17,22.8,,DF1,5/18/2022,2
+225,36,genus,Camponotus,2,25.8,154194,DF1,5/18/2022,2
+232,37,species,Brachyponera chinensis,7,10.1,,DF2,5/18/2022,2
+233,37,genus,Camponotus,1,17.4,154194,DF2,5/18/2022,2
+240,38,family,Corinnidae,1,2.2,,DF3,5/18/2022,2
+242,38,genus,Camponotus,2,30.6,154194,DF3,5/18/2022,2
+245,39,family,Corinnidae,2,1.9,,DF4,5/18/2022,2
+252,39,family,Brachyponera chinensis,1,1.6,,DF4,5/18/2022,2
+253,39,genus,Camponotus,1,18.3,154194,DF4,5/18/2022,2
+258,40,species,Brachyponera chinensis,1,1.5,,DF5,5/18/2022,2
+259,40,genus,Camponotus,1,16.3,154194,DF5,5/18/2022,2
 262,41,species,Prenolepis imparis,1,0.9,577971,ERSP1,5/19/2022,1
 263,41,genus,Formica,3,15.5,154211,ERSP1,5/19/2022,1
 271,42,species,Prenolepis imparis,1,2,577971,ERSP2,5/19/2022,1
@@ -88,37 +88,37 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 295,44,genus,Formica,1,7.1,154211,ERSP4,5/19/2022,1
 301,45,genus,Hypoponera,14,18.9,574195,ERSP6,5/19/2022,1
 302,45,genus,Camponotus,2,43.3,154194,ERSP6,5/19/2022,1
-310,46,genus,Ponera,5,7.7,574209,DF1,5/20/2022,1
-311,46,genus,Camponotus,3,39.6,154194,DF1,5/20/2022,1
-314,46,family,Sphecidae,1,35.9,154310,DF1,5/20/2022,1
-319,47,genus,Ponera,3,3.7,574209,DF2,5/20/2022,1
-320,47,genus,Camponotus,6,106.8,154194,DF2,5/20/2022,1
-326,48,genus,Ponera,2,2.9,574209,DF3,5/20/2022,1
-327,48,genus,Formica,1,8.5,154211,DF3,5/20/2022,1
-328,48,genus,Camponotus,6,128.5,154194,DF3,5/20/2022,1
-334,49,genus,Ponera,2,2.7,574209,DF4,5/20/2022,1
-335,49,genus,Camponotus,1,28,154194,DF4,5/20/2022,1
-340,50,family,Trogossitidae,1,1.7,678393,DF5,5/20/2022,1
-341,50,genus,Formica,2,15.1,154211,DF5,5/20/2022,1
-342,50,genus,Camponotus,1,22.5,154194,DF5,5/20/2022,1
-352,51,family,Coccinellidae,1,0.4,114329,NCSU3,5/24/2022,1
-353,51,family,Trogossitidae,2,3.3,678393,NCSU3,5/24/2022,1
-356,51,species,Philoscia muscorum,4,70.2,206377,NCSU3,5/24/2022,1
-363,52,family,Trogossitidae,1,0.5,678393,NCSU2,5/24/2022,1
-364,52,family,Trogossitidae,9,12.6,678393,NCSU2,5/24/2022,1
-366,52,genus,Ponera,10,10.4,574209,NCSU2,5/24/2022,1
-369,52,order,Siphonophorida,1,16.4,568964,NCSU2,5/24/2022,1
-374,53,family,Clubionidae,1,0.9,871518,NCSU9,5/24/2022,1
-375,53,order,Julida,1,2.4,154418,NCSU9,5/24/2022,1
-376,53,genus,Ponera,1,1.2,574209,NCSU9,5/24/2022,1
-377,53,genus,Camponotus,2,43.6,154194,NCSU9,5/24/2022,1
-378,53,genus,Camponotus,6,224.2,154194,NCSU9,5/24/2022,1
-382,54,family,Trogossitidae,1,1.2,678393,NCSU11,5/24/2022,1
-385,54,genus,Hypoponera,14,21.2,574195,NCSU11,5/24/2022,1
-392,55,family,Nitidulidae,1,0.4,114290,NCSU10,5/24/2022,1
-393,55,genus,Ponera,5,6.2,574209,NCSU10,5/24/2022,1
-394,55,genus,Camponotus,2,44.6,154194,NCSU10,5/24/2022,1
-395,55,species,Camponotus pennsylvanicus,3,104.9,154198,NCSU10,5/24/2022,1
+310,46,species,Brachyponera chinensis,5,7.7,,DF1,5/20/2022,2
+311,46,genus,Camponotus,3,39.6,154194,DF1,5/20/2022,2
+314,46,family,Sphecidae,1,35.9,154310,DF1,5/20/2022,2
+319,47,species,Brachyponera chinensis,3,3.7,,DF2,5/20/2022,2
+320,47,genus,Camponotus,6,106.8,154194,DF2,5/20/2022,2
+326,48,species,Brachyponera chinensis,2,2.9,,DF3,5/20/2022,2
+327,48,genus,Formica,1,8.5,154211,DF3,5/20/2022,2
+328,48,genus,Camponotus,6,128.5,154194,DF3,5/20/2022,2
+334,49,species,Brachyponera chinensis,2,2.7,,DF4,5/20/2022,2
+335,49,genus,Camponotus,1,28,154194,DF4,5/20/2022,2
+340,50,family,Nitidulidae,1,1.7,,DF5,5/20/2022,2
+341,50,genus,Formica,2,15.1,154211,DF5,5/20/2022,2
+342,50,genus,Camponotus,1,22.5,154194,DF5,5/20/2022,2
+352,51,family,Coccinellidae,1,0.4,114329,NCSU3,5/24/2022,2
+353,51,family,Nitidulidae,2,3.3,,NCSU3,5/24/2022,2
+356,51,species,Philoscia muscorum,4,70.2,206377,NCSU3,5/24/2022,2
+363,52,family,Nitidulidae,1,0.5,,NCSU2,5/24/2022,2
+364,52,family,Nitidulidae,9,12.6,,NCSU2,5/24/2022,2
+366,52,species,Brachyponera chinensis,10,10.4,,NCSU2,5/24/2022,2
+369,52,order,Siphonophorida,1,16.4,568964,NCSU2,5/24/2022,2
+374,53,family,Linyphiidae,1,0.9,,NCSU9,5/24/2022,2
+375,53,order,Julida,1,2.4,154418,NCSU9,5/24/2022,2
+376,53,species,Brachyponera chinensis,1,1.2,,NCSU9,5/24/2022,2
+377,53,genus,Camponotus,2,43.6,154194,NCSU9,5/24/2022,2
+378,53,genus,Camponotus,6,224.2,154194,NCSU9,5/24/2022,2
+382,54,family,Nitidulidae,1,1.2,,NCSU11,5/24/2022,2
+385,54,species,Brachyponera chinensis,14,21.2,,NCSU11,5/24/2022,2
+392,55,family,Nitidulidae,1,0.4,114290,NCSU10,5/24/2022,2
+393,55,species,Brachyponera chinensis,5,6.2,,NCSU10,5/24/2022,2
+394,55,genus,Camponotus,2,44.6,154194,NCSU10,5/24/2022,2
+395,55,genus,Camponotus,3,104.9,,NCSU10,5/24/2022,2
 398,56,genus,Ponera,1,1.3,574209,NCSU3,5/26/2022,1
 399,56,family,Trogossitidae,1,1.6,678393,NCSU3,5/26/2022,1
 400,56,species,Philoscia muscorum,1,28.9,206377,NCSU3,5/26/2022,1
