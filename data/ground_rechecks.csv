@@ -166,20 +166,20 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 543,74,species,Brachyponera chinensis,5,8.4,,JMNP3,5/30/2022,2
 544,74,species,Camponotus pennsylvanicus,1,19.5,154198,JMNP3,5/30/2022,2
 563,75,species,Brachyponera chinensis,2,3.4,,JMNP1,5/30/2022,2
-572,80,family,Araneidae,1,0.3,82737,JMNP1,6/1/2022,1
-574,80,genus,Ponera pennsylvanica,1,1.6,583962,JMNP1,6/1/2022,1
-579,80,family,Ectobiidae,1,145.6,10,JMNP1,6/1/2022,1
-589,79,species,Camponotus pennsylvanicus,2,26.2,154198,JMNP3,6/1/2022,1
-590,79,genus,Camponotus,1,22.5,154194,JMNP3,6/1/2022,1
-608,76,family,Ectobiidae,1,24.3,10,JMNP8,6/1/2022,1
-613,76,genus,Formica,1,8,154211,JMNP8,6/1/2022,1
-614,76,species,Camponotus pennsylvanicus,1,17.6,154198,JMNP8,6/1/2022,1
-620,81,family,Trogossitidae,2,3.6,678393,NCBG8,6/8/2022,1
-622,81,species,Camponotus pennsylvanicus,2,36,154198,NCBG8,6/8/2022,1
-633,83,family,Trogossitidae,1,1.6,678393,NCBG5,6/8/2022,1
-637,83,genus,Formica,1,8.3,154211,NCBG5,6/8/2022,1
-646,84,genus,Formica,1,4.5,154211,NCBG4,6/8/2022,1
-648,84,family,Tipulidae,1,3.5,118840,NCBG4,6/8/2022,1
+572,80,family,Linyphiidae,1,0.3,,JMNP1,6/1/2022,2
+574,80,species,Brachyponera chinensis,1,1.6,,JMNP1,6/1/2022,2
+579,80,family,Ectobiidae,1,145.6,10,JMNP1,6/1/2022,2
+589,79,genus,Camponotus,2,26.2,,JMNP3,6/1/2022,2
+590,79,genus,Camponotus,1,22.5,154194,JMNP3,6/1/2022,2
+608,76,family,Ectobiidae,1,24.3,10,JMNP8,6/1/2022,2
+613,76,genus,Formica,1,8,154211,JMNP8,6/1/2022,2
+614,76,species,Camponotus pennsylvanicus,1,17.6,154198,JMNP8,6/1/2022,2
+620,81,family,Nitidulidae,2,3.6,,NCBG8,6/8/2022,2
+622,81,species,Camponotus pennsylvanicus,2,36,154198,NCBG8,6/8/2022,2
+633,83,family,Nitidulidae,1,1.6,,NCBG5,6/8/2022,2
+637,83,genus,Formica,1,8.3,154211,NCBG5,6/8/2022,2
+646,84,genus,Formica,1,4.5,154211,NCBG4,6/8/2022,2
+648,84,family,Tipulidae,1,3.5,118840,NCBG4,6/8/2022,2
 668,87,family,Mordellidae,1,5,114383,NCBG6,6/10/2022,1
 669,87,genus,Formica,1,9.3,154211,NCBG6,6/10/2022,1
 671,87,family,Lycaenidae,3,106.9,117236,NCBG6,6/10/2022,1
@@ -292,15 +292,13 @@ GroundArthID,PitfallID,TaxonLevel,Taxon,Number,TotalMass,TaxonID,CircleID,DateCo
 1406,180,genus,Camponotus,1,23.8,154194,NCSU11,7/20/2022,1
 394,55,genus,Camponotus,2,44.6,575746,NCSU10,5/24/2022,1
 452,62,genus,Camponotus,1,17.4,575746,UNC13,5/27/2022,2
-590,79,genus,Camponotus,1,22.5,575746,JMNP3,6/1/2022,1
 53,9,family,Linyphiidae,1,0.6,,UNC13,5/4/2022,2
 118,18,family,Linyphiidae,2,1.9,,UNC8,5/6/2022,2
 127,19,family,Linyphiidae,3,3.4,,UNC13,5/6/2022,2
 422,59,family,Corinnidae,1,3.1,,NCSU11,5/26/2022,2
 450,62,family,Linyphiidae,3,1.4,,UNC13,5/27/2022,2
 492,67,family,Linyphiidae,3,1.7,847764,UNC13,5/29/2022,2
-570,80,family,Tetragnathidae,1,0.1,847764,JMNP1,6/1/2022,1
-572,80,family,Araneidae,1,0.3,82737,JMNP1,6/1/2022,1
+570,80,family,Linyphiidae,1,0.1,,JMNP1,6/1/2022,2
 688,90,family,Araneidae,1,1,82737,NCBG1,6/10/2022,1
 821,106,family,Tetragnathidae,2,0.7,847764,NCSU2,6/23/2022,1
 833,107,family,Tetragnathidae,1,0.3,847764,NCSU3,6/23/2022,1

@@ -150,39 +150,39 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 111134,134661,genus,Camponotus,2.7,154194,1,FDZ,5/30/2022,2
 111153,134676,species,Prenolepis imparis,0.8,577971,1,FEH,5/30/2022,2
 111159,134678,family,Pentatomidae,93.3,108628,1,FEI,5/30/2022,2
-112033,135115,family,Phalangiidae,49.5,1012454,1,FEY,6/1/2022,1
-112099,135156,genus,Camponotus,2.9,154194,1,FDR,6/1/2022,1
-112119,135166,genus,Camponotus,2.8,154194,1,FDS,6/1/2022,1
-112121,135166,family,Anyphaenidae,5,871515,1,FDS,6/1/2022,1
-112124,135170,species,Prenolepis imparis,1.2,577971,2,FDV,6/1/2022,1
-112144,135179,genus,Formica,6.3,154211,1,FDY,6/1/2022,1
-112145,135179,species,Prenolepis imparis,1,577971,1,FDY,6/1/2022,1
-212168,135189,species,Prenolepis imparis,1.1,577971,1,FDZ,6/1/2022,1
-114007,136171,family,Anyphaenidae,7.6,871515,1,DCW,6/6/2022,1
-114013,136177,family,Tenebrionidae,0.7,114419,1,DCK,6/6/2022,1
-114043,136201,species,Prenolepis imparis,1.7,577971,1,DCC,6/6/2022,1
-114085,136235,genus,Formica,10.3,154211,1,DBL,6/6/2022,1
-114092,136240,family,Anyphaenidae,0.2,871515,1,DBP,6/6/2022,1
-114769,136672,family,Anyphaenidae,4.8,871515,1,DBO,6/8/2022,1
-114777,136677,genus,Camponotus,3.5,154194,1,DBM,6/8/2022,1
-114787,136682,species,Phyllopalpus pulchellus,2.5,650554,1,DBP,6/8/2022,1
-114797,136691,family,Anyphaenidae,0.4,871515,1,DCE,6/8/2022,1
-114798,136692,genus,Camponotus,3.4,154194,1,DCD,6/8/2022,1
-114799,136693,genus,Formica,4.7,154211,1,DCA,6/8/2022,1
-114802,136695,family,Tenebrionidae,0.3,114419,1,DCJ,6/8/2022,1
-114807,136696,family,Anyphaenidae,0.3,871515,1,DCI,6/8/2022,1
-114819,136701,family,Phalangiidae,57,1012454,1,DCL,6/8/2022,1
-114823,136702,family,Anyphaenidae,8.5,871515,1,DCO,6/8/2022,1
-114826,136704,species,Prosapia bicincta,40.9,956002,1,DCM,6/8/2022,1
-114827,136705,family,Anyphaenidae,0.5,871515,1,EQL,6/8/2022,1
-115751,137175,family,Anyphaenidae,0.5,871515,1,DCU,6/10/2022,1
+112033,135115,genus,Leiobunum,49.5,,1,FEY,6/1/2022,2
+112099,135156,genus,Camponotus,2.9,154194,1,FDR,6/1/2022,2
+112119,135166,genus,Camponotus,2.8,154194,1,FDS,6/1/2022,2
+112121,135166,family,Anyphaenidae,5,871515,1,FDS,6/1/2022,2
+112124,135170,species,Prenolepis imparis,1.2,577971,2,FDV,6/1/2022,2
+112144,135179,genus,Formica,6.3,154211,1,FDY,6/1/2022,2
+112145,135179,species,Prenolepis imparis,1,577971,1,FDY,6/1/2022,2
+212168,135189,species,Prenolepis imparis,1.1,577971,1,FDZ,6/1/2022,2
+114007,136171,family,Anyphaenidae,7.6,871515,1,DCW,6/6/2022,2
+114013,136177,species,Microtonus sericans,0.7,,1,DCK,6/6/2022,2
+114043,136201,species,Prenolepis imparis,1.7,577971,1,DCC,6/6/2022,2
+114085,136235,genus,Formica,10.3,154211,1,DBL,6/6/2022,2
+114092,136240,family,Anyphaenidae,0.2,871515,1,DBP,6/6/2022,2
+114769,136672,family,Anyphaenidae,4.8,871515,1,DBO,6/8/2022,2
+114777,136677,genus,Camponotus,3.5,154194,1,DBM,6/8/2022,2
+114787,136682,species,Phyllopalpus pulchellus,2.5,650554,1,DBP,6/8/2022,2
+114797,136691,family,Anyphaenidae,0.4,871515,1,DCE,6/8/2022,2
+114798,136692,genus,Camponotus,3.4,154194,1,DCD,6/8/2022,2
+114799,136693,genus,Formica,4.7,154211,1,DCA,6/8/2022,2
+114802,136695,family,Melandryidae,0.3,,1,DCJ,6/8/2022,2
+114807,136696,family,Anyphaenidae,0.3,871515,1,DCI,6/8/2022,2
+114819,136701,genus,Leiobunum,57,,1,DCL,6/8/2022,2
+114823,136702,family,Anyphaenidae,8.5,871515,1,DCO,6/8/2022,2
+114826,136704,species,Prosapia bicincta,40.9,956002,1,DCM,6/8/2022,2
+114827,136705,family,Anyphaenidae,0.5,871515,1,EQL,6/8/2022,2
+115751,137175,family,Anyphaenidae,0.5,871515,1,DCU,6/10/2022,2
 115755,137177,family,Anyphaenidae,NA,871515,0,DCW,6/10/2022,1
-115757,137178,family,Cerambycidae,3.4,114497,1,DCY,6/10/2022,1
-115779,137200,family,Phalangiidae,42.8,1012454,1,EQL,6/10/2022,1
-115796,137208,family,Phalangiidae,40.2,1012454,1,DCH,6/10/2022,1
-215802,137213,family,Anyphaenidae,0.5,871515,1,DCD,6/10/2022,1
-115805,137215,family,Anyphaenidae,0,871515,1,DCA,6/10/2022,1
-115807,137218,species,Phyllopalpus pulchellus,1.6,650554,1,DBL,6/10/2022,1
+115757,137178,family,Chrysomelidae,3.4,,1,DCY,6/10/2022,2
+115779,137200,genus,Leiobunum,42.8,,1,EQL,6/10/2022,2
+115796,137208,genus,Leiobunum,40.2,,1,DCH,6/10/2022,2
+215802,137213,family,Anyphaenidae,0.5,871515,1,DCD,6/10/2022,2
+115805,137215,family,Anyphaenidae,0,871515,1,DCA,6/10/2022,2
+115807,137218,species,Phyllopalpus pulchellus,1.6,650554,1,DBL,6/10/2022,2
 115910,137310,genus,Formica,11.2,154211,1,JAT,6/12/2022,1
 115912,137310,family,Anyphaenidae,1.1,871515,1,JAT,6/12/2022,1
 115916,137311,family,Anyphaenidae,0.3,871515,1,JAU,6/12/2022,1
@@ -210,9 +210,9 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 118595,138854,family,Bostrichidae,0.8,114476,1,ISD,6/20/2022,1
 118648,138880,genus,Formica,6,154211,1,ISJ,6/20/2022,1
 118654,138884,genus,Formica,6.8,154211,1,ISL,6/20/2022,1
-112196,135201,family,Ptinidae,1.5,114472,1,FDQ,6/1/2022,1
-112207,135207,genus,Formica,6,154211,1,FDN,6/1/2022,1
-112224,135218,genus,Paratrechina,3.7,154224,1,FDO,6/1/2022,1
+112196,135201,family,Ptinidae,1.5,114472,1,FDQ,6/1/2022,2
+112207,135207,genus,Camponotus,6,,1,FDN,6/1/2022,2
+112224,135218,genus,Camponotus,3.7,,1,FDO,6/1/2022,2
 124225,142463,species,Brachyponera chinensis,1.2,1,1,JBL,7/7/2022,1
 124948,142880,family,Anyphaenidae,1.2,871515,1,DCG,7/8/2022,1
 125053,142975,family,Anyphaenidae,NA,871515,0,JAU,7/9/2022,1
@@ -263,12 +263,12 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 111149,134674,family,Araneidae,2.2,82737,1,FEJ,5/30/2022,2
 111155,134676,family,Araneidae,2.2,82737,1,FEH,5/30/2022,2
 111173,134691,family,Araneidae,0.6,82737,1,FEZ,5/30/2022,2
-112125,135170,genus,Leucauge,6.2,848656,1,FDV,6/1/2022,1
-112169,135189,genus,Leucauge,8.4,848656,1,FDZ,6/1/2022,1
-112170,135189,family,Araneidae,2.4,82737,2,FDZ,6/1/2022,1
-114027,136189,family,Araneidae,0.9,82737,1,DCO,6/6/2022,1
-115772,137193,family,Araneidae,0.9,82737,1,DCO,6/10/2022,1
-115782,137200,family,Theridiidae,5.9,82740,1,EQL,6/10/2022,1
+112125,135170,genus,Leucauge,6.2,848656,1,FDV,6/1/2022,2
+112169,135189,genus,Leucauge,8.4,848656,1,FDZ,6/1/2022,2
+112170,135189,family,Araneidae,2.4,82737,2,FDZ,6/1/2022,2
+114027,136189,family,Araneidae,0.9,82737,1,DCO,6/6/2022,2
+115772,137193,family,Araneidae,0.9,82737,1,DCO,6/10/2022,2
+115782,137200,family,Theridiidae,5.9,82740,1,EQL,6/10/2022,2
 115931,137319,family,Araneidae,2.9,82737,1,JAZ,6/12/2022,1
 115937,137320,family,Araneidae,0.4,82737,1,JBA,6/12/2022,1
 115942,137321,family,Araneidae,3.5,82737,1,JBB,6/12/2022,1
