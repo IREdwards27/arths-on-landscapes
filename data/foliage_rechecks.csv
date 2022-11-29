@@ -213,12 +213,12 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 112196,135201,family,Ptinidae,1.5,114472,1,FDQ,6/1/2022,2
 112207,135207,genus,Camponotus,6,,1,FDN,6/1/2022,2
 112224,135218,genus,Camponotus,3.7,,1,FDO,6/1/2022,2
-124225,142463,species,Brachyponera chinensis,1.2,1,1,JBL,7/7/2022,1
-124948,142880,family,Anyphaenidae,1.2,871515,1,DCG,7/8/2022,1
+124225,142463,species,Brachyponera chinensis,1.2,1,1,JBL,7/7/2022,2
+124948,142880,family,Anyphaenidae,1.2,871515,1,DCG,7/8/2022,2
 125053,142975,family,Anyphaenidae,NA,871515,0,JAU,7/9/2022,1
-125260,143139,family,Anyphaenidae,4.7,871515,1,ISC,7/10/2022,1
-125264,143142,family,Anyphaenidae,1.1,871515,1,IRT,7/10/2022,1
-127076,144413,family,Anyphaenidae,1.9,871515,1,CNA,7/16/2022,1
+125260,143139,family,Anyphaenidae,4.7,871515,1,ISC,7/10/2022,2
+125264,143142,family,Anyphaenidae,1.1,871515,1,IRT,7/10/2022,2
+127076,144413,family,Anyphaenidae,1.9,871515,1,CNA,7/16/2022,2
 217722,138333,family,Anyphaenidae,0.4,871515,1,JAP,6/16/2022,2
 127879,145133,family,Anyphaenidae,NA,871515,0,CNH,7/20/2022,1
 105246,131129,order,Araneae,0.7,,1,BWW,5/2/2022,2
@@ -281,4 +281,4 @@ FoliageArthID,BeatSheetFK,TaxonLevel,Taxon,TotalMass,TaxonID,NumberWeighed,TreeF
 120848,140138,family,Araneidae,6.7,82737,1,IRP,6/24/2022,2
 120997,140257,family,Araneidae,43.4,82737,1,CNA,6/25/2022,2
 122902,141492,family,Araneidae,NA,82737,0,BWQ,7/1/2022,NA
-127069,144409,family,Araneidae,2.6,82737,1,CMZ,7/16/2022,1
+127069,144409,family,Araneidae,2.6,82737,1,CMZ,7/16/2022,2
