@@ -6,10 +6,10 @@ library(tidyverse)
 library(lubridate)
 
 foliage_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_arths')])
 
 ground_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^groundarths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_arths')])
 
 taxa <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
@@ -38,6 +38,7 @@ ranks <- map(
   cbind(
     TaxonID = new_taxa$TaxonID[!is.na(new_taxa$TaxonID)],
     taxon = new_taxa$taxon[!is.na(new_taxa$TaxonID)]) %>%
+  mutate(subfamily = NA) %>% 
   select(
     c(TaxonID, taxon, class, order, suborder, family, subfamily, genus, species)) %>%
   # this part is only necessary if ITIS doesn't recognize any of the new taxa; if it recognizes all of them, this gives an error (trying to add an empty row)
@@ -66,18 +67,20 @@ ground_ids <- ground_arths %>%
   left_join(
     taxa %>% 
       select(TaxonID, taxon),
-    by = c('Taxon' = 'taxon'))
+    by = c('Taxon' = 'taxon')) %>% 
+  distinct()
 
-write.csv(ground_ids, file = paste('data/groundarths_', today(), '.csv'), row.names = F)
+write.csv(ground_ids, file = paste('data/ground_arths_', today(), '.csv'), row.names = F)
 
 foliage_ids <- foliage_arths %>% 
   select(!TaxonID) %>% 
   left_join(
     taxa %>% 
       select(TaxonID, taxon),
-    by = c('Taxon' = 'taxon'))
+    by = c('Taxon' = 'taxon')) %>% 
+  distinct()
 
-write.csv(foliage_ids, file = paste('data/foliagearths_', today(), '.csv'), row.names = F)
+write.csv(foliage_ids, file = paste('data/foliage_arths_', today(), '.csv'), row.names = F)
 
 # how do we incorporate species/taxa not in itis into analyses? will probably need to fill in taxonomy manually and assign an ID 
 taxa[is.na(taxa$tsn),]
