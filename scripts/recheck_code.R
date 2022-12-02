@@ -2,6 +2,7 @@
 # setup -------------------------------------------------------------------
 
 library(tidyverse)
+library(lubridate)
 
 # read in foliage and ground arthropod observations - code format pulls most recent date
 
@@ -107,3 +108,52 @@ read_csv('data/ground_rechecks.csv') %>%
 write_csv(
   ground_rechecks,
   'data/ground_rechecks.csv')
+
+
+# re-binding checked files ------------------------------------------------
+
+foliage_checked <- read_csv('data/foliage_rechecks.csv')
+
+ground_checked <- read_csv('data/ground_rechecks.csv')
+
+checked_beats <- unique(foliage_checked$BeatSheetFK)
+
+updated_beats <- beatsheets %>% 
+  mutate(Checks = if_else(
+    BeatSheetID %in% checked_beats,
+    true = 2,
+    false = Checks))
+
+write_csv(updated_beats, str_c('data/beat_sheets_', today(), '.csv'))
+
+updated_foliage_arths <- foliage_arths %>% 
+  filter(!FoliageArthID %in% foliage_checked$FoliageArthID) %>% 
+  rbind(
+    foliage_checked %>% 
+      left_join(
+        foliage_arths %>% 
+          select(FoliageArthID, CCGroup, Length, Quantity, PhotoURL, CCNotes),
+        by = 'FoliageArthID') %>% 
+      select(names(foliage_arths)))
+
+write_csv(updated_foliage_arths, str_c('data/foliage_arths_', today(), '.csv'))
+
+updated_pits <- pitfalls %>% 
+  mutate(Checks = if_else(
+    PitfallID %in% ground_checked$PitfallID,
+    true = 2,
+    false = Checks))
+
+write_csv(updated_pits, str_c('data/pitfalls_', today(), '.csv'))
+
+updated_ground_arths <- ground_arths %>% 
+  filter(!GroundArthID %in% ground_checked$GroundArthID) %>% 
+  rbind(
+    ground_checked %>% 
+      left_join(
+        ground_arths %>% 
+          select(GroundArthID, Notes),
+        by = 'GroundArthID') %>% 
+      select(names(ground_arths)))
+
+write_csv(updated_ground_arths, str_c('data/ground_arths_', today(), '.csv'))
