@@ -12,10 +12,10 @@ library(ade4)
 # read in foliage and ground arthropod observations - code format pulls most recent date
 
 foliage_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_arths')])
 
 ground_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^groundarths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_arths')])
 
 # read in taxa
 
@@ -25,12 +25,12 @@ taxa <- read_csv(
 # read in beat sheets
 
 beatsheets <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^beatsheets')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^beat_sheets')])
 
 # read in pitfall traps
 
 pitfalls <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfallsurveys')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfalls')])
 
 # read in trees
 
@@ -322,73 +322,63 @@ summary(lm(
   euclideanDistance ~ jaccardDissimilarity,
   data = analysis_frame_foliage))
 
-# p = 0.0249
+# p = 0.3929
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0002
+# p = 0.0001
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.9308
+# p = 0.7420
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.3891
+# p = 0.0049
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0014
+# p = 0.0033
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.1392
-euclidean_foliage_mod_full <- lm(
-  euclideanDistance ~ canopyCover + geographicDistance + forest_1km,
-  data = analysis_frame_foliage)
+# R^2 = 0.1907
+summary(lm(
+  euclideanDistance ~ treeDissimilarity + geographicDistance + forest_1km,
+  data = analysis_frame_foliage))
 
-# R^2 = 0.088
-euclidean_foliage_mod_canopy <- lm(
-  euclideanDistance ~ canopyCover,
-  data = analysis_frame_foliage)
-
-# R^2 = 0.054
-euclidean_foliage_mod_forest <- lm(
+# R^2 = 0.1078
+summary(lm(
   euclideanDistance ~ forest_1km,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.127
-euclidean_foliage_mod_trees <- lm(
+# R^2 = 0.1244
+summary(lm(
   euclideanDistance ~ treeDissimilarity,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.1893
-euclidean_foliage_mod_env <- lm(
-  euclideanDistance ~ canopyCover + forest_1km + treeDissimilarity,
-  data = analysis_frame_foliage)
-
-# R^2 = 0.0009
-euclidean_foliage_mod_dist <- lm(
+# R^2 = 0.07301
+summary(lm(
   euclideanDistance ~ geographicDistance,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# p = 0.0673
+# p = 0.0772
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.7634
+# p = 0.8069
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
@@ -400,47 +390,42 @@ mantel.rtest(
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0585
+# p = 0.0037
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0011
+# p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.1898
-jaccard_foliage_mod_full <- lm(
+# R^2 = 0.251
+summary(lm(
   jaccardDissimilarity ~ canopyCover + geographicDistance + forest_1km + treeDissimilarity,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.1886
-jaccard_foliage_mod_env <- lm(
-  jaccardDissimilarity ~ canopyCover + forest_1km + treeDissimilarity,
-  data = analysis_frame_foliage)
-
-# R^2 = 0.052
-jaccard_foliage_mod_canopy <- lm(
+# R^2 = 0.04316
+summary(lm(
   jaccardDissimilarity ~ canopyCover,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.092
-jaccard_foliage_mod_forest <- lm(
+# R^2 = 0.1266
+summary(lm(
   jaccardDissimilarity ~ forest_1km,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.1253
-jaccard_foliage_mod_trees <- lm(
+# R^2 = 0.1576
+summary(lm(
   jaccardDissimilarity ~ treeDissimilarity,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
-# R^2 = 0.034
-jaccard_foliage_mod_dist <- lm(
+# R^2 = 0.09488
+summary(lm(
   jaccardDissimilarity ~ geographicDistance,
-  data = analysis_frame_foliage)
+  data = analysis_frame_foliage))
 
 
 # calculating environmental distance metrics (ground) ---------------------
@@ -659,7 +644,7 @@ summary(lm(
   euclideanDistance ~ jaccardDissimilarity,
   data = analysis_frame_ground))
 
-# p = 0.4939
+# p = 0.4391
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
@@ -671,62 +656,52 @@ mantel.rtest(
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.1835
+# p = 0.2314
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.5913
+# p = 0.5177
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(litter_depth_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0006
+# p = 0.0002
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.5098
-euclidean_ground_mod_full <- lm(
-  euclideanDistance ~ distanceToRoad + geographicDistance + forest_1km,
-  data = analysis_frame_ground)
+# R^2 = 0.4917
+summary(lm(
+  euclideanDistance ~ geographicDistance + forest_1km,
+  data = analysis_frame_ground))
 
-# R^2 = 0.4956
-euclidean_ground_mod_env <- lm(
-  euclideanDistance ~ distanceToRoad + forest_1km,
-  data = analysis_frame_ground)
-
-# R^2 = 0.008
-euclidean_ground_mod_road <- lm(
-  euclideanDistance ~ distanceToRoad,
-  data = analysis_frame_ground)
-
-# R^2 = 0.494
-euclidean_ground_mod_forest <- lm(
+# R^2 = 0.4816
+summary(lm(
   euclideanDistance ~ forest_1km,
-  data = analysis_frame_ground)
+  data = analysis_frame_ground))
 
-# R^2 = 0.094
-euclidean_ground_mod_dist <- lm(
+# R^2 = 0.09291
+summary(lm(
   euclideanDistance ~ geographicDistance,
-  data = analysis_frame_ground)
+  data = analysis_frame_ground))
 
-# p = 0.2433
+# p = 0.1202
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.2940
+# p = 0.3988
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.2798
+# p = 0.2145
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(litter_depth_matrix[2:31]), 
@@ -738,39 +713,24 @@ mantel.rtest(
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# p = 0.0564
+# p = 0.0034
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.2613
-jaccard_ground_mod_full <- lm(
-  jaccardDissimilarity ~ litterDepth + distanceToRoad + geographicDistance + forest_1km,
-  data = analysis_frame_ground)
+# R^2 = 0.2603
+summary(lm(
+  jaccardDissimilarity ~ geographicDistance + forest_1km,
+  data = analysis_frame_ground))
 
-# R^2 = 0.2463
-jaccard_ground_mod_env <- lm(
-  jaccardDissimilarity ~ distanceToRoad + forest_1km + litterDepth,
-  data = analysis_frame_ground)
-
-# R^2 = 0.003
-jaccard_ground_mod_road <- lm(
-  jaccardDissimilarity ~ distanceToRoad,
-  data = analysis_frame_ground)
-
-# R^2 = 0.245
-jaccard_ground_mod_forest <- lm(
+# R^2 = 0.2508
+summary(lm(
   jaccardDissimilarity ~ forest_1km,
-  data = analysis_frame_ground)
+  data = analysis_frame_ground))
 
-# R^2 = 0.091
-jaccard_ground_mod_litter <- lm(
-  jaccardDissimilarity ~ litterDepth,
-  data = analysis_frame_ground)
-
-# R^2 = 0.035
-jaccard_ground_mod_dist <- lm(
+# R^2 = 0.03964
+summary(lm(
   jaccardDissimilarity ~ geographicDistance,
-  data = analysis_frame_ground)
+  data = analysis_frame_ground))
 
