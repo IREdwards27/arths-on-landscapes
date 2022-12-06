@@ -8,10 +8,10 @@ library(ggplot2)
 # read in foliage and ground arthropod observations - code format pulls most recent date
 
 foliage_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliagearths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_arths')])
 
 ground_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^groundarths')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_arths')])
 
 # read in taxa
 
@@ -21,12 +21,12 @@ taxa <- read_csv(
 # read in beat sheets
 
 beatsheets <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^beatsheets')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^beat_sheets')])
 
 # read in pitfall traps
 
 pitfalls <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfallsurveys')])
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfalls')])
 
 # read in trees
 
@@ -87,10 +87,6 @@ ground_arths %>%
 
 # foliage arth circle-level dataframe with family diversity, mean arthropod biomass per survey, cicle environmental variables, and forest cover w/in 1km radius
 foliage_circles <- foliage_arths %>% 
-  # filter to confident IDs while still working on bug ID
-  mutate(Taxon = case_when(
-    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>% 
   left_join(
     taxa,
     by = 'TaxonID') %>% 
@@ -99,9 +95,7 @@ foliage_circles <- foliage_arths %>%
   left_join(
     beatsheets %>% 
       select(BeatSheetID, Date, TreeFK),
-    by = c('BeatSheetFK' = 'BeatSheetID')) %>% 
-  # filter to first two rounds of data collection while finishing bug ID
-  filter(as.Date(Date, format = '%m/%d/%Y') < as.Date('2022-06-26')) %>% 
+    by = c('BeatSheetFK' = 'BeatSheetID'))  %>% 
   left_join(
     trees %>% 
       select(TreeID, CircleFK),
@@ -148,32 +142,22 @@ foliage_circles <- foliage_arths %>%
     by = c('SiteFK' = 'SiteID'))
 
 # ground arth circle-level dataframe with family diversity, mean arthropod biomass per survey, circle-level environmental traits, and 1km forest cover
-ground_circles <- ground_arths %>% 
-  # filter to confident IDs while still working on bug ID
-  mutate(Taxon = case_when(
-    Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-    Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>% 
+ground_circles <- ground_arths  %>% 
   left_join(
     taxa,
     by = 'TaxonID') %>% 
   filter(
-    order %in% c('Araneae','Archaeognatha','Coleoptera','Isopoda', 'Opiliones', 'Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>% 
+    order %in% c('Araneae','Archaeognatha','Coleoptera','Isopoda', 'Opiliones', 'Orthoptera', 'Polydesmida', 'Spirobolida') | (order == 'Hymenoptera' & family == 'Formicidae')) %>% 
   left_join(
     pitfalls,
     by = 'PitfallID') %>% 
-  # filter to first two rounds of data collection while finishing bug ID
-  filter(as.Date(DateDeployed, format = '%m/%d/%Y') < as.Date('2022-06-26')) %>% 
   left_join(
     circles,
     by = 'CircleID') %>% 
   group_by(CircleID) %>% 
   summarize(fam_div = n_distinct(family)) %>% 
   left_join(
-    ground_arths %>% 
-      # filter to confident IDs while still working on bug ID
-      mutate(Taxon = case_when(
-        Taxon == 'Trogossitidae' ~ 'Nitidulidae',
-        Taxon %in% c('Ponera','Hypoponera') ~ 'Brachyponera chinensis')) %>%
+    ground_arths %>%
       left_join(
         taxa,
         by = 'TaxonID') %>% 
@@ -204,44 +188,44 @@ ground_circles <- ground_arths %>%
 ggplot(foliage_circles) +
   geom_point(aes(
     x = PercentCanopyCover,
-    y = mean_mass_per_survey,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_survey))
 
 ggplot(foliage_circles) +
   geom_point(aes(
     x = DistanceToEdgem,
-    y = mean_mass_per_survey,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_survey))
 
 ggplot(foliage_circles) +
   geom_point(aes(
     x = forest_1km,
-    y = mean_mass_per_survey,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_survey))
 
 ggplot(ground_circles) +
   geom_point(aes(
     x = LitterDepthmm,
-    y = mean_mass_per_trap,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_trap))
 
 ggplot(ground_circles) +
   geom_point(aes(
     x = HerbCoverEstimate,
-    y = mean_mass_per_trap,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_trap))
 
 ggplot(ground_circles) +
   geom_point(aes(
     x = DistanceToEdgem,
-    y = mean_mass_per_trap,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_trap))
 
 ggplot(ground_circles) +
   geom_point(aes(
     x = forest_1km,
-    y = mean_mass_per_trap,
-    color = fam_div))
+    y = fam_div,
+    color = mean_mass_per_trap))
 
 # modeling ----------------------------------------------------------------
 
@@ -268,13 +252,3 @@ foliage_diversity_model <- lm(
   data = foliage_circles)
 
 summary(foliage_diversity_model)
-
-
-# next steps --------------------------------------------------------------
-
-
-# finish bug ID
-# review uncertain identifications
-# add mass estimations or protocol for beat sheets with lost arths
-# review models with Allen
-# start work on dissimilarity models
