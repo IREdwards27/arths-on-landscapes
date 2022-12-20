@@ -85,15 +85,8 @@ foliage_plot_euclidean_forest <- ggplot(
     'text',
     x = 0.5,
     y = 7.5,
-    label = 'R  = 0.11, p < 0.001',
-    color = 'forestgreen') +
-  annotate(
-    'text',
-    x = 0.365,
-    y = 8.15,
-    label = '2',
-    color = 'forestgreen',
-    size = 2.5)
+    label = 'R2 = 0.11, p < 0.001',
+    color = 'forestgreen')
 
 foliage_plot_euclidean_trees <- ggplot(
   data = foliage_dis,
@@ -114,15 +107,8 @@ foliage_plot_euclidean_trees <- ggplot(
     'text',
     x = 0.5,
     y = 7.5,
-    label = 'R  = 0.12, p < 0.005',
-    color = 'forestgreen') +
-  annotate(
-    'text',
-    x = 0.355,
-    y = 8.15,
-    label = '2',
-    color = 'forestgreen',
-    size = 2.5)
+    label = 'R2 = 0.12, p < 0.005',
+    color = 'forestgreen')
 
 foliage_plot_euclidean_distance <- ggplot(
   data = foliage_dis,
@@ -136,22 +122,15 @@ foliage_plot_euclidean_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = 'Euclidean Distance of Community Composition') +
+    y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
     'text',
     x = 25,
     y = 7.5,
-    label = 'R  = 0.07, p < 0.005',
-    color = 'goldenrod') +
-  annotate(
-    'text',
-    x = 18.3,
-    y = 8.15,
-    label = '2',
-    color = 'goldenrod',
-    size = 2.5)
+    label = 'R2 = 0.07, p < 0.005',
+    color = 'goldenrod')
 
 foliage_plot_jaccard_canopy <- ggplot(
   data = foliage_dis,
@@ -196,15 +175,8 @@ foliage_plot_jaccard_forest <- ggplot(
     'text',
     x = 0.5,
     y = 0.2,
-    label = 'R  = 0.13, p < 0.001',
-    color = 'forestgreen') +
-  annotate(
-    'text',
-    x = 0.365,
-    y = 0.215,
-    label = '2',
-    color = 'forestgreen',
-    size = 2.5)
+    label = 'R2 = 0.13, p < 0.001',
+    color = 'forestgreen')
 
 foliage_plot_jaccard_trees <- ggplot(
   data = foliage_dis,
@@ -217,7 +189,7 @@ foliage_plot_jaccard_trees <- ggplot(
     se = F,
     color = 'forestgreen') +
   labs(
-    x = 'Jaccard Dissimilarity of Sampled Tree Species',
+    x = 'Jaccard Distance of Sampled Tree Species',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
@@ -225,15 +197,8 @@ foliage_plot_jaccard_trees <- ggplot(
     'text',
     x = 0.5,
     y = 0.2,
-    label = 'R  = 0.16, p < 0.001',
-    color = 'forestgreen') +
-  annotate(
-    'text',
-    x = 0.355,
-    y = 0.215,
-    label = '2',
-    color = 'forestgreen',
-    size = 2.5)
+    label = 'R2 = 0.16, p < 0.0005',
+    color = 'forestgreen')
 
 foliage_plot_jaccard_distance <- ggplot(
   data = foliage_dis,
@@ -247,34 +212,61 @@ foliage_plot_jaccard_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = 'Jaccard Distance of Community Composition') +
+    y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
     'text',
     x = 25,
     y = 0.2,
-    label = 'R  = 0.09, p < 0.005',
-    color = 'goldenrod') +
-  annotate(
-    'text',
-    x = 18.3,
-    y = 0.215,
-    label = '2',
-    color = 'goldenrod',
-    size = 2.5)
+    label = 'R2 = 0.09, p < 0.005',
+    color = 'goldenrod')
+
+foliage_euclidean_plots <- ggarrange( 
+  foliage_plot_euclidean_forest,
+  foliage_plot_euclidean_road, 
+  foliage_plot_euclidean_canopy,
+  foliage_plot_euclidean_trees,
+  foliage_plot_euclidean_distance,
+  ncol = 1) %>% 
+  annotate_figure(
+    left = text_grob(
+      'Euclidean Distance of Community Composition',
+      rot = 90,
+      vjust = 4,
+      size = 10))
+
+foliage_jaccard_plots <- ggarrange( 
+  foliage_plot_jaccard_forest, 
+  foliage_plot_jaccard_road,
+  foliage_plot_jaccard_canopy,
+  foliage_plot_jaccard_trees,
+  foliage_plot_jaccard_distance,
+  ncol = 1) %>% 
+  annotate_figure(
+    left = text_grob(
+      'Jaccard Distance of Community Composition', 
+      rot = 90,
+      vjust = 4,
+      size = 10))
+
+foliage_plots <- ggarrange(
+  foliage_euclidean_plots,
+  foliage_jaccard_plots,
+  ncol = 2)
+
+ggsave(
+  'figures/paper/foliage_plots.png',
+  plot = foliage_plots,
+  width = 8,
+  height = 12,
+  units = 'in')
 
 
 # foliage arthropod PCA plot ----------------------------------------------
 
 # this is copied from dissimilarity_calculations, so annotations are removed to save space
 foliage_families <- foliage_arths %>%
-  mutate(TaxonID = case_when(
-    # switch all Trogossitidae to Nitidulidae
-    TaxonID == 678393 ~ 114290,
-    # switch all Ponera and Hypoponera to Brachyponera chinensis
-    TaxonID %in% c(574209,574195) ~ 11,
-    TRUE ~ TaxonID)) %>%
   left_join(
     taxa,
     by = 'TaxonID') %>%
@@ -304,10 +296,10 @@ hi_foliage_fams <- foliage_families %>%
       false = biomass),
     logBiomass = log(biomass + 0.01)) %>% 
   group_by(family) %>% 
-  summarize(range = max(logBiomass) - min(logBiomass)) %>% 
-  filter(!is.na(family)) %>% 
-  arrange(desc(range)) %>%
-  filter(range > 8) %>%
+  summarize(sd = sd(logBiomass, na.rm = T)) %>% 
+  filter(!is.na(family),!is.na(sd)) %>% 
+  arrange(desc(sd)) %>%
+  filter() %>%
   pull(family)
 
 # make a foliage plot that can be PCA'ed - columns are families, rows are circles
@@ -376,7 +368,7 @@ foliage_pca_plot <- autoplot(
 
 ggsave(
   plot = foliage_pca_plot,
-  filename = 'figures/lunch_bunch/foliage_pca.png',
+  filename = 'figures/paper/foliage_pca.png',
   width = 8,
   height = 4,
   units = 'in')
@@ -434,7 +426,13 @@ ground_plot_euclidean_forest <- ggplot(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 7.5,
+    label = 'R2 = 0.48, p < 0.001',
+    color = 'forestgreen')
 
 ground_plot_euclidean_distance <- ggplot(
   data = ground_dis,
@@ -448,9 +446,15 @@ ground_plot_euclidean_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = 'Euclidean Distance of Community Composition') +
+    y = NULL) +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 7.5,
+    label = 'R2 = 0.09, p < 0.0005',
+    color = 'goldenrod')
 
 ground_plot_jaccard_herb <- ggplot(
   data = ground_dis,
@@ -502,7 +506,13 @@ ground_plot_jaccard_forest <- ggplot(
     x = 'Difference in Proportion Forest cover in a 1km Radius',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 0.2,
+    label = 'R2 = 0.25, p < 0.0005',
+    color = 'forestgreen')
 
 ground_plot_jaccard_distance <- ggplot(
   data = ground_dis,
@@ -516,15 +526,29 @@ ground_plot_jaccard_distance <- ggplot(
     color = 'goldenrod') +
   labs(
     x = 'Geographic Distance (km)',
-    y = 'Jaccard Dissimilarity of Community Composition') +
+    y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 0.2,
+    label = 'R2 = 0.04, p < 0.005',
+    color = 'goldenrod') +
+  annotate(
+    'text',
+    x = 18.3,
+    y = 0.215,
+    label = '2',
+    color = 'goldenrod',
+    size = 2.5)
 
-ground_euclidean_env_plots <- ggarrange(
-  ground_plot_euclidean_herb, 
+ground_euclidean_plots <- ggarrange(
+  ground_plot_euclidean_forest, 
   ground_plot_euclidean_road, 
   ground_plot_euclidean_litter,
-  ground_plot_euclidean_forest,
+  ground_plot_euclidean_road,
+  ground_plot_euclidean_distance,
   ncol = 1) %>% 
   annotate_figure(
     left = text_grob(
@@ -533,42 +557,32 @@ ground_euclidean_env_plots <- ggarrange(
       vjust = 4,
       size = 10))
 
-ground_jaccard_env_plots <- ggarrange(
-  ground_plot_jaccard_herb, 
+ground_jaccard_plots <- ggarrange(
+  ground_plot_jaccard_forest, 
   ground_plot_jaccard_road, 
   ground_plot_jaccard_litter,
-  ground_plot_jaccard_forest,
+  ground_plot_jaccard_herb,
+  ground_plot_jaccard_distance,
   ncol = 1) %>% 
   annotate_figure(
     left = text_grob(
-      'Jaccard Dissimilarity of Community Composition', 
+      'Jaccard Distance of Community Composition', 
       rot = 90,
       vjust = 4,
       size = 10))
 
-ground_env_plots <- ggarrange(
-  ground_euclidean_env_plots,
-  ground_jaccard_env_plots,
+ground_plots <- ggarrange(
+  ground_euclidean_plots,
+  ground_jaccard_plots,
   ncol = 2)
 
 ggsave(
-  filename = 'figures/lunch_bunch/ground_env_plots.png',
-  plot = ground_env_plots,
-  width = 10,
-  height = 8,
-  units = 'in')
-
-ground_dist_plots <- ggarrange(
-  ground_plot_euclidean_distance,
-  ground_plot_jaccard_distance,
-  ncol = 2)
-
-ggsave(
-  filename = 'figures/lunch_bunch/ground_dist_plots.png',
-  plot = ground_dist_plots,
+  filename = 'figures/paper/ground_plots.png',
+  plot = ground_plots,
   width = 8,
-  height = 3.75,
+  height = 12,
   units = 'in')
+
 
 # ground arthropod PCA plot -----------------------------------------------
 
