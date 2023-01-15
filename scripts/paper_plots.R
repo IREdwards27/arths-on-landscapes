@@ -228,12 +228,14 @@ foliage_euclidean_plots <- ggarrange(
   foliage_plot_euclidean_canopy,
   foliage_plot_euclidean_trees,
   foliage_plot_euclidean_distance,
-  ncol = 1) %>% 
+  ncol = 1,
+  labels = c('a)','c)','e)','g)','i)'),
+  label.x = -0.01) %>% 
   annotate_figure(
     left = text_grob(
       'Euclidean Distance of Community Composition',
       rot = 90,
-      vjust = 4,
+      vjust = 4.5,
       size = 10))
 
 foliage_jaccard_plots <- ggarrange( 
@@ -242,12 +244,14 @@ foliage_jaccard_plots <- ggarrange(
   foliage_plot_jaccard_canopy,
   foliage_plot_jaccard_trees,
   foliage_plot_jaccard_distance,
-  ncol = 1) %>% 
+  ncol = 1,
+  labels = c('b)','d)','f)','h)','j)'),
+  label.x = -0.01) %>% 
   annotate_figure(
     left = text_grob(
       'Jaccard Distance of Community Composition', 
       rot = 90,
-      vjust = 4,
+      vjust = 4.5,
       size = 10))
 
 foliage_plots <- ggarrange(
@@ -258,8 +262,8 @@ foliage_plots <- ggarrange(
 ggsave(
   'figures/paper/foliage_plots.png',
   plot = foliage_plots,
-  width = 8,
-  height = 12,
+  width = 9.75,
+  height = 13.5,
   units = 'in')
 
 
@@ -534,14 +538,7 @@ ground_plot_jaccard_distance <- ggplot(
     x = 25,
     y = 0.2,
     label = 'R2 = 0.04, p < 0.005',
-    color = 'goldenrod') +
-  annotate(
-    'text',
-    x = 18.3,
-    y = 0.215,
-    label = '2',
-    color = 'goldenrod',
-    size = 2.5)
+    color = 'goldenrod')
 
 ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_forest, 
@@ -549,7 +546,9 @@ ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_litter,
   ground_plot_euclidean_road,
   ground_plot_euclidean_distance,
-  ncol = 1) %>% 
+  ncol = 1,
+  labels = c('a)','c)','e)','g)','i)'),
+  label.x = -0.01) %>% 
   annotate_figure(
     left = text_grob(
       'Euclidean Distance of Community Composition',
@@ -563,7 +562,9 @@ ground_jaccard_plots <- ggarrange(
   ground_plot_jaccard_litter,
   ground_plot_jaccard_herb,
   ground_plot_jaccard_distance,
-  ncol = 1) %>% 
+  ncol = 1,
+  labels = c('b)','d)','f)','h)','j)'),
+  label.x = -0.01) %>% 
   annotate_figure(
     left = text_grob(
       'Jaccard Distance of Community Composition', 
@@ -579,8 +580,8 @@ ground_plots <- ggarrange(
 ggsave(
   filename = 'figures/paper/ground_plots.png',
   plot = ground_plots,
-  width = 8,
-  height = 12,
+  width = 9.75,
+  height = 13.5,
   units = 'in')
 
 
