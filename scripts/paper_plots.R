@@ -544,7 +544,7 @@ ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_forest, 
   ground_plot_euclidean_road, 
   ground_plot_euclidean_litter,
-  ground_plot_euclidean_road,
+  ground_plot_euclidean_herb,
   ground_plot_euclidean_distance,
   ncol = 1,
   labels = c('a)','c)','e)','g)','i)'),
