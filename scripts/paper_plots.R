@@ -267,7 +267,24 @@ ggsave(
   units = 'in')
 
 
-# foliage arthropod PCA plot ----------------------------------------------
+# foliage arthropod PCA plot ---------------------------------------------
+
+ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = T)
+
+ground_pca_plot <- autoplot(
+  ground_pca,
+  data = ground_base1,
+  colour = 'SiteFK',
+  loadings = T,
+  loadings.label = T,
+  size = 3,
+  loadings.colour = 'forestgreen',
+  loadings.label.size = 3) +
+  ul_theme2 +
+  theme(
+    legend.position = 'none',
+    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
+  scale_color_viridis_d()
 
 # this is copied from dissimilarity_calculations, so annotations are removed to save space
 foliage_families <- foliage_arths %>%
@@ -292,30 +309,37 @@ foliage_families <- foliage_arths %>%
     n_individuals = sum(Quantity, na.rm = T),
     biomass = sum(TotalMass))
 
-hi_foliage_fams <- foliage_families %>% 
-  mutate(
-    biomass = if_else(
-      is.na(biomass),
-      true = 0,
-      false = biomass),
-    logBiomass = log(biomass + 0.01)) %>% 
-  group_by(family) %>% 
-  summarize(sd = sd(logBiomass, na.rm = T)) %>% 
-  filter(!is.na(family),!is.na(sd)) %>% 
-  arrange(desc(sd)) %>%
-  filter() %>%
-  pull(family)
+all_foliage <- map(
+  unique(foliage_families$CircleFK),
+  function(x){
+    all_families <-  unique(foliage_families$family)
+    
+    in_families <-  foliage_families %>% 
+      filter(CircleFK == x) %>% 
+      pull(family) %>% 
+      unique()
+    
+    out_families <- all_families[!all_families %in% in_families]
+    
+    rbind(
+      foliage_families %>% 
+        filter(CircleFK == x),
+      tibble(
+        CircleFK = rep(x, length(out_families)),
+        family = out_families,
+        n_individuals = rep(0, length(out_families)),
+        biomass = rep(0, length(out_families))))
+  }) %>% 
+  bind_rows() %>% 
+  arrange(CircleFK, family)
 
 # make a foliage plot that can be PCA'ed - columns are families, rows are circles
 foliage_base1 <- map_dfc(
   unique(foliage_families$CircleFK),
-  ~ foliage_families %>%
+  ~ all_foliage %>%
     filter(
       CircleFK == .x,
-      !is.na(family),
-      family %in% hi_foliage_fams) %>%
-    bind_rows(tibble(
-      family = hi_foliage_fams[!hi_foliage_fams %in% .$family])) %>%
+      !is.na(family)) %>% 
     mutate(
       CircleFK = if_else(
         is.na(CircleFK),
@@ -334,8 +358,8 @@ foliage_base1 <- map_dfc(
     row_to_names(row_number = 1) %>%
     as_tibble(rownames = 'family') %>%
     arrange(family) %>%
-    select(!family)) %>%
-  cbind(family = hi_foliage_fams) %>%
+    select(!family)) %>% 
+  cbind(family = unique(all_foliage$family[!is.na(all_foliage$family)])) %>% 
   relocate(family) %>%
   as_tibble() %>%
   mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
@@ -353,7 +377,7 @@ foliage_base1 <- map_dfc(
 
 rownames(foliage_base1) <- circles$CircleID
 
-foliage_pca <- prcomp(foliage_base1[1:10], scale = T)
+foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-2)], scale = F)
 
 foliage_pca_plot <- autoplot(
   foliage_pca,
@@ -588,13 +612,6 @@ ggsave(
 # ground arthropod PCA plot -----------------------------------------------
 
 ground_families <- ground_arths %>%
-  # filter to confident IDs while still working on bug ID
-  mutate(TaxonID = case_when(
-    # switch all Trogossitidae to Nitidulidae
-    TaxonID == 678393 ~ 114290,
-    # switch all Ponera and Hypoponera to Brachyponera chinensis
-    TaxonID %in% c(574209,574195) ~ 11,
-    TRUE ~ TaxonID)) %>%
   left_join(
     taxa,
     by = 'TaxonID') %>%
@@ -613,30 +630,37 @@ ground_families <- ground_arths %>%
     n_individuals = sum(Number, na.rm = T),
     biomass = sum(TotalMass))
 
-hi_ground_fams <- ground_families %>% 
-  mutate(
-    biomass = if_else(
-      is.na(biomass),
-      true = 0,
-      false = biomass),
-    logBiomass = log(biomass + 0.01)) %>% 
-  group_by(family) %>% 
-  summarize(range = max(logBiomass) - min(logBiomass)) %>% 
-  filter(!is.na(family)) %>% 
-  arrange(desc(range)) %>% 
-  filter(range > 4) %>%
-  pull(family)
+all_grounds <- map(
+  unique(ground_families$CircleID),
+  function(x){
+    all_families <-  unique(ground_families$family)
+    
+    in_families <-  ground_families %>% 
+      filter(CircleID == x) %>% 
+      pull(family) %>% 
+      unique()
+    
+    out_families <- all_families[!all_families %in% in_families]
+    
+    rbind(
+      ground_families %>% 
+        filter(CircleID == x),
+      tibble(
+        CircleID = rep(x, length(out_families)),
+        family = out_families,
+        n_individuals = rep(0, length(out_families)),
+        biomass = rep(0, length(out_families))))
+  }) %>% 
+  bind_rows() %>% 
+  arrange(CircleID, family)
 
 # make a ground plot that can be PCA'ed - columns are families, rows are circles
 ground_base1 <- map_dfc(
   unique(ground_families$CircleID),
-  ~ ground_families %>%
+  ~ all_grounds %>%
     filter(
       CircleID == .x,
-      !is.na(family),
-      family %in% hi_ground_fams) %>%
-    bind_rows(tibble(
-      family = hi_ground_fams[!hi_ground_fams %in% .$family])) %>%
+      !is.na(family)) %>%
     mutate(
       CircleID = if_else(
         is.na(CircleID),
@@ -656,7 +680,7 @@ ground_base1 <- map_dfc(
     as_tibble(rownames = 'family') %>%
     arrange(family) %>%
     select(!family)) %>%
-  cbind(family = hi_ground_fams) %>%
+  cbind(family = unique(all_grounds$family[!is.na(all_grounds$family)])) %>%
   relocate(family) %>%
   as_tibble() %>%
   mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
@@ -674,7 +698,7 @@ ground_base1 <- map_dfc(
 
 rownames(ground_base1) <- circles$CircleID
 
-ground_pca <- prcomp(ground_base1[1:12], scale = T)
+ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = T)
 
 ground_pca_plot <- autoplot(
   ground_pca,
@@ -693,7 +717,8 @@ ground_pca_plot <- autoplot(
 
 ggsave(
   plot = ground_pca_plot,
-  filename = 'figures/lunch_bunch/ground_pca.png',
+  filename = 'figures/paper/ground_pca.png',
   width = 8,
   height = 4,
   units = 'in')
+
