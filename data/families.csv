@@ -100,7 +100,7 @@ Rhopalidae,,herbivore,flowers,pierce
 Saldidae,,predator,inverts,pierce
 Salticidae,ambush,predator,inverts,chelicerae
 Scarabaeidae,,mixed,"fungi,detritus,sap,leaves",mandibles
-Sclerosomatidae,,,,
+Sclerosomatidae,pursuit,omnivore,"inverts,flowers,fungi",mandibles
 Scutelleridae,,herbivore,sap,pierce
 Scutigeridae,pursuit,predator,inverts,mandibles
 Sphecidae,,,,

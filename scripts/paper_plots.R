@@ -4,6 +4,7 @@ library(tidyverse)
 library(ggpubr)
 library(ggfortify)
 library(janitor)
+library(ggrepel)
 
 foliage_dis <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_dissimilarity')])
@@ -31,6 +32,8 @@ ground_arths <- read_csv(
 
 pitfalls <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfalls')])
+
+functions <- read_csv('data/families.csv')
 
 ul_theme2 <- theme(
   axis.title = element_text(size = 10),
@@ -269,23 +272,6 @@ ggsave(
 
 # foliage arthropod PCA plot ---------------------------------------------
 
-ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = T)
-
-ground_pca_plot <- autoplot(
-  ground_pca,
-  data = ground_base1,
-  colour = 'SiteFK',
-  loadings = T,
-  loadings.label = T,
-  size = 3,
-  loadings.colour = 'forestgreen',
-  loadings.label.size = 3) +
-  ul_theme2 +
-  theme(
-    legend.position = 'none',
-    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
-  scale_color_viridis_d()
-
 # this is copied from dissimilarity_calculations, so annotations are removed to save space
 foliage_families <- foliage_arths %>%
   left_join(
@@ -333,6 +319,26 @@ all_foliage <- map(
   bind_rows() %>% 
   arrange(CircleFK, family)
 
+colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+                                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+foliage_functions <- foliage_families %>% 
+  ungroup() %>% 
+  filter(!is.na(family)) %>% 
+  select(family) %>% 
+  distinct() %>% 
+  left_join(functions, by = 'family') %>% 
+  arrange(family) %>% 
+  mutate(
+    dietg_color = case_when(
+      diet_group == 'herbivore' ~ colorz[4],
+      diet_group == 'predator' ~ colorz[8],
+      is.na(diet_group) ~ colorz[1],
+      diet_group == 'omnivore' ~ colorz[3],
+      diet_group == 'mixed' ~ colorz[1],
+      diet_group == 'scavenger' ~ colorz[7],
+      diet_group == 'fungivore' ~ colorz[2]))
+
 # make a foliage plot that can be PCA'ed - columns are families, rows are circles
 foliage_base1 <- map_dfc(
   unique(foliage_families$CircleFK),
@@ -379,25 +385,46 @@ rownames(foliage_base1) <- circles$CircleID
 
 foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-2)], scale = F)
 
-foliage_pca_plot <- autoplot(
-  foliage_pca,
-  data = foliage_base1,
-  colour = 'SiteFK',
-  loadings = T,
-  loadings.label = T,
-  size = 3,
-  loadings.colour = 'forestgreen',
-  loadings.label.size = 3) +
+sub_rot <- foliage_pca$rotation %>% 
+  as_tibble(rownames = 'family') %>% 
+  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
+  left_join(foliage_functions, by = 'family')
+
+foliage_pca_plot <- ggplot() +
+  geom_point(
+    data = foliage_pca$x,
+    mapping = aes(
+      x = PC1,
+      y = PC2,
+      shape = foliage_base1$SiteFK)) +
+  geom_segment(
+    data = sub_rot,
+    mapping = aes(
+      x = 0,
+      y = 0,
+      xend = PC1*15,
+      yend = PC2*15,
+      color = diet_group),
+    arrow = arrow(length = unit(0.03, 'npc'))) +
+  geom_text_repel(
+    data = sub_rot,
+    mapping = aes(
+      x = PC1*15,
+      y = PC2*15,
+      label = family),
+    size = unit(3, 'npc'),
+    box.padding = 0.001) +
+  scale_color_manual(values = setNames(sub_rot$dietg_color, sub_rot$diet_group)) +
+  labs(
+    shape = 'Site Code',
+    color = 'Functional Group') +
   ul_theme2 +
-  theme(
-    legend.position = 'none',
-    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
-  scale_color_viridis_d()
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
 
 ggsave(
   plot = foliage_pca_plot,
   filename = 'figures/paper/foliage_pca.png',
-  width = 8,
+  width = 6,
   height = 4,
   units = 'in')
 
@@ -654,6 +681,23 @@ all_grounds <- map(
   bind_rows() %>% 
   arrange(CircleID, family)
 
+ground_functions <- ground_families %>% 
+  ungroup() %>% 
+  filter(!is.na(family)) %>% 
+  select(family) %>% 
+  distinct() %>% 
+  left_join(functions, by = 'family') %>% 
+  arrange(family) %>% 
+  mutate(
+    dietg_color = case_when(
+      diet_group == 'herbivore' ~ colorz[4],
+      diet_group == 'predator' ~ colorz[8],
+      is.na(diet_group) ~ colorz[1],
+      diet_group == 'omnivore' ~ colorz[3],
+      diet_group == 'mixed' ~ colorz[1],
+      diet_group == 'scavenger' ~ colorz[7],
+      diet_group == 'fungivore' ~ colorz[2]))
+
 # make a ground plot that can be PCA'ed - columns are families, rows are circles
 ground_base1 <- map_dfc(
   unique(ground_families$CircleID),
@@ -698,27 +742,48 @@ ground_base1 <- map_dfc(
 
 rownames(ground_base1) <- circles$CircleID
 
-ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = T)
+ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = F)
 
-ground_pca_plot <- autoplot(
-  ground_pca,
-  data = ground_base1,
-  colour = 'SiteFK',
-  loadings = T,
-  loadings.label = T,
-  size = 3,
-  loadings.colour = 'forestgreen',
-  loadings.label.size = 3) +
+sub_rot2 <- ground_pca$rotation %>% 
+  as_tibble(rownames = 'family') %>% 
+  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
+  left_join(foliage_functions, by = 'family')
+
+ground_pca_plot <- ggplot() +
+  geom_point(
+    data = ground_pca$x,
+    mapping = aes(
+      x = PC1,
+      y = PC2,
+      shape = ground_base1$SiteFK)) +
+  geom_segment(
+    data = sub_rot2,
+    mapping = aes(
+      x = 0,
+      y = 0,
+      xend = PC1*15,
+      yend = PC2*15,
+      color = diet_group),
+    arrow = arrow(length = unit(0.03, 'npc'))) +
+  geom_text_repel(
+    data = sub_rot2,
+    mapping = aes(
+      x = PC1*15,
+      y = PC2*15,
+      label = family),
+    size = unit(3, 'npc'),
+    box.padding = 0.001) +
+  scale_color_manual(values = setNames(sub_rot2$dietg_color, sub_rot2$diet_group)) +
+  labs(
+    shape = 'Site Code',
+    color = 'Functional Group') +
   ul_theme2 +
-  theme(
-    legend.position = 'none',
-    plot.margin = unit(c(0.01,0.01,0.01,0.01), unit = 'npc')) +
-  scale_color_viridis_d()
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
 
 ggsave(
   plot = ground_pca_plot,
   filename = 'figures/paper/ground_pca.png',
-  width = 8,
+  width = 6,
   height = 4,
   units = 'in')
 
