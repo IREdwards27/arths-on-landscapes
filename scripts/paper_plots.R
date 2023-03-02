@@ -43,6 +43,9 @@ ul_theme2 <- theme(
   plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = 'npc'),
   axis.title.x = element_text(vjust = 1))
 
+colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+                      "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 # visualizing foliage arthropod stats -------------------------------------
 
 foliage_plot_euclidean_canopy <- ggplot(
@@ -55,7 +58,8 @@ foliage_plot_euclidean_canopy <- ggplot(
     x = 'Difference in Proportion Canopy Cover',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_euclidean_road <- ggplot(
   data = foliage_dis,
@@ -67,7 +71,8 @@ foliage_plot_euclidean_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_euclidean_forest <- ggplot(
   data = foliage_dis,
@@ -78,7 +83,7 @@ foliage_plot_euclidean_forest <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
@@ -89,7 +94,8 @@ foliage_plot_euclidean_forest <- ggplot(
     x = 0.5,
     y = 7.5,
     label = 'R2 = 0.11, p < 0.001',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_euclidean_trees <- ggplot(
   data = foliage_dis,
@@ -100,7 +106,7 @@ foliage_plot_euclidean_trees <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Jaccard Distance of Sampled Tree Species',
     y = NULL) +
@@ -111,7 +117,8 @@ foliage_plot_euclidean_trees <- ggplot(
     x = 0.5,
     y = 7.5,
     label = 'R2 = 0.12, p < 0.005',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_euclidean_distance <- ggplot(
   data = foliage_dis,
@@ -122,7 +129,7 @@ foliage_plot_euclidean_distance <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'goldenrod') +
+    color = '#E69F00') +
   labs(
     x = 'Geographic Distance (km)',
     y = NULL) +
@@ -133,7 +140,8 @@ foliage_plot_euclidean_distance <- ggplot(
     x = 25,
     y = 7.5,
     label = 'R2 = 0.07, p < 0.005',
-    color = 'goldenrod')
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_jaccard_canopy <- ggplot(
   data = foliage_dis,
@@ -145,7 +153,8 @@ foliage_plot_jaccard_canopy <- ggplot(
     x = 'Difference in Proportion Canopy Cover',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_jaccard_road <- ggplot(
   data = foliage_dis,
@@ -157,7 +166,8 @@ foliage_plot_jaccard_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_jaccard_forest <- ggplot(
   data = foliage_dis,
@@ -168,7 +178,7 @@ foliage_plot_jaccard_forest <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
@@ -179,7 +189,8 @@ foliage_plot_jaccard_forest <- ggplot(
     x = 0.5,
     y = 0.2,
     label = 'R2 = 0.13, p < 0.001',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_jaccard_trees <- ggplot(
   data = foliage_dis,
@@ -190,7 +201,7 @@ foliage_plot_jaccard_trees <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Jaccard Distance of Sampled Tree Species',
     y = NULL) +
@@ -201,7 +212,8 @@ foliage_plot_jaccard_trees <- ggplot(
     x = 0.5,
     y = 0.2,
     label = 'R2 = 0.16, p < 0.0005',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_plot_jaccard_distance <- ggplot(
   data = foliage_dis,
@@ -212,7 +224,7 @@ foliage_plot_jaccard_distance <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'goldenrod') +
+    color = '#E69F00') +
   labs(
     x = 'Geographic Distance (km)',
     y = NULL) +
@@ -223,7 +235,8 @@ foliage_plot_jaccard_distance <- ggplot(
     x = 25,
     y = 0.2,
     label = 'R2 = 0.09, p < 0.005',
-    color = 'goldenrod')
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
 
 foliage_euclidean_plots <- ggarrange( 
   foliage_plot_euclidean_forest,
@@ -238,8 +251,8 @@ foliage_euclidean_plots <- ggarrange(
     left = text_grob(
       'Euclidean Distance of Community Composition',
       rot = 90,
-      vjust = 4.5,
-      size = 10))
+      vjust = 4,
+      size = 14))
 
 foliage_jaccard_plots <- ggarrange( 
   foliage_plot_jaccard_forest, 
@@ -254,8 +267,8 @@ foliage_jaccard_plots <- ggarrange(
     left = text_grob(
       'Jaccard Distance of Community Composition', 
       rot = 90,
-      vjust = 4.5,
-      size = 10))
+      vjust = 4,
+      size = 14))
 
 foliage_plots <- ggarrange(
   foliage_euclidean_plots,
@@ -319,9 +332,6 @@ all_foliage <- map(
   bind_rows() %>% 
   arrange(CircleFK, family)
 
-colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
-                                "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
 foliage_functions <- foliage_families %>% 
   ungroup() %>% 
   filter(!is.na(family)) %>% 
@@ -379,11 +389,18 @@ foliage_base1 <- map_dfc(
   left_join(
     circles %>% 
       select(CircleID, SiteFK),
-    by = 'CircleID')
+    by = 'CircleID') %>% 
+  mutate(SiteName = case_when(
+    SiteFK == 'DF' ~ 'Duke Forest',
+    SiteFK == 'ERSP' ~ 'Eno River',
+    SiteFK == 'JMNP' ~ 'Johnston Mill',
+    SiteFK == 'NCBG' ~ 'Botanical Garden',
+    SiteFK == 'NCSU' ~ 'NCSU',
+    SiteFK == 'UNC' ~ 'UNC'))
 
 rownames(foliage_base1) <- circles$CircleID
 
-foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-2)], scale = F)
+foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-3)], scale = F)
 
 sub_rot <- foliage_pca$rotation %>% 
   as_tibble(rownames = 'family') %>% 
@@ -396,7 +413,8 @@ foliage_pca_plot <- ggplot() +
     mapping = aes(
       x = PC1,
       y = PC2,
-      shape = foliage_base1$SiteFK)) +
+      shape = foliage_base1$SiteName),
+    size = 3) +
   geom_segment(
     data = sub_rot,
     mapping = aes(
@@ -405,9 +423,13 @@ foliage_pca_plot <- ggplot() +
       xend = PC1*15,
       yend = PC2*15,
       color = diet_group),
-    arrow = arrow(length = unit(0.03, 'npc'))) +
+    arrow = arrow(length = unit(0.03, 'npc')),
+    linewidth = 1.1) +
   geom_text_repel(
-    data = sub_rot,
+    data = sub_rot %>% 
+      mutate(family = case_when(
+        family %in% c('Araneidae','Coccinellidae','Tenebrionidae','Sclerosomatidae') ~ family,
+        .default = NULL)),
     mapping = aes(
       x = PC1*15,
       y = PC2*15,
@@ -441,7 +463,8 @@ ground_plot_euclidean_herb <- ggplot(
     x = 'Difference in Herbaceous Cover Class',
     y = NULL) +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_euclidean_road <- ggplot(
   data = ground_dis,
@@ -453,7 +476,8 @@ ground_plot_euclidean_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_euclidean_litter <- ggplot(
   data = ground_dis,
@@ -465,7 +489,8 @@ ground_plot_euclidean_litter <- ggplot(
     x = 'Difference in Litter Depth (mm)',
     y = NULL) +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_euclidean_forest <- ggplot(
   data = ground_dis,
@@ -476,7 +501,7 @@ ground_plot_euclidean_forest <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Difference in Proportion Forest Cover in a 1km Radius',
     y = NULL) +
@@ -487,7 +512,8 @@ ground_plot_euclidean_forest <- ggplot(
     x = 0.5,
     y = 7.5,
     label = 'R2 = 0.48, p < 0.001',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_euclidean_distance <- ggplot(
   data = ground_dis,
@@ -498,7 +524,7 @@ ground_plot_euclidean_distance <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'goldenrod') +
+    color = '#E69F00') +
   labs(
     x = 'Geographic Distance (km)',
     y = NULL) +
@@ -509,7 +535,8 @@ ground_plot_euclidean_distance <- ggplot(
     x = 25,
     y = 7.5,
     label = 'R2 = 0.09, p < 0.0005',
-    color = 'goldenrod')
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_jaccard_herb <- ggplot(
   data = ground_dis,
@@ -521,7 +548,8 @@ ground_plot_jaccard_herb <- ggplot(
     x = 'Difference in Herbaceous Cover Class',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_jaccard_road <- ggplot(
   data = ground_dis,
@@ -533,7 +561,8 @@ ground_plot_jaccard_road <- ggplot(
     x = 'Difference in Distance to Nearest Road (km)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_jaccard_litter <- ggplot(
   data = ground_dis,
@@ -545,7 +574,8 @@ ground_plot_jaccard_litter <- ggplot(
     x = 'Difference in Litter Depth (mm)',
     y = NULL) +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_jaccard_forest <- ggplot(
   data = ground_dis,
@@ -556,7 +586,7 @@ ground_plot_jaccard_forest <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'forestgreen') +
+    color = '#009E73') +
   labs(
     x = 'Difference in Proportion Forest cover in a 1km Radius',
     y = NULL) +
@@ -567,7 +597,8 @@ ground_plot_jaccard_forest <- ggplot(
     x = 0.5,
     y = 0.2,
     label = 'R2 = 0.25, p < 0.0005',
-    color = 'forestgreen')
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
 
 ground_plot_jaccard_distance <- ggplot(
   data = ground_dis,
@@ -578,7 +609,7 @@ ground_plot_jaccard_distance <- ggplot(
   geom_smooth(
     method = 'lm',
     se = F,
-    color = 'goldenrod') +
+    color = '#E69F00') +
   labs(
     x = 'Geographic Distance (km)',
     y = NULL) +
@@ -589,7 +620,8 @@ ground_plot_jaccard_distance <- ggplot(
     x = 25,
     y = 0.2,
     label = 'R2 = 0.04, p < 0.005',
-    color = 'goldenrod')
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
 
 ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_forest, 
@@ -604,8 +636,8 @@ ground_euclidean_plots <- ggarrange(
     left = text_grob(
       'Euclidean Distance of Community Composition',
       rot = 90,
-      vjust = 4,
-      size = 10))
+      vjust = 3.8,
+      size = 14))
 
 ground_jaccard_plots <- ggarrange(
   ground_plot_jaccard_forest, 
@@ -620,8 +652,8 @@ ground_jaccard_plots <- ggarrange(
     left = text_grob(
       'Jaccard Distance of Community Composition', 
       rot = 90,
-      vjust = 4,
-      size = 10))
+      vjust = 3.8,
+      size = 14))
 
 ground_plots <- ggarrange(
   ground_euclidean_plots,
@@ -738,16 +770,23 @@ ground_base1 <- map_dfc(
   left_join(
     circles %>% 
       select(CircleID, SiteFK),
-    by = 'CircleID')
+    by = 'CircleID') %>% 
+  mutate(SiteName = case_when(
+    SiteFK == 'DF' ~ 'Duke Forest',
+    SiteFK == 'ERSP' ~ 'Eno River',
+    SiteFK == 'JMNP' ~ 'Johnston Mill',
+    SiteFK == 'NCBG' ~ 'Botanical Garden',
+    SiteFK == 'NCSU' ~ 'NCSU',
+    SiteFK == 'UNC' ~ 'UNC'))
 
 rownames(ground_base1) <- circles$CircleID
 
-ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-2)], scale = F)
+ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-3)], scale = F)
 
 sub_rot2 <- ground_pca$rotation %>% 
   as_tibble(rownames = 'family') %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(foliage_functions, by = 'family')
+  left_join(ground_functions, by = 'family')
 
 ground_pca_plot <- ggplot() +
   geom_point(
@@ -755,7 +794,8 @@ ground_pca_plot <- ggplot() +
     mapping = aes(
       x = PC1,
       y = PC2,
-      shape = ground_base1$SiteFK)) +
+      shape = ground_base1$SiteName),
+    size = 3) +
   geom_segment(
     data = sub_rot2,
     mapping = aes(
@@ -764,9 +804,13 @@ ground_pca_plot <- ggplot() +
       xend = PC1*15,
       yend = PC2*15,
       color = diet_group),
-    arrow = arrow(length = unit(0.03, 'npc'))) +
+    arrow = arrow(length = unit(0.03, 'npc')),
+    linewidth = 1.1) +
   geom_text_repel(
-    data = sub_rot2,
+    data = sub_rot2 %>% 
+      mutate(family = case_when(
+        family %in% c('Carabidae','Lycosidae','Armadillidae','Porcellionidae','Rhaphidophoridae') ~ family,
+        .default = NULL)),
     mapping = aes(
       x = PC1*15,
       y = PC2*15,
