@@ -831,3 +831,21 @@ ggsave(
   height = 4,
   units = 'in')
 
+
+# site trait table --------------------------------------------------------
+
+sites <- read_csv(
+  list.files('data', full.names = T)[str_detect(list.files('data'), '^sites')])
+
+circles %>% 
+  left_join(
+    sites,
+    by = c('SiteFK' = 'SiteID')) %>% 
+  group_by(SiteFK) %>% 
+  summarize(
+    forest_1km = mean(forest_1km),
+    MeanLitter = mean(LitterDepthmm),
+    MeanCanopy = mean(PercentCanopyCover),
+    MeanHerb = mean(HerbCoverEstimate),
+    MeanEdge = mean(DistanceToEdgem)) %>% 
+  write_csv('data/site_summaries.csv')
