@@ -55,8 +55,8 @@ foliage_plot_euclidean_canopy <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   labs(
-    x = 'Difference in Proportion Canopy Cover',
-    y = NULL) +
+    x = "\u0394 Local Canopy Cover",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -68,8 +68,8 @@ foliage_plot_euclidean_road <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   labs(
-    x = 'Difference in Distance to Nearest Road (km)',
-    y = NULL) +
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -85,8 +85,8 @@ foliage_plot_euclidean_forest <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Difference in Proportion Forest Cover in a 1km Radius',
-    y = NULL) +
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -108,8 +108,8 @@ foliage_plot_euclidean_trees <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Jaccard Distance of Sampled Tree Species',
-    y = NULL) +
+    x = "Tree Species Dissimilarity",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -131,8 +131,8 @@ foliage_plot_euclidean_distance <- ggplot(
     se = F,
     color = '#E69F00') +
   labs(
-    x = 'Geographic Distance (km)',
-    y = NULL) +
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -150,8 +150,8 @@ foliage_plot_jaccard_canopy <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   labs(
-    x = 'Difference in Proportion Canopy Cover',
-    y = NULL) +
+    x = "\u0394 Local Canopy Cover",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -163,8 +163,8 @@ foliage_plot_jaccard_road <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   labs(
-    x = 'Difference in Distance to Nearest Road (km)',
-    y = NULL) +
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -180,8 +180,8 @@ foliage_plot_jaccard_forest <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Difference in Proportion Forest Cover in a 1km Radius',
-    y = NULL) +
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -203,8 +203,8 @@ foliage_plot_jaccard_trees <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Jaccard Distance of Sampled Tree Species',
-    y = NULL) +
+    x = "Tree Species Dissimilarity",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -226,8 +226,8 @@ foliage_plot_jaccard_distance <- ggplot(
     se = F,
     color = '#E69F00') +
   labs(
-    x = 'Geographic Distance (km)',
-    y = NULL) +
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -246,13 +246,7 @@ foliage_euclidean_plots <- ggarrange(
   foliage_plot_euclidean_distance,
   ncol = 1,
   labels = c('a)','c)','e)','g)','i)'),
-  label.x = -0.01) %>% 
-  annotate_figure(
-    left = text_grob(
-      'Euclidean Distance of Community Composition',
-      rot = 90,
-      vjust = 4,
-      size = 14))
+  label.x = -0.01)
 
 foliage_jaccard_plots <- ggarrange( 
   foliage_plot_jaccard_forest, 
@@ -262,13 +256,7 @@ foliage_jaccard_plots <- ggarrange(
   foliage_plot_jaccard_distance,
   ncol = 1,
   labels = c('b)','d)','f)','h)','j)'),
-  label.x = -0.01) %>% 
-  annotate_figure(
-    left = text_grob(
-      'Jaccard Distance of Community Composition', 
-      rot = 90,
-      vjust = 4,
-      size = 14))
+  label.x = -0.01)
 
 foliage_plots <- ggarrange(
   foliage_euclidean_plots,
@@ -389,14 +377,7 @@ foliage_base1 <- map_dfc(
   left_join(
     circles %>% 
       select(CircleID, SiteFK),
-    by = 'CircleID') %>% 
-  mutate(SiteName = case_when(
-    SiteFK == 'DF' ~ 'Duke Forest',
-    SiteFK == 'ERSP' ~ 'Eno River',
-    SiteFK == 'JMNP' ~ 'Johnston Mill',
-    SiteFK == 'NCBG' ~ 'Botanical Garden',
-    SiteFK == 'NCSU' ~ 'NCSU',
-    SiteFK == 'UNC' ~ 'UNC'))
+    by = 'CircleID')
 
 rownames(foliage_base1) <- circles$CircleID
 
@@ -413,7 +394,7 @@ foliage_pca_plot <- ggplot() +
     mapping = aes(
       x = PC1,
       y = PC2,
-      shape = foliage_base1$SiteName),
+      shape = foliage_base1$SiteFK),
     size = 3) +
   geom_segment(
     data = sub_rot,
@@ -460,8 +441,8 @@ ground_plot_euclidean_herb <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   labs(
-    x = 'Difference in Herbaceous Cover Class',
-    y = NULL) +
+    x = "\u0394 Herbaceous Cover",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -473,8 +454,8 @@ ground_plot_euclidean_road <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   labs(
-    x = 'Difference in Distance to Nearest Road (km)',
-    y = NULL) +
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -486,8 +467,8 @@ ground_plot_euclidean_litter <- ggplot(
     y = euclideanDistance)) +
   geom_point() + 
   labs(
-    x = 'Difference in Litter Depth (mm)',
-    y = NULL) +
+    x = "\u0394 Litter Depth (mm)",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -503,8 +484,8 @@ ground_plot_euclidean_forest <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Difference in Proportion Forest Cover in a 1km Radius',
-    y = NULL) +
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -526,8 +507,8 @@ ground_plot_euclidean_distance <- ggplot(
     se = F,
     color = '#E69F00') +
   labs(
-    x = 'Geographic Distance (km)',
-    y = NULL) +
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -545,8 +526,8 @@ ground_plot_jaccard_herb <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() + 
   labs(
-    x = 'Difference in Herbaceous Cover Class',
-    y = NULL) +
+    x = "\u0394 Herbaceous Cover",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -558,8 +539,8 @@ ground_plot_jaccard_road <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   labs(
-    x = 'Difference in Distance to Nearest Road (km)',
-    y = NULL) +
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -571,8 +552,8 @@ ground_plot_jaccard_litter <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   labs(
-    x = 'Difference in Litter Depth (mm)',
-    y = NULL) +
+    x = "\u0394 Litter Depth (mm)",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
@@ -588,8 +569,8 @@ ground_plot_jaccard_forest <- ggplot(
     se = F,
     color = '#009E73') +
   labs(
-    x = 'Difference in Proportion Forest cover in a 1km Radius',
-    y = NULL) +
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -611,8 +592,8 @@ ground_plot_jaccard_distance <- ggplot(
     se = F,
     color = '#E69F00') +
   labs(
-    x = 'Geographic Distance (km)',
-    y = NULL) +
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
@@ -631,13 +612,7 @@ ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_distance,
   ncol = 1,
   labels = c('a)','c)','e)','g)','i)'),
-  label.x = -0.01) %>% 
-  annotate_figure(
-    left = text_grob(
-      'Euclidean Distance of Community Composition',
-      rot = 90,
-      vjust = 3.8,
-      size = 14))
+  label.x = -0.01)
 
 ground_jaccard_plots <- ggarrange(
   ground_plot_jaccard_forest, 
@@ -647,13 +622,7 @@ ground_jaccard_plots <- ggarrange(
   ground_plot_jaccard_distance,
   ncol = 1,
   labels = c('b)','d)','f)','h)','j)'),
-  label.x = -0.01) %>% 
-  annotate_figure(
-    left = text_grob(
-      'Jaccard Distance of Community Composition', 
-      rot = 90,
-      vjust = 3.8,
-      size = 14))
+  label.x = -0.01)
 
 ground_plots <- ggarrange(
   ground_euclidean_plots,
@@ -770,14 +739,7 @@ ground_base1 <- map_dfc(
   left_join(
     circles %>% 
       select(CircleID, SiteFK),
-    by = 'CircleID') %>% 
-  mutate(SiteName = case_when(
-    SiteFK == 'DF' ~ 'Duke Forest',
-    SiteFK == 'ERSP' ~ 'Eno River',
-    SiteFK == 'JMNP' ~ 'Johnston Mill',
-    SiteFK == 'NCBG' ~ 'Botanical Garden',
-    SiteFK == 'NCSU' ~ 'NCSU',
-    SiteFK == 'UNC' ~ 'UNC'))
+    by = 'CircleID')
 
 rownames(ground_base1) <- circles$CircleID
 
@@ -794,7 +756,7 @@ ground_pca_plot <- ggplot() +
     mapping = aes(
       x = PC1,
       y = PC2,
-      shape = ground_base1$SiteName),
+      shape = ground_base1$SiteFK),
     size = 3) +
   geom_segment(
     data = sub_rot2,
