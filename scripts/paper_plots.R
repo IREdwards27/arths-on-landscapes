@@ -406,17 +406,18 @@ foliage_pca_plot <- ggplot() +
       color = diet_group),
     arrow = arrow(length = unit(0.03, 'npc')),
     linewidth = 1.1) +
-  geom_text_repel(
+  geom_text(
     data = sub_rot %>% 
       mutate(family = case_when(
         family %in% c('Araneidae','Coccinellidae','Tenebrionidae','Sclerosomatidae') ~ family,
         .default = NULL)),
     mapping = aes(
-      x = PC1*15,
-      y = PC2*15,
-      label = family),
-    size = unit(3, 'npc'),
-    box.padding = 0.001) +
+      x = PC1*12.5+0.1,
+      y = PC2*18+0.5,
+      label = family,
+      colour = diet_group),
+    size = 3.5,
+    show.legend = F) +
   scale_color_manual(values = setNames(sub_rot$dietg_color, sub_rot$diet_group)) +
   labs(
     shape = 'Site Code',
@@ -768,17 +769,18 @@ ground_pca_plot <- ggplot() +
       color = diet_group),
     arrow = arrow(length = unit(0.03, 'npc')),
     linewidth = 1.1) +
-  geom_text_repel(
+  geom_text(
     data = sub_rot2 %>% 
       mutate(family = case_when(
         family %in% c('Carabidae','Lycosidae','Armadillidae','Porcellionidae','Rhaphidophoridae') ~ family,
         .default = NULL)),
     mapping = aes(
       x = PC1*15,
-      y = PC2*15,
-      label = family),
-    size = unit(3, 'npc'),
-    box.padding = 0.001) +
+      y = PC2*17+0.02/PC2,
+      label = family,
+      color = diet_group),
+    size = 3.5,
+    show.legend = F) +
   scale_color_manual(values = setNames(sub_rot2$dietg_color, sub_rot2$diet_group)) +
   labs(
     shape = 'Site Code',
