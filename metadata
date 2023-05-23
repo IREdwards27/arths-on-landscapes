@@ -1,0 +1,13 @@
+foliage_arths_2022-12-02.csv: observations of arthropods collected via beat sheets
+  FoliageArthID: unique identifier for each arthropod observation
+  BeatSheetFK: foreign key corresponding to the ID of the beat sheet where the observed arthropod(s) were collected
+  CCGroup: Caterpillars Count! taxonomic group assigned to observation
+  Length: the length(s) of the arthropod(s), in millimeters, recorded in the Caterpillars Count! app
+  Quantity: the number of arthropods included in the observation
+  PhotoURL: the name of the image file submitted with the observation in the Caterpillars Count! app, not included here
+  CCNotes: notes submitted by the Caterpillars Count! user when the observation was submitted
+  TaxonLevel: the taxonomic level to which the arthropod(s) was identified, indicated in the Taxon field
+  Taxon: the taxonomic identification of the arthropod(s)
+  TotalMass: the mass, in milligrams, of the number of arthropods in the observation indicated in the NumberWeighed field
+  NumberWeighed: the number of arthropods weighed, which may be fewer than the Quantity field if some were lost
+  TaxonID: the ITIS or individually-assigned ID corresponding to the taxon of the arthropod(s) in the observation
