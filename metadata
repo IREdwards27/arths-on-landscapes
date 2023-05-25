@@ -11,3 +11,64 @@ foliage_arths_2022-12-02.csv: observations of arthropods collected via beat shee
   TotalMass: the mass, in milligrams, of the number of arthropods in the observation indicated in the NumberWeighed field
   NumberWeighed: the number of arthropods weighed, which may be fewer than the Quantity field if some were lost
   TaxonID: the ITIS or individually-assigned ID corresponding to the taxon of the arthropod(s) in the observation
+  
+ground_arths_2022-12-02.csv: observations of arthropods collected via pitfall traps
+  GroundArthID: unique identifier for each arthropod observation
+  PitfallID: foreign key corresponding to the unique identifier of the sampling period and trap where the observed arthropod(s) were collected
+  TaxonLevel: the taxonomic level to which the arthropod(s) was identified, indicated in the Taxon field
+  Taxon: the taxonomic identification of the arthropod(s)
+  Number: the number of arthropods included in the observation
+  TotalMass: the mass, in milligrams, of the arthropods included in the observation
+  Notes: notes related to the observation
+  TaxonID: the ITIS or individually-assigned ID corresponing to the taxon of the arthropod(s) in the observation
+  
+taxa_2022-12-02.csv: information on the taxa observed in beat sheets or pitfalls
+  TaxonID: unique identifier for the taxon, retrieved from ITIS or assigned individually
+  taxon: the name of the most specific taxon indicated by the TaxonID
+  class-species: the classification of the taxon at the indicated taxonomic level
+  
+beat_sheets_2022-12-02.csv: information on individual beat sheet surveys
+  BeatSheetID: unique identifier for each beat sheet survey conducted
+  TreeFK: foreign key corresponding to the unique identifier from Caterpillars Count! of the tree on which each survey was conducted
+  Observer: the first name of the individual who performed the survey
+  Date: the date each survey was conducted, in mm/dd/yyyy format
+  Time: the time at which each survey was conducted, in 24-hour time
+  WetLeaves: binary indication of whether the survey was conducted on wet leaves, where 1 indicates wet leaves and 0 indicates dry leaves
+  NumberOfLeaves: the number of leaves included in the survey
+  AverageLeafLength: the average length, in centimeters, of the leaves included in the survey
+  Notes: notes related to the survey
+  Checks: the number of times the identifications of arthropods from the survey were checked, including the initial identification
+  
+pitfalls_2022-12-02.csv: information on individual runs of pitfall traps
+  PitfallID: unique identifier of the run
+  CircleID: foreign key corresponding to the unique identifier of the sample plot where the pitfall was run
+  DateDeployed: the date the pitfall trap was set, in mm/dd/yyyy format
+  TimeDeployed: the time the pitfall trap was set, in 24-hour time
+  DateCollected: the date arthropods were collected from the pitfall trap, in mm/dd/yyyy format
+  TimeCollected: the time arthropods were collected from the pitfall trap, in 24-hour time
+  Notes: notes related to the run of the pitfall trap
+  Checks: the number of times the identifications of arthropods from the survey were checked, including the initial identification
+  
+trees_2022-08-16.csv: information on trees where beat sheet surveys were conducted
+  TreeID: unique identifier for each tree, as a 3-letter code used to tag the tree
+  CCID: unique identifier for each tree, imported from Caterpillars Count!
+  CircleFK: foreign key corresponding to the unique identifier of a sampling plot
+  Species: the binomial name of the survey tree species
+  
+circles_2022-10-03: information on sampling plots
+  CircleID: unique identifier for each sampling plot
+  SiteFK: foreign key corresponding to the unique identifier of the site at which the plot is located
+  Latitude: the latitude of the plot, in decimal degrees
+  Longitude: the longitude of the plot, in decimal degrees
+  LitterDepth: the depth of the litter layer, in millimeters, at the plot
+  PercentCanopyCover: the canopy cover at the plot, measured as a percentage
+  HerbCover: the herbaceous cover class at the plot, with numbers 1 through 4 indicating 0-25%, 26-50%, 51-75%, and 76-100% ground cover in a 1-m quadrat
+  DistanceToEdgem: the distance from the plot to the nearest paved road, measured in meters
+  
+sites_2022-09-19: information on sampling sites
+  SiteID: unique identifier for each sampling site, as a 2- to 4-letter code
+  CCID: unique identifier for each sampling site, imported from Caterpillars Count!
+  Name: the descriptive name of the site, imported from Caterpillars Count!
+  Latitude: the latitude of the center of the sampling site, in decimal degrees
+  Longitude: the longitude of the center of the site, in decimal degrees
+  forest_1km: the proportion of pixels within a 1-kilometer radius of the center of the site classified as deciduous forest, coniferous forest, or mixed forest by the NLCD 2019 Land Cover dataset
