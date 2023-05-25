@@ -72,3 +72,10 @@ sites_2022-09-19: information on sampling sites
   Latitude: the latitude of the center of the sampling site, in decimal degrees
   Longitude: the longitude of the center of the site, in decimal degrees
   forest_1km: the proportion of pixels within a 1-kilometer radius of the center of the site classified as deciduous forest, coniferous forest, or mixed forest by the NLCD 2019 Land Cover dataset
+  
+families.csv: information on the diets of arthropod families
+  family: the name of the arthropod family
+  hunt_group: the hunting method of the arthropod family, only assigned for predatory families
+  diet_group: the general category of the diet of the arthropod family
+  diet_parts: details on the components of prey items consumed
+  mouthparts: the type of mouthparts arthropods in the family have

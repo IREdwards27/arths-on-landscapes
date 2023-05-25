@@ -1,5 +1,8 @@
 
-# setup -------------------------------------------------------------------
+### preparing data ----------------------------------------------------------
+
+
+## setup -------------------------------------------------------------------
 
 # install necessary packages, listed below, before proceeding
 # load necessary packages
@@ -7,6 +10,7 @@ library(tidyverse)
 library(ggpubr)
 library(ggfortify)
 library(janitor)
+library(ade4)
 
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
@@ -41,14 +45,25 @@ circles <- read_csv(
 sites <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^sites')])
 
+# read in data on the diets of arthropod families
+functions <- read_csv('data/families.csv')
+
 
 ## calculating community dissimilarity metrics -----------------------------
 
+# create a function to calculate Euclidean distance - takes two vectors of abundance values, a and b, as inputs
+euclidean <- function(a, b) sqrt(sum((a - b)^2))
+
+# create a function to calculate Jaccard similarity - takes three vectors of presence/absence values as inputs, where a is the vector of families found at both sampling plots and b and c are the vectors of families found at one sampling plot but not the other
+jaccard <- function(a,b,c) {a/(a+b+c)}
 
 # foliage arthropod communities -------------------------------------------
 
 # create a tibble with the number of individuals and total biomass of each family observed at each sampling plot
 foliage_families <- foliage_arths %>%
+  left_join(
+    taxa,
+    by = 'TaxonID') %>%
   # filter to orders included in analysis
   filter(
     order %in% c('Araneae','Coleoptera','Hemiptera','Opiliones','Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
@@ -66,11 +81,11 @@ foliage_families <- foliage_arths %>%
   left_join(
     circles,
     by = c('CircleFK' = 'CircleID')) %>%
-  # calculate the total number of individuals and total biomass of arthropods in each family observed across all beat sheet surveys at each survey tree
+  # calculate the total number of individuals and total biomass of arthropods in each family observed across all beat sheet surveys at each sampling plot
   group_by(CircleFK, family) %>%
   summarize(
     n_individuals = sum(Quantity, na.rm = T),
-    biomass = sum(TotalMass))
+    biomass = sum(TotalMass, na.rm = T))
 
 # create an alphabetized vector of all the families observed on any beat sheet survey
 foliageFams <- sort(unique(foliage_families$family))
@@ -123,3 +138,1325 @@ family_circles_foliage <- map_dfc(
   as_tibble() %>%
   # convert contents to numeric
   mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x)))
+
+# nested map function to calculate Euclidean distance between every possible combination of circles, resulting in an identity matrix for Euclidean distance between circle communities
+euclidean_matrix_foliage <- map_dfr(
+  .x = 2:31,
+  .f = function(s){
+    map_dfc(
+      .x = 2:31,
+      .f = ~ euclidean(family_circles_foliage[[s]], family_circles_foliage[[.x]])
+    )
+  }) %>%
+  # set the column names
+  set_names(names(family_circles_foliage)[2:31]) %>%
+  # set the row names
+  cbind(circle = names(family_circles_foliage)[2:31]) %>%
+  # move the sampling plot ID to the first column
+  relocate(circle)
+
+# nested map function to calculate Jaccard dissimilarity between every possible combination of circles, resulting in an identity matrix for Jaccard dissimilarity between circle communities
+jaccard_matrix_foliage <- map_dfr(
+  .x = circles$CircleID,
+  .f = function(s){
+    map_dfc(
+      .x = circles$CircleID,
+      .f = ~
+        # the '1-' changes the calculation to a dissimilarity metric
+        1 - jaccard(
+          # total number of families in both of two particular circles
+          a = sum(foliage_families$family[foliage_families$CircleFK == s] %in% foliage_families$family[foliage_families$CircleFK == .x]),
+          # total number of families in the first circle but not the second
+          b = sum(!foliage_families$family[foliage_families$CircleFK == s] %in% foliage_families$family[foliage_families$CircleFK == .x]),
+          # total number of families in the second circle but not the first
+          c = sum(!foliage_families$family[foliage_families$CircleFK == .x] %in% foliage_families$family[foliage_families$CircleFK == s]))
+    )
+  }) %>%
+  # organizational processes as above
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+
+# ground arthropods -------------------------------------------------------
+
+# create a tibble with the number of individuals and total biomass of each family observed at each sampling plot
+ground_families <- ground_arths %>%
+  # join in taxon information
+  left_join(
+    taxa,
+    by = 'TaxonID') %>%
+  # filter to orders included for analysis
+  filter(
+    order %in% c('Araneae','Archaeognatha','Coleoptera','Isopoda', 'Opiliones', 'Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
+  # join in information on pitfall runs
+  left_join(
+    pitfalls %>%
+      select(PitfallID, DateCollected, CircleID),
+    by = 'PitfallID') %>%
+  # join in information on sampling plots
+  left_join(
+    circles,
+    by = 'CircleID') %>%
+  group_by(CircleID, family) %>%
+  # calculate the total number of individuals and total biomass of arthropods in each family observed across all pitfall trap runs at each sampling plot
+  summarize(
+    n_individuals = sum(Number, na.rm = T),
+    biomass = sum(TotalMass, na.rm = T))
+
+# create an alphabetized vector of all the families observed Sin any pitfall trap
+groundFams <- sort(unique(ground_families$family))
+
+# make a data frame with sites as columns and families as rows
+family_circles_ground <- map_dfc(
+  unique(ground_families$CircleID),
+  ~ ground_families %>%
+    # select families observed at a particular sampling plot
+    filter(
+      CircleID == .x,
+      !is.na(family)) %>%
+    # add families that were not observed at a particular plot
+    bind_rows(tibble(
+      family = groundFams[!groundFams %in% .$family])) %>%
+    mutate(
+      # populate sampling plot ID to non-observed family rows
+      CircleID = if_else(
+        is.na(CircleID),
+        true = .x,
+        false = CircleID),
+      # fill in 0 values for biomass of families not observed
+      biomass = if_else(
+        is.na(biomass),
+        true = 0,
+        false = biomass),
+      # take the log of biomass, adding 1/10th the smallest occurring value so zero observations are viable
+      logBiomass = log(biomass+0.01)) %>%
+    # select to relevant columns
+    select(!n_individuals:biomass) %>%
+    # pivot everything out
+    pivot_wider(
+      names_from = family,
+      values_from = logBiomass) %>%
+    # transpose
+    t() %>%
+    # get the sampling plot IDs out of the first row
+    row_to_names(row_number = 1) %>%
+    # make it a real boy
+    as_tibble(rownames = 'family') %>%
+    # put it in alphabetical order by family
+    arrange(family) %>%
+    # remove family
+    select(!family)) %>%
+  # put family back in at the end of the map function
+  cbind(family = groundFams) %>%
+  relocate(family) %>%
+  as_tibble() %>%
+  mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x)))
+
+# nested map function to calculate Euclidean distance between every possible combination of sampling plots, resulting in an identity matrix for Euclidean distance between plot communities
+euclidean_matrix_ground <- map_dfr(
+  .x = 2:31,
+  .f = function(s){
+    map_dfc(
+      .x = 2:31,
+      .f = ~ euclidean(family_circles_ground[[s]], family_circles_ground[[.x]])
+    )
+  }) %>%
+  # setting the column names
+  set_names(names(family_circles_ground)[2:31]) %>%
+  # setting the rows to mark for each circle
+  cbind(circle = names(family_circles_ground)[2:31]) %>%
+  relocate(circle)
+
+# make a matrix as above for Jaccard similarity
+jaccard_matrix_ground <- map_dfr(
+  .x = circles$CircleID,
+  .f = function(s){
+    map_dfc(
+      .x = circles$CircleID,
+      .f = ~
+        # the '1-' makes it dissimilarity instead of similarity
+        1 - jaccard(
+          # total number of families in both of two particular circles
+          a = sum(ground_families$family[ground_families$CircleID == s] %in% ground_families$family[ground_families$CircleID == .x]),
+          # total number of families in the first circle but not the second
+          b = sum(!ground_families$family[ground_families$CircleID == s] %in% ground_families$family[ground_families$CircleID == .x]),
+          # total number of families in the second circle but not the first
+          c = sum(!ground_families$family[ground_families$CircleID == .x] %in% ground_families$family[ground_families$CircleID == s]))
+    )
+  }) %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+## calculating environmental distance metrics ------------------------------
+
+
+# tree species dissimilarity between sampling plots -----------------------
+
+# generate a data frame with a row for each tree species found at each sampling plot
+tree_species <- trees %>% 
+  select(CircleFK, Species) %>% 
+  distinct()
+
+# use the format for calculating arthropod community Jaccard dissimilarity to calculate sample tree species Jaccard dissimilarity
+trees_jaccard_matrix <- map_dfr(
+  .x = circles$CircleID,
+  .f = function(s){
+    map_dfc(
+      .x = circles$CircleID,
+      .f = ~
+        1 - jaccard(
+          a = sum(tree_species$Species[tree_species$CircleFK == s] %in% tree_species$Species[tree_species$CircleFK == .x]),
+          b = sum(!tree_species$Species[tree_species$CircleFK == s] %in% tree_species$Species[tree_species$CircleFK == .x]),
+          c = sum(!tree_species$Species[tree_species$CircleFK == .x] %in% tree_species$Species[tree_species$CircleFK == s]))
+    )
+  }) %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+
+# proportion canopy cover difference between sampling plots ------------------
+
+canopy_cover_matrix <- dist(circles$PercentCanopyCover, diag = T, upper = T) %>%
+  as.matrix() %>%
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+
+# difference in distance to a road between sampling plots -----------------
+
+distance_road_matrix <- dist(circles$DistanceToEdgem, diag = T, upper = T) %>%
+  as.matrix() %>%
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+# difference in herbaceous cover class ------------------------------------
+
+herbaceous_matrix <- dist(circles$HerbCoverEstimate, diag = T, upper = T) %>% 
+  as.matrix() %>% 
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+# difference in litter depth ----------------------------------------------
+
+litter_depth_matrix <- dist(circles$LitterDepthmm, diag = T, upper = T) %>% 
+  as.matrix() %>% 
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+# difference in proportion forest cover in a 1-km radius ---------------------
+
+# add forest cover data to the sampling plot table from the site table
+circles_forest <- circles %>%
+  left_join(
+    sites %>%
+      select(SiteID, forest_1km),
+    by = c('SiteFK' = 'SiteID'))
+
+# calculate the differences in forest cover as shown for other metrics
+forest_matrix <- dist(circles_forest$forest_1km, diag = T, upper = T) %>%
+  as.matrix() %>%
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle1 = circles$CircleID) %>%
+  relocate(circle1)
+
+
+## calculating geographic distance between sampling plots ------------------
+
+distance_matrix <- circles %>%
+  select(Longitude, Latitude) %>%
+  # the distm function from the geosphere package is substituted for the dist function for simpler calculations using latitude and longitude
+  geosphere::distm() %>%
+  as_tibble() %>%
+  set_names(circles$CircleID) %>%
+  cbind(circle = circles$CircleID) %>%
+  relocate(circle)
+
+
+## making model-friendly data frames ----------------------------------------
+
+
+# foliage arthropods ------------------------------------------------------
+
+analysis_frame_foliage <- euclidean_matrix_foliage %>%
+  # shifts from a matrix to a frame defined by the first two columns - sorry, Hadley - corresponding to the Euclidean distance between the two
+  pivot_longer(
+    cols = 2:length(.),
+    names_to = 'circle2',
+    values_to = 'euclideanDistance') %>%
+  # remove rows for sampling plots against against themselves
+  filter(circle != circle2) %>%
+  # take advantage of the lack of identical distances between any two site pairs to remove the duplicates resulting from flipping out a matrix
+  distinct(euclideanDistance, .keep_all = T) %>%
+  # join in other dissimilarity or distance metrics
+  left_join(
+    # each frame is processed the same way as shown above for Euclidean distance
+    jaccard_matrix_foliage %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'jaccardDissimilarity'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    trees_jaccard_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'treeDissimilarity'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    canopy_cover_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'canopyCover'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    distance_road_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'distanceToRoad'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    distance_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'geographicDistance'),
+    by = c('circle','circle2')) %>%
+  rename('circle1' = 'circle') %>%
+  left_join(
+    forest_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'forest_1km'),
+    by = c('circle1','circle2')) %>%
+  mutate(
+    # make a unique identifier (fine, Hadley)
+    circles = str_c(circle1, circle2, sep = '_'),
+    # convert canopy cover from percent to proportion
+    canopyCover = canopyCover/100,
+    # convert distance to edge from m to km
+    distanceToRoad = distanceToRoad/1000,
+    # convert geographic distance from m to km
+    geographicDistance = geographicDistance/1000) %>%
+  # remove the old identifier columns
+  select(!circle1:circle2) %>%
+  # place the new identifier column first
+  relocate(circles)
+
+
+# ground arthropods -------------------------------------------------------
+
+analysis_frame_ground <- euclidean_matrix_ground %>%
+  pivot_longer(
+    cols = 2:length(.),
+    names_to = 'circle2',
+    values_to = 'euclideanDistance') %>%
+  filter(circle != circle2) %>%
+  distinct(euclideanDistance, .keep_all = T) %>%
+  left_join(
+    jaccard_matrix_ground %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'jaccardDissimilarity'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    herbaceous_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'herbaceousCover'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    distance_road_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'distanceToRoad'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    distance_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'geographicDistance'),
+    by = c('circle','circle2')) %>%
+  left_join(
+    litter_depth_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'litterDepth'),
+    by = c('circle','circle2')) %>%
+  rename('circle1' = 'circle') %>%
+  left_join(
+    forest_matrix %>%
+      pivot_longer(
+        cols = 2:length(.),
+        names_to = 'circle2',
+        values_to = 'forest_1km'),
+    by = c('circle1','circle2')) %>%
+  mutate(
+    circles = str_c(circle1, circle2, sep = '_'),
+    distanceToRoad = distanceToRoad/1000,
+    geographicDistance = geographicDistance/1000) %>%
+  select(!circle1:circle2) %>%
+  relocate(circles)
+
+### conducting analyses -----------------------------------------------------
+
+
+## foliage arthropods ------------------------------------------------------
+
+# use Mantel tests to calculate p-values for correlations between matrices where observations are non-independent, in this case due to any one sampling plot being included in the calculation for its distance to other plots.
+# use linear regression to calculate R^2 values where p < 0.1
+
+# Euclidean distance versus difference in proportion canopy cover
+# p ~ 0.4
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(canopy_cover_matrix[2:31]), 
+  nrepet = 9999)
+
+# Euclidean distance versus difference in proportion forest cover
+# p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.18
+summary(lm(
+  euclideanDistance ~ forest_1km,
+  data = analysis_frame_foliage))
+
+# Euclidean distance versus difference in distance to a road
+# p ~ 0.7
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 9999)
+
+# Euclidean distance versus geographic distance, p < 0.005
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.11
+summary(lm(
+  euclideanDistance ~ geographicDistance,
+  data = analysis_frame_foliage))
+
+# Euclidean distance versus Jaccard dissimilarity of sample tree species
+# p < 0.01
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(trees_jaccard_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.22
+summary(lm(
+  euclideanDistance ~ treeDissimilarity,
+  data = analysis_frame_foliage))
+
+# Jaccard dissimilarity versus difference in proportion canopy cover
+# p < 0.1
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(canopy_cover_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.04
+summary(lm(
+  jaccardDissimilarity ~ canopyCover,
+  data = analysis_frame_foliage))
+
+# p ~ 0.8
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 9999)
+
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.12
+summary(lm(
+  jaccardDissimilarity ~ forest_1km,
+  data = analysis_frame_foliage))
+
+# p < 0.005
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.09
+summary(lm(
+  jaccardDissimilarity ~ geographicDistance,
+  data = analysis_frame_foliage))
+
+# p = 0.0002
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(trees_jaccard_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.16
+summary(lm(
+  jaccardDissimilarity ~ treeDissimilarity,
+  data = analysis_frame_foliage))
+
+
+## ground arthropods -------------------------------------------------------
+
+# Euclidean distance versus difference in herbaceous cover class
+# p ~ 0.5
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 9999)
+
+# Euclidean distance versus difference in proportion forest cover
+# p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.49
+summary(lm(
+  euclideanDistance ~ forest_1km,
+  data = analysis_frame_ground))
+
+# Euclidean distance versus difference in distance to a road
+# p ~ 0.2
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 9999)
+
+# Euclidean distance versus difference in litter depth
+# p ~ 0.5
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 9999)
+
+# Euclidean distance versus geographic distance
+# p < 0.0005
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.09
+summary(lm(
+  euclideanDistance ~ geographicDistance,
+  data = analysis_frame_ground))
+
+# Jaccard dissimilarity versus difference in herbaceous cover class
+# p ~ 0.1
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 9999)
+
+# Jaccard dissimilarity versus difference in herbaceous cover class
+# p ~ 0.4
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(distance_road_matrix[2:31]), 
+  nrepet = 9999)
+
+# Jaccard dissimilarity versus difference in litter depth
+# p ~ 0.2
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 9999)
+
+# Jaccard dissimilarity versus difference in proportion forest cover
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.25
+summary(lm(
+  jaccardDissimilarity ~ forest_1km,
+  data = analysis_frame_ground))
+
+# Jaccard dissimilarity versus geographic distance
+# p < 0.005
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.04
+summary(lm(
+  jaccardDissimilarity ~ geographicDistance,
+  data = analysis_frame_ground))
+
+
+### generating figures ------------------------------------------------------
+
+# create a theme for figures
+ul_theme2 <- theme(
+  axis.title = element_text(size = 10),
+  panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
+  panel.grid = element_line(color = 'cornsilk3'),
+  panel.background = element_rect(fill = 'snow1'),
+  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = 'npc'),
+  axis.title.x = element_text(vjust = 1))
+
+# set a colorblind-friendly pallet
+colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+             "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
+## foliage arthropod figures -----------------------------------------------
+
+
+# scatter plots -----------------------------------------------------------
+
+# Euclidean distance versus difference in canopy cover
+foliage_plot_euclidean_canopy <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = canopyCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Local Canopy Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in distance to a road
+foliage_plot_euclidean_road <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = distanceToRoad,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in proportion forest cover
+foliage_plot_euclidean_forest <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = forest_1km,
+    y = euclideanDistance)) +
+  geom_point() +
+  # add a linear regression trendline
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  # add R^2 and p-values
+  annotate(
+    'text',
+    x = 0.5,
+    y = 7.5,
+    label = 'R2 = 0.18, p < 0.001',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus Jaccard dissimilarity of sample trees
+foliage_plot_euclidean_trees <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = treeDissimilarity,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "Tree Species Dissimilarity",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 7.5,
+    label = 'R2 = 0.22, p < 0.01',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus geographic distance
+foliage_plot_euclidean_distance <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = geographicDistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 7.5,
+    label = 'R2 = 0.11, p < 0.005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion canopy cover
+foliage_plot_jaccard_canopy <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = canopyCover,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Local Canopy Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in distance to a road
+foliage_plot_jaccard_road <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = distanceToRoad,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion forest cover
+foliage_plot_jaccard_forest <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = forest_1km,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 0.2,
+    label = 'R2 = 0.13, p < 0.001',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity of arthropod communities versus Jaccard dissimilarity of sampled tree species
+foliage_plot_jaccard_trees <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = treeDissimilarity,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "Tree Species Dissimilarity",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 0.2,
+    label = 'R2 = 0.16, p < 0.0005',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard distance versus geographic distance
+foliage_plot_jaccard_distance <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = geographicDistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 0.2,
+    label = 'R2 = 0.09, p < 0.005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
+# compile all plots with Euclidean distance on the y-axis
+foliage_euclidean_plots <- ggarrange( 
+  foliage_plot_euclidean_forest,
+  foliage_plot_euclidean_road, 
+  foliage_plot_euclidean_canopy,
+  foliage_plot_euclidean_trees,
+  foliage_plot_euclidean_distance,
+  ncol = 1,
+  labels = c('a)','c)','e)','g)','i)'),
+  label.x = -0.01)
+
+# compile all plots with Jaccard dissimilarity on the y-axis
+foliage_jaccard_plots <- ggarrange( 
+  foliage_plot_jaccard_forest, 
+  foliage_plot_jaccard_road,
+  foliage_plot_jaccard_canopy,
+  foliage_plot_jaccard_trees,
+  foliage_plot_jaccard_distance,
+  ncol = 1,
+  labels = c('b)','d)','f)','h)','j)'),
+  label.x = -0.01)
+
+# combine all plots
+foliage_plots <- ggarrange(
+  foliage_euclidean_plots,
+  foliage_jaccard_plots,
+  ncol = 2)
+
+
+# principal component analysis --------------------------------------------
+
+# modify the foliage_families dataframe to add rows for families not observed at a given site
+all_foliage <- map(
+  unique(foliage_families$CircleFK),
+  function(x){
+    all_families <-  unique(foliage_families$family)
+    
+    in_families <-  foliage_families %>% 
+      filter(CircleFK == x) %>% 
+      pull(family) %>% 
+      unique()
+    
+    out_families <- all_families[!all_families %in% in_families]
+    
+    rbind(
+      foliage_families %>% 
+        filter(CircleFK == x),
+      tibble(
+        CircleFK = rep(x, length(out_families)),
+        family = out_families,
+        n_individuals = rep(0, length(out_families)),
+        biomass = rep(0, length(out_families))))
+  }) %>% 
+  bind_rows() %>% 
+  arrange(CircleFK, family)
+
+# join in family diet groups and assign colors to groups
+foliage_functions <- foliage_families %>% 
+  ungroup() %>% 
+  filter(!is.na(family)) %>% 
+  select(family) %>% 
+  distinct() %>% 
+  left_join(functions, by = 'family') %>% 
+  arrange(family) %>% 
+  mutate(
+    dietg_color = case_when(
+      diet_group == 'herbivore' ~ colorz[4],
+      diet_group == 'predator' ~ colorz[8],
+      is.na(diet_group) ~ colorz[1],
+      diet_group == 'omnivore' ~ colorz[3],
+      diet_group == 'mixed' ~ colorz[1],
+      diet_group == 'scavenger' ~ colorz[7],
+      diet_group == 'fungivore' ~ colorz[2]))
+
+# make a data frame for foliage arthropods that can be PCA'ed - columns are families, rows are circles
+foliage_base1 <- map_dfc(
+  unique(foliage_families$CircleFK),
+  ~ all_foliage %>%
+    filter(
+      CircleFK == .x,
+      !is.na(family)) %>% 
+    mutate(
+      CircleFK = if_else(
+        is.na(CircleFK),
+        true = .x,
+        false = CircleFK),
+      biomass = if_else(
+        is.na(biomass),
+        true = 0,
+        false = biomass),
+      logBiomass = log(biomass+0.01)) %>%
+    select(!n_individuals:biomass) %>%
+    pivot_wider(
+      names_from = family,
+      values_from = logBiomass) %>%
+    t() %>%
+    row_to_names(row_number = 1) %>%
+    as_tibble(rownames = 'family') %>%
+    arrange(family) %>%
+    select(!family)) %>% 
+  cbind(family = unique(all_foliage$family[!is.na(all_foliage$family)])) %>% 
+  relocate(family) %>%
+  as_tibble() %>%
+  mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
+  # switch rows and columns
+  t() %>% 
+  # get column names from the first row
+  row_to_names(row_number = 1) %>% 
+  as_tibble() %>% 
+  mutate(across(.fns = as.numeric)) %>% 
+  cbind(CircleID = circles$CircleID) %>% 
+  left_join(
+    circles %>% 
+      select(CircleID, SiteFK),
+    by = 'CircleID')
+
+# set row names for the PCA data frame
+rownames(foliage_base1) <- circles$CircleID
+
+# conduct the PCA
+foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-3)], scale = F)
+
+# isolate the families with loadings greater than 0.14 on principal component axes 1 or 2
+sub_rot <- foliage_pca$rotation %>% 
+  as_tibble(rownames = 'family') %>% 
+  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
+  left_join(foliage_functions, by = 'family')
+
+# plot the PCA
+foliage_pca_plot <- ggplot() +
+  geom_point(
+    data = foliage_pca$x,
+    mapping = aes(
+      x = PC1,
+      y = PC2,
+      shape = foliage_base1$SiteFK),
+    size = 3) +
+  geom_segment(
+    data = sub_rot,
+    mapping = aes(
+      x = 0,
+      y = 0,
+      xend = PC1*15,
+      yend = PC2*15,
+      color = diet_group),
+    arrow = arrow(length = unit(0.03, 'npc')),
+    linewidth = 1.1) +
+  geom_text(
+    data = sub_rot %>% 
+      mutate(family = case_when(
+        family %in% c('Araneidae','Coccinellidae','Tenebrionidae','Sclerosomatidae') ~ family,
+        .default = NULL)),
+    mapping = aes(
+      x = PC1*12.5+0.1,
+      y = PC2*18+0.5,
+      label = family,
+      colour = diet_group),
+    size = 3.5,
+    show.legend = F) +
+  scale_color_manual(values = setNames(sub_rot$dietg_color, sub_rot$diet_group)) +
+  labs(
+    shape = 'Site Code',
+    color = 'Functional Group') +
+  ul_theme2 +
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
+
+
+## ground arthropod figures ------------------------------------------------
+
+
+# scatter plots -----------------------------------------------------------
+
+# Euclidean distance versus difference in herbaceous cover class
+ground_plot_euclidean_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Herbaceous Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in distance to a road
+ground_plot_euclidean_road <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = distanceToRoad,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in litter depth
+ground_plot_euclidean_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = euclideanDistance)) +
+  geom_point() + 
+  labs(
+    x = "\u0394 Litter Depth (mm)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in proportion forest cover
+ground_plot_euclidean_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 7.5,
+    label = 'R2 = 0.48, p < 0.001',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus geographic distance
+ground_plot_euclidean_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 7.5,
+    label = 'R2 = 0.09, p < 0.0005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in herbaceous cover class
+ground_plot_jaccard_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = jaccardDissimilarity)) +
+  geom_point() + 
+  labs(
+    x = "\u0394 Herbaceous Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in distance to a road
+ground_plot_jaccard_road <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = distanceToRoad,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Distance to Nearest Road (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in litter depth
+ground_plot_jaccard_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Litter Depth (mm)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion forest cover
+ground_plot_jaccard_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#009E73') +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 0.5,
+    y = 0.2,
+    label = 'R2 = 0.25, p < 0.0005',
+    color = '#009E73') +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus geographic distance
+ground_plot_jaccard_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 0.2,
+    label = 'R2 = 0.04, p < 0.005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
+# compile plots with Euclidean distance on the y-axis
+ground_euclidean_plots <- ggarrange(
+  ground_plot_euclidean_forest, 
+  ground_plot_euclidean_road, 
+  ground_plot_euclidean_litter,
+  ground_plot_euclidean_herb,
+  ground_plot_euclidean_distance,
+  ncol = 1,
+  labels = c('a)','c)','e)','g)','i)'),
+  label.x = -0.01)
+
+# compile plots with Jaccard dissimilarity on the y-axis
+ground_jaccard_plots <- ggarrange(
+  ground_plot_jaccard_forest, 
+  ground_plot_jaccard_road, 
+  ground_plot_jaccard_litter,
+  ground_plot_jaccard_herb,
+  ground_plot_jaccard_distance,
+  ncol = 1,
+  labels = c('b)','d)','f)','h)','j)'),
+  label.x = -0.01)
+
+# compile all plots
+ground_plots <- ggarrange(
+  ground_euclidean_plots,
+  ground_jaccard_plots,
+  ncol = 2)
+
+
+# principal component analysis --------------------------------------------
+
+# add arthropods not at a given sampling plot to the ground_families data frame
+all_grounds <- map(
+  unique(ground_families$CircleID),
+  function(x){
+    all_families <-  unique(ground_families$family)
+    
+    in_families <-  ground_families %>% 
+      filter(CircleID == x) %>% 
+      pull(family) %>% 
+      unique()
+    
+    out_families <- all_families[!all_families %in% in_families]
+    
+    rbind(
+      ground_families %>% 
+        filter(CircleID == x),
+      tibble(
+        CircleID = rep(x, length(out_families)),
+        family = out_families,
+        n_individuals = rep(0, length(out_families)),
+        biomass = rep(0, length(out_families))))
+  }) %>% 
+  bind_rows() %>% 
+  arrange(CircleID, family)
+
+# join in the diet groups of ground arthropods and assign colors by group
+ground_functions <- ground_families %>% 
+  ungroup() %>% 
+  filter(!is.na(family)) %>% 
+  select(family) %>% 
+  distinct() %>% 
+  left_join(functions, by = 'family') %>% 
+  arrange(family) %>% 
+  mutate(
+    dietg_color = case_when(
+      diet_group == 'herbivore' ~ colorz[4],
+      diet_group == 'predator' ~ colorz[8],
+      is.na(diet_group) ~ colorz[1],
+      diet_group == 'omnivore' ~ colorz[3],
+      diet_group == 'mixed' ~ colorz[1],
+      diet_group == 'scavenger' ~ colorz[7],
+      diet_group == 'fungivore' ~ colorz[2]))
+
+# make a data frame of ground arthropods that can be PCA'ed - columns are families, rows are circles
+ground_base1 <- map_dfc(
+  unique(ground_families$CircleID),
+  ~ all_grounds %>%
+    filter(
+      CircleID == .x,
+      !is.na(family)) %>%
+    mutate(
+      CircleID = if_else(
+        is.na(CircleID),
+        true = .x,
+        false = CircleID),
+      biomass = if_else(
+        is.na(biomass),
+        true = 0,
+        false = biomass),
+      logBiomass = log(biomass+0.01)) %>%
+    select(!n_individuals:biomass) %>%
+    pivot_wider(
+      names_from = family,
+      values_from = logBiomass) %>%
+    t() %>%
+    row_to_names(row_number = 1) %>%
+    as_tibble(rownames = 'family') %>%
+    arrange(family) %>%
+    select(!family)) %>%
+  cbind(family = unique(all_grounds$family[!is.na(all_grounds$family)])) %>%
+  relocate(family) %>%
+  as_tibble() %>%
+  mutate(across(.cols = DF1:UNC8, .fns = ~ as.numeric(.x))) %>% 
+  # switch rows and columns
+  t() %>% 
+  # get column names from the first row
+  row_to_names(row_number = 1) %>% 
+  as_tibble() %>% 
+  mutate(across(.fns = as.numeric)) %>% 
+  cbind(CircleID = circles$CircleID) %>% 
+  left_join(
+    circles %>% 
+      select(CircleID, SiteFK),
+    by = 'CircleID')
+
+# add row names to the data frame
+rownames(ground_base1) <- circles$CircleID
+
+# perform the PCA
+ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-3)], scale = F)
+
+# isolate families with loadings greater and 0.14 on principal component axes 1 or 2
+sub_rot2 <- ground_pca$rotation %>% 
+  as_tibble(rownames = 'family') %>% 
+  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
+  left_join(ground_functions, by = 'family')
+
+# plot the PCA
+ground_pca_plot <- ggplot() +
+  geom_point(
+    data = ground_pca$x,
+    mapping = aes(
+      x = PC1,
+      y = PC2,
+      shape = ground_base1$SiteFK),
+    size = 3) +
+  geom_segment(
+    data = sub_rot2,
+    mapping = aes(
+      x = 0,
+      y = 0,
+      xend = PC1*15,
+      yend = PC2*15,
+      color = diet_group),
+    arrow = arrow(length = unit(0.03, 'npc')),
+    linewidth = 1.1) +
+  geom_text(
+    data = sub_rot2 %>% 
+      mutate(family = case_when(
+        family %in% c('Carabidae','Lycosidae','Armadillidae','Porcellionidae','Rhaphidophoridae') ~ family,
+        .default = NULL)),
+    mapping = aes(
+      x = PC1*15,
+      y = PC2*17+0.02/PC2,
+      label = family,
+      color = diet_group),
+    size = 3.5,
+    show.legend = F) +
+  scale_color_manual(values = setNames(sub_rot2$dietg_color, sub_rot2$diet_group)) +
+  labs(
+    shape = 'Site Code',
+    color = 'Functional Group') +
+  ul_theme2 +
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
