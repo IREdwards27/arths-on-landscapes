@@ -1099,7 +1099,7 @@ foliage_plot_euclidean_paths <- ggplot(
   ul_theme2 +
   annotate(
     'text',
-    x = 25,
+    x = 5,
     y = 7.5,
     label = 'R2 = 0.26, p < 0.0005',
     color = '#E69F00') +
@@ -1209,7 +1209,7 @@ foliage_plot_jaccard_paths <- ggplot(
   ul_theme2 +
   annotate(
     'text',
-    x = 25,
+    x = 5,
     y = 0.2,
     label = 'R2 = 0.25, p < 0.0005',
     color = '#E69F00') +
@@ -1243,6 +1243,13 @@ foliage_plots <- ggarrange(
   foliage_jaccard_plots,
   ncol = 2)
 
+# save plots
+# ggsave(
+#   'figures/paper/foliage_plots.png',
+#   plot = foliage_plots,
+#   width = 9.75,
+#   height = 13.5,
+#   units = 'in')
 
 # principal component analysis --------------------------------------------
 
@@ -1481,7 +1488,7 @@ ground_plot_euclidean_paths <- ggplot(
   ul_theme2 +
   annotate(
     'text',
-    x = 25,
+    x = 5,
     y = 7.5,
     label = 'R2 = 0.08, p < 0.0005',
     color = '#E69F00') +
@@ -1558,7 +1565,7 @@ ground_plot_jaccard_distance <- ggplot(
   annotate(
     'text',
     x = 25,
-    y = 0.2,
+    y = 0.15,
     label = 'R2 = 0.04, p < 0.005',
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
@@ -1581,8 +1588,8 @@ ground_plot_jaccard_paths <- ggplot(
   ul_theme2 +
   annotate(
     'text',
-    x = 25,
-    y = 0.2,
+    x = 5,
+    y = 0.15,
     label = 'R2 = 0.13, p < 0.005',
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
@@ -1590,21 +1597,21 @@ ground_plot_jaccard_paths <- ggplot(
 # compile plots with Euclidean distance on the y-axis
 ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_forest, 
-  ground_plot_euclidean_road, 
   ground_plot_euclidean_litter,
   ground_plot_euclidean_herb,
   ground_plot_euclidean_distance,
+  ground_plot_euclidean_paths,
   ncol = 1,
   labels = c('a)','c)','e)','g)','i)'),
   label.x = -0.01)
 
 # compile plots with Jaccard dissimilarity on the y-axis
 ground_jaccard_plots <- ggarrange(
-  ground_plot_jaccard_forest, 
-  ground_plot_jaccard_road, 
+  ground_plot_jaccard_forest,  
   ground_plot_jaccard_litter,
   ground_plot_jaccard_herb,
   ground_plot_jaccard_distance,
+  ground_plot_jaccard_paths,
   ncol = 1,
   labels = c('b)','d)','f)','h)','j)'),
   label.x = -0.01)
@@ -1615,6 +1622,13 @@ ground_plots <- ggarrange(
   ground_jaccard_plots,
   ncol = 2)
 
+# save plots
+# ggsave(
+#   filename = 'figures/paper/ground_plots.png',
+#   plot = ground_plots,
+#   width = 9.75,
+#   height = 13.5,
+#   units = 'in')
 
 # principal component analysis --------------------------------------------
 
