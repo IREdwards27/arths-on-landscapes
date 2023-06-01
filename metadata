@@ -79,3 +79,9 @@ families.csv: information on the diets of arthropod families
   diet_group: the general category of the diet of the arthropod family
   diet_parts: details on the components of prey items consumed
   mouthparts: the type of mouthparts arthropods in the family have
+  
+nlcd_local: raster file of land cover classes, retrieved from the National Land Cover Database and cropped to the area surrounding the sampling sites
+
+circles.txt: a revised version of the sampling plot information for use with CircuitScape
+  first column: node IDs for sampling plots, derived by changing the letter codes for the site in the name of a sampling plot to numbers 1-6, assigned in alphabetical order of the site codes
+  second and third columns: longitudes and latitudes of the sampling plots, in meters

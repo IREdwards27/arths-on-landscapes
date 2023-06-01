@@ -2,7 +2,6 @@
 ## setup -------------------------------------------------------------------
 
 # load necessary packages
-library(grainscape)
 library(tidyverse)
 library(raster)
 library(rgdal)

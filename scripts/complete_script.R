@@ -11,6 +11,8 @@ library(ggpubr)
 library(ggfortify)
 library(janitor)
 library(ade4)
+library(raster)
+library(rgdal)
 
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
@@ -38,8 +40,7 @@ trees <- read_csv(
   list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
 
 # read in data on sampling plots
-circles <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^circles')])
+circles <- read_csv("data/circles_2022-10-03.csv")
 
 # read in data on sampling sites
 sites <- read_csv(
@@ -48,6 +49,10 @@ sites <- read_csv(
 # read in data on the diets of arthropod families
 functions <- read_csv('data/families.csv')
 
+# read in the raster file of land cover classes in the study area
+nlcd <- raster('data/nlcd_local') %>% 
+  # the raster seems to have picked up a weird extra chunk of extent on the right edge - cropping it out
+  crop(extent(c(1493025,1551500,1541175,1598865)))
 
 ## calculating community dissimilarity metrics -----------------------------
 
@@ -70,12 +75,12 @@ foliage_families <- foliage_arths %>%
   # join survey data
   left_join(
     beatsheets %>%
-      select(BeatSheetID, Date, TreeFK),
+      dplyr::select(BeatSheetID, Date, TreeFK),
     by = c('BeatSheetFK' = 'BeatSheetID')) %>%
   # join survey tree data
   left_join(
     trees %>%
-      select(TreeID, CircleFK),
+      dplyr::select(TreeID, CircleFK),
     by = c('TreeFK' = 'TreeID')) %>%
   # join sampling plot data
   left_join(
@@ -115,7 +120,7 @@ family_circles_foliage <- map_dfc(
       # take the log of biomass, adding 1/10th of the smallest value so zero observations can be included
       logBiomass = log(biomass+0.01)) %>%
     # select to relevant columns
-    select(!n_individuals:biomass) %>%
+    dplyr::select(!n_individuals:biomass) %>%
     # pivot out so each sampling plot is a column
     pivot_wider(
       names_from = family,
@@ -129,7 +134,7 @@ family_circles_foliage <- map_dfc(
     # put it in alphabetical order by family
     arrange(family) %>%
     # remove family
-    select(!family)) %>%
+    dplyr::select(!family)) %>%
   # put family back in at the end of the map function
   cbind(family = foliageFams) %>%
   # put family at the front for my sanity
@@ -192,7 +197,7 @@ ground_families <- ground_arths %>%
   # join in information on pitfall runs
   left_join(
     pitfalls %>%
-      select(PitfallID, DateCollected, CircleID),
+      dplyr::select(PitfallID, DateCollected, CircleID),
     by = 'PitfallID') %>%
   # join in information on sampling plots
   left_join(
@@ -232,7 +237,7 @@ family_circles_ground <- map_dfc(
       # take the log of biomass, adding 1/10th the smallest occurring value so zero observations are viable
       logBiomass = log(biomass+0.01)) %>%
     # select to relevant columns
-    select(!n_individuals:biomass) %>%
+    dplyr::select(!n_individuals:biomass) %>%
     # pivot everything out
     pivot_wider(
       names_from = family,
@@ -246,7 +251,7 @@ family_circles_ground <- map_dfc(
     # put it in alphabetical order by family
     arrange(family) %>%
     # remove family
-    select(!family)) %>%
+    dplyr::select(!family)) %>%
   # put family back in at the end of the map function
   cbind(family = groundFams) %>%
   relocate(family) %>%
@@ -296,7 +301,7 @@ jaccard_matrix_ground <- map_dfr(
 
 # generate a data frame with a row for each tree species found at each sampling plot
 tree_species <- trees %>% 
-  select(CircleFK, Species) %>% 
+  dplyr::select(CircleFK, Species) %>% 
   distinct()
 
 # use the format for calculating arthropod community Jaccard dissimilarity to calculate sample tree species Jaccard dissimilarity
@@ -360,7 +365,7 @@ litter_depth_matrix <- dist(circles$LitterDepthmm, diag = T, upper = T) %>%
 circles_forest <- circles %>%
   left_join(
     sites %>%
-      select(SiteID, forest_1km),
+      dplyr::select(SiteID, forest_1km),
     by = c('SiteFK' = 'SiteID'))
 
 # calculate the differences in forest cover as shown for other metrics
@@ -372,10 +377,11 @@ forest_matrix <- dist(circles_forest$forest_1km, diag = T, upper = T) %>%
   relocate(circle1)
 
 
-## calculating geographic distance between sampling plots ------------------
+## calculating geographic and resistance path distance between plots --------
 
+ # geographic distance
 distance_matrix <- circles %>%
-  select(Longitude, Latitude) %>%
+  dplyr::select(Longitude, Latitude) %>%
   # the distm function from the geosphere package is substituted for the dist function for simpler calculations using latitude and longitude
   geosphere::distm() %>%
   as_tibble() %>%
@@ -383,6 +389,195 @@ distance_matrix <- circles %>%
   cbind(circle = circles$CircleID) %>%
   relocate(circle)
 
+# resistance path distances
+
+# create a reclass matrix for NLCD land cover data based on the criteria listed below
+# water, barren, all developed except open space assigned 10, all non-forest plant cover (including agriculture and developed open space) assigned 5, all forest assigned 1
+mod1 <- tibble(
+  from = unique(nlcd),
+  to = c(10,5,rep(10,4),rep(1,3),rep(5,6)))
+
+nlcd_mod1 <- reclassify(x = nlcd, rcl = mod1)
+
+writeRaster(nlcd_mod1, filename = "data/mod1", format = "ascii", overwrite = T)
+
+# the intervening step requires using the CircuitScape GUI to run the calculations for the resistances of shortest paths between sampling plots, using the raster created above and the "circles.txt" file. The following line reads in the output from this operation as a 3-column dataframe
+
+paths <-read_table(
+  file = "data/mod1_paths_resistances_3columns",
+  col_names = F) %>% 
+  # name the output columns - the first two are node IDs derived from sampling plot IDs in order to be compatible with CircuitScape
+  rename("nodeID_1" = X1, "nodeID_2" = X2, "resistance" = X3) %>% 
+  # re-derive sampling plot IDs from node IDs - node IDs swapped numbers 1-6 for the site codes, in alphabetical order
+  mutate(
+    circle1 = str_replace(nodeID_1, "^1", "DF") %>% 
+      str_replace("^2", "ERSP") %>% 
+      str_replace("^3", "JMNP") %>% 
+      str_replace("^4", "NCBG") %>% 
+      str_replace("^5", "NCSU") %>% 
+      str_replace("^6", "UNC"),
+    circle2 = str_replace(nodeID_2, "^1", "DF") %>% 
+      str_replace("^2", "ERSP") %>% 
+      str_replace("^3", "JMNP") %>% 
+      str_replace("^4", "NCBG") %>% 
+      str_replace("^5", "NCSU") %>% 
+      str_replace("^6", "UNC")) %>% 
+    dplyr::select(!c(nodeID_1, nodeID_2)) %>% 
+  rbind(
+    tibble(
+      resistance = rep(0, length(circles$CircleID)),
+    circle1 = circles$CircleID,
+    circle2 = circles$CircleID)) %>% 
+  arrange(circle1, circle2)
+
+# the next three code blocks are just the colossal nightmare involved in creating a complete identity matrix for the resistance between pairs of sampling sites where the orders of circle1 and circle2 aren't consistent with existing matrices
+paths_matrix1 <- paths %>% 
+  pivot_wider(
+    names_from = circle2,
+    values_from = resistance) %>% 
+  rename_with(
+    .fn = ~str_c(.,"_1"))
+
+paths_matrix2 <- paths %>% 
+  pivot_wider(
+    names_from = circle1,
+    values_from = resistance) %>% 
+  rename_with(
+    .fn = ~str_c(.,"_2"))
+
+paths_matrix <- cbind(paths_matrix1, paths_matrix2) %>% 
+  mutate(
+    DF1 = if_else(
+      is.na(DF1_1),
+      true = DF1_2,
+      false = DF1_1),
+    DF2 = if_else(
+      is.na(DF2_1),
+      true = DF2_2,
+      false = DF2_1),
+    DF3 = if_else(
+      is.na(DF3_1),
+      true = DF3_2,
+      false = DF3_1),
+    DF4 = if_else(
+      is.na(DF4_1),
+      true = DF4_2,
+      false = DF4_1),
+    DF5 = if_else(
+      is.na(DF5_1),
+      true = DF5_2,
+      false = DF5_1),
+    ERSP1 = if_else(
+      is.na(ERSP1_1),
+      true = ERSP1_2,
+      false = ERSP1_1),
+    ERSP2 = if_else(
+      is.na(ERSP2_1),
+      true = ERSP2_2,
+      false = ERSP2_1),
+    ERSP3 = if_else(
+      is.na(ERSP3_1),
+      true = ERSP3_2,
+      false = ERSP3_1),
+    ERSP4 = if_else(
+      is.na(ERSP4_1),
+      true = ERSP4_2,
+      false = ERSP4_1),
+    ERSP6 = if_else(
+      is.na(ERSP6_1),
+      true = ERSP6_2,
+      false = ERSP6_1),
+    JMNP1 = if_else(
+      is.na(JMNP1_1),
+      true = JMNP1_2,
+      false = JMNP1_1),
+    JMNP2 = if_else(
+      is.na(JMNP2_1),
+      true = JMNP2_2,
+      false = JMNP2_1),
+    JMNP3 = if_else(
+      is.na(JMNP3_1),
+      true = JMNP3_2,
+      false = JMNP3_1),
+    JMNP5 = if_else(
+      is.na(JMNP5_1),
+      true = JMNP5_2,
+      false = JMNP5_1),
+    JMNP8 = if_else(
+      is.na(JMNP8_1),
+      true = JMNP8_2,
+      false = JMNP8_1),
+    NCBG1 = if_else(
+      is.na(NCBG1_1),
+      true = NCBG1_2,
+      false = NCBG1_1),
+    NCBG4 = if_else(
+      is.na(NCBG4_1),
+      true = NCBG4_2,
+      false = NCBG4_1),
+    NCBG5 = if_else(
+      is.na(NCBG5_1),
+      true = NCBG5_2,
+      false = NCBG5_1),
+    NCBG6 = if_else(
+      is.na(NCBG6_1),
+      true = NCBG6_2,
+      false = NCBG6_1),
+    NCBG8 = if_else(
+      is.na(NCBG8_1),
+      true = NCBG8_2,
+      false = NCBG8_1),
+    NCSU10 = if_else(
+      is.na(NCSU10_1),
+      true = NCSU10_2,
+      false = NCSU10_1),
+    NCSU11 = if_else(
+      is.na(NCSU11_1),
+      true = NCSU11_2,
+      false = NCSU11_1),
+    NCSU2 = if_else(
+      is.na(NCSU2_1),
+      true = NCSU2_2,
+      false = NCSU2_1),
+    NCSU3 = if_else(
+      is.na(NCSU3_1),
+      true = NCSU3_2,
+      false = NCSU3_1),
+    NCSU9 = if_else(
+      is.na(NCSU9_1),
+      true = NCSU9_2,
+      false = NCSU9_1),
+    UNC13 = if_else(
+      is.na(UNC13_1),
+      true = UNC13_2,
+      false = UNC13_1),
+    UNC14 = if_else(
+      is.na(UNC14_1),
+      true = UNC14_2,
+      false = UNC14_1),
+    UNC3 = if_else(
+      is.na(UNC3_1),
+      true = UNC3_2,
+      false = UNC3_1),
+    UNC4 = if_else(
+      is.na(UNC4_1),
+      true = UNC4_2,
+      false = UNC4_1),
+    UNC8 = if_else(
+      is.na(UNC8_1),
+      true = UNC8_2,
+      false = UNC8_1),
+    circle1 = circle1_1) %>% 
+  dplyr::select(63:93) %>% 
+  relocate(circle1)
+
+# note that this names over the original paths frame
+paths <- paths_matrix %>% 
+  pivot_longer(
+    cols = 2:31,
+    names_to = "circle2",
+    values_to = "resistance") %>% 
+  distinct()
 
 ## making model-friendly data frames ----------------------------------------
 
@@ -444,6 +639,9 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
         names_to = 'circle2',
         values_to = 'forest_1km'),
     by = c('circle1','circle2')) %>%
+  left_join(
+    paths,
+    by = c("circle1", "circle2")) %>% 
   mutate(
     # make a unique identifier (fine, Hadley)
     circles = str_c(circle1, circle2, sep = '_'),
@@ -454,7 +652,7 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
     # convert geographic distance from m to km
     geographicDistance = geographicDistance/1000) %>%
   # remove the old identifier columns
-  select(!circle1:circle2) %>%
+  dplyr::select(!circle1:circle2) %>%
   # place the new identifier column first
   relocate(circles)
 
@@ -511,11 +709,14 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
         names_to = 'circle2',
         values_to = 'forest_1km'),
     by = c('circle1','circle2')) %>%
+  left_join(
+    paths,
+    by = c("circle1", "circle2")) %>% 
   mutate(
     circles = str_c(circle1, circle2, sep = '_'),
     distanceToRoad = distanceToRoad/1000,
     geographicDistance = geographicDistance/1000) %>%
-  select(!circle1:circle2) %>%
+  dplyr::select(!circle1:circle2) %>%
   relocate(circles)
 
 ### conducting analyses -----------------------------------------------------
@@ -563,6 +764,17 @@ summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage))
 
+# Euclidean distance versus resistance, p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_foliage[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.26
+summary(lm(
+  euclideanDistance ~ resistance,
+  data = analysis_frame_foliage))
+
 # Euclidean distance versus Jaccard dissimilarity of sample tree species
 # p < 0.01
 mantel.rtest(
@@ -587,12 +799,14 @@ summary(lm(
   jaccardDissimilarity ~ canopyCover,
   data = analysis_frame_foliage))
 
+# Jaccard dissimilarity versus difference in distance to a road
 # p ~ 0.8
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_road_matrix[2:31]), 
   nrepet = 9999)
 
+# Jaccard dissimilarity versus proportion forest cover
 # p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
@@ -604,6 +818,7 @@ summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_foliage))
 
+# Jaccard dissimilarity versus geographic distance
 # p < 0.005
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
@@ -615,6 +830,19 @@ summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_foliage))
 
+# Jaccard dissimilarity versus resistance
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.25
+summary(lm(
+  jaccardDissimilarity ~ resistance,
+  data = analysis_frame_foliage))
+
+# Jaccard dissimilarity versus Jaccard dissimilarity of tree species
 # p = 0.0002
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
@@ -674,6 +902,18 @@ summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_ground))
 
+# Euclidean distance versus resistance
+# p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.08
+summary(lm(
+  euclideanDistance ~ resistance,
+  data = analysis_frame_ground))
+
 # Jaccard dissimilarity versus difference in herbaceous cover class
 # p ~ 0.1
 mantel.rtest(
@@ -719,6 +959,18 @@ summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_ground))
 
+# Jaccard dissimilarity versus resistance
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.13
+summary(lm(
+  jaccardDissimilarity ~ resistance,
+  data = analysis_frame_ground))
+
 
 ### generating figures ------------------------------------------------------
 
@@ -750,20 +1002,6 @@ foliage_plot_euclidean_canopy <- ggplot(
   geom_point() +
   labs(
     x = "\u0394 Local Canopy Cover",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus difference in distance to a road
-foliage_plot_euclidean_road <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = distanceToRoad,
-    y = euclideanDistance)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Distance to Nearest Road (km)",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
@@ -843,6 +1081,30 @@ foliage_plot_euclidean_distance <- ggplot(
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
 
+# Euclidean distance versus resistance
+foliage_plot_euclidean_paths <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = resistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 7.5,
+    label = 'R2 = 0.26, p < 0.0005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
 # Jaccard dissimilarity versus difference in proportion canopy cover
 foliage_plot_jaccard_canopy <- ggplot(
   data = analysis_frame_foliage,
@@ -852,20 +1114,6 @@ foliage_plot_jaccard_canopy <- ggplot(
   geom_point() +
   labs(
     x = "\u0394 Local Canopy Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard dissimilarity versus difference in distance to a road
-foliage_plot_jaccard_road <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = distanceToRoad,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Distance to Nearest Road (km)",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
@@ -943,24 +1191,48 @@ foliage_plot_jaccard_distance <- ggplot(
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
 
+# Jaccard distance versus resistance
+foliage_plot_jaccard_paths <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = resistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 0.2,
+    label = 'R2 = 0.25, p < 0.0005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
 # compile all plots with Euclidean distance on the y-axis
 foliage_euclidean_plots <- ggarrange( 
-  foliage_plot_euclidean_forest,
-  foliage_plot_euclidean_road, 
+  foliage_plot_euclidean_forest, 
   foliage_plot_euclidean_canopy,
   foliage_plot_euclidean_trees,
   foliage_plot_euclidean_distance,
+  foliage_plot_euclidean_paths,
   ncol = 1,
   labels = c('a)','c)','e)','g)','i)'),
   label.x = -0.01)
 
 # compile all plots with Jaccard dissimilarity on the y-axis
 foliage_jaccard_plots <- ggarrange( 
-  foliage_plot_jaccard_forest, 
-  foliage_plot_jaccard_road,
+  foliage_plot_jaccard_forest,
   foliage_plot_jaccard_canopy,
   foliage_plot_jaccard_trees,
   foliage_plot_jaccard_distance,
+  foliage_plot_jaccard_paths,
   ncol = 1,
   labels = c('b)','d)','f)','h)','j)'),
   label.x = -0.01)
@@ -1003,7 +1275,7 @@ all_foliage <- map(
 foliage_functions <- foliage_families %>% 
   ungroup() %>% 
   filter(!is.na(family)) %>% 
-  select(family) %>% 
+  dplyr::select(family) %>% 
   distinct() %>% 
   left_join(functions, by = 'family') %>% 
   arrange(family) %>% 
@@ -1034,7 +1306,7 @@ foliage_base1 <- map_dfc(
         true = 0,
         false = biomass),
       logBiomass = log(biomass+0.01)) %>%
-    select(!n_individuals:biomass) %>%
+    dplyr::select(!n_individuals:biomass) %>%
     pivot_wider(
       names_from = family,
       values_from = logBiomass) %>%
@@ -1042,7 +1314,7 @@ foliage_base1 <- map_dfc(
     row_to_names(row_number = 1) %>%
     as_tibble(rownames = 'family') %>%
     arrange(family) %>%
-    select(!family)) %>% 
+    dplyr::select(!family)) %>% 
   cbind(family = unique(all_foliage$family[!is.na(all_foliage$family)])) %>% 
   relocate(family) %>%
   as_tibble() %>%
@@ -1056,7 +1328,7 @@ foliage_base1 <- map_dfc(
   cbind(CircleID = circles$CircleID) %>% 
   left_join(
     circles %>% 
-      select(CircleID, SiteFK),
+      dplyr::select(CircleID, SiteFK),
     by = 'CircleID')
 
 # set row names for the PCA data frame
@@ -1129,20 +1401,6 @@ ground_plot_euclidean_herb <- ggplot(
   ul_theme2 +
   theme(axis.title = element_text(size = 14))
 
-# Euclidean distance versus difference in distance to a road
-ground_plot_euclidean_road <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = distanceToRoad,
-    y = euclideanDistance)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Distance to Nearest Road (km)",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
 # Euclidean distance versus difference in litter depth
 ground_plot_euclidean_litter <- ggplot(
   data = analysis_frame_ground,
@@ -1205,6 +1463,30 @@ ground_plot_euclidean_distance <- ggplot(
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
 
+# Euclidean distance versus resistance
+ground_plot_euclidean_paths <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = resistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 7.5,
+    label = 'R2 = 0.08, p < 0.0005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
 # Jaccard dissimilarity versus difference in herbaceous cover class
 ground_plot_jaccard_herb <- ggplot(
   data = analysis_frame_ground,
@@ -1214,20 +1496,6 @@ ground_plot_jaccard_herb <- ggplot(
   geom_point() + 
   labs(
     x = "\u0394 Herbaceous Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard dissimilarity versus difference in distance to a road
-ground_plot_jaccard_road <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = distanceToRoad,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Distance to Nearest Road (km)",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
@@ -1295,6 +1563,30 @@ ground_plot_jaccard_distance <- ggplot(
     color = '#E69F00') +
   theme(axis.title = element_text(size = 14))
 
+# Jaccard dissimilarity versus geographic distance
+ground_plot_jaccard_paths <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = resistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = 'lm',
+    se = F,
+    color = '#E69F00') +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    'text',
+    x = 25,
+    y = 0.2,
+    label = 'R2 = 0.13, p < 0.005',
+    color = '#E69F00') +
+  theme(axis.title = element_text(size = 14))
+
 # compile plots with Euclidean distance on the y-axis
 ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_forest, 
@@ -1355,7 +1647,7 @@ all_grounds <- map(
 ground_functions <- ground_families %>% 
   ungroup() %>% 
   filter(!is.na(family)) %>% 
-  select(family) %>% 
+  dplyr::select(family) %>% 
   distinct() %>% 
   left_join(functions, by = 'family') %>% 
   arrange(family) %>% 
@@ -1386,7 +1678,7 @@ ground_base1 <- map_dfc(
         true = 0,
         false = biomass),
       logBiomass = log(biomass+0.01)) %>%
-    select(!n_individuals:biomass) %>%
+    dplyr::select(!n_individuals:biomass) %>%
     pivot_wider(
       names_from = family,
       values_from = logBiomass) %>%
@@ -1394,7 +1686,7 @@ ground_base1 <- map_dfc(
     row_to_names(row_number = 1) %>%
     as_tibble(rownames = 'family') %>%
     arrange(family) %>%
-    select(!family)) %>%
+    dplyr::select(!family)) %>%
   cbind(family = unique(all_grounds$family[!is.na(all_grounds$family)])) %>%
   relocate(family) %>%
   as_tibble() %>%
@@ -1408,7 +1700,7 @@ ground_base1 <- map_dfc(
   cbind(CircleID = circles$CircleID) %>% 
   left_join(
     circles %>% 
-      select(CircleID, SiteFK),
+      dplyr::select(CircleID, SiteFK),
     by = 'CircleID')
 
 # add row names to the data frame
