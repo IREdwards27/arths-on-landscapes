@@ -6,6 +6,7 @@ library(grainscape)
 library(tidyverse)
 library(raster)
 library(rgdal)
+library(corrplot)
 
 # read in the raster file of land cover classes in the study area
 nlcd <- raster('data/nlcd_local') %>% 
@@ -13,8 +14,7 @@ nlcd <- raster('data/nlcd_local') %>%
   crop(extent(c(1493025,1551500,1541175,1598865)))
 
 # read in the sampling plot info
-circles <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^circles')])
+circles <- read_csv("data/circles_2022-10-03.csv")
 
 dissim <- read_csv(
   list.files("data", full.names = T)[str_detect(list.files("data"), "^foliage_dissimilarity")])
@@ -42,7 +42,7 @@ circlesUTM$rastercell <- cellFromXY(circles_raster, circlesUTM)
 
 circlesUTM %>% 
   as_tibble() %>% 
-  cbind(nodeID = c(11:15,21:25,31:35,41:45,51:55,61:65)) %>% 
+  cbind(nodeID = c(11:15,21:24,26,31:33,35,38,41,44:46,48,52:53,59,510,511,63:64,68,613,614)) %>% 
   dplyr::select(nodeID, Longitude, Latitude) %>% 
   write.table(
     file = "data/circles.txt",
@@ -95,10 +95,23 @@ writeRaster(nlcd_mod2, filename = "data/mod2", format = "ascii", overwrite = T)
 
 ## calculate covariance in resistance distances across the three models and geographic distance --------
 
-all10_paths <- read_table(
+paths <- read_table(
   file = "data/all10_paths_resistances_3columns",
   col_names = F) %>% 
-  rename("nodeID_1" = X1, "nodeID_2" = X2, "resistance" = X3) %>% 
+  rename("all10_resistance" = X3) %>% 
+  full_join(
+    read_table(
+      file = "data/mod1_paths_resistances_3columns",
+      col_names = F) %>% 
+      rename("mod1_resistance" = X3),
+    by = c("X1","X2")) %>% 
+  full_join(
+    read_table(
+      file = "data/mod2_paths_resistances_3columns",
+      col_names = F) %>% 
+      rename("mod2_resistance" = X3),
+    by = c("X1","X2")) %>% 
+  rename("nodeID_1" = X1, "nodeID_2" = X2) %>% 
   mutate(
     circle1 = str_replace(nodeID_1, "^1", "DF") %>% 
       str_replace("^2", "ERSP") %>% 
@@ -112,4 +125,47 @@ all10_paths <- read_table(
       str_replace("^4", "NCBG") %>% 
       str_replace("^5", "NCSU") %>% 
       str_replace("^6", "UNC"),
-    circles = str_c(circle1, circle2, sep = "_"))
+    circles = str_c(circle1, circle2, sep = "_")) %>% 
+  full_join(
+    dissim %>% 
+      dplyr::select(circles, geographicDistance),
+    by = "circles") %>% 
+  dplyr::select(!c(nodeID_1,nodeID_2,circle1,circle2)) %>% 
+  relocate(circles)
+
+
+pMatrix <- function(mat, ...){
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat<- matrix(NA, n, n)
+  diag(p.mat) <- 0
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- cor.test(mat[, i], mat[, j], ...)
+      p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+    }
+  }
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+  p.mat
+}
+
+p_vals <- pMatrix(paths[2:5])
+
+paths[2:5] %>% 
+  cor(use = 'complete.obs') %>%
+  corrplot(
+    method = 'circle',
+    type = 'upper',
+    tl.col = 'black',
+    tl.cex = 0.6,
+    p.mat = p_vals,
+    sig.level = 0.1,
+    insig = 'blank')
+
+ggplot(
+  data = paths,
+  mapping = aes(
+    x = geographicDistance,
+    y = mod1_resistance)) +
+  geom_point() +
+  geom_smooth(method = "lm")
