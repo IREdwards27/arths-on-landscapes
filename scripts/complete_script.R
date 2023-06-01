@@ -776,7 +776,7 @@ summary(lm(
   data = analysis_frame_foliage))
 
 # Euclidean distance versus Jaccard dissimilarity of sample tree species
-# p < 0.01
+# p < 0.005
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
@@ -1053,7 +1053,7 @@ foliage_plot_euclidean_trees <- ggplot(
     'text',
     x = 0.5,
     y = 7.5,
-    label = 'R2 = 0.22, p < 0.01',
+    label = 'R2 = 0.22, p < 0.005',
     color = '#009E73') +
   theme(axis.title = element_text(size = 14))
 
