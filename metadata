@@ -85,3 +85,19 @@ nlcd_local: raster file of land cover classes, retrieved from the National Land 
 circles.txt: a revised version of the sampling plot information for use with CircuitScape
   first column: node IDs for sampling plots, derived by changing the letter codes for the site in the name of a sampling plot to numbers 1-6, assigned in alphabetical order of the site codes
   second and third columns: longitudes and latitudes of the sampling plots, in meters
+  
+all10_paths_resistances_3columns.txt: resistance of the shortest path between sampling plots using resistance model 1
+  first column: node ID for the first sampling plot
+  second column: node ID for the second sampling plot
+  third column: resistance of the shortest path between sampling plots where all forest classes are assigned a resistance value of 1 and all other classes are assigned resistance of 10
+  
+mod1_paths_resistances_3columns.txt: resistance of the shortest path between sampling plots using resistance model 2
+  first column: node ID for the first sampling plot
+  second column: node ID for the second sampling plot
+  third column: resistance of the shortest path between sampling plots where water, barren, and all developed classes except developed open space are assigned resistance values of 10, all non-forest plant cover classes including agriculture and developed open space are assigned resistance values of 5, and all forest classes are assigned a resistance value of 1
+  
+
+mod2_paths_resistances_3columns.txt: resistance of the shortest path between sampling plots using resistance model 3
+  first column: node ID for the first sampling plot
+  second column: node ID for the second sampling plot
+  third column: resistance of the shortest path between sampling plots with resistance values assigned as follows; open water = 9, developed = 7-10 with increasing development intensity, barren = 9, forest = 1, shrub and grassland = 2, agriculture = 7, wetlands = 3

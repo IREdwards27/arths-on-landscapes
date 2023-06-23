@@ -17,40 +17,40 @@ library(rgdal)
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
   # identifies the file by name, without specifying date tag - only the most recent version of a table should be saved at any time
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^foliage_arths')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^foliage_arths")])
 
 # read in data on observations of ground arthropods
 ground_arths <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^ground_arths')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^ground_arths")])
 
 # read in list of observed taxa
 taxa <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^taxa')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^taxa")])
 
 # read in data on beat sheet surveys
 beatsheets <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^beat_sheets')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^beat_sheets")])
 
 # read in data on pitfall trap runs
 pitfalls <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^pitfalls')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^pitfalls")])
 
 # read in data on survey trees
 trees <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^trees')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^trees")])
 
 # read in data on sampling plots
 circles <- read_csv("data/circles_2022-10-03.csv")
 
 # read in data on sampling sites
 sites <- read_csv(
-  list.files('data', full.names = T)[str_detect(list.files('data'), '^sites')])
+  list.files("data", full.names = T)[str_detect(list.files("data"), "^sites")])
 
 # read in data on the diets of arthropod families
-functions <- read_csv('data/families.csv')
+functions <- read_csv("data/families.csv")
 
 # read in the raster file of land cover classes in the study area
-nlcd <- raster('data/nlcd_local') %>% 
+nlcd <- raster("data/nlcd_local") %>% 
   # the raster seems to have picked up a weird extra chunk of extent on the right edge - cropping it out
   crop(extent(c(1493025,1551500,1541175,1598865)))
 
@@ -68,24 +68,24 @@ jaccard <- function(a,b,c) {a/(a+b+c)}
 foliage_families <- foliage_arths %>%
   left_join(
     taxa,
-    by = 'TaxonID') %>%
+    by = "TaxonID") %>%
   # filter to orders included in analysis
   filter(
-    order %in% c('Araneae','Coleoptera','Hemiptera','Opiliones','Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
+    order %in% c("Araneae","Coleoptera","Hemiptera","Opiliones","Orthoptera") | (order == "Hymenoptera" & family == "Formicidae")) %>%
   # join survey data
   left_join(
     beatsheets %>%
       dplyr::select(BeatSheetID, Date, TreeFK),
-    by = c('BeatSheetFK' = 'BeatSheetID')) %>%
+    by = c("BeatSheetFK" = "BeatSheetID")) %>%
   # join survey tree data
   left_join(
     trees %>%
       dplyr::select(TreeID, CircleFK),
-    by = c('TreeFK' = 'TreeID')) %>%
+    by = c("TreeFK" = "TreeID")) %>%
   # join sampling plot data
   left_join(
     circles,
-    by = c('CircleFK' = 'CircleID')) %>%
+    by = c("CircleFK" = "CircleID")) %>%
   # calculate the total number of individuals and total biomass of arthropods in each family observed across all beat sheet surveys at each sampling plot
   group_by(CircleFK, family) %>%
   summarize(
@@ -130,7 +130,7 @@ family_circles_foliage <- map_dfc(
     # get the circle names out of the first row
     row_to_names(row_number = 1) %>%
     # make it a real boy (convert it to a tibble)
-    as_tibble(rownames = 'family') %>%
+    as_tibble(rownames = "family") %>%
     # put it in alphabetical order by family
     arrange(family) %>%
     # remove family
@@ -190,19 +190,19 @@ ground_families <- ground_arths %>%
   # join in taxon information
   left_join(
     taxa,
-    by = 'TaxonID') %>%
+    by = "TaxonID") %>%
   # filter to orders included for analysis
   filter(
-    order %in% c('Araneae','Archaeognatha','Coleoptera','Isopoda', 'Opiliones', 'Orthoptera') | (order == 'Hymenoptera' & family == 'Formicidae')) %>%
+    order %in% c("Araneae","Archaeognatha","Coleoptera","Isopoda", "Opiliones", "Orthoptera") | (order == "Hymenoptera" & family == "Formicidae")) %>%
   # join in information on pitfall runs
   left_join(
     pitfalls %>%
       dplyr::select(PitfallID, DateCollected, CircleID),
-    by = 'PitfallID') %>%
+    by = "PitfallID") %>%
   # join in information on sampling plots
   left_join(
     circles,
-    by = 'CircleID') %>%
+    by = "CircleID") %>%
   group_by(CircleID, family) %>%
   # calculate the total number of individuals and total biomass of arthropods in each family observed across all pitfall trap runs at each sampling plot
   summarize(
@@ -247,7 +247,7 @@ family_circles_ground <- map_dfc(
     # get the sampling plot IDs out of the first row
     row_to_names(row_number = 1) %>%
     # make it a real boy
-    as_tibble(rownames = 'family') %>%
+    as_tibble(rownames = "family") %>%
     # put it in alphabetical order by family
     arrange(family) %>%
     # remove family
@@ -366,7 +366,7 @@ circles_forest <- circles %>%
   left_join(
     sites %>%
       dplyr::select(SiteID, forest_1km),
-    by = c('SiteFK' = 'SiteID'))
+    by = c("SiteFK" = "SiteID"))
 
 # calculate the differences in forest cover as shown for other metrics
 forest_matrix <- dist(circles_forest$forest_1km, diag = T, upper = T) %>%
@@ -588,8 +588,8 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
   # shifts from a matrix to a frame defined by the first two columns - sorry, Hadley - corresponding to the Euclidean distance between the two
   pivot_longer(
     cols = 2:length(.),
-    names_to = 'circle2',
-    values_to = 'euclideanDistance') %>%
+    names_to = "circle2",
+    values_to = "euclideanDistance") %>%
   # remove rows for sampling plots against against themselves
   filter(circle != circle2) %>%
   # take advantage of the lack of identical distances between any two site pairs to remove the duplicates resulting from flipping out a matrix
@@ -600,51 +600,51 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
     jaccard_matrix_foliage %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'jaccardDissimilarity'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "jaccardDissimilarity"),
+    by = c("circle","circle2")) %>%
   left_join(
     trees_jaccard_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'treeDissimilarity'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "treeDissimilarity"),
+    by = c("circle","circle2")) %>%
   left_join(
     canopy_cover_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'canopyCover'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "canopyCover"),
+    by = c("circle","circle2")) %>%
   left_join(
     distance_road_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'distanceToRoad'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "distanceToRoad"),
+    by = c("circle","circle2")) %>%
   left_join(
     distance_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'geographicDistance'),
-    by = c('circle','circle2')) %>%
-  rename('circle1' = 'circle') %>%
+        names_to = "circle2",
+        values_to = "geographicDistance"),
+    by = c("circle","circle2")) %>%
+  rename("circle1" = "circle") %>%
   left_join(
     forest_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'forest_1km'),
-    by = c('circle1','circle2')) %>%
+        names_to = "circle2",
+        values_to = "forest_1km"),
+    by = c("circle1","circle2")) %>%
   left_join(
     paths,
     by = c("circle1", "circle2")) %>% 
   mutate(
     # make a unique identifier (fine, Hadley)
-    circles = str_c(circle1, circle2, sep = '_'),
+    circles = str_c(circle1, circle2, sep = "_"),
     # convert canopy cover from percent to proportion
     canopyCover = canopyCover/100,
     # convert distance to edge from m to km
@@ -662,58 +662,58 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
 analysis_frame_ground <- euclidean_matrix_ground %>%
   pivot_longer(
     cols = 2:length(.),
-    names_to = 'circle2',
-    values_to = 'euclideanDistance') %>%
+    names_to = "circle2",
+    values_to = "euclideanDistance") %>%
   filter(circle != circle2) %>%
   distinct(euclideanDistance, .keep_all = T) %>%
   left_join(
     jaccard_matrix_ground %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'jaccardDissimilarity'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "jaccardDissimilarity"),
+    by = c("circle","circle2")) %>%
   left_join(
     herbaceous_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'herbaceousCover'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "herbaceousCover"),
+    by = c("circle","circle2")) %>%
   left_join(
     distance_road_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'distanceToRoad'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "distanceToRoad"),
+    by = c("circle","circle2")) %>%
   left_join(
     distance_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'geographicDistance'),
-    by = c('circle','circle2')) %>%
+        names_to = "circle2",
+        values_to = "geographicDistance"),
+    by = c("circle","circle2")) %>%
   left_join(
     litter_depth_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'litterDepth'),
-    by = c('circle','circle2')) %>%
-  rename('circle1' = 'circle') %>%
+        names_to = "circle2",
+        values_to = "litterDepth"),
+    by = c("circle","circle2")) %>%
+  rename("circle1" = "circle") %>%
   left_join(
     forest_matrix %>%
       pivot_longer(
         cols = 2:length(.),
-        names_to = 'circle2',
-        values_to = 'forest_1km'),
-    by = c('circle1','circle2')) %>%
+        names_to = "circle2",
+        values_to = "forest_1km"),
+    by = c("circle1","circle2")) %>%
   left_join(
     paths,
     by = c("circle1", "circle2")) %>% 
   mutate(
-    circles = str_c(circle1, circle2, sep = '_'),
+    circles = str_c(circle1, circle2, sep = "_"),
     distanceToRoad = distanceToRoad/1000,
     geographicDistance = geographicDistance/1000) %>%
   dplyr::select(!circle1:circle2) %>%
@@ -977,10 +977,10 @@ summary(lm(
 # create a theme for figures
 ul_theme2 <- theme(
   axis.title = element_text(size = 10),
-  panel.border = element_rect(fill = NA, color = 'darkslategray', size = 1.2),
-  panel.grid = element_line(color = 'cornsilk3'),
-  panel.background = element_rect(fill = 'snow1'),
-  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = 'npc'),
+  panel.border = element_rect(fill = NA, color = "darkslategray", size = 1.2),
+  panel.grid = element_line(color = "cornsilk3"),
+  panel.background = element_rect(fill = "gray100"),
+  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = "npc"),
   axis.title.x = element_text(vjust = 1))
 
 # set a colorblind-friendly pallet
@@ -1016,9 +1016,9 @@ foliage_plot_euclidean_forest <- ggplot(
   geom_point() +
   # add a linear regression trendline
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "\u0394 1-km Forest Cover",
     y = "Euclidean Distance") +
@@ -1026,11 +1026,11 @@ foliage_plot_euclidean_forest <- ggplot(
   ul_theme2 +
   # add R^2 and p-values
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 7.5,
-    label = 'R2 = 0.18, p < 0.001',
-    color = '#009E73') +
+    label = "R2 = 0.18, p < 0.001",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Euclidean distance versus Jaccard dissimilarity of sample trees
@@ -1041,20 +1041,20 @@ foliage_plot_euclidean_trees <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "Tree Species Dissimilarity",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 7.5,
-    label = 'R2 = 0.22, p < 0.005',
-    color = '#009E73') +
+    label = "R2 = 0.22, p < 0.005",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Euclidean distance versus geographic distance
@@ -1065,20 +1065,20 @@ foliage_plot_euclidean_distance <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Geographic Distance (km)",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 25,
     y = 7.5,
-    label = 'R2 = 0.11, p < 0.005',
-    color = '#E69F00') +
+    label = "R2 = 0.11, p < 0.005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Euclidean distance versus resistance
@@ -1089,20 +1089,20 @@ foliage_plot_euclidean_paths <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Resistance of Shortest Path",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 5,
     y = 7.5,
-    label = 'R2 = 0.26, p < 0.0005',
-    color = '#E69F00') +
+    label = "R2 = 0.26, p < 0.0005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard dissimilarity versus difference in proportion canopy cover
@@ -1127,20 +1127,20 @@ foliage_plot_jaccard_forest <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "\u0394 1-km Forest Cover",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 0.2,
-    label = 'R2 = 0.13, p < 0.001',
-    color = '#009E73') +
+    label = "R2 = 0.13, p < 0.001",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard dissimilarity of arthropod communities versus Jaccard dissimilarity of sampled tree species
@@ -1151,20 +1151,20 @@ foliage_plot_jaccard_trees <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "Tree Species Dissimilarity",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 0.2,
-    label = 'R2 = 0.16, p < 0.0005',
-    color = '#009E73') +
+    label = "R2 = 0.16, p < 0.0005",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard distance versus geographic distance
@@ -1175,20 +1175,20 @@ foliage_plot_jaccard_distance <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Geographic Distance (km)",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 25,
     y = 0.2,
-    label = 'R2 = 0.09, p < 0.005',
-    color = '#E69F00') +
+    label = "R2 = 0.09, p < 0.005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard distance versus resistance
@@ -1199,20 +1199,20 @@ foliage_plot_jaccard_paths <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Resistance of Shortest Path",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 5,
     y = 0.2,
-    label = 'R2 = 0.25, p < 0.0005',
-    color = '#E69F00') +
+    label = "R2 = 0.25, p < 0.0005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # compile all plots with Euclidean distance on the y-axis
@@ -1223,7 +1223,7 @@ foliage_euclidean_plots <- ggarrange(
   foliage_plot_euclidean_distance,
   foliage_plot_euclidean_paths,
   ncol = 1,
-  labels = c('a)','c)','e)','g)','i)'),
+  labels = c("a)","c)","e)","g)","i)"),
   label.x = -0.01)
 
 # compile all plots with Jaccard dissimilarity on the y-axis
@@ -1234,7 +1234,7 @@ foliage_jaccard_plots <- ggarrange(
   foliage_plot_jaccard_distance,
   foliage_plot_jaccard_paths,
   ncol = 1,
-  labels = c('b)','d)','f)','h)','j)'),
+  labels = c("b)","d)","f)","h)","j)"),
   label.x = -0.01)
 
 # combine all plots
@@ -1244,12 +1244,12 @@ foliage_plots <- ggarrange(
   ncol = 2)
 
 # save plots
-# ggsave(
-#   'figures/paper/foliage_plots.png',
-#   plot = foliage_plots,
-#   width = 9.75,
-#   height = 13.5,
-#   units = 'in')
+ggsave(
+  "figures/paper/foliage_plots.jpg",
+  plot = foliage_plots,
+  width = 9.75,
+  height = 13.5,
+  units = "in")
 
 # principal component analysis --------------------------------------------
 
@@ -1284,17 +1284,17 @@ foliage_functions <- foliage_families %>%
   filter(!is.na(family)) %>% 
   dplyr::select(family) %>% 
   distinct() %>% 
-  left_join(functions, by = 'family') %>% 
+  left_join(functions, by = "family") %>% 
   arrange(family) %>% 
   mutate(
     dietg_color = case_when(
-      diet_group == 'herbivore' ~ colorz[4],
-      diet_group == 'predator' ~ colorz[8],
+      diet_group == "herbivore" ~ colorz[4],
+      diet_group == "predator" ~ colorz[8],
       is.na(diet_group) ~ colorz[1],
-      diet_group == 'omnivore' ~ colorz[3],
-      diet_group == 'mixed' ~ colorz[1],
-      diet_group == 'scavenger' ~ colorz[7],
-      diet_group == 'fungivore' ~ colorz[2]))
+      diet_group == "omnivore" ~ colorz[3],
+      diet_group == "mixed" ~ colorz[1],
+      diet_group == "scavenger" ~ colorz[7],
+      diet_group == "fungivore" ~ colorz[2]))
 
 # make a data frame for foliage arthropods that can be PCA'ed - columns are families, rows are circles
 foliage_base1 <- map_dfc(
@@ -1319,7 +1319,7 @@ foliage_base1 <- map_dfc(
       values_from = logBiomass) %>%
     t() %>%
     row_to_names(row_number = 1) %>%
-    as_tibble(rownames = 'family') %>%
+    as_tibble(rownames = "family") %>%
     arrange(family) %>%
     dplyr::select(!family)) %>% 
   cbind(family = unique(all_foliage$family[!is.na(all_foliage$family)])) %>% 
@@ -1336,7 +1336,7 @@ foliage_base1 <- map_dfc(
   left_join(
     circles %>% 
       dplyr::select(CircleID, SiteFK),
-    by = 'CircleID')
+    by = "CircleID")
 
 # set row names for the PCA data frame
 rownames(foliage_base1) <- circles$CircleID
@@ -1346,9 +1346,9 @@ foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-3)], scale = F)
 
 # isolate the families with loadings greater than 0.14 on principal component axes 1 or 2
 sub_rot <- foliage_pca$rotation %>% 
-  as_tibble(rownames = 'family') %>% 
+  as_tibble(rownames = "family") %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(foliage_functions, by = 'family')
+  left_join(foliage_functions, by = "family")
 
 # plot the PCA
 foliage_pca_plot <- ggplot() +
@@ -1367,27 +1367,26 @@ foliage_pca_plot <- ggplot() +
       xend = PC1*15,
       yend = PC2*15,
       color = diet_group),
-    arrow = arrow(length = unit(0.03, 'npc')),
+    arrow = arrow(length = unit(0.03, "npc")),
     linewidth = 1.1) +
   geom_text(
     data = sub_rot %>% 
       mutate(family = case_when(
-        family %in% c('Araneidae','Coccinellidae','Tenebrionidae','Sclerosomatidae') ~ family,
+        family %in% c("Araneidae","Coccinellidae","Tenebrionidae","Sclerosomatidae") ~ family,
         .default = NULL)),
     mapping = aes(
       x = PC1*12.5+0.1,
-      y = PC2*18+0.5,
+      y = PC2*20-0.5,
       label = family,
       colour = diet_group),
     size = 3.5,
     show.legend = F) +
   scale_color_manual(values = setNames(sub_rot$dietg_color, sub_rot$diet_group)) +
   labs(
-    shape = 'Site Code',
-    color = 'Functional Group') +
+    shape = "Site Code",
+    color = "Functional Group") +
   ul_theme2 +
-  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
-
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = "npc"))
 
 ## ground arthropod figures ------------------------------------------------
 
@@ -1430,20 +1429,20 @@ ground_plot_euclidean_forest <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "\u0394 1-km Forest Cover",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 7.5,
-    label = 'R2 = 0.48, p < 0.001',
-    color = '#009E73') +
+    label = "R2 = 0.48, p < 0.001",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Euclidean distance versus geographic distance
@@ -1454,20 +1453,20 @@ ground_plot_euclidean_distance <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Geographic Distance (km)",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 25,
     y = 7.5,
-    label = 'R2 = 0.09, p < 0.0005',
-    color = '#E69F00') +
+    label = "R2 = 0.09, p < 0.0005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Euclidean distance versus resistance
@@ -1478,20 +1477,20 @@ ground_plot_euclidean_paths <- ggplot(
     y = euclideanDistance)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Resistance of Shortest Path",
     y = "Euclidean Distance") +
   scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 5,
     y = 7.5,
-    label = 'R2 = 0.08, p < 0.0005',
-    color = '#E69F00') +
+    label = "R2 = 0.08, p < 0.0005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard dissimilarity versus difference in herbaceous cover class
@@ -1530,20 +1529,20 @@ ground_plot_jaccard_forest <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#009E73') +
+    color = "#009E73") +
   labs(
     x = "\u0394 1-km Forest Cover",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 0.5,
     y = 0.2,
-    label = 'R2 = 0.25, p < 0.0005',
-    color = '#009E73') +
+    label = "R2 = 0.25, p < 0.0005",
+    color = "#009E73") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard dissimilarity versus geographic distance
@@ -1554,20 +1553,20 @@ ground_plot_jaccard_distance <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Geographic Distance (km)",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 25,
     y = 0.15,
-    label = 'R2 = 0.04, p < 0.005',
-    color = '#E69F00') +
+    label = "R2 = 0.04, p < 0.005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # Jaccard dissimilarity versus geographic distance
@@ -1578,20 +1577,20 @@ ground_plot_jaccard_paths <- ggplot(
     y = jaccardDissimilarity)) +
   geom_point() +
   geom_smooth(
-    method = 'lm',
+    method = "lm",
     se = F,
-    color = '#E69F00') +
+    color = "#E69F00") +
   labs(
     x = "Resistance of Shortest Path",
     y = "Jaccard Dissimilarity") +
   scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
   ul_theme2 +
   annotate(
-    'text',
+    "text",
     x = 5,
     y = 0.15,
-    label = 'R2 = 0.13, p < 0.005',
-    color = '#E69F00') +
+    label = "R2 = 0.13, p < 0.005",
+    color = "#E69F00") +
   theme(axis.title = element_text(size = 14))
 
 # compile plots with Euclidean distance on the y-axis
@@ -1602,7 +1601,7 @@ ground_euclidean_plots <- ggarrange(
   ground_plot_euclidean_distance,
   ground_plot_euclidean_paths,
   ncol = 1,
-  labels = c('a)','c)','e)','g)','i)'),
+  labels = c("a)","c)","e)","g)","i)"),
   label.x = -0.01)
 
 # compile plots with Jaccard dissimilarity on the y-axis
@@ -1613,7 +1612,7 @@ ground_jaccard_plots <- ggarrange(
   ground_plot_jaccard_distance,
   ground_plot_jaccard_paths,
   ncol = 1,
-  labels = c('b)','d)','f)','h)','j)'),
+  labels = c("b)","d)","f)","h)","j)"),
   label.x = -0.01)
 
 # compile all plots
@@ -1623,12 +1622,12 @@ ground_plots <- ggarrange(
   ncol = 2)
 
 # save plots
-# ggsave(
-#   filename = 'figures/paper/ground_plots.png',
-#   plot = ground_plots,
-#   width = 9.75,
-#   height = 13.5,
-#   units = 'in')
+ggsave(
+  filename = "figures/paper/ground_plots.jpg",
+  plot = ground_plots,
+  width = 9.75,
+  height = 13.5,
+  units = "in")
 
 # principal component analysis --------------------------------------------
 
@@ -1663,17 +1662,17 @@ ground_functions <- ground_families %>%
   filter(!is.na(family)) %>% 
   dplyr::select(family) %>% 
   distinct() %>% 
-  left_join(functions, by = 'family') %>% 
+  left_join(functions, by = "family") %>% 
   arrange(family) %>% 
   mutate(
     dietg_color = case_when(
-      diet_group == 'herbivore' ~ colorz[4],
-      diet_group == 'predator' ~ colorz[8],
+      diet_group == "herbivore" ~ colorz[4],
+      diet_group == "predator" ~ colorz[8],
       is.na(diet_group) ~ colorz[1],
-      diet_group == 'omnivore' ~ colorz[3],
-      diet_group == 'mixed' ~ colorz[1],
-      diet_group == 'scavenger' ~ colorz[7],
-      diet_group == 'fungivore' ~ colorz[2]))
+      diet_group == "omnivore" ~ colorz[3],
+      diet_group == "mixed" ~ colorz[1],
+      diet_group == "scavenger" ~ colorz[7],
+      diet_group == "fungivore" ~ colorz[2]))
 
 # make a data frame of ground arthropods that can be PCA'ed - columns are families, rows are circles
 ground_base1 <- map_dfc(
@@ -1698,7 +1697,7 @@ ground_base1 <- map_dfc(
       values_from = logBiomass) %>%
     t() %>%
     row_to_names(row_number = 1) %>%
-    as_tibble(rownames = 'family') %>%
+    as_tibble(rownames = "family") %>%
     arrange(family) %>%
     dplyr::select(!family)) %>%
   cbind(family = unique(all_grounds$family[!is.na(all_grounds$family)])) %>%
@@ -1715,7 +1714,7 @@ ground_base1 <- map_dfc(
   left_join(
     circles %>% 
       dplyr::select(CircleID, SiteFK),
-    by = 'CircleID')
+    by = "CircleID")
 
 # add row names to the data frame
 rownames(ground_base1) <- circles$CircleID
@@ -1725,9 +1724,9 @@ ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-3)], scale = F)
 
 # isolate families with loadings greater and 0.14 on principal component axes 1 or 2
 sub_rot2 <- ground_pca$rotation %>% 
-  as_tibble(rownames = 'family') %>% 
+  as_tibble(rownames = "family") %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(ground_functions, by = 'family')
+  left_join(ground_functions, by = "family")
 
 # plot the PCA
 ground_pca_plot <- ggplot() +
@@ -1746,12 +1745,12 @@ ground_pca_plot <- ggplot() +
       xend = PC1*15,
       yend = PC2*15,
       color = diet_group),
-    arrow = arrow(length = unit(0.03, 'npc')),
+    arrow = arrow(length = unit(0.03, "npc")),
     linewidth = 1.1) +
   geom_text(
     data = sub_rot2 %>% 
       mutate(family = case_when(
-        family %in% c('Carabidae','Lycosidae','Armadillidae','Porcellionidae','Rhaphidophoridae') ~ family,
+        family %in% c("Carabidae","Lycosidae","Armadillidae","Porcellionidae","Rhaphidophoridae") ~ family,
         .default = NULL)),
     mapping = aes(
       x = PC1*15,
@@ -1762,7 +1761,134 @@ ground_pca_plot <- ggplot() +
     show.legend = F) +
   scale_color_manual(values = setNames(sub_rot2$dietg_color, sub_rot2$diet_group)) +
   labs(
-    shape = 'Site Code',
-    color = 'Functional Group') +
+    shape = "Site Code",
+    color = "Functional Group") +
   ul_theme2 +
-  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = 'npc'))
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = "npc"))
+
+pca_plots <- ggarrange(
+  foliage_pca_plot,
+  ground_pca_plot,
+  labels = c("a)","b)"),
+  ncol = 1,
+  legend = "right",
+  common.legend = T)
+
+ggsave(
+  plot = pca_plots,
+  filename = "figures/paper/pca_plots.jpg",
+  width = 6,
+  height = 8,
+  units = "in")
+
+
+### supplemental ------------------------------------------------------------
+
+
+## resistance models -------------------------------------------------------
+
+
+# read in the resistance values between sampling plots using three different raster classification models of resistance
+paths <- read_table(
+  file = "data/all10_paths_resistances_3columns",
+  col_names = F) %>% 
+  rename("all10_resistance" = X3) %>% 
+  full_join(
+    read_table(
+      file = "data/mod1_paths_resistances_3columns",
+      col_names = F) %>% 
+      rename("mod1_resistance" = X3),
+    by = c("X1","X2")) %>% 
+  full_join(
+    read_table(
+      file = "data/mod2_paths_resistances_3columns",
+      col_names = F) %>% 
+      rename("mod2_resistance" = X3),
+    by = c("X1","X2")) %>% 
+  rename("nodeID_1" = X1, "nodeID_2" = X2) %>% 
+  # replace node IDs used for CircuitScape with sampling plot IDs
+  mutate(
+    circle1 = str_replace(nodeID_1, "^1", "DF") %>% 
+      str_replace("^2", "ERSP") %>% 
+      str_replace("^3", "JMNP") %>% 
+      str_replace("^4", "NCBG") %>% 
+      str_replace("^5", "NCSU") %>% 
+      str_replace("^6", "UNC"),
+    circle2 = str_replace(nodeID_2, "^1", "DF") %>% 
+      str_replace("^2", "ERSP") %>% 
+      str_replace("^3", "JMNP") %>% 
+      str_replace("^4", "NCBG") %>% 
+      str_replace("^5", "NCSU") %>% 
+      str_replace("^6", "UNC"),
+    circles = str_c(circle1, circle2, sep = "_")) %>% 
+  dplyr::select(!c(nodeID_1,nodeID_2,circle1,circle2)) %>% 
+  relocate(circles)
+
+# calculate R^2 values for resistances using different models
+summary(lm(paths$mod1_resistance ~ paths$all10_resistance))
+
+# plot model resistances against one another with R^2 values displayed
+all10_mod1 <- ggplot(paths) +
+  geom_point(
+    aes(
+      x = all10_resistance,
+      y = mod1_resistance)) +
+  labs(
+    x = "Path Resistance from Model 1",
+    y = "Path Resistance from Model 2") +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 2,
+    label = "R2 = 0.99") +
+  ul_theme2
+
+summary(lm(paths$mod2_resistance ~ paths$all10_resistance))
+
+all10_mod2 <- ggplot(paths) +
+  geom_point(
+    aes(
+      x = all10_resistance,
+      y = mod2_resistance)) +
+  labs(
+    x = "Path Resistance from Model 1",
+    y = "Path Resistance from Model 3") +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 2,
+    label = "R2 = 0.95") +
+  ul_theme2
+
+summary(lm(paths$mod2_resistance ~ paths$mod1_resistance))
+
+mod1_mod2 <- ggplot(paths) +
+  geom_point(
+    aes(
+      x = mod1_resistance,
+      y = mod2_resistance)) +
+  labs(
+    x = "Path Resistance from Model 2",
+    y = "Path Resistance from Model 3") +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 2,
+    label = "R2 = 0.94") +
+  ul_theme2
+
+# combine plots into figure
+modplots <- ggarrange(
+  all10_mod1,
+  all10_mod2,
+  mod1_mod2,
+  ncol = 1,
+  labels = c("a)","b)","c)"))
+
+# save combined figure
+ggsave(
+  "figures/paper/resistance_supplemental.jpg",
+  plot = modplots,
+  width = 3,
+  height = 7.5,
+  units = "in")
