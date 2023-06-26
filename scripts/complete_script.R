@@ -13,6 +13,9 @@ library(janitor)
 library(ade4)
 library(raster)
 library(rgdal)
+library(ggnewscale)
+library(corrplot)
+library(sf)
 
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
@@ -39,7 +42,7 @@ pitfalls <- read_csv(
 trees <- read_csv(
   list.files("data", full.names = T)[str_detect(list.files("data"), "^trees")])
 
-# read in data on sampling plots
+# read in data on sampling plots - note that plots are referred to as both circles and sampling plots throughout this script, and these two terms refer to the same thing
 circles <- read_csv("data/circles_2022-10-03.csv")
 
 # read in data on sampling sites
@@ -53,6 +56,45 @@ functions <- read_csv("data/families.csv")
 nlcd <- raster("data/nlcd_local") %>% 
   # the raster seems to have picked up a weird extra chunk of extent on the right edge - cropping it out
   crop(extent(c(1493025,1551500,1541175,1598865)))
+
+# convert the circle coordinates to a spatial object
+circles_sf <- 
+  circles %>% 
+  st_as_sf(
+    coords = c('Longitude', 'Latitude'),
+    crs = 4326) %>% 
+  st_transform(crs = raster::crs(nlcd))
+
+# make a reclass raster for forest classes = 1, others = 0
+forest_rcl <- 
+  matrix(
+    data = c(
+      0,40,0,
+      40,43,1,
+      43,100,0),
+    ncol = 3,
+    byrow = T)
+
+# reclassify the NLCD raster as above
+nlcd_forest <- raster::reclassify(
+  x = nlcd,
+  rcl = forest_rcl)
+
+# calculate the proportion forest cover within 1km of each circle and join it to the circle data - note that this names over the original circles object
+circles <-  raster::extract(
+  x = nlcd_forest,
+  y = circles_sf,
+  buffer = 1000,
+  fun = mean,
+  na.rm = T,
+  df = T) %>% 
+  rename(
+    forest_1km = nlcd_local) %>% 
+  cbind(circles) %>% 
+  relocate(
+    forest_1km,
+    .after = DistanceToEdgem) %>% 
+  dplyr::select(!ID)
 
 ## calculating community dissimilarity metrics -----------------------------
 
@@ -183,7 +225,7 @@ jaccard_matrix_foliage <- map_dfr(
   relocate(circle)
 
 
-# ground arthropods -------------------------------------------------------
+# ground arthropod communities -------------------------------------------------------
 
 # create a tibble with the number of individuals and total biomass of each family observed at each sampling plot
 ground_families <- ground_arths %>%
@@ -294,6 +336,7 @@ jaccard_matrix_ground <- map_dfr(
   cbind(circle = circles$CircleID) %>%
   relocate(circle)
 
+
 ## calculating environmental distance metrics ------------------------------
 
 
@@ -361,15 +404,8 @@ litter_depth_matrix <- dist(circles$LitterDepthmm, diag = T, upper = T) %>%
 
 # difference in proportion forest cover in a 1-km radius ---------------------
 
-# add forest cover data to the sampling plot table from the site table
-circles_forest <- circles %>%
-  left_join(
-    sites %>%
-      dplyr::select(SiteID, forest_1km),
-    by = c("SiteFK" = "SiteID"))
-
 # calculate the differences in forest cover as shown for other metrics
-forest_matrix <- dist(circles_forest$forest_1km, diag = T, upper = T) %>%
+forest_matrix <- dist(circles$forest_1km, diag = T, upper = T) %>%
   as.matrix() %>%
   as_tibble() %>%
   set_names(circles$CircleID) %>%
@@ -403,7 +439,7 @@ writeRaster(nlcd_mod1, filename = "data/mod1", format = "ascii", overwrite = T)
 
 # the intervening step requires using the CircuitScape GUI to run the calculations for the resistances of shortest paths between sampling plots, using the raster created above and the "circles.txt" file. The following line reads in the output from this operation as a 3-column dataframe
 
-paths <-read_table(
+paths <- read_table(
   file = "data/mod1_paths_resistances_3columns",
   col_names = F) %>% 
   # name the output columns - the first two are node IDs derived from sampling plot IDs in order to be compatible with CircuitScape
@@ -579,6 +615,7 @@ paths <- paths_matrix %>%
     values_to = "resistance") %>% 
   distinct()
 
+
 ## making model-friendly data frames ----------------------------------------
 
 
@@ -741,17 +778,10 @@ mantel.rtest(
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.18
+# R^2 = 0.19
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_foliage))
-
-# Euclidean distance versus difference in distance to a road
-# p ~ 0.7
-mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(distance_road_matrix[2:31]), 
-  nrepet = 9999)
 
 # Euclidean distance versus geographic distance, p < 0.005
 mantel.rtest(
@@ -799,13 +829,6 @@ summary(lm(
   jaccardDissimilarity ~ canopyCover,
   data = analysis_frame_foliage))
 
-# Jaccard dissimilarity versus difference in distance to a road
-# p ~ 0.8
-mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(distance_road_matrix[2:31]), 
-  nrepet = 9999)
-
 # Jaccard dissimilarity versus proportion forest cover
 # p = 0.0001
 mantel.rtest(
@@ -813,7 +836,7 @@ mantel.rtest(
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.12
+# R^2 = 0.14
 summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_foliage))
@@ -853,403 +876,6 @@ mantel.rtest(
 summary(lm(
   jaccardDissimilarity ~ treeDissimilarity,
   data = analysis_frame_foliage))
-
-
-## ground arthropods -------------------------------------------------------
-
-# Euclidean distance versus difference in herbaceous cover class
-# p ~ 0.5
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(herbaceous_matrix[2:31]), 
-  nrepet = 9999)
-
-# Euclidean distance versus difference in proportion forest cover
-# p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(forest_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.49
-summary(lm(
-  euclideanDistance ~ forest_1km,
-  data = analysis_frame_ground))
-
-# Euclidean distance versus difference in distance to a road
-# p ~ 0.2
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(distance_road_matrix[2:31]), 
-  nrepet = 9999)
-
-# Euclidean distance versus difference in litter depth
-# p ~ 0.5
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 9999)
-
-# Euclidean distance versus geographic distance
-# p < 0.0005
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(distance_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.09
-summary(lm(
-  euclideanDistance ~ geographicDistance,
-  data = analysis_frame_ground))
-
-# Euclidean distance versus resistance
-# p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(paths_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.08
-summary(lm(
-  euclideanDistance ~ resistance,
-  data = analysis_frame_ground))
-
-# Jaccard dissimilarity versus difference in herbaceous cover class
-# p ~ 0.1
-mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(herbaceous_matrix[2:31]), 
-  nrepet = 9999)
-
-# Jaccard dissimilarity versus difference in herbaceous cover class
-# p ~ 0.4
-mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(distance_road_matrix[2:31]), 
-  nrepet = 9999)
-
-# Jaccard dissimilarity versus difference in litter depth
-# p ~ 0.2
-mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 9999)
-
-# Jaccard dissimilarity versus difference in proportion forest cover
-# p = 0.0001
-mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(forest_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.25
-summary(lm(
-  jaccardDissimilarity ~ forest_1km,
-  data = analysis_frame_ground))
-
-# Jaccard dissimilarity versus geographic distance
-# p < 0.005
-mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(distance_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.04
-summary(lm(
-  jaccardDissimilarity ~ geographicDistance,
-  data = analysis_frame_ground))
-
-# Jaccard dissimilarity versus resistance
-# p = 0.0001
-mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
-  nrepet = 9999)
-
-# R^2 = 0.13
-summary(lm(
-  jaccardDissimilarity ~ resistance,
-  data = analysis_frame_ground))
-
-
-### generating figures ------------------------------------------------------
-
-# create a theme for figures
-ul_theme2 <- theme(
-  axis.title = element_text(size = 10),
-  panel.border = element_rect(fill = NA, color = "darkslategray", size = 1.2),
-  panel.grid = element_line(color = "cornsilk3"),
-  panel.background = element_rect(fill = "gray100"),
-  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = "npc"),
-  axis.title.x = element_text(vjust = 1))
-
-# set a colorblind-friendly pallet
-colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
-             "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
-
-
-## foliage arthropod figures -----------------------------------------------
-
-
-# scatter plots -----------------------------------------------------------
-
-# Euclidean distance versus difference in canopy cover
-foliage_plot_euclidean_canopy <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = canopyCover,
-    y = euclideanDistance)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Local Canopy Cover",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus difference in proportion forest cover
-foliage_plot_euclidean_forest <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = forest_1km,
-    y = euclideanDistance)) +
-  geom_point() +
-  # add a linear regression trendline
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "\u0394 1-km Forest Cover",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  # add R^2 and p-values
-  annotate(
-    "text",
-    x = 0.5,
-    y = 7.5,
-    label = "R2 = 0.18, p < 0.001",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus Jaccard dissimilarity of sample trees
-foliage_plot_euclidean_trees <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = treeDissimilarity,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "Tree Species Dissimilarity",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 0.5,
-    y = 7.5,
-    label = "R2 = 0.22, p < 0.005",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus geographic distance
-foliage_plot_euclidean_distance <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = geographicDistance,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Geographic Distance (km)",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 25,
-    y = 7.5,
-    label = "R2 = 0.11, p < 0.005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus resistance
-foliage_plot_euclidean_paths <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = resistance,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Resistance of Shortest Path",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 5,
-    y = 7.5,
-    label = "R2 = 0.26, p < 0.0005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard dissimilarity versus difference in proportion canopy cover
-foliage_plot_jaccard_canopy <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = canopyCover,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Local Canopy Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard dissimilarity versus difference in proportion forest cover
-foliage_plot_jaccard_forest <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = forest_1km,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "\u0394 1-km Forest Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 0.5,
-    y = 0.2,
-    label = "R2 = 0.13, p < 0.001",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard dissimilarity of arthropod communities versus Jaccard dissimilarity of sampled tree species
-foliage_plot_jaccard_trees <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = treeDissimilarity,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "Tree Species Dissimilarity",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 0.5,
-    y = 0.2,
-    label = "R2 = 0.16, p < 0.0005",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard distance versus geographic distance
-foliage_plot_jaccard_distance <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = geographicDistance,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Geographic Distance (km)",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 25,
-    y = 0.2,
-    label = "R2 = 0.09, p < 0.005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
-
-# Jaccard distance versus resistance
-foliage_plot_jaccard_paths <- ggplot(
-  data = analysis_frame_foliage,
-  mapping = aes(
-    x = resistance,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Resistance of Shortest Path",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 5,
-    y = 0.2,
-    label = "R2 = 0.25, p < 0.0005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
-
-# compile all plots with Euclidean distance on the y-axis
-foliage_euclidean_plots <- ggarrange( 
-  foliage_plot_euclidean_forest, 
-  foliage_plot_euclidean_canopy,
-  foliage_plot_euclidean_trees,
-  foliage_plot_euclidean_distance,
-  foliage_plot_euclidean_paths,
-  ncol = 1,
-  labels = c("a)","c)","e)","g)","i)"),
-  label.x = -0.01)
-
-# compile all plots with Jaccard dissimilarity on the y-axis
-foliage_jaccard_plots <- ggarrange( 
-  foliage_plot_jaccard_forest,
-  foliage_plot_jaccard_canopy,
-  foliage_plot_jaccard_trees,
-  foliage_plot_jaccard_distance,
-  foliage_plot_jaccard_paths,
-  ncol = 1,
-  labels = c("b)","d)","f)","h)","j)"),
-  label.x = -0.01)
-
-# combine all plots
-foliage_plots <- ggarrange(
-  foliage_euclidean_plots,
-  foliage_jaccard_plots,
-  ncol = 2)
-
-# save plots
-ggsave(
-  "figures/paper/foliage_plots.jpg",
-  plot = foliage_plots,
-  width = 9.75,
-  height = 13.5,
-  units = "in")
 
 # principal component analysis --------------------------------------------
 
@@ -1348,286 +974,132 @@ foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-3)], scale = F)
 sub_rot <- foliage_pca$rotation %>% 
   as_tibble(rownames = "family") %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(foliage_functions, by = "family")
+  left_join(foliage_functions, by = "family") %>% 
+  mutate(highlight = if_else(
+    family %in% c("Araneidae","Coccinellidae","Tenebrionidae","Sclerosomatidae"),
+    true = "yes",
+    false = "no"))
 
-# plot the PCA
-foliage_pca_plot <- ggplot() +
-  geom_point(
-    data = foliage_pca$x,
-    mapping = aes(
-      x = PC1,
-      y = PC2,
-      shape = foliage_base1$SiteFK),
-    size = 3) +
-  geom_segment(
-    data = sub_rot,
-    mapping = aes(
-      x = 0,
-      y = 0,
-      xend = PC1*15,
-      yend = PC2*15,
-      color = diet_group),
-    arrow = arrow(length = unit(0.03, "npc")),
-    linewidth = 1.1) +
-  geom_text(
-    data = sub_rot %>% 
-      mutate(family = case_when(
-        family %in% c("Araneidae","Coccinellidae","Tenebrionidae","Sclerosomatidae") ~ family,
-        .default = NULL)),
-    mapping = aes(
-      x = PC1*12.5+0.1,
-      y = PC2*20-0.5,
-      label = family,
-      colour = diet_group),
-    size = 3.5,
-    show.legend = F) +
-  scale_color_manual(values = setNames(sub_rot$dietg_color, sub_rot$diet_group)) +
-  labs(
-    shape = "Site Code",
-    color = "Functional Group") +
-  ul_theme2 +
-  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = "npc"))
+# join PCA and predictor variable dataframes to include both in figures
+foliage_loads <- foliage_pca$x %>% 
+  as_tibble(rownames = "CircleID") %>% 
+  dplyr::select(1:3) %>% 
+  left_join(
+    circles,
+    by = "CircleID")
 
-## ground arthropod figures ------------------------------------------------
+# assess correlation between PCs and predictor variables
+foliage_cor <- cor(foliage_loads[c(2,3,8,11)])
+
+corrplot(
+  foliage_cor*foliage_cor,
+  method = "number")
+
+# view variance accounted for by PCs
+summary(foliage_pca)
 
 
-# scatter plots -----------------------------------------------------------
+## ground arthropods -------------------------------------------------------
 
 # Euclidean distance versus difference in herbaceous cover class
-ground_plot_euclidean_herb <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = herbaceousCover,
-    y = euclideanDistance)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Herbaceous Cover",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
-
-# Euclidean distance versus difference in litter depth
-ground_plot_euclidean_litter <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = litterDepth,
-    y = euclideanDistance)) +
-  geom_point() + 
-  labs(
-    x = "\u0394 Litter Depth (mm)",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
+# p ~ 0.5
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 9999)
 
 # Euclidean distance versus difference in proportion forest cover
-ground_plot_euclidean_forest <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = forest_1km,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "\u0394 1-km Forest Cover",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 0.5,
-    y = 7.5,
-    label = "R2 = 0.48, p < 0.001",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
+# p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.51
+summary(lm(
+  euclideanDistance ~ forest_1km,
+  data = analysis_frame_ground))
+
+# Euclidean distance versus difference in litter depth
+# p ~ 0.5
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 9999)
 
 # Euclidean distance versus geographic distance
-ground_plot_euclidean_distance <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = geographicDistance,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Geographic Distance (km)",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 25,
-    y = 7.5,
-    label = "R2 = 0.09, p < 0.0005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
+# p < 0.0005
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.09
+summary(lm(
+  euclideanDistance ~ geographicDistance,
+  data = analysis_frame_ground))
 
 # Euclidean distance versus resistance
-ground_plot_euclidean_paths <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = resistance,
-    y = euclideanDistance)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Resistance of Shortest Path",
-    y = "Euclidean Distance") +
-  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 5,
-    y = 7.5,
-    label = "R2 = 0.08, p < 0.0005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
+# p = 0.0001
+mantel.rtest(
+  as.dist(euclidean_matrix_ground[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.08
+summary(lm(
+  euclideanDistance ~ resistance,
+  data = analysis_frame_ground))
 
 # Jaccard dissimilarity versus difference in herbaceous cover class
-ground_plot_jaccard_herb <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = herbaceousCover,
-    y = jaccardDissimilarity)) +
-  geom_point() + 
-  labs(
-    x = "\u0394 Herbaceous Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
+# p ~ 0.1
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(herbaceous_matrix[2:31]), 
+  nrepet = 9999)
 
 # Jaccard dissimilarity versus difference in litter depth
-ground_plot_jaccard_litter <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = litterDepth,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  labs(
-    x = "\u0394 Litter Depth (mm)",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  theme(axis.title = element_text(size = 14))
+# p ~ 0.2
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 9999)
 
 # Jaccard dissimilarity versus difference in proportion forest cover
-ground_plot_jaccard_forest <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = forest_1km,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#009E73") +
-  labs(
-    x = "\u0394 1-km Forest Cover",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 0.5,
-    y = 0.2,
-    label = "R2 = 0.25, p < 0.0005",
-    color = "#009E73") +
-  theme(axis.title = element_text(size = 14))
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(forest_matrix[2:31]), 
+  nrepet = 9999)
+
+# R^2 = 0.27
+summary(lm(
+  jaccardDissimilarity ~ forest_1km,
+  data = analysis_frame_ground))
 
 # Jaccard dissimilarity versus geographic distance
-ground_plot_jaccard_distance <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = geographicDistance,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Geographic Distance (km)",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 25,
-    y = 0.15,
-    label = "R2 = 0.04, p < 0.005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
+# p < 0.005
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(distance_matrix[2:31]), 
+  nrepet = 9999)
 
-# Jaccard dissimilarity versus geographic distance
-ground_plot_jaccard_paths <- ggplot(
-  data = analysis_frame_ground,
-  mapping = aes(
-    x = resistance,
-    y = jaccardDissimilarity)) +
-  geom_point() +
-  geom_smooth(
-    method = "lm",
-    se = F,
-    color = "#E69F00") +
-  labs(
-    x = "Resistance of Shortest Path",
-    y = "Jaccard Dissimilarity") +
-  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
-  ul_theme2 +
-  annotate(
-    "text",
-    x = 5,
-    y = 0.15,
-    label = "R2 = 0.13, p < 0.005",
-    color = "#E69F00") +
-  theme(axis.title = element_text(size = 14))
+# R^2 = 0.04
+summary(lm(
+  jaccardDissimilarity ~ geographicDistance,
+  data = analysis_frame_ground))
 
-# compile plots with Euclidean distance on the y-axis
-ground_euclidean_plots <- ggarrange(
-  ground_plot_euclidean_forest, 
-  ground_plot_euclidean_litter,
-  ground_plot_euclidean_herb,
-  ground_plot_euclidean_distance,
-  ground_plot_euclidean_paths,
-  ncol = 1,
-  labels = c("a)","c)","e)","g)","i)"),
-  label.x = -0.01)
+# Jaccard dissimilarity versus resistance
+# p = 0.0001
+mantel.rtest(
+  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(paths_matrix[2:31]), 
+  nrepet = 9999)
 
-# compile plots with Jaccard dissimilarity on the y-axis
-ground_jaccard_plots <- ggarrange(
-  ground_plot_jaccard_forest,  
-  ground_plot_jaccard_litter,
-  ground_plot_jaccard_herb,
-  ground_plot_jaccard_distance,
-  ground_plot_jaccard_paths,
-  ncol = 1,
-  labels = c("b)","d)","f)","h)","j)"),
-  label.x = -0.01)
-
-# compile all plots
-ground_plots <- ggarrange(
-  ground_euclidean_plots,
-  ground_jaccard_plots,
-  ncol = 2)
-
-# save plots
-ggsave(
-  filename = "figures/paper/ground_plots.jpg",
-  plot = ground_plots,
-  width = 9.75,
-  height = 13.5,
-  units = "in")
+# R^2 = 0.13
+summary(lm(
+  jaccardDissimilarity ~ resistance,
+  data = analysis_frame_ground))
 
 # principal component analysis --------------------------------------------
 
@@ -1726,17 +1198,646 @@ ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-3)], scale = F)
 sub_rot2 <- ground_pca$rotation %>% 
   as_tibble(rownames = "family") %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(ground_functions, by = "family")
+  left_join(ground_functions, by = "family") %>% 
+  mutate(highlight = if_else(
+    family %in% c("Carabidae","Lycosidae","Armadillidae","Porcellionidae","Rhaphidophoridae"),
+    true = "yes",
+    false = "no"))
 
-# plot the PCA
-ground_pca_plot <- ggplot() +
+# join PCA and predictor variable dataframes to include both in figures
+ground_loads <- ground_pca$x %>% 
+  as_tibble(rownames = "CircleID") %>% 
+  dplyr::select(1:3) %>% 
+  left_join(
+    circles,
+    by = "CircleID")
+
+# assess correlation between PCs and predictor variables
+ground_cor <- cor(ground_loads[c(2,3,7,11)])
+
+corrplot(
+  ground_cor*ground_cor,
+  method = "number")
+
+# view variance accounted for by PCs
+summary(ground_pca)
+
+
+### generating figures ------------------------------------------------------
+
+# create a theme for figures
+ul_theme2 <- theme(
+  axis.title = element_text(size = 10),
+  panel.border = element_rect(fill = NA, color = "darkslategray", size = 1.2),
+  panel.grid = element_line(color = "cornsilk3"),
+  panel.background = element_rect(fill = "gray100"),
+  plot.margin = unit(c(0.05,0.1,0.1,0.1), unit = "npc"),
+  axis.title.x = element_text(vjust = 1))
+
+# set a colorblind-friendly pallet
+colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
+             "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+
+## foliage arthropod figures -----------------------------------------------
+
+
+# scatter plots -----------------------------------------------------------
+
+# Euclidean distance versus difference in canopy cover
+foliage_plot_euclidean_canopy <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = canopyCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Local Canopy Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in proportion forest cover
+foliage_plot_euclidean_forest <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = forest_1km,
+    y = euclideanDistance)) +
+  geom_point() +
+  # add a linear regression trendline
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  # add R^2 and p-values
+  annotate(
+    "text",
+    x = 0.75,
+    y = 7.5,
+    label = "R^2 == 0.19",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus Jaccard dissimilarity of sample trees
+foliage_plot_euclidean_trees <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = treeDissimilarity,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "Tree Species Dissimilarity",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 0.75,
+    y = 7.5,
+    label = "R^2 == 0.22",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus geographic distance
+foliage_plot_euclidean_distance <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = geographicDistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 35,
+    y = 7.5,
+    label = "R^2 == 0.11",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus resistance
+foliage_plot_euclidean_paths <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = resistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,35), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 7.5,
+    label = "R^2 == 0.26",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion canopy cover
+foliage_plot_jaccard_canopy <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = canopyCover,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Local Canopy Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion forest cover
+foliage_plot_jaccard_forest <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = forest_1km,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 0.75,
+    y = 0.2,
+    label = "R^2 == 0.14",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity of arthropod communities versus Jaccard dissimilarity of sampled tree species
+foliage_plot_jaccard_trees <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = treeDissimilarity,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "Tree Species Dissimilarity",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 0.75,
+    y = 0.2,
+    label = "R^2 == 0.16",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard distance versus geographic distance
+foliage_plot_jaccard_distance <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = geographicDistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 35,
+    y = 0.2,
+    label = "R^2 == 0.09",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard distance versus resistance
+foliage_plot_jaccard_paths <- ggplot(
+  data = analysis_frame_foliage,
+  mapping = aes(
+    x = resistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 0.2,
+    label = "R^2 == 0.25",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# compile all plots with Euclidean distance on the y-axis
+foliage_euclidean_plots <- ggarrange( 
+  foliage_plot_euclidean_forest, 
+  foliage_plot_euclidean_canopy,
+  foliage_plot_euclidean_trees,
+  foliage_plot_euclidean_distance,
+  foliage_plot_euclidean_paths,
+  ncol = 1,
+  labels = c("a)","c)","e)","g)","i)"),
+  label.x = -0.01)
+
+# compile all plots with Jaccard dissimilarity on the y-axis
+foliage_jaccard_plots <- ggarrange( 
+  foliage_plot_jaccard_forest,
+  foliage_plot_jaccard_canopy,
+  foliage_plot_jaccard_trees,
+  foliage_plot_jaccard_distance,
+  foliage_plot_jaccard_paths,
+  ncol = 1,
+  labels = c("b)","d)","f)","h)","j)"),
+  label.x = -0.01)
+
+# combine all plots
+foliage_plots <- ggarrange(
+  foliage_euclidean_plots,
+  foliage_jaccard_plots,
+  ncol = 2)
+
+# save plots
+ggsave(
+  "figures/paper/foliage_plots.jpg",
+  plot = foliage_plots,
+  width = 9.75,
+  height = 13.5,
+  units = "in")
+
+
+# PCA plot (foliage) ------------------------------------------------------
+
+foliage_pca_plot <- ggplot() +
   geom_point(
-    data = ground_pca$x,
+    data = foliage_loads,
     mapping = aes(
       x = PC1,
       y = PC2,
-      shape = ground_base1$SiteFK),
+      shape = SiteFK,
+      fill = forest_1km,
+      color = forest_1km),
     size = 3) +
+  scale_shape_manual(values = c(21:24,8,25)) +
+  scale_color_gradient(
+    low = colorz[2],
+    high = colorz[4]) +
+  scale_fill_gradient(
+    low = colorz[2],
+    high = colorz[4],
+    guide = "none") +
+  labs(
+    shape = "Site Code",
+    color = "Proportion Forest Cover") +
+  new_scale_color() +
+  scale_color_manual(values = c(colorz[1],colorz[7])) +
+  geom_segment(
+    data = sub_rot,
+    mapping = aes(
+      x = 0,
+      y = 0,
+      xend = PC1*15,
+      yend = PC2*15,
+      color = highlight),
+    show.legend = F,
+    arrow = arrow(length = unit(0.03, "npc")),
+    linewidth = 1.1) +
+  labs(
+    x = "PC1 (17%)",
+    y = "PC2 (11%)") +
+  geom_text(
+    data = sub_rot %>% 
+      mutate(family = case_when(
+        family %in% c("Araneidae","Coccinellidae","Tenebrionidae","Sclerosomatidae") ~ family,
+        .default = NULL)),
+    mapping = aes(
+      x = PC1*12.5+0.1,
+      y = PC2*20-0.5,
+      label = family,
+      colour = highlight),
+    size = 3.5,
+    show.legend = F) +
+  ul_theme2 +
+  theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = "npc"))
+
+## ground arthropod figures ------------------------------------------------
+
+
+# scatter plots -----------------------------------------------------------
+
+# Euclidean distance versus difference in herbaceous cover class
+ground_plot_euclidean_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = euclideanDistance)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Herbaceous Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in litter depth
+ground_plot_euclidean_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = euclideanDistance)) +
+  geom_point() + 
+  labs(
+    x = "\u0394 Litter Depth (mm)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus difference in proportion forest cover
+ground_plot_euclidean_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 0.75,
+    y = 7.5,
+    label = "R^2 == 0.51",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus geographic distance
+ground_plot_euclidean_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 35,
+    y = 7.5,
+    label = "R^2 == 0.09",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Euclidean distance versus resistance
+ground_plot_euclidean_paths <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = resistance,
+    y = euclideanDistance)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Euclidean Distance") +
+  scale_y_continuous(limits = c(0,40), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 7.5,
+    label = "R^2 == 0.08",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in herbaceous cover class
+ground_plot_jaccard_herb <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = herbaceousCover,
+    y = jaccardDissimilarity)) +
+  geom_point() + 
+  labs(
+    x = "\u0394 Herbaceous Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in litter depth
+ground_plot_jaccard_litter <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = litterDepth,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  labs(
+    x = "\u0394 Litter Depth (mm)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus difference in proportion forest cover
+ground_plot_jaccard_forest <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = forest_1km,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#009E73") +
+  labs(
+    x = "\u0394 1-km Forest Cover",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 0.75,
+    y = 0.2,
+    label = "R^2 == 0.27",
+    parse = T,
+    color = "#009E73") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus geographic distance
+ground_plot_jaccard_distance <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = geographicDistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Geographic Distance (km)",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 35,
+    y = 0.2,
+    label = "R^2 == 0.04",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# Jaccard dissimilarity versus resistance
+ground_plot_jaccard_paths <- ggplot(
+  data = analysis_frame_ground,
+  mapping = aes(
+    x = resistance,
+    y = jaccardDissimilarity)) +
+  geom_point() +
+  geom_smooth(
+    method = "lm",
+    se = F,
+    color = "#E69F00") +
+  labs(
+    x = "Resistance of Shortest Path",
+    y = "Jaccard Dissimilarity") +
+  scale_y_continuous(limits = c(0,1), expand = c(0,0)) +
+  ul_theme2 +
+  annotate(
+    "text",
+    x = 7.5,
+    y = 0.2,
+    label = "R^2 == 0.13",
+    parse = T,
+    color = "#E69F00") +
+  theme(axis.title = element_text(size = 14))
+
+# compile plots with Euclidean distance on the y-axis
+ground_euclidean_plots <- ggarrange(
+  ground_plot_euclidean_forest, 
+  ground_plot_euclidean_litter,
+  ground_plot_euclidean_herb,
+  ground_plot_euclidean_distance,
+  ground_plot_euclidean_paths,
+  ncol = 1,
+  labels = c("a)","c)","e)","g)","i)"),
+  label.x = -0.01)
+
+# compile plots with Jaccard dissimilarity on the y-axis
+ground_jaccard_plots <- ggarrange(
+  ground_plot_jaccard_forest,  
+  ground_plot_jaccard_litter,
+  ground_plot_jaccard_herb,
+  ground_plot_jaccard_distance,
+  ground_plot_jaccard_paths,
+  ncol = 1,
+  labels = c("b)","d)","f)","h)","j)"),
+  label.x = -0.01)
+
+# compile all plots
+ground_plots <- ggarrange(
+  ground_euclidean_plots,
+  ground_jaccard_plots,
+  ncol = 2)
+
+# save plots
+ggsave(
+  filename = "figures/paper/ground_plots.jpg",
+  plot = ground_plots,
+  width = 9.75,
+  height = 13.5,
+  units = "in")
+
+
+# PCA plot (ground) -------------------------------------------------------
+
+ground_pca_plot <- ggplot() +
+  geom_point(
+    data = ground_loads,
+    mapping = aes(
+      x = PC1,
+      y = PC2,
+      shape = SiteFK,
+      fill = forest_1km,
+      color = forest_1km),
+    size = 3) +
+  scale_shape_manual(values = c(21:24,8,25)) +
+  scale_color_gradient(
+    low = colorz[2],
+    high = colorz[4]) +
+  scale_fill_gradient(
+    low = colorz[2],
+    high = colorz[4],
+    guide = "none") +
+  labs(
+    shape = "Site Code",
+    color = "Proportion Forest Cover") +
+  new_scale_color() +
+  scale_color_manual(values = c(colorz[1], colorz[7])) +
   geom_segment(
     data = sub_rot2,
     mapping = aes(
@@ -1744,9 +1845,13 @@ ground_pca_plot <- ggplot() +
       y = 0,
       xend = PC1*15,
       yend = PC2*15,
-      color = diet_group),
+      color = highlight),
+    show.legend = F,
     arrow = arrow(length = unit(0.03, "npc")),
     linewidth = 1.1) +
+  labs(
+    x = "PC1 (37%)",
+    y = "PC2 (12%)") +
   geom_text(
     data = sub_rot2 %>% 
       mutate(family = case_when(
@@ -1756,13 +1861,9 @@ ground_pca_plot <- ggplot() +
       x = PC1*15,
       y = PC2*17+0.02/PC2,
       label = family,
-      color = diet_group),
+      color = highlight),
     size = 3.5,
     show.legend = F) +
-  scale_color_manual(values = setNames(sub_rot2$dietg_color, sub_rot2$diet_group)) +
-  labs(
-    shape = "Site Code",
-    color = "Functional Group") +
   ul_theme2 +
   theme(plot.margin = unit(c(0.1,0.05,0.05,0.05), unit = "npc"))
 
@@ -1840,7 +1941,8 @@ all10_mod1 <- ggplot(paths) +
     "text",
     x = 7.5,
     y = 2,
-    label = "R2 = 0.99") +
+    label = "R^2 == 0.99",
+    parse = T) +
   ul_theme2
 
 summary(lm(paths$mod2_resistance ~ paths$all10_resistance))
@@ -1857,7 +1959,8 @@ all10_mod2 <- ggplot(paths) +
     "text",
     x = 7.5,
     y = 2,
-    label = "R2 = 0.95") +
+    label = "R^2 == 0.95",
+    parse = T) +
   ul_theme2
 
 summary(lm(paths$mod2_resistance ~ paths$mod1_resistance))
@@ -1874,21 +1977,26 @@ mod1_mod2 <- ggplot(paths) +
     "text",
     x = 7.5,
     y = 2,
-    label = "R2 = 0.94") +
+    label = "R^2 == 0.94",
+    parse = T) +
   ul_theme2
+
+# make a blank plot
+blank <- ggplot() +
+  theme_void()
 
 # combine plots into figure
 modplots <- ggarrange(
   all10_mod1,
   all10_mod2,
   mod1_mod2,
-  ncol = 1,
-  labels = c("a)","b)","c)"))
+  blank,
+  labels = c("a)","b)","c)","d)"))
 
 # save combined figure
 ggsave(
   "figures/paper/resistance_supplemental.jpg",
   plot = modplots,
-  width = 3,
-  height = 7.5,
+  width = 6.5,
+  height = 6,
   units = "in")
