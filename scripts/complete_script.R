@@ -49,9 +49,6 @@ circles <- read_csv("data/circles_2022-10-03.csv")
 sites <- read_csv(
   list.files("data", full.names = T)[str_detect(list.files("data"), "^sites")])
 
-# read in data on the diets of arthropod families
-functions <- read_csv("data/families.csv")
-
 # read in the raster file of land cover classes in the study area
 nlcd <- raster("data/nlcd_local") %>% 
   # the raster seems to have picked up a weird extra chunk of extent on the right edge - cropping it out
@@ -904,24 +901,6 @@ all_foliage <- map(
   bind_rows() %>% 
   arrange(CircleFK, family)
 
-# join in family diet groups and assign colors to groups
-foliage_functions <- foliage_families %>% 
-  ungroup() %>% 
-  filter(!is.na(family)) %>% 
-  dplyr::select(family) %>% 
-  distinct() %>% 
-  left_join(functions, by = "family") %>% 
-  arrange(family) %>% 
-  mutate(
-    dietg_color = case_when(
-      diet_group == "herbivore" ~ colorz[4],
-      diet_group == "predator" ~ colorz[8],
-      is.na(diet_group) ~ colorz[1],
-      diet_group == "omnivore" ~ colorz[3],
-      diet_group == "mixed" ~ colorz[1],
-      diet_group == "scavenger" ~ colorz[7],
-      diet_group == "fungivore" ~ colorz[2]))
-
 # make a data frame for foliage arthropods that can be PCA'ed - columns are families, rows are circles
 foliage_base1 <- map_dfc(
   unique(foliage_families$CircleFK),
@@ -973,8 +952,7 @@ foliage_pca <- prcomp(foliage_base1[1:(ncol(foliage_base1)-3)], scale = F)
 # isolate the families with loadings greater than 0.14 on principal component axes 1 or 2
 sub_rot <- foliage_pca$rotation %>% 
   as_tibble(rownames = "family") %>% 
-  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(foliage_functions, by = "family") %>% 
+  filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>%  
   mutate(highlight = if_else(
     family %in% c("Araneidae","Coccinellidae","Tenebrionidae","Sclerosomatidae"),
     true = "yes",
@@ -1128,24 +1106,6 @@ all_grounds <- map(
   bind_rows() %>% 
   arrange(CircleID, family)
 
-# join in the diet groups of ground arthropods and assign colors by group
-ground_functions <- ground_families %>% 
-  ungroup() %>% 
-  filter(!is.na(family)) %>% 
-  dplyr::select(family) %>% 
-  distinct() %>% 
-  left_join(functions, by = "family") %>% 
-  arrange(family) %>% 
-  mutate(
-    dietg_color = case_when(
-      diet_group == "herbivore" ~ colorz[4],
-      diet_group == "predator" ~ colorz[8],
-      is.na(diet_group) ~ colorz[1],
-      diet_group == "omnivore" ~ colorz[3],
-      diet_group == "mixed" ~ colorz[1],
-      diet_group == "scavenger" ~ colorz[7],
-      diet_group == "fungivore" ~ colorz[2]))
-
 # make a data frame of ground arthropods that can be PCA'ed - columns are families, rows are circles
 ground_base1 <- map_dfc(
   unique(ground_families$CircleID),
@@ -1198,7 +1158,6 @@ ground_pca <- prcomp(ground_base1[1:(ncol(ground_base1)-3)], scale = F)
 sub_rot2 <- ground_pca$rotation %>% 
   as_tibble(rownames = "family") %>% 
   filter(abs(PC1) > 0.14 | abs(PC2) > 0.14)%>% 
-  left_join(ground_functions, by = "family") %>% 
   mutate(highlight = if_else(
     family %in% c("Carabidae","Lycosidae","Armadillidae","Porcellionidae","Rhaphidophoridae"),
     true = "yes",
@@ -2000,3 +1959,4 @@ ggsave(
   width = 6.5,
   height = 6,
   units = "in")
+
