@@ -105,6 +105,8 @@ all10_paths_resistances_3columns.txt: resistance of the shortest path between sa
   second column: node ID for the second sampling plot
   third column: resistance of the shortest path between sampling plots where all forest classes are assigned a resistance value of 1 and all other classes are assigned resistance of 10
   
+mod1.asc: a raster file with cells assigned resistance values based on NLCD land cover values, generated in line 435 of "complete_script.R."
+
 mod1_paths_resistances_3columns.txt: resistance of the shortest path between sampling plots using resistance model 2
   first column: node ID for the first sampling plot
   second column: node ID for the second sampling plot
