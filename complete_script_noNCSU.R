@@ -43,7 +43,8 @@ trees <- read_csv(
   list.files("data", full.names = T)[str_detect(list.files("data"), "^trees")])
 
 # read in data on sampling plots - note that plots are referred to as both circles and sampling plots throughout this script, and these two terms refer to the same thing
-circles <- read_csv("data/circles_2022-10-03.csv")
+circles <- read_csv("data/circles_2022-10-03.csv") %>% 
+  filter(SiteFK != 'NCSU')
 
 # read in data on sampling sites
 sites <- read_csv(
@@ -126,7 +127,7 @@ foliage_families <- foliage_arths %>%
       dplyr::select(TreeID, CircleFK),
     by = c("TreeFK" = "TreeID")) %>%
   # join sampling plot data
-  left_join(
+  right_join(
     circles,
     by = c("CircleFK" = "CircleID")) %>%
   # calculate the total number of individuals and total biomass of arthropods in each family observed across all beat sheet surveys at each sampling plot
@@ -189,17 +190,17 @@ family_circles_foliage <- map_dfc(
 
 # nested map function to calculate Euclidean distance between every possible combination of circles, resulting in an identity matrix for Euclidean distance between circle communities
 euclidean_matrix_foliage <- map_dfr(
-  .x = 2:31,
+  .x = 2:26,
   .f = function(s){
     map_dfc(
-      .x = 2:31,
+      .x = 2:26,
       .f = ~ euclidean(family_circles_foliage[[s]], family_circles_foliage[[.x]])
     )
   }) %>%
   # set the column names
-  set_names(names(family_circles_foliage)[2:31]) %>%
+  set_names(names(family_circles_foliage)[2:26]) %>%
   # set the row names
-  cbind(circle = names(family_circles_foliage)[2:31]) %>%
+  cbind(circle = names(family_circles_foliage)[2:26]) %>%
   # move the sampling plot ID to the first column
   relocate(circle)
 
@@ -243,7 +244,7 @@ ground_families <- ground_arths %>%
       dplyr::select(PitfallID, DateCollected, CircleID),
     by = "PitfallID") %>%
   # join in information on sampling plots
-  left_join(
+  right_join(
     circles,
     by = "CircleID") %>%
   group_by(CircleID, family) %>%
@@ -303,17 +304,17 @@ family_circles_ground <- map_dfc(
 
 # nested map function to calculate Euclidean distance between every possible combination of sampling plots, resulting in an identity matrix for Euclidean distance between plot communities
 euclidean_matrix_ground <- map_dfr(
-  .x = 2:31,
+  .x = 2:26,
   .f = function(s){
     map_dfc(
-      .x = 2:31,
+      .x = 2:26,
       .f = ~ euclidean(family_circles_ground[[s]], family_circles_ground[[.x]])
     )
   }) %>%
   # setting the column names
-  set_names(names(family_circles_ground)[2:31]) %>%
+  set_names(names(family_circles_ground)[2:26]) %>%
   # setting the rows to mark for each circle
-  cbind(circle = names(family_circles_ground)[2:31]) %>%
+  cbind(circle = names(family_circles_ground)[2:26]) %>%
   relocate(circle)
 
 # make a matrix as above for Jaccard similarity
@@ -416,7 +417,7 @@ forest_matrix <- dist(circles$forest_1km, diag = T, upper = T) %>%
 
 ## calculating geographic and resistance path distance between plots --------
 
- # geographic distance
+# geographic distance
 distance_matrix <- circles %>%
   dplyr::select(Longitude, Latitude) %>%
   # the distm function from the geosphere package is substituted for the dist function for simpler calculations using latitude and longitude
@@ -459,12 +460,12 @@ paths <- read_table(
       str_replace("^4", "NCBG") %>% 
       str_replace("^5", "NCSU") %>% 
       str_replace("^6", "UNC")) %>% 
-    dplyr::select(!c(nodeID_1, nodeID_2)) %>% 
+  dplyr::select(!c(nodeID_1, nodeID_2)) %>% 
   rbind(
     tibble(
       resistance = rep(0, length(circles$CircleID)),
-    circle1 = circles$CircleID,
-    circle2 = circles$CircleID)) %>% 
+      circle1 = circles$CircleID,
+      circle2 = circles$CircleID)) %>% 
   arrange(circle1, circle2)
 
 # the next three code blocks are just the colossal nightmare involved in creating a complete identity matrix for the resistance between pairs of sampling sites where the orders of circle1 and circle2 aren't consistent with existing matrices
@@ -606,15 +607,21 @@ paths_matrix <- cbind(paths_matrix1, paths_matrix2) %>%
       false = UNC8_1),
     circle1 = circle1_1) %>% 
   dplyr::select(63:93) %>% 
-  relocate(circle1)
+  relocate(circle1) %>% 
+  dplyr::select(!starts_with('NCSU')) %>% 
+  filter(
+    !str_detect(circle1, '^NCSU'))
 
 # note that this names over the original paths frame
 paths <- paths_matrix %>% 
   pivot_longer(
-    cols = 2:31,
+    cols = 2:26,
     names_to = "circle2",
     values_to = "resistance") %>% 
-  distinct()
+  distinct() %>% 
+  filter(
+    !str_detect(circle1, '^NCSU'),
+    !str_detect(circle2, '^NCSU'))
 
 
 ## making model-friendly data frames ----------------------------------------
@@ -766,66 +773,73 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
 # use linear regression to calculate R^2 values where p < 0.1
 
 # Euclidean distance versus difference in proportion canopy cover
-# p ~ 0.4
+# p ~ 0.03
 mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(canopy_cover_matrix[2:31]), 
+  as.dist(euclidean_matrix_foliage[2:26]), 
+  as.dist(canopy_cover_matrix[2:26]), 
   nrepet = 9999)
+
+# R^2 = 0.08
+summary(lm(
+  euclideanDistance ~ canopyCover,
+  data = analysis_frame_foliage))
 
 # Euclidean distance versus difference in proportion forest cover
 # p = 0.0001
 mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(forest_matrix[2:31]), 
+  as.dist(euclidean_matrix_foliage[2:26]), 
+  as.dist(forest_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.19
+# R^2 = 0.27
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus geographic distance, p < 0.005
+# Euclidean distance versus geographic distance
+# p = 0.012
 mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(distance_matrix[2:31]), 
+  as.dist(euclidean_matrix_foliage[2:26]), 
+  as.dist(distance_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.11
+# R^2 = 0.04
 summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus resistance, p = 0.0001
+# Euclidean distance versus resistance
+#p = 0.0001
 mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
+  as.dist(euclidean_matrix_foliage[2:26]), 
+  as.dist(paths_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.26
+# R^2 = 0.32
 summary(lm(
   euclideanDistance ~ resistance,
   data = analysis_frame_foliage))
 
 # Euclidean distance versus Jaccard dissimilarity of sample tree species
-# p < 0.005
+# p ~ 0.01
 mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(trees_jaccard_matrix[2:31]), 
+  as.dist(euclidean_matrix_foliage[2:26]), 
+  as.dist(trees_jaccard_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.22
+# R^2 = 0.23
 summary(lm(
   euclideanDistance ~ treeDissimilarity,
   data = analysis_frame_foliage))
 
 # Jaccard dissimilarity versus difference in proportion canopy cover
-# p < 0.1
+# p ~ 0.03
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(canopy_cover_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(canopy_cover_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.04
+# R^2 = 0.09
 summary(lm(
   jaccardDissimilarity ~ canopyCover,
   data = analysis_frame_foliage))
@@ -833,23 +847,23 @@ summary(lm(
 # Jaccard dissimilarity versus proportion forest cover
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(forest_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(forest_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.14
+# R^2 = 0.26
 summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_foliage))
 
 # Jaccard dissimilarity versus geographic distance
-# p < 0.005
+# p ~ 0.03
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(distance_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(distance_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.09
+# R^2 = 0.02
 summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_foliage))
@@ -857,23 +871,23 @@ summary(lm(
 # Jaccard dissimilarity versus resistance
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(paths_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.25
+# R^2 = 0.37
 summary(lm(
   jaccardDissimilarity ~ resistance,
   data = analysis_frame_foliage))
 
 # Jaccard dissimilarity versus Jaccard dissimilarity of tree species
-# p = 0.0002
+# p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(trees_jaccard_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(trees_jaccard_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.16
+# R^2 = 0.25
 summary(lm(
   jaccardDissimilarity ~ treeDissimilarity,
   data = analysis_frame_foliage))
@@ -984,39 +998,39 @@ summary(foliage_pca)
 ## ground arthropods -------------------------------------------------------
 
 # Euclidean distance versus difference in herbaceous cover class
-# p ~ 0.5
+# p ~ 0.08
 mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(herbaceous_matrix[2:31]), 
+  as.dist(euclidean_matrix_ground[2:26]), 
+  as.dist(herbaceous_matrix[2:26]), 
   nrepet = 9999)
 
 # Euclidean distance versus difference in proportion forest cover
 # p = 0.0001
 mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(forest_matrix[2:31]), 
+  as.dist(euclidean_matrix_ground[2:26]), 
+  as.dist(forest_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.51
+# R^2 = 0.56
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_ground))
 
 # Euclidean distance versus difference in litter depth
-# p ~ 0.5
+# p ~ 0.7
 mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
+  as.dist(euclidean_matrix_ground[2:26]), 
+  as.dist(litter_depth_matrix[2:26]), 
   nrepet = 9999)
 
 # Euclidean distance versus geographic distance
-# p < 0.0005
+# p = 0.0001
 mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(distance_matrix[2:31]), 
+  as.dist(euclidean_matrix_ground[2:26]), 
+  as.dist(distance_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.09
+# R^2 = 0.23
 summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_ground))
@@ -1024,11 +1038,11 @@ summary(lm(
 # Euclidean distance versus resistance
 # p = 0.0001
 mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(paths_matrix[2:31]), 
+  as.dist(euclidean_matrix_ground[2:26]), 
+  as.dist(paths_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.08
+# R^2 = 0.37
 summary(lm(
   euclideanDistance ~ resistance,
   data = analysis_frame_ground))
@@ -1036,37 +1050,37 @@ summary(lm(
 # Jaccard dissimilarity versus difference in herbaceous cover class
 # p ~ 0.1
 mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(herbaceous_matrix[2:31]), 
+  as.dist(jaccard_matrix_ground[2:26]), 
+  as.dist(herbaceous_matrix[2:26]), 
   nrepet = 9999)
 
 # Jaccard dissimilarity versus difference in litter depth
 # p ~ 0.2
 mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
+  as.dist(jaccard_matrix_ground[2:26]), 
+  as.dist(litter_depth_matrix[2:26]), 
   nrepet = 9999)
 
 # Jaccard dissimilarity versus difference in proportion forest cover
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(forest_matrix[2:31]), 
+  as.dist(jaccard_matrix_ground[2:26]), 
+  as.dist(forest_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.27
+# R^2 = 0.42
 summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_ground))
 
 # Jaccard dissimilarity versus geographic distance
-# p < 0.005
+# p ~ 0.03
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(distance_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(distance_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.04
+# R^2 = 0.07
 summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_ground))
@@ -1074,11 +1088,11 @@ summary(lm(
 # Jaccard dissimilarity versus resistance
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
+  as.dist(jaccard_matrix_foliage[2:26]), 
+  as.dist(paths_matrix[2:26]), 
   nrepet = 9999)
 
-# R^2 = 0.13
+# R^2 = 0.41
 summary(lm(
   jaccardDissimilarity ~ resistance,
   data = analysis_frame_ground))
