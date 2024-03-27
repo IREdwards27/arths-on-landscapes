@@ -16,6 +16,10 @@ library(rgdal)
 library(ggnewscale)
 library(corrplot)
 library(sf)
+library(spatialreg)
+library(gdm)
+library(scales)
+library(adespatial)
 
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
@@ -341,6 +345,8 @@ jaccard_matrix_ground <- map_dfr(
 ## calculating environmental distance metrics ------------------------------
 
 
+
+
 # tree species dissimilarity between sampling plots -----------------------
 
 # generate a data frame with a row for each tree species found at each sampling plot
@@ -411,7 +417,8 @@ forest_matrix <- dist(circles$forest_1km, diag = T, upper = T) %>%
   as_tibble() %>%
   set_names(circles$CircleID) %>%
   cbind(circle1 = circles$CircleID) %>%
-  relocate(circle1)
+  relocate(circle1) %>% 
+  rename(circle = circle1)
 
 
 ## calculating geographic and resistance path distance between plots --------
@@ -424,7 +431,25 @@ distance_matrix <- circles %>%
   as_tibble() %>%
   set_names(circles$CircleID) %>%
   cbind(circle = circles$CircleID) %>%
-  relocate(circle)
+  relocate(circle) %>% 
+  arrange(
+    factor(
+      circle,
+      levels = names(euclidean_matrix_foliage))) %>% 
+  relocate(
+    names(euclidean_matrix_foliage))
+
+distance_matrix.dist <- distance_matrix %>% 
+  dplyr::select(2:31) %>% 
+  as.dist()
+
+circles.dbmem <- dbmem(
+  circles %>% 
+    dplyr::select(Latitude:Longitude) %>% 
+    rename(
+      x = Longitude,
+      y = Latitude),
+  store.listw = T)
 
 # resistance path distances
 
@@ -672,6 +697,7 @@ analysis_frame_foliage <- euclidean_matrix_foliage %>%
   rename("circle1" = "circle") %>%
   left_join(
     forest_matrix %>%
+      rename("circle1" = "circle") %>% 
       pivot_longer(
         cols = 2:length(.),
         names_to = "circle2",
@@ -742,6 +768,7 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
   rename("circle1" = "circle") %>%
   left_join(
     forest_matrix %>%
+      rename("circle1" = "circle") %>% 
       pivot_longer(
         cols = 2:length(.),
         names_to = "circle2",
@@ -759,32 +786,41 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
 
 ### conducting analyses -----------------------------------------------------
 
-
 ## foliage arthropods ------------------------------------------------------
 
-# use Mantel tests to calculate p-values for correlations between matrices where observations are non-independent, in this case due to any one sampling plot being included in the calculation for its distance to other plots.
+# use Mantel tests with Moran spectral randomization to calculate p-values for correlations between matrices where observations are non-independent, in this case due to any one sampling plot being included in the calculation for its distance to other plots.
 # use linear regression to calculate R^2 values where p < 0.1
 
 # Euclidean distance versus difference in proportion canopy cover
-# p ~ 0.4
-mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(canopy_cover_matrix[2:31]), 
-  nrepet = 9999)
+# p ~ 0.03
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_foliage[2:31]), 
+    as.dist(canopy_cover_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
+
+summary(lm(
+  euclideanDistance ~ canopyCover,
+  data = analysis_frame_foliage))
 
 # Euclidean distance versus difference in proportion forest cover
-# p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(forest_matrix[2:31]), 
-  nrepet = 9999)
+# p = 0.0007
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_foliage[2:31]), 
+    as.dist(forest_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # R^2 = 0.19
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus geographic distance, p < 0.005
+# Euclidean distance versus geographic distance, p < 0.005. Calculated as Mantel test p value without Moran's spectral randomization.
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
@@ -795,11 +831,14 @@ summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus resistance, p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
-  nrepet = 9999)
+# Euclidean distance versus resistance, p = 0.022
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_foliage[2:31]), 
+    as.dist(paths_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # R^2 = 0.26
 summary(lm(
@@ -808,10 +847,13 @@ summary(lm(
 
 # Euclidean distance versus Jaccard dissimilarity of sample tree species
 # p < 0.005
-mantel.rtest(
-  as.dist(euclidean_matrix_foliage[2:31]), 
-  as.dist(trees_jaccard_matrix[2:31]), 
-  nrepet = 9999)
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_foliage[2:31]), 
+    as.dist(trees_jaccard_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # R^2 = 0.22
 summary(lm(
@@ -819,11 +861,11 @@ summary(lm(
   data = analysis_frame_foliage))
 
 # Jaccard dissimilarity versus difference in proportion canopy cover
-# p < 0.1
-mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(canopy_cover_matrix[2:31]), 
-  nrepet = 9999)
+# p < 0.1. Not calculated using Moran's spectral randomization as Jaccard dissimilarity is not Euclidean.
+mantel.randtest(
+    as.dist(jaccard_matrix_foliage[2:31]), 
+    as.dist(canopy_cover_matrix[2:31]), 
+    nrepet = 9999)
 
 # R^2 = 0.04
 summary(lm(
@@ -833,9 +875,9 @@ summary(lm(
 # Jaccard dissimilarity versus proportion forest cover
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(forest_matrix[2:31]), 
-  nrepet = 9999)
+    as.dist(jaccard_matrix_foliage[2:31]), 
+    as.dist(forest_matrix[2:31]), 
+    nrepet = 9999)
 
 # R^2 = 0.14
 summary(lm(
@@ -845,9 +887,9 @@ summary(lm(
 # Jaccard dissimilarity versus geographic distance
 # p < 0.005
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(distance_matrix[2:31]), 
-  nrepet = 9999)
+    as.dist(jaccard_matrix_foliage[2:31]), 
+    as.dist(distance_matrix[2:31]), 
+    nrepet = 9999)
 
 # R^2 = 0.09
 summary(lm(
@@ -857,9 +899,9 @@ summary(lm(
 # Jaccard dissimilarity versus resistance
 # p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(paths_matrix[2:31]), 
-  nrepet = 9999)
+    as.dist(jaccard_matrix_foliage[2:31]), 
+    as.dist(paths_matrix[2:31]), 
+    nrepet = 9999)
 
 # R^2 = 0.25
 summary(lm(
@@ -869,9 +911,9 @@ summary(lm(
 # Jaccard dissimilarity versus Jaccard dissimilarity of tree species
 # p = 0.0002
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
-  as.dist(trees_jaccard_matrix[2:31]), 
-  nrepet = 9999)
+    as.dist(jaccard_matrix_foliage[2:31]), 
+    as.dist(trees_jaccard_matrix[2:31]), 
+    nrepet = 9999)
 
 # R^2 = 0.16
 summary(lm(
@@ -984,18 +1026,24 @@ summary(foliage_pca)
 ## ground arthropods -------------------------------------------------------
 
 # Euclidean distance versus difference in herbaceous cover class
-# p ~ 0.5
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(herbaceous_matrix[2:31]), 
-  nrepet = 9999)
+# p ~ 0.144
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_ground[2:31]), 
+    as.dist(herbaceous_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # Euclidean distance versus difference in proportion forest cover
 # p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(forest_matrix[2:31]), 
-  nrepet = 9999)
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_ground[2:31]), 
+    as.dist(forest_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # R^2 = 0.51
 summary(lm(
@@ -1003,11 +1051,14 @@ summary(lm(
   data = analysis_frame_ground))
 
 # Euclidean distance versus difference in litter depth
-# p ~ 0.5
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 9999)
+# p ~ 0.8
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_ground[2:31]), 
+    as.dist(litter_depth_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # Euclidean distance versus geographic distance
 # p < 0.0005
@@ -1022,11 +1073,14 @@ summary(lm(
   data = analysis_frame_ground))
 
 # Euclidean distance versus resistance
-# p = 0.0001
-mantel.rtest(
-  as.dist(euclidean_matrix_ground[2:31]), 
-  as.dist(paths_matrix[2:31]), 
-  nrepet = 9999)
+# p = 0.1302
+msr(
+  x = mantel.randtest(
+    as.dist(euclidean_matrix_ground[2:31]), 
+    as.dist(paths_matrix[2:31]), 
+    nrepet = 9999),
+  listwORorthobasis = attributes(circles.dbmem)$listw,
+  method = "pair")
 
 # R^2 = 0.08
 summary(lm(
@@ -1185,6 +1239,40 @@ corrplot(
 # view variance accounted for by PCs
 summary(ground_pca)
 
+
+
+### GDMs --------------------------------------------------------------------
+
+circles.ordered <- circles %>% 
+  cbind(
+    st_coordinates(circles_sf)) %>% 
+  arrange(
+    factor(
+      CircleID,
+      levels = names(euclidean_matrix_foliage))) %>% 
+  rename("circle" = "CircleID")
+
+foliage_gdm_data <- formatsitepair(
+  bioData = euclidean_matrix_foliage,
+  bioFormat = 3,
+  dist = "euclidean",
+  siteColumn = "circle",
+  XColumn = "X",
+  YColumn = "Y",
+  predData = circles.ordered %>% 
+    dplyr::select(circle,PercentCanopyCover,forest_1km,X,Y) %>% 
+    as.data.frame(),
+  distPreds = list(paths_matrix %>% 
+    rename("circle" = "circle1"))) %>% 
+  # rescale Euclidean distance from 0 to 1 so the gdm function will work properly
+  mutate(
+    distance = rescale(distance, to = c(0,1)))
+
+gdm.varImp(
+  spTable = foliage_gdm_data,
+  geo = T,
+  nPerm = 99,
+  pValue = 0.05)
 
 ### generating figures ------------------------------------------------------
 
