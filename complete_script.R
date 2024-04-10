@@ -430,13 +430,13 @@ distance_matrix <- circles %>%
 
 # create a reclass matrix for NLCD land cover data based on the criteria listed below
 # water, barren, all developed except open space assigned 10, all non-forest plant cover (including agriculture and developed open space) assigned 5, all forest assigned 1
-mod1 <- tibble(
-  from = unique(nlcd),
-  to = c(10,5,rep(10,4),rep(1,3),rep(5,6)))
-
-nlcd_mod1 <- reclassify(x = nlcd, rcl = mod1)
-
-writeRaster(nlcd_mod1, filename = "data/mod1", format = "ascii", overwrite = T)
+# mod1 <- tibble(
+#   from = unique(nlcd),
+#   to = c(10,5,rep(10,4),rep(1,3),rep(5,6)))
+# 
+# nlcd_mod1 <- reclassify(x = nlcd, rcl = mod1)
+# 
+# writeRaster(nlcd_mod1, filename = "data/mod1", format = "ascii", overwrite = T)
 
 # the intervening step requires using the CircuitScape GUI to run the calculations for the resistances of shortest paths between sampling plots, using the raster created above and the "circles.txt" file. The following line reads in the output from this operation as a 3-column dataframe
 
@@ -766,117 +766,148 @@ analysis_frame_ground <- euclidean_matrix_ground %>%
 # use linear regression to calculate R^2 values where p < 0.1
 
 # Euclidean distance versus difference in proportion canopy cover
-# p ~ 0.4
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
   nrepet = 9999)
 
+summary(lm(
+  euclideanDistance ~ canopyCover,
+  data = analysis_frame_foliage))
+
+canopyCover2 <- analysis_frame_foliage$canopyCover^2
+
+summary(lm(
+  analysis_frame_foliage$euclideanDistance ~ canopyCover2))
+
 # Euclidean distance versus difference in proportion forest cover
-# p = 0.0001
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.19
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus geographic distance, p < 0.005
+forest_1km2 <- analysis_frame_foliage$forest_1km^2
+
+summary(lm(
+  analysis_frame_foliage$euclideanDistance ~ forest_1km2))
+
+# Euclidean distance versus geographic distance
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.11
 summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_foliage))
 
-# Euclidean distance versus resistance, p = 0.0001
+geographicDistance2 <- analysis_frame_foliage$geographicDistance^2
+
+summary(lm(
+  analysis_frame_foliage$euclideanDistance ~ geographicDistance2))
+
+# Euclidean distance versus resistance
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(paths_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.26
 summary(lm(
   euclideanDistance ~ resistance,
   data = analysis_frame_foliage))
 
+resistance2 <- analysis_frame_foliage$resistance^2
+
+summary((lm(
+  analysis_frame_foliage$euclideanDistance ~ resistance2)))
+
 # Euclidean distance versus Jaccard dissimilarity of sample tree species
-# p < 0.005
 mantel.rtest(
   as.dist(euclidean_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.22
 summary(lm(
   euclideanDistance ~ treeDissimilarity,
   data = analysis_frame_foliage))
 
+treeDissimilarity2 <- analysis_frame_foliage$treeDissimilarity^2
+
+summary(lm(
+  analysis_frame_foliage$euclideanDistance ~ treeDissimilarity2
+))
+
 # Jaccard dissimilarity versus difference in proportion canopy cover
-# p < 0.1
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(canopy_cover_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.04
 summary(lm(
   jaccardDissimilarity ~ canopyCover,
   data = analysis_frame_foliage))
 
-# Jaccard dissimilarity versus proportion forest cover
-# p = 0.0001
+summary(lm(
+  analysis_frame_foliage$jaccardDissimilarity ~ canopyCover2))
+
+# Jaccard dissimilarity versus difference in proportion forest cover
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.14
 summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_foliage))
 
+forest_1km2 <- analysis_frame_foliage$forest_1km^2
+
+summary(lm(
+  analysis_frame_foliage$jaccardDissimilarity ~ forest_1km2))
+
 # Jaccard dissimilarity versus geographic distance
-# p < 0.005
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.09
 summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_foliage))
 
+summary(lm(
+  analysis_frame_foliage$jaccardDissimilarity ~ geographicDistance2))
+
 # Jaccard dissimilarity versus resistance
-# p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(paths_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.25
 summary(lm(
   jaccardDissimilarity ~ resistance,
   data = analysis_frame_foliage))
 
-# Jaccard dissimilarity versus Jaccard dissimilarity of tree species
-# p = 0.0002
+summary((lm(
+  analysis_frame_foliage$jaccardDissimilarity ~ resistance2)))
+
+# Jaccard dissimilarity versus Jaccard dissimilarity of sample tree species
 mantel.rtest(
   as.dist(jaccard_matrix_foliage[2:31]), 
   as.dist(trees_jaccard_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.16
 summary(lm(
   jaccardDissimilarity ~ treeDissimilarity,
   data = analysis_frame_foliage))
+
+summary(lm(
+  analysis_frame_foliage$jaccardDissimilarity ~ treeDissimilarity2
+))
 
 # principal component analysis --------------------------------------------
 
@@ -984,104 +1015,138 @@ summary(foliage_pca)
 ## ground arthropods -------------------------------------------------------
 
 # Euclidean distance versus difference in herbaceous cover class
-# p ~ 0.5
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
   nrepet = 9999)
 
+summary(lm(
+  euclideanDistance ~ herbaceousCover,
+  data = analysis_frame_ground))
+
+herbaceousCover2 <- analysis_frame_ground$herbaceousCover^2
+
+summary(lm(
+  analysis_frame_ground$euclideanDistance ~ herbaceousCover2))
+
 # Euclidean distance versus difference in proportion forest cover
-# p = 0.0001
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.51
 summary(lm(
   euclideanDistance ~ forest_1km,
   data = analysis_frame_ground))
 
+summary(lm(
+  analysis_frame_ground$euclideanDistance ~ forest_1km2))
+
 # Euclidean distance versus difference in litter depth
-# p ~ 0.5
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(litter_depth_matrix[2:31]), 
   nrepet = 9999)
 
+summary(lm(
+  euclideanDistance ~ litterDepth,
+  data = analysis_frame_ground))
+
+litterDepth2 <- analysis_frame_ground$litterDepth^2
+
+summary(lm(
+  analysis_frame_ground$euclideanDistance ~ litterDepth2))
+
 # Euclidean distance versus geographic distance
-# p < 0.0005
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.09
 summary(lm(
   euclideanDistance ~ geographicDistance,
   data = analysis_frame_ground))
 
+summary(lm(
+  analysis_frame_ground$euclideanDistance ~ geographicDistance2))
+
 # Euclidean distance versus resistance
-# p = 0.0001
 mantel.rtest(
   as.dist(euclidean_matrix_ground[2:31]), 
   as.dist(paths_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.08
 summary(lm(
   euclideanDistance ~ resistance,
   data = analysis_frame_ground))
 
+summary(lm(
+  analysis_frame_ground$euclideanDistance ~ resistance2))
+
 # Jaccard dissimilarity versus difference in herbaceous cover class
-# p ~ 0.1
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(herbaceous_matrix[2:31]), 
   nrepet = 9999)
 
-# Jaccard dissimilarity versus difference in litter depth
-# p ~ 0.2
-mantel.rtest(
-  as.dist(jaccard_matrix_ground[2:31]), 
-  as.dist(litter_depth_matrix[2:31]), 
-  nrepet = 9999)
+summary(lm(
+  jaccardDissimilarity ~ herbaceousCover,
+  data = analysis_frame_ground))
+
+summary(lm(
+  analysis_frame_ground$jaccardDissimilarity ~ herbaceousCover2))
 
 # Jaccard dissimilarity versus difference in proportion forest cover
-# p = 0.0001
 mantel.rtest(
   as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(forest_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.27
 summary(lm(
   jaccardDissimilarity ~ forest_1km,
   data = analysis_frame_ground))
 
-# Jaccard dissimilarity versus geographic distance
-# p < 0.005
+summary(lm(
+  analysis_frame_ground$jaccardDissimilarity ~ forest_1km2))
+
+# Jaccard dissimilarity versus difference in litter depth
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(jaccard_matrix_ground[2:31]), 
+  as.dist(litter_depth_matrix[2:31]), 
+  nrepet = 9999)
+
+summary(lm(
+  jaccardDissimilarity ~ litterDepth,
+  data = analysis_frame_ground))
+
+summary(lm(
+  analysis_frame_ground$jaccardDissimilarity ~ litterDepth2))
+
+# Jaccard dissimilarity versus geographic distance
+mantel.rtest(
+  as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(distance_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.04
 summary(lm(
   jaccardDissimilarity ~ geographicDistance,
   data = analysis_frame_ground))
 
+summary(lm(
+  analysis_frame_ground$jaccardDissimilarity ~ geographicDistance2))
+
 # Jaccard dissimilarity versus resistance
-# p = 0.0001
 mantel.rtest(
-  as.dist(jaccard_matrix_foliage[2:31]), 
+  as.dist(jaccard_matrix_ground[2:31]), 
   as.dist(paths_matrix[2:31]), 
   nrepet = 9999)
 
-# R^2 = 0.13
 summary(lm(
   jaccardDissimilarity ~ resistance,
   data = analysis_frame_ground))
+
+summary(lm(
+  analysis_frame_ground$jaccardDissimilarity ~ resistance2))
 
 # principal component analysis --------------------------------------------
 
