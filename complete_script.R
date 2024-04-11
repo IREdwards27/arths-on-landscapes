@@ -12,7 +12,6 @@ library(ggfortify)
 library(janitor)
 library(ade4)
 library(raster)
-library(rgdal)
 library(ggnewscale)
 library(corrplot)
 library(sf)
@@ -1249,6 +1248,68 @@ corrplot(
 
 # view variance accounted for by PCs
 summary(ground_pca)
+
+
+# variance partitioning ---------------------------------------------------
+
+# full, environmental predictor, and geographic predictor models for Euclidean distance of foliage arthropod communities
+
+fol_euc_fullmod <- lm(
+  euclideanDistance ~ canopyCover + treeDissimilarity + geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+fol_euc_envmod <- lm(
+  euclideanDistance ~ canopyCover + treeDissimilarity,
+  data = analysis_frame_foliage)
+
+fol_euc_distmod <- lm(
+  euclideanDistance ~ geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+# full, environmental predictor, and geographic predictor models for Jaccard dissimilarity of foliage arthropod communities
+
+fol_jac_fullmod <- lm(
+  jaccardDissimilarity ~ canopyCover + treeDissimilarity + geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+fol_jac_envmod <- lm(
+  jaccardDissimilarity ~ canopyCover + treeDissimilarity,
+  data = analysis_frame_foliage)
+
+fol_jac_distmod <- lm(
+  jaccardDissimilarity ~ geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+# full, environmental predictor, and geographic predictor models for Euclidean distance of ground arthropod communities
+
+gro_euc_fullmod <- lm(
+  euclideanDistance ~ forest_1km + geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+gro_euc_envmod <- lm(
+  euclideanDistance ~ forest_1km,
+  data = analysis_frame_foliage)
+
+gro_euc_distmod <- lm(
+  euclideanDistance ~ geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+# full, environmental predictor, and geographic predictor models for Jaccard dissimilarity of ground arthropod communities
+
+gro_jac_fullmod <- lm(
+  jaccardDissimilarity ~ forest_1km + geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+gro_jac_envmod <- lm(
+  jaccardDissimilarity ~ forest_1km,
+  data = analysis_frame_foliage)
+
+gro_jac_distmod <- lm(
+  jaccardDissimilarity ~ geographicDistance + resistance,
+  data = analysis_frame_foliage)
+
+tibble(
+  response = c("foliage euclidean","foliage jaccard","ground euclidean","ground jaccard"))
 
 
 ### generating figures ------------------------------------------------------
