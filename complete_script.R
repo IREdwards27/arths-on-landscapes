@@ -1297,7 +1297,8 @@ gro_jac_distmod <- lm(
   analysis_frame_ground$jaccardDissimilarity ~ analysis_frame_ground$geographicDistance + geographicDistance2 + analysis_frame_ground$resistance + resistance2)
 
 vPart <- tibble(
-  response = c("foliage euclidean","foliage jaccard","ground euclidean","ground jaccard"),
+  response = c("Euclidean","Jaccard","Euclidean","Jaccard"),
+  group = c("Foliage","Foliage","Ground","Ground"),
   fullModel = c(
     summary(fol_euc_fullmod)$r.squared,
     summary(fol_jac_fullmod)$r.squared,
@@ -1333,6 +1334,49 @@ ul_theme2 <- theme(
 colorz  <- c("#000000", "#E69F00", "#56B4E9", "#009E73", 
              "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
+
+## variance partitioning figure --------------------------------------------
+
+vPart_figure <- ggplot(
+  data = vPart %>% 
+    dplyr::select(c(1:2,4:6)) %>% 
+    pivot_longer(
+      cols = 3:5,
+      names_to = "Predictors",
+      values_to = "Variance"),
+  mapping = aes(
+    x = response,
+    y = Variance,
+    fill = Predictors,
+    label = round(Variance,2))) +
+  geom_bar(stat = "identity") +
+  geom_text(
+    size = 2,
+    position = position_stack(vjust = 0.5)) +
+  scale_y_continuous(
+    limits = c(0,0.6),
+    expand = c(0,0)) +
+  scale_fill_manual(
+    values = c("#E69F00", "#56B4E9", "#CC79A7"),
+    labels = c("Geographic Alone","Environmental Alone","Neither Alone")) +
+  facet_grid(
+    ~group,
+    switch = "x") +
+  labs(
+    x = "Response Variable",
+    y = "Variance Explained") +
+  ul_theme2 +
+  theme(
+    panel.spacing = unit(0, units = "cm"),
+    panel.border = element_blank(),
+    axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+
+ggsave(
+  "figures/figure2.jpg",
+  plot = vPart_figure,
+  width = 4.75,
+  height = 6.75,
+  units = "in")
 
 ## foliage arthropod figures -----------------------------------------------
 
@@ -1599,7 +1643,7 @@ foliage_plots <- ggarrange(
 
 # save plots
 ggsave(
-  "figures/figure2.jpg",
+  "figures/figure3.jpg",
   plot = foliage_plots,
   width = 9.75,
   height = 13.5,
@@ -1901,7 +1945,7 @@ ground_plots <- ggarrange(
 
 # save plots
 ggsave(
-  filename = "figures/figure3.jpg",
+  filename = "figures/figure4.jpg",
   plot = ground_plots,
   width = 9.75,
   height = 13.5,
@@ -1972,7 +2016,7 @@ pca_plots <- ggarrange(
 
 ggsave(
   plot = pca_plots,
-  filename = "figures/figure4.jpg",
+  filename = "figures/figure5.jpg",
   width = 6,
   height = 8,
   units = "in")
