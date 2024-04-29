@@ -15,6 +15,7 @@ library(raster)
 library(ggnewscale)
 library(corrplot)
 library(sf)
+library(formattable)
 
 # read in data on observations of foliage arthropods
 foliage_arths <- read_csv(
@@ -1304,17 +1305,17 @@ vPart <- tibble(
     summary(fol_jac_fullmod)$r.squared,
     summary(gro_euc_fullmod)$r.squared,
     summary(gro_jac_fullmod)$r.squared),
-  envAlone = c(
+  aEnv = c(
     summary(fol_euc_fullmod)$r.squared - summary(fol_euc_distmod)$r.squared,
     summary(fol_jac_fullmod)$r.squared - summary(fol_jac_distmod)$r.squared,
     summary(gro_euc_fullmod)$r.squared - summary(gro_euc_distmod)$r.squared,
     summary(gro_jac_fullmod)$r.squared - summary(gro_jac_distmod)$r.squared),
-  distAlone = c(
+  cDist = c(
     summary(fol_euc_fullmod)$r.squared - summary(fol_euc_envmod)$r.squared,
     summary(fol_jac_fullmod)$r.squared - summary(fol_jac_envmod)$r.squared,
     summary(gro_euc_fullmod)$r.squared - summary(gro_euc_envmod)$r.squared,
     summary(gro_jac_fullmod)$r.squared - summary(gro_jac_envmod)$r.squared),
-  neitherAlone = fullModel - envAlone - distAlone)
+  bShar = fullModel - aEnv - cDist)
 
 write.table(vPart, "clipboard", sep="\t", row.names=F, col.names=T)
 
@@ -1343,7 +1344,8 @@ vPart_figure <- ggplot(
     pivot_longer(
       cols = 3:5,
       names_to = "Predictors",
-      values_to = "Variance"),
+      values_to = "Variance") %>% 
+    mutate(Variance = digits(Variance, 2)),
   mapping = aes(
     x = response,
     y = Variance,
@@ -1358,13 +1360,14 @@ vPart_figure <- ggplot(
     expand = c(0,0)) +
   scale_fill_manual(
     values = c("#E69F00", "#56B4E9", "#CC79A7"),
-    labels = c("Geographic Alone","Environmental Alone","Neither Alone")) +
+    labels = c("Environment","Shared","Geographic")) +
   facet_grid(
     ~group,
     switch = "x") +
   labs(
     x = "Response Variable",
-    y = "Variance Explained") +
+    y = "Variance Explained",
+    fill = "Variance Component") +
   ul_theme2 +
   theme(
     panel.spacing = unit(0, units = "cm"),
